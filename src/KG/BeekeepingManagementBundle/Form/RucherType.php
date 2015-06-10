@@ -18,7 +18,6 @@ class RucherType extends AbstractType
             ->add('nom',          'text')                
             ->add('image', new ImageType()) 
             ->add('location', new LocationType() )    
-            ->add('altitude',     'number')
             ->add('dateCreation', 'date')
             /*->add('ruches', 'collection', array(
                 'type'         => new RucheType(),
