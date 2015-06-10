@@ -1,0 +1,11 @@
+kg_beekeeping_management_homepage_rucher:
+    path:      /
+    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:index }
+kg_beekeeping_management_add_rucher:
+    path:      /nouveau-rucher
+    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:add }
+kg_beekeeping_management_view_rucher:
+    path:      /affichage-rucher
+    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view }
+    requirements:
+        id: \d+         

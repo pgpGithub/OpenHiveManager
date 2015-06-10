@@ -1,0 +1,4 @@
+services:
+#    kg_beekeeping_management.example:
+#        class: KG\BeekeepingManagementBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

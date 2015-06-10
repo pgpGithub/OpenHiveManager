@@ -1,0 +1,22 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/Rucher/index.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Mes Ruchers{% endblock %}
+
+{% block body %}
+    <a href="#"><strong>Mes Ruchers</strong></a>  
+    <a title="Ajouter un rucher" data-toggle="modal" href="#addWidgetModal" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer un rucher</a>
+
+    <hr>
+        <div class="row">
+            <div class="col-md-7">                
+                {% for rucher in listeRuchers %}
+                    <div class="list-group">
+                        {{ rucher.nom }} 
+                        <a title="Ajouter un rucher" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a> 
+                    </div>
+                {% endfor %}          
+            </div><!--/col-span-12-->
+        </div><!--/row-->    
+{% endblock %}

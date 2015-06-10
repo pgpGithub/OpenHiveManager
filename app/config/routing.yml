@@ -1,0 +1,3 @@
+kg_beekeeping_management:
+    resource: "@KGBeekeepingManagementBundle/Resources/config/routing.yml"
+    prefix:   /    
