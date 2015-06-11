@@ -2,11 +2,51 @@
 
 {% extends "::layout.html.twig" %}
 
+{% block title %}{{ parent() }} - Ajouter un rucher{% endblock %}
+
 {% block body %}
+    <strong>Ajouter un rucher</strong>  
+    <hr>
+    
+    <div class="well">
+        
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-  <h2>Ajouter un rucher</h2>
+        {{ form_errors(form) }}
 
-  {{ include("KGBeekeepingManagementBundle:Rucher:form.html.twig") }}
+        <div class="form-group">
+            {{ form_label(form.nom, "Nom du rucher :", {'label_attr': {'class': 'col-sm-5 col-md-3 control-label'}}) }}
+            {{ form_errors(form.nom) }}
+            <div class="col-sm-5 col-md-5">
+                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
 
+        <div class="form-group">
+            {{ form_label(form.dateCreation, "Date de création :", {'label_attr': {'class': 'col-sm-5 col-md-3 control-label'}}) }}
+            {{ form_errors(form.dateCreation) }}
+            <div class="col-sm-6 col-md-5">
+                {{ form_widget(form.dateCreation) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.image, "Photo :", {'label_attr': {'class': 'col-sm-5 col-md-3 control-label'}}) }}
+            {{ form_errors(form.image) }}
+            <div class="col-sm-6 col-md-5">
+                {{ form_widget(form.image) }}
+            </div>
+        </div>
+            
+      {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+      {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}}) }}
+
+      {# Génération automatique des champs pas encore écrits.
+         Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+         et tous les champs cachés (type « hidden »). #}
+      {{ form_rest(form) }}
+
+      {# Fermeture de la balise <form> du formulaire HTML #}
+      {{ form_end(form) }}
+    </div>  
 {% endblock %}
-
