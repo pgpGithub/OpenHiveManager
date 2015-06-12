@@ -1,0 +1,20 @@
+{# app/Resources/views/pagination.html.twig #}
+
+<ul class="pagination pagination-sm pull-right">
+    {% if pagination.page>1 %}
+        <li><a href="{{ path(pagination.route, pagination.route_params|merge({'page': 1})) }}"><<</a></li>
+        <li><a href="{{ path(pagination.route, pagination.route_params|merge({'page': pagination.page-1})) }}"><</a></li>
+    {% endif %}
+    
+    {#display p numbers only from p-4 to p+4 but don't go <1 or >pages_count#}
+    {% for p in range(max(pagination.page-4, 1), min(pagination.page+4, pagination.pages_count)) %}
+        <li {% if p == pagination.page %} class="active" {% endif %}>
+            <a href="{{ path(pagination.route, pagination.route_params|merge({'page': p})) }}">{{ p }}</a>
+        </li>
+    {% endfor %}
+
+    {% if pagination.page<pagination.pages_count %}
+        <li><a href="{{ path(pagination.route, pagination.route_params|merge({'page': pagination.page+1})) }}">></a></li>
+        <li><a href="{{ path(pagination.route, pagination.route_params|merge({'page': pagination.pages_count})) }}">>></a></li>
+    {% endif %}
+</ul>

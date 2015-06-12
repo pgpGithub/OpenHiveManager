@@ -19,7 +19,6 @@ class RucherType extends AbstractType
             ->add('image', new ImageType()) 
             ->add('location', new LocationType() )    
             ->add('dateCreation', 'date')
-            ->add('save', 'submit')
         ;
     }
     

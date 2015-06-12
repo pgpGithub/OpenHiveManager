@@ -2,36 +2,54 @@
 
 {% extends "::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Ajouter un rucher{% endblock %}
+{% block title %}{{ parent() }} - Créer un rucher{% endblock %}
 
 {% block body %}
-    <strong>Ajouter un rucher</strong>  
+    <strong>Créer un rucher</strong>  
     <hr>
     
     <div class="well">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
+            <legend>Création d'un nouveau rucher</legend>
+        
             <div class="form-group">
-                {{ form_label(form.nom, "Nom du rucher :", {'label_attr': {'class': 'col-sm-4 col-md-4 control-label'}}) }}
+                <label class="col-sm-4 col-md-4 control-label" for="nom">Nom du rucher :</label>
               <div class="col-sm-5 col-md-5">
                     {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
               </div>
             </div>
 
             <div class="form-group">
-                {{ form_label(form.image, "Photo :", {'label_attr': {'class': 'control-label col-sm-4 col-md-4'}}) }}
-              <div class="col-sm-2 col-md-2">
+                <label class="col-sm-4 col-md-4 control-label" for="image">Photo :</label>
+                <div class="col-sm-2 col-md-2">
                     {{ form_widget(form.image) }}
-
-              </div>
+                </div>
             </div>
 
-        {# Génération automatique des champs pas encore écrits.
-           Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfonyy !)
-           et tous les champs cachés (type « hidden »). #}
-        {{ form_rest(form) }}
+            <div class="form-group">
+                <label class="col-sm-4 col-md-4 control-label" for="dateCreation">Date de création :</label>
+                <div class="col-sm-7 col-md-7">
+                    {{ form_widget(form.dateCreation) }}
+                </div>
+            </div>
 
-        {# Fermeture de la balise <form> du formulaire HTML #}
+            {{ form_rest(form) }}
+
+            <div class="form-group">
+                <div class="pull-right">
+                <a href="{{ path('kg_beekeeping_management_homepage_rucher') }}" class="btn btn-default">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    Annuler
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                    Sauvegarder
+                </button>
+                </div>
+            </div>
+                    
         {{ form_end(form) }}
     </div>
 

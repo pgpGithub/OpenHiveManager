@@ -3,6 +3,7 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * RucherRepository
@@ -12,4 +13,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class RucherRepository extends EntityRepository
 {
+    public function getList($page=1, $maxperpage=10)
+    {
+        $q = $this->_em->createQueryBuilder()
+             ->select('rucher')
+             ->from('KGBeekeepingManagementBundle:Rucher','rucher');
+        
+        $q->setFirstResult(($page-1)*$maxperpage)
+          ->setMaxResults($maxperpage);
+        
+        return new Paginator($q);
+    }
+    
+    public function getNbRucherTotal()
+    {
+        return $this->_em->createQueryBuilder()
+                ->select('count(rucher.id)')
+                ->from('KGBeekeepingManagementBundle:Rucher','rucher')
+                ->getQuery()
+                ->getSingleScalarResult();
+    }
 }
