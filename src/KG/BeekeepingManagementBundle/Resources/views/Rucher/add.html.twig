@@ -14,26 +14,43 @@
             <legend>Création d'un nouveau rucher</legend>
         
             <div class="form-group">
-                <label class="col-sm-4 col-md-4 control-label" for="nom">Nom du rucher :</label>
+                <label class="col-sm-5 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_nom">Nom du rucher :</label>
               <div class="col-sm-5 col-md-5">
                     {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
               </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-4 col-md-4 control-label" for="image">Photo :</label>
+                <label class="col-sm-5 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_image">Photo :</label>
                 <div class="col-sm-2 col-md-2">
                     {{ form_widget(form.image) }}
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-4 col-md-4 control-label" for="dateCreation">Date de création :</label>
+                <label class="col-sm-5 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_dateCreation">Date de création :</label>
                 <div class="col-sm-7 col-md-7">
                     {{ form_widget(form.dateCreation) }}
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-sm-4 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_location_latitude">Latitude :</label>
+                <div class="col-sm-7 col-md-7">
+                    {{ form_widget(form.location.latitude, {'attr': {'type': 'hidden'}}) }}
+                    {#{{ form_widget(form.location.latitude) }}#}
+                </div>
+            </div>
+                               
+            <div class="form-group">
+                <label class="col-sm-4 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_location_longitude">Longitude :</label>
+                <div class="col-sm-7 col-md-7">
+                    {{ form_widget(form.location.longitude) }}
+                </div>
+            </div>
+                    
+            {% include "::map.html.twig" %}
+            
             {{ form_rest(form) }}
 
             <div class="form-group">

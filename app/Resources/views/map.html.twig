@@ -1,0 +1,92 @@
+{# empty Twig template #}
+{% block stylesheets %}
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.js"></script>
+{% endblock %}
+
+<div class="span12">
+  <div id="map" class="map"></div>
+  <div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content"></div>
+  </div>
+</div>
+
+<script>
+    /**
+     * Elements that make up the popup.
+     */
+    var container = document.getElementById('popup');
+    var content = document.getElementById('popup-content');
+    var closer = document.getElementById('popup-closer');
+
+
+    /**
+     * Add a click handler to hide the popup.
+     * @return {boolean} Don't follow the href.
+     */
+    closer.onclick = function() {
+      overlay.setPosition(undefined);
+      closer.blur();
+      return false;
+    };
+
+
+    /**
+     * Create an overlay to anchor the popup to the map.
+     */
+    var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+      element: container,
+      autoPan: true,
+      autoPanAnimation: {
+        duration: 250
+      }
+    }));
+
+
+    /**
+     * Create the map.
+     */
+    var map = new ol.Map({
+      controls: ol.control.defaults().extend([
+        new ol.control.OverviewMap()
+      ]),
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+      ],
+      target: 'map',
+      overlays: [overlay],
+      view: new ol.View({
+        center: [500000, 6000000],
+        zoom: 2
+      })
+    });
+
+    /**
+     * Add a click handler to the map to render the popup.
+     */
+    map.on('singleclick', function(evt) {
+      var coordinate = evt.coordinate;
+      var coordinate_conv = ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326');
+              
+      var xy = ol.coordinate.toStringXY(coordinate_conv, 6);
+
+      content.innerHTML = '<p>You clicked here:</p><code>' + xy + '</code>';
+      overlay.setPosition(coordinate);
+      
+      var latitude  = '{y}';
+      var longitude = '{x}';
+      
+      var form_latitude = document.getElementById('kg_beekeepingmanagementbundle_rucher_location_latitude');
+      form_latitude.setAttribute('value', ol.coordinate.format(coordinate_conv, latitude, 6));
+      
+      var form_longitude = document.getElementById('kg_beekeepingmanagementbundle_rucher_location_longitude');
+      form_longitude.setAttribute('value',ol.coordinate.format(coordinate_conv, longitude, 6));
+    });
+    
+</script>
