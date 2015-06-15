@@ -2,15 +2,30 @@
 
 {% extends "::layout.html.twig" %}
 
+{% block stylesheets %}
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.js"></script>
+{% endblock %}
+
 {% block title %}{{ parent() }} - Créer un rucher{% endblock %}
 
+{% block style %}
+    #map{
+      width:100%;
+      height:350px;
+    }   
+{% endblock %}
+
 {% block body %}
-    <strong>Créer un rucher</strong>  
+    <strong>Rucher</strong>  
     <hr>
     
     <div class="well">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
+        <fieldset>
             <legend>Création d'un nouveau rucher</legend>
         
             <div class="form-group">
@@ -21,52 +36,45 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_image">Photo :</label>
+                <label class="col-sm-5 col-md-4 control-label">Photo :</label>
                 <div class="col-sm-2 col-md-2">
                     {{ form_widget(form.image) }}
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_dateCreation">Date de création :</label>
+                <label class="col-sm-5 col-md-4 control-label">Date de création :</label>
                 <div class="col-sm-7 col-md-7">
                     {{ form_widget(form.dateCreation) }}
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-sm-4 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_location_latitude">Latitude :</label>
-                <div class="col-sm-7 col-md-7">
-                    {{ form_widget(form.location.latitude, {'attr': {'type': 'hidden'}}) }}
-                    {#{{ form_widget(form.location.latitude) }}#}
-                </div>
-            </div>
-                               
-            <div class="form-group">
-                <label class="col-sm-4 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_location_longitude">Longitude :</label>
-                <div class="col-sm-7 col-md-7">
-                    {{ form_widget(form.location.longitude) }}
-                </div>
-            </div>
-                    
-            {% include "::map.html.twig" %}
+            {{ form_widget(form.location.latitude) }}
+            {{ form_widget(form.location.longitude) }}
+
+            <div class="col-md-offset-2 col-md-8">
+                <h4><center>Localisez votre rucher sur la carte</center></h4>
+                {% include "::map.html.twig" %}
+            </div>    
             
             {{ form_rest(form) }}
 
             <div class="form-group">
-                <div class="pull-right">
-                <a href="{{ path('kg_beekeeping_management_homepage_rucher') }}" class="btn btn-default">
-                    <i class="glyphicon glyphicon-remove"></i>
-                    Annuler
-                </a>
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="pull-right">
+                        <a href="{{ path('kg_beekeeping_management_homepage_rucher') }}" class="btn btn-default">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            Annuler
+                        </a>
 
-                <button type="submit" class="btn btn-primary">
-                    <i class="glyphicon glyphicon-floppy-disk"></i>
-                    Sauvegarder
-                </button>
-                </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                            Sauvegarder
+                        </button>
+                    </div>
+                </div>        
             </div>
-                    
+        </fieldset>            
         {{ form_end(form) }}
     </div>
 
