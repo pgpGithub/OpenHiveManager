@@ -1,15 +1,31 @@
-kg_beekeeping_management_homepage_rucher:
-    path:      /{page}
+kg_beekeeping_management_home_rucher:
+    path:      /rucher/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:index, page: 1 }
     requirements:
         page:  \d+
         
 kg_beekeeping_management_add_rucher:
-    path:      /nouveau-rucher
+    path:      /rucher/nouveau-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:add }
     
 kg_beekeeping_management_view_rucher:
-    path:      /affichage-rucher
+    path:      /rucher/affichage-rucher/{id}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view }
     requirements:
-        id: \d+         
+        id: \d+
+
+kg_beekeeping_management_home_stock:
+    path:      /stock/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Stock:index, page: 1 }
+    requirements:
+        page:  \d+
+        
+kg_beekeeping_management_add_stock:
+    path:      /stock/nouveau-stock
+    defaults:  { _controller: KGBeekeepingManagementBundle:Stock:add }
+    
+kg_beekeeping_management_view_stock:
+    path:      /stock/affichage-stock/{id}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Stock:view }
+    requirements:
+        id: \d+            

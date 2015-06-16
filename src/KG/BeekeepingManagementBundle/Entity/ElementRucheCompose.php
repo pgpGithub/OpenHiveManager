@@ -9,9 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ElementRucheComposeRepository")
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="nom", type="string")
- * @ORM\DiscriminatorMap({"corps" = "Corps", "hausse" = "Hausse" }) 
  */
 abstract class ElementRucheCompose extends ElementRuche
 {

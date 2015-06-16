@@ -1,0 +1,43 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/Stock/index.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Mes Stocks{% endblock %}
+
+{% block body %}
+    <strong>Stock</strong>  
+    <a title="Créer un stock" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_rucher') }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer un stock</a>
+    <hr>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-list"></span> Liste des stocks
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {% for stock in stocks %}
+                            <li class="list-group-item">
+                                {{ stock.nom }}
+                                <div class="pull-right action-buttons">
+                                    <a title="Afficher le stock" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="label label-info">{{ nbStocks }} stocks</span>
+                        </div>
+                        <div class="col-md-6">
+                            {% include "::pagination.html.twig" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
