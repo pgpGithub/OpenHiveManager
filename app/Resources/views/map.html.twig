@@ -3,7 +3,7 @@
 
 <script>
     var overlay = new ol.Overlay({
-        element: $('<img src="../../web/location.png">')
+        element: $('<img src="../../../web/location.png">')
         .css({marginTop: '-275%', marginLeft: '-50%', cursor: 'pointer'})
     });
     
@@ -40,10 +40,10 @@
         var latitude  = '{y}';
         var longitude = '{x}';
       
-        var form_latitude = document.getElementById('kg_beekeepingmanagementbundle_rucher_location_latitude');
+        var form_latitude = document.getElementById('{{ latitude }}');
         form_latitude.setAttribute('value', ol.coordinate.format(coordinate_conv, latitude, 6));
       
-        var form_longitude = document.getElementById('kg_beekeepingmanagementbundle_rucher_location_longitude');
+        var form_longitude = document.getElementById('{{ longitude }}');
         form_longitude.setAttribute('value',ol.coordinate.format(coordinate_conv, longitude, 6));
     });
     

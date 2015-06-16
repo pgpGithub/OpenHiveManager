@@ -15,8 +15,8 @@ class StockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('location')
+            ->add('nom',          'text')                
+            ->add('location', new LocationType() )
         ;
     }
     

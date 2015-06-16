@@ -12,6 +12,8 @@
 
 {% block title %}{{ parent() }} - Créer un rucher{% endblock %}
 
+{% block rucher %}class="active"{% endblock %}
+
 {% block style %}
     #map{
       width:100%;
@@ -54,6 +56,8 @@
 
             <div class="col-md-offset-2 col-md-8">
                 <h4><center>Localisez le rucher sur la carte</center></h4>
+                {% set latitude = 'kg_beekeepingmanagementbundle_rucher_location_latitude' %}
+                {% set longitude = 'kg_beekeepingmanagementbundle_rucher_location_longitude' %}                
                 {% include "::map.html.twig" %}
             </div>    
             
@@ -62,7 +66,7 @@
             <div class="form-group">
                 <div class="col-md-offset-1 col-md-10">
                     <div class="pull-right">
-                        <a href="{{ path('kg_beekeeping_management_homepage_rucher') }}" class="btn btn-default">
+                        <a href="{{ path('kg_beekeeping_management_home_rucher') }}" class="btn btn-default">
                             <i class="glyphicon glyphicon-remove"></i>
                             Annuler
                         </a>

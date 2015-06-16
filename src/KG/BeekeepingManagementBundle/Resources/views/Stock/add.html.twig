@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.js"></script>
 {% endblock %}
 
-{% block title %}{{ parent() }} - Créer un rucher{% endblock %}
+{% block title %}{{ parent() }} - Créer un lieu de stockage{% endblock %}
 
 {% block style %}
     #map{
@@ -20,40 +20,28 @@
 {% endblock %}
 
 {% block body %}
-    <strong>Rucher</strong>  
+    <strong>Stock</strong>  
     <hr>
     
     <div class="well">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
         <fieldset>
-            <legend>Création d'un nouveau rucher</legend>
+            <legend>Création d'un nouveau lieu de stockage</legend>
         
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_nom">Nom du rucher :</label>
+                <label class="col-sm-5 col-md-4 control-label" for="kg_beekeepingmanagementbundle_stock_nom">Nom du lieu de sockage :</label>
               <div class="col-sm-5 col-md-5">
                     {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
               </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label">Photo :</label>
-                <div class="col-sm-2 col-md-2">
-                    {{ form_widget(form.image) }}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label">Date de création :</label>
-                <div class="col-sm-7 col-md-7">
-                    {{ form_widget(form.dateCreation) }}
-                </div>
             </div>
 
             {{ form_widget(form.location.latitude) }}
             {{ form_widget(form.location.longitude) }}
 
             <div class="col-md-offset-2 col-md-8">
-                <h4><center>Localisez le rucher sur la carte</center></h4>
+                <h4><center>Localisez le lieu de stockage sur la carte</center></h4>
+                {% set latitude = 'kg_beekeepingmanagementbundle_stock_location_latitude' %}
+                {% set longitude = 'kg_beekeepingmanagementbundle_stock_location_longitude' %}
                 {% include "::map.html.twig" %}
             </div>    
             
@@ -62,7 +50,7 @@
             <div class="form-group">
                 <div class="col-md-offset-1 col-md-10">
                     <div class="pull-right">
-                        <a href="{{ path('kg_beekeeping_management_homepage_rucher') }}" class="btn btn-default">
+                        <a href="{{ path('kg_beekeeping_management_home_stock') }}" class="btn btn-default">
                             <i class="glyphicon glyphicon-remove"></i>
                             Annuler
                         </a>
