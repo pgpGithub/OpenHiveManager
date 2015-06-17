@@ -1,14 +1,14 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Stock/index.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/LieuStock/index.html.twig #}
 
 {% extends "::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Lieux de stockage{% endblock %}
+{% block title %}{{ parent() }} - Lieux de Stockage{% endblock %}
 
-{% block stock %}class="active"{% endblock %}
+{% block lieuStock %}class="active"{% endblock %}
 
 {% block body %}
     <strong>Stock</strong>  
-    <a title="Créer un lieu de stockage" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_stock') }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer un lieu de stockage</a>
+    <a title="Créer un lieu de Stockage" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_lieuStock') }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer un lieu de stockage</a>
     <hr>
     
     <div class="row">
@@ -19,11 +19,11 @@
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">
-                        {% for stock in stocks %}
+                        {% for lieuStock in lieuStocks %}
                             <li class="list-group-item">
-                                {{ stock.nom }}
+                                {{ lieuStock.nom }}
                                 <div class="pull-right action-buttons">
-                                    <a title="Afficher le stock" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
+                                    <a title="Afficher le lieuStock" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
                                 </div>
                             </li>
                         {% endfor %}
@@ -32,7 +32,7 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-6">
-                            <span class="label label-info">{{ nbStocks }} lieux de stockage</span>
+                            <span class="label label-info">{{ nbLieuStocks }} lieux de lieuStockage</span>
                         </div>
                         <div class="col-md-6">
                             {% include "::pagination.html.twig" %}

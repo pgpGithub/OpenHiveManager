@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class LocationType extends AbstractType
+class LieuStockType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,8 +15,8 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('latitude', 'hidden')    
-            ->add('longitude', 'hidden')
+            ->add('nom',          'text')                
+            ->add('localisation', new LocalisationType() )
         ;
     }
     
@@ -26,7 +26,7 @@ class LocationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Location'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\LieuStock'
         ));
     }
 
@@ -35,6 +35,6 @@ class LocationType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_location';
+        return 'kg_beekeepingmanagementbundle_lieustock';
     }
 }

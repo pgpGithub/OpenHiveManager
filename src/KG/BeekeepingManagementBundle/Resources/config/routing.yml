@@ -14,18 +14,18 @@ kg_beekeeping_management_view_rucher:
     requirements:
         id: \d+
 
-kg_beekeeping_management_home_stock:
-    path:      /stock/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Stock:index, page: 1 }
+kg_beekeeping_management_home_lieuStock:
+    path:      /lieuStock/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:LieuStock:index, page: 1 }
     requirements:
         page:  \d+
         
-kg_beekeeping_management_add_stock:
-    path:      /stock/nouveau-stock
-    defaults:  { _controller: KGBeekeepingManagementBundle:Stock:add }
+kg_beekeeping_management_add_lieuStock:
+    path:      /lieuStock/nouveau-lieuStock
+    defaults:  { _controller: KGBeekeepingManagementBundle:LieuStock:add }
     
-kg_beekeeping_management_view_stock:
-    path:      /stock/affichage-stock/{id}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Stock:view }
+kg_beekeeping_management_view_lieuStock:
+    path:      /lieuStock/affichage-lieuStock/{id}
+    defaults:  { _controller: KGBeekeepingManagementBundle:LieuStock:view }
     requirements:
         id: \d+            

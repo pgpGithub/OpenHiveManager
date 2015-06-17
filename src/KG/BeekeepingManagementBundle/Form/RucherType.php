@@ -17,7 +17,7 @@ class RucherType extends AbstractType
         $builder
             ->add('nom',          'text')                
             ->add('image', new ImageType()) 
-            ->add('location', new LocationType() )    
+            ->add('localisation', new LocalisationType() )    
             ->add('dateCreation', 'date')
         ;
     }

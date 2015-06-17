@@ -5,12 +5,12 @@ namespace KG\BeekeepingManagementBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Location
+ * Localisation
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\LocationRepository")
+ * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\LocalisationRepository")
  */
-class Location
+class Localisation
 {
      /**
      * @var integer

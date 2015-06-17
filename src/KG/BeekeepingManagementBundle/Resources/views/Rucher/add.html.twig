@@ -51,13 +51,13 @@
                 </div>
             </div>
 
-            {{ form_widget(form.location.latitude) }}
-            {{ form_widget(form.location.longitude) }}
+            {{ form_widget(form.localisation.latitude) }}
+            {{ form_widget(form.localisation.longitude) }}
 
             <div class="col-md-offset-2 col-md-8">
                 <h4><center>Localisez le rucher sur la carte</center></h4>
-                {% set latitude = 'kg_beekeepingmanagementbundle_rucher_location_latitude' %}
-                {% set longitude = 'kg_beekeepingmanagementbundle_rucher_location_longitude' %}                
+                {% set latitude = 'kg_beekeepingmanagementbundle_rucher_localisation_latitude' %}
+                {% set longitude = 'kg_beekeepingmanagementbundle_rucher_localisation_longitude' %}                
                 {% include "::map.html.twig" %}
             </div>    
             

@@ -5,12 +5,12 @@ namespace KG\BeekeepingManagementBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Stock
+ * LieuStock
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\StockRepository")
+ * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\LieuStockRepository")
  */
-class Stock
+class LieuStock
 {
     /**
      * @var integer
@@ -29,9 +29,9 @@ class Stock
     private $nom;
 
     /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Location", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Localisation", cascade={"persist"})
      */
-    private $location;
+    private $localisation;
     
     /**
      * Get id
@@ -47,7 +47,7 @@ class Stock
      * Set nom
      *
      * @param string $nom
-     * @return Stock
+     * @return LieuStock
      */
     public function setNom($nom)
     {
@@ -67,25 +67,25 @@ class Stock
     }
     
     /**
-     * Set location
+     * Set localisation
      *
-     * @param Location $location
+     * @param Localisation $localisation
      * @return Rucher
      */
-    public function setLocation(Location $location)
+    public function setLocalisation(Localisation $localisation)
     {
-        $this->location = $location;
+        $this->localisation = $localisation;
 
         return $this;
     }
 
     /**
-     * Get location
+     * Get localisation
      *
-     * @return Location 
+     * @return Localisation 
      */
-    public function getLocation()
+    public function getLocalisation()
     {
-        return $this->location;
+        return $this->localisation;
     }    
 }

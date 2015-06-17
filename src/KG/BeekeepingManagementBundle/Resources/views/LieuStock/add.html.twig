@@ -35,13 +35,13 @@
               </div>
             </div>
 
-            {{ form_widget(form.location.latitude) }}
-            {{ form_widget(form.location.longitude) }}
+            {{ form_widget(form.localisation.latitude) }}
+            {{ form_widget(form.localisation.longitude) }}
 
             <div class="col-md-offset-2 col-md-8">
                 <h4><center>Localisez le lieu de stockage sur la carte</center></h4>
-                {% set latitude = 'kg_beekeepingmanagementbundle_stock_location_latitude' %}
-                {% set longitude = 'kg_beekeepingmanagementbundle_stock_location_longitude' %}
+                {% set latitude = 'kg_beekeepingmanagementbundle_lieustock_localisation_latitude' %}
+                {% set longitude = 'kg_beekeepingmanagementbundle_lieustock_localisation_longitude' %}
                 {% include "::map.html.twig" %}
             </div>    
             
@@ -50,7 +50,7 @@
             <div class="form-group">
                 <div class="col-md-offset-1 col-md-10">
                     <div class="pull-right">
-                        <a href="{{ path('kg_beekeeping_management_home_stock') }}" class="btn btn-default">
+                        <a href="{{ path('kg_beekeeping_management_home_lieuStock') }}" class="btn btn-default">
                             <i class="glyphicon glyphicon-remove"></i>
                             Annuler
                         </a>
