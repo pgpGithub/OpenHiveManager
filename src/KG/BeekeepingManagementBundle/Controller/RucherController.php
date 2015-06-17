@@ -39,7 +39,12 @@ class RucherController extends Controller
     
     public function viewAction($id)
     {
-        return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', array('id' => $id));
+        $rucher = $this->getDoctrine()->getManager()->getRepository('KGBeekeepingManagementBundle:Rucher')->find($id);
+        return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', 
+                            array( 
+                                'rucher'    =>$rucher
+                            )
+        );
     }
     
     public function addAction(Request $request)

@@ -1,9 +1,20 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Rucher/add.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Rucher/view.html.twig #}
 
-<html>
-  <body>
-      <h3>Vue du rucher</h3>
-      
+{% extends "::layout.html.twig" %}
 
-  </body>
-</html>
+{% block title %}{{ parent() }} - Ruchers{% endblock %}
+
+{% block rucher %}class="active"{% endblock %}
+
+{% block body %}
+    <strong>Rucher</strong>  
+
+    <hr>
+    
+    <div class="row">
+        <div class="col-md-12">
+            
+
+        </div>
+    </div>
+{% endblock %}

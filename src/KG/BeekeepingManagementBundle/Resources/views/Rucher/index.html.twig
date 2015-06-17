@@ -23,7 +23,7 @@
                             <li class="list-group-item">
                                 {{ rucher.nom }}
                                 <div class="pull-right action-buttons">
-                                    <a title="Afficher le rucher" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
+                                    <a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'id': rucher.id }) }}" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
                                 </div>
                             </li>
                         {% endfor %}
