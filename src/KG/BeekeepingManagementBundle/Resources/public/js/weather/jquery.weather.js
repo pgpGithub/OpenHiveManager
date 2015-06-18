@@ -270,7 +270,7 @@
 					var today = $("<div/>", {"class": "wiToday"});
 					var iconGroup = $("<div/>", {"class": "wiIconGroup"});
 					$("<div/>", {"class" : "wi "+ "wi"+weather.today.code}).appendTo(iconGroup);
-					$("<p/>", {"class" : "wiText"}).text(weather.today.desc).appendTo(iconGroup);
+					//$("<p/>", {"class" : "wiText"}).text(weather.today.desc).appendTo(iconGroup); -KGR
 					iconGroup.appendTo(today);
 					$("<p/>", {"class" : "wiTemperature"}).html(weather.today.temp.now + "<sup>" + degrees + "</sup>").appendTo(today);
 					today.appendTo(div);
