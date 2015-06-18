@@ -2,6 +2,21 @@
 
 {% extends "::layout.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+        '@KGBeekeepingManagementBundle/Resources/public/css/weather/*' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@KGBeekeepingManagementBundle/Resources/public/js/weather/*'%}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+{% endblock %}
+
 {% block title %}{{ parent() }} - Ruchers{% endblock %}
 
 {% block rucher %}class="active"{% endblock %}
@@ -13,8 +28,13 @@
     
     <div class="row">
         <div class="col-md-12">
+            {% set latitude = rucher.localisation.latitude %}
+            {% set longitude = rucher.localisation.longitude %}
+            <div id="weather"
+                 data-latitude="{{ rucher.localisation.latitude }}"
+                 data-longitude="{{ rucher.localisation.longitude }}">                   
+            </div>
             
-
         </div>
     </div>
 {% endblock %}

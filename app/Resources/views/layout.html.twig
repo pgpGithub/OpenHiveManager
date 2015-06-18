@@ -9,7 +9,9 @@
         <title>{% block title %}BeeManager{% endblock %}</title>
 
         {% block stylesheets %}
-          <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            {% stylesheets filter='cssrewrite' 'css/bootstrap/bootstrap.css' %}
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+            {% endstylesheets %}
         {% endblock %}
       
         <style>{% block style %}{% endblock %}</style>
@@ -61,10 +63,11 @@
         </div>
         <!-- /Main -->                
 
-      {% block javascripts %}
-        {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-      {% endblock %}
+    {% block javascripts %}
+        {% javascripts 'js/jquery/jquery-2.1.1.min.js' 
+                       'js/bootstrap/bootstrap.js' %}
+            <script src="{{ asset_url }}" type="text/javascript"></script>  
+        {% endjavascripts %}
+    {% endblock %}    
     </body>
 </html>
