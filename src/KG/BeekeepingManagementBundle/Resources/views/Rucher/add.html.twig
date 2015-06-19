@@ -6,7 +6,7 @@
     {{ parent() }}
     {% stylesheets filter='cssrewrite' 
         'css/ol/ol.css' 
-        '@KGBeekeepingManagementBundle/Resources/public/css/map/map.css' %}
+        '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}
 {% endblock %}
@@ -14,7 +14,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts 'js/ol/ol.js'
-                   '@KGBeekeepingManagementBundle/Resources/public/js/map/map.js' %}
+                   '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
 {% endblock %}
