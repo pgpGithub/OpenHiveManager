@@ -27,63 +27,76 @@
     <strong>Rucher</strong>  
     <hr>
     
-    <div class="well">
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-        <fieldset>
-            <legend>Création d'un nouveau rucher</legend>
-        
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_nom">Nom du rucher :</label>
-              <div class="col-sm-5 col-md-5">
-                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-              </div>
-            </div>
+    <div class="panel panel-default">
 
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label">Photo :</label>
-                <div class="col-sm-2 col-md-2">
-                    {{ form_widget(form.image) }}
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="panel-title">Création d'un nouveau rucher</h3>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label">Date de création :</label>
-                <div class="col-sm-7 col-md-7">
-                    {{ form_widget(form.dateCreation) }}
+        <div class="panel-body">
+            <div class="row">
+                
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_nom">Nom du rucher :</label>
+                  <div class="col-sm-5 col-md-5">
+                        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                  </div>
                 </div>
-            </div>
 
-            {{ form_widget(form.localisation.latitude) }}
-            {{ form_widget(form.localisation.longitude) }}
-
-            <div class="col-md-offset-2 col-md-8">
-                <h4><center>Localisez le rucher sur la carte</center></h4>            
-                <div id="map" 
-                     class="map thumbnail" 
-                     data-latitude="kg_beekeepingmanagementbundle_rucher_localisation_latitude"
-                     data-longitude="kg_beekeepingmanagementbundle_rucher_localisation_longitude">
-                </div>
-            </div>    
-            
-            {{ form_rest(form) }}
-
-            <div class="form-group">
-                <div class="col-md-offset-1 col-md-10">
-                    <div class="pull-right">
-                        <a href="{{ path('kg_beekeeping_management_home_rucher') }}" class="btn btn-default">
-                            <i class="glyphicon glyphicon-remove"></i>
-                            Annuler
-                        </a>
-
-                        <button type="submit" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-floppy-disk"></i>
-                            Sauvegarder
-                        </button>
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-4 control-label">Photo :</label>
+                    <div class="col-sm-2 col-md-2">
+                        {{ form_widget(form.image) }}
                     </div>
-                </div>        
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-4 control-label">Date de création :</label>
+                    <div class="col-sm-7 col-md-7">
+                        {{ form_widget(form.dateCreation) }}
+                    </div>
+                </div>
+
+                {{ form_widget(form.localisation.latitude) }}
+                {{ form_widget(form.localisation.longitude) }}
+
+                <div class="col-md-offset-2 col-md-8">
+                    <h4><center>Localisez le rucher sur la carte</center></h4>            
+                    <div id="map" 
+                         class="map thumbnail" 
+                         data-latitude="kg_beekeepingmanagementbundle_rucher_localisation_latitude"
+                         data-longitude="kg_beekeepingmanagementbundle_rucher_localisation_longitude">
+                    </div>
+                </div>    
+
+                {{ form_rest(form) }}
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="pull-right">
+                            <a href="{{ path('kg_beekeeping_management_home_rucher') }}" class="btn btn-default">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                Annuler
+                            </a>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="glyphicon glyphicon-floppy-disk"></i>
+                                Sauvegarder
+                            </button>
+                        </div>
+                    </div>        
+                </div>
+                
+                {{ form_end(form) }}
+                
             </div>
-        </fieldset>            
-        {{ form_end(form) }}
+        </div>       
     </div>
 
 {% endblock %}
