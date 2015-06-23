@@ -31,14 +31,6 @@ class Rucher
     private $nom;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateCreation", type="date")
-     * @Assert\Date()
-     */
-    private $dateCreation;
-
-    /**
     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="rucher")
     */
     private $ruches;
