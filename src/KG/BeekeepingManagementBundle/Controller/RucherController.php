@@ -60,7 +60,7 @@ class RucherController extends Controller
         
         $request->getSession()->getFlashBag()->add('notice','Rucher créé avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_home_rucher', array('id' => $rucher->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('id' => $rucher->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Rucher:add.html.twig', array('form' => $form->createView()));

@@ -1,12 +1,12 @@
 {# src/KG/BeekeepingManagementBundle/Resources/views/Rucher/add.html.twig #}
 
-{% extends "::layout.html.twig" %}
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets filter='cssrewrite' 
         'css/ol/ol.css' 
-        '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css' %}
+        '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}
     {{ form_stylesheet(form) }}
@@ -25,12 +25,19 @@
 
 {% block rucher %}class="active"{% endblock %}
 
-{% form_theme form _self %}
+{% form_theme form "KGBeekeepingManagementBundle:Rucher:form_layout.html.twig" %}
 
 {% block body %}
     <strong>Rucher</strong>  
     <hr>
     
+    <div class="alert alert-danger" role="alert">
+        {{ form_errors(form.nom) }}
+        {{ form_errors(form.image) }}
+        {{ form_errors(form.localisation.longitude) }}
+        {{ form_errors(form.localisation.latitude) }}
+    </div>
+                        
     <div class="panel panel-default">
 
         <div class="panel-heading">
@@ -41,25 +48,27 @@
             </div>
         </div>
 
-        <div class="panel-body">
+        <div class="panel-body">                
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
             <div class="row">
-                
-                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-                
                 <div class="form-group">
-                    <label class="col-sm-5 col-md-4 control-label" for="kg_beekeepingmanagementbundle_rucher_nom">Nom du rucher :</label>
-                  <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.nom) }}
-                  </div>
-                </div>
-
+                    {{ form_label(form.nom, "Nom du rucher :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                    <div class="col-sm-5 col-md-5">
+                        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>    
+            </div>
+            
+            <div class="row">        
                 <div class="form-group">
-                    <label class="col-sm-5 col-md-4 control-label">Photo :</label>
+                    {{ form_label(form.image, "Photo :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-2 col-md-2">
                         {{ form_widget(form.image) }}
                     </div>
                 </div>
-
+            </div>
+            
+            <div class="row">        
                 {{ form_widget(form.localisation.latitude) }}
                 {{ form_widget(form.localisation.longitude) }}
 
@@ -71,7 +80,9 @@
                          data-longitude="kg_beekeepingmanagementbundle_rucher_localisation_longitude">
                     </div>
                 </div>    
-
+            </div>
+            
+            <div class="row">    
                 {{ form_rest(form) }}
 
                 <div class="form-group">
@@ -89,10 +100,9 @@
                         </div>
                     </div>        
                 </div>
-                
-                {{ form_end(form) }}
-                
             </div>
+                                
+            {{ form_end(form) }}         
         </div>       
     </div>
 

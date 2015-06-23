@@ -1,6 +1,6 @@
 {# src/KG/BeekeepingManagementBundle/Resources/views/Rucher/index.html.twig #}
 
-{% extends "::layout.html.twig" %}
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
 {% block title %}{{ parent() }} - Ruchers{% endblock %}
 
@@ -35,7 +35,7 @@
                             <span class="label label-info">{{ nbRuchers }} ruchers</span>
                         </div>
                         <div class="col-md-6">
-                            {% include "::pagination.html.twig" %}
+                            {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
                         </div>
                     </div>
                 </div>

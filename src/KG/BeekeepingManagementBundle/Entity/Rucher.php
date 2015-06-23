@@ -27,21 +27,25 @@ class Rucher
      *
      * @ORM\Column(name="nom", type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Length(max=25, maxMessage="Le nom du rucher ne peut dépasser {{ limit }} caractères.")
      */
     private $nom;
 
     /**
     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="rucher")
+    * @Assert\Valid()
     */
     private $ruches;
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"})
+     * @Assert\Valid()
      */
     private $image;
   
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Localisation", cascade={"persist"})
+     * @Assert\Valid()
      */
     private $localisation;
     

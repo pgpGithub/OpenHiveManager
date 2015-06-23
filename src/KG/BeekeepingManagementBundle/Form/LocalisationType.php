@@ -15,7 +15,7 @@ class LocalisationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('latitude', 'hidden')    
+            ->add('latitude', 'hidden', array('error_bubbling' => true)) 
             ->add('longitude', 'hidden')
         ;
     }

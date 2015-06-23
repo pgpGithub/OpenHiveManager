@@ -3,6 +3,7 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Localisation
@@ -23,15 +24,15 @@ class Localisation
     
     /**
      * @var float
-     *
-     @ORM\Column(name="longitude", type="decimal", precision=14, scale=8, nullable=true)
+     * @ORM\Column(name="longitude", type="decimal", precision=14, scale=8, nullable=true)
+     * @Assert\NotBlank(message="Veuillez localiser votre rucher. Cette donnée est nécessaire à l'obtention des données météorologiques.")
      */
     private $longitude;
 
     /**
      * @var float
-     *
-     @ORM\Column(name="latitude", type="decimal", precision=14, scale=8, nullable=true)
+     * @ORM\Column(name="latitude", type="decimal", precision=14, scale=8, nullable=true)
+     * @Assert\NotBlank(message="Veuillez localiser votre rucher. Cette donnée est nécessaire à l'obtention des données météorologiques.")
      */
     private $latitude;
 
