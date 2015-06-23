@@ -29,7 +29,7 @@ var map = new ol.Map({
  */
 var lat = parseFloat(document.getElementById($('#map').data('latitude')).value);
 var lon = parseFloat(document.getElementById($('#map').data('longitude')).value);
-if (lat !== 0 && lon !== 0){
+if (!isNaN(lat) && !isNaN(lon)){
     overlay.setPosition(ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857'));
 }
     
