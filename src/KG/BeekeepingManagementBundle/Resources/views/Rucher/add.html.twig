@@ -29,13 +29,15 @@
     <strong>Rucher</strong>  
     <hr>
     
-    <div class="alert alert-danger" role="alert">
-        {{ form_errors(form.nom) }}
-        {{ form_errors(form.image) }}
-        {% if form.localisation.longitude.vars.errors|length or form.localisation.latitude.vars.errors|length %}
-            <ul><li>Veuillez localiser votre rucher. Cette donnée est nécessaire à l'obtention des données météorologiques.</li></ul>
-        {% endif %}
-    </div>
+    {% if not form.vars.valid %}
+        <div class="alert alert-danger" role="alert">
+            {{ form_errors(form.nom) }}
+            {{ form_errors(form.image.file) }}
+            {% if form.vars.errors|length  %}
+                <ul><li>Veuillez localiser votre rucher. Cette donnée sera nécessaire à l'obtention des données météorologiques.</li></ul>
+            {% endif %}
+        </div>
+    {% endif %}
                         
     <div class="panel panel-default">
 
@@ -60,16 +62,16 @@
             
             <div class="row">        
                 <div class="form-group">
-                    {{ form_label(form.image, "Photo :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                    {{ form_label(form.image.file, "Photo :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-2 col-md-2">
-                        {{ form_widget(form.image) }}
+                        {{ form_widget(form.image.file) }}
                     </div>
                 </div>
             </div>
             
             <div class="row">        
-                {{ form_widget(form.localisation.latitude, { 'attr' : { 'style':'display:none'} }) }}
-                {{ form_widget(form.localisation.longitude, { 'attr' : { 'style':'display:none'} }) }}
+                {{ form_widget(form.localisation.latitude) }}
+                {{ form_widget(form.localisation.longitude) }}
 
                 <div class="col-md-offset-2 col-md-8">
                     <h4><center>Localisez le rucher sur la carte</center></h4>            

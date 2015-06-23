@@ -15,8 +15,8 @@ class LocalisationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('latitude', 'number') 
-            ->add('longitude', 'number')
+            ->add('latitude', 'hidden') 
+            ->add('longitude', 'hidden')
         ;
     }
     

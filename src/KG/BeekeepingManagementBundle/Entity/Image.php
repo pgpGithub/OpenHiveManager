@@ -4,6 +4,7 @@ namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Image
@@ -27,6 +28,7 @@ class Image
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255)
+     * @Assert\Url()
      */
     private $url;
 
@@ -37,6 +39,13 @@ class Image
      */
     private $alt;
 
+    /**
+     * @var UploadedFile 
+     * @Assert\Image(maxSize="500k",
+     *               maxSizeMessage="Le fichier est trop lourd ({{ size }}Mo). La taille maximale autorisée est {{ limit }}Mo.",
+     *               mimeTypesMessage="Le fichier envoyé n'est pas une image" )
+     * 
+     */
     private $file;
     
     private $tempFilename;

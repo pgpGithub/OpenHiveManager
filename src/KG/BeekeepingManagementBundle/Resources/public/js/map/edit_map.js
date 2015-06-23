@@ -3,6 +3,7 @@ var overlay = new ol.Overlay({
     .css({marginTop: '-275%', marginLeft: '-50%'})
 });
 
+    
 /**
  * Create the map.
  */
@@ -24,6 +25,15 @@ var map = new ol.Map({
 });
 
 /**
+ * Init overlay 
+ */
+var lat = parseFloat(document.getElementById($('#map').data('latitude')).value);
+var lon = parseFloat(document.getElementById($('#map').data('longitude')).value);
+if (lat !== 0 && lon !== 0){
+    overlay.setPosition(ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857'));
+}
+    
+/**
  * Add a click handler to the map to render the popup.
  */
 map.on('singleclick', function(evt) {
@@ -37,8 +47,7 @@ map.on('singleclick', function(evt) {
     var longitude = '{x}';
 
     var form_latitude = document.getElementById($('#map').data('latitude'));
-    form_latitude.setAttribute('value', ol.coordinate.format(coordinate_conv, latitude, 6));
-
     var form_longitude = document.getElementById($('#map').data('longitude'));
+    form_latitude.setAttribute('value', ol.coordinate.format(coordinate_conv, latitude, 6));
     form_longitude.setAttribute('value',ol.coordinate.format(coordinate_conv, longitude, 6));
 });
