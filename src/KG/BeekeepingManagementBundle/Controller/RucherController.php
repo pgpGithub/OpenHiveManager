@@ -58,7 +58,7 @@ class RucherController extends Controller
             $em->persist($rucher);
             $em->flush();
         
-        $request->getSession()->getFlashBag()->add('notice','Rucher créé avec succès');
+            $request->getSession()->getFlashBag()->add('notice','Rucher créé avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('id' => $rucher->getId())));
         }

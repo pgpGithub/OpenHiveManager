@@ -9,7 +9,6 @@
         '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}
-    {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block javascripts %}
@@ -18,7 +17,6 @@
                    '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
-    {{ form_javascript(form) }}
 {% endblock %}
 
 {% block title %}{{ parent() }} - Créer un rucher{% endblock %}
@@ -34,8 +32,9 @@
     <div class="alert alert-danger" role="alert">
         {{ form_errors(form.nom) }}
         {{ form_errors(form.image) }}
-        {{ form_errors(form.localisation.longitude) }}
-        {{ form_errors(form.localisation.latitude) }}
+        {% if form.localisation.longitude.vars.errors|length or form.localisation.latitude.vars.errors|length %}
+            <ul><li>Veuillez localiser votre rucher. Cette donnée est nécessaire à l'obtention des données météorologiques.</li></ul>
+        {% endif %}
     </div>
                         
     <div class="panel panel-default">
@@ -69,8 +68,8 @@
             </div>
             
             <div class="row">        
-                {{ form_widget(form.localisation.latitude) }}
-                {{ form_widget(form.localisation.longitude) }}
+                {{ form_widget(form.localisation.latitude, { 'attr' : { 'style':'display:none'} }) }}
+                {{ form_widget(form.localisation.longitude, { 'attr' : { 'style':'display:none'} }) }}
 
                 <div class="col-md-offset-2 col-md-8">
                     <h4><center>Localisez le rucher sur la carte</center></h4>            
