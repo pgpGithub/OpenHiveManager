@@ -20,7 +20,8 @@
         "sensio/distribution-bundle": "~3.0,>=3.0.12",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "stephanecollot/datetimepicker-bundle": "dev-master"
+        "stephanecollot/datetimepicker-bundle": "dev-master",
+        "friendsofsymfony/user-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

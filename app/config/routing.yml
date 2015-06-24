@@ -1,3 +1,13 @@
 kg_beekeeping_management:
     resource: "@KGBeekeepingManagementBundle/Resources/config/routing.yml"
     prefix:   /    
+    
+login:
+    pattern:   /login
+    defaults:  { _controller: KGUserBundle:Security:login }
+
+login_check:
+    pattern:   /login_check
+
+logout:
+    pattern:   /logout    
