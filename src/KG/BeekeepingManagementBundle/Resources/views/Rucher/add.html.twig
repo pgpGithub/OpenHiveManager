@@ -28,17 +28,10 @@
 {% block body %}
     <strong>Rucher</strong>  
     <hr>
-    
-    {% if not form.vars.valid %}
-        <div class="alert alert-danger" role="alert">
-            {{ form_errors(form.nom) }}
-            {{ form_errors(form.image.file) }}
-            {% if form.vars.errors|length  %}
-                <ul><li>Veuillez localiser votre rucher. Cette donnée sera nécessaire à l'obtention des données météorologiques.</li></ul>
-            {% endif %}
-        </div>
-    {% endif %}
-                        
+    {{ form_errors(form.nom) }}
+    {{ form_errors(form.image.file) }}
+    {{ form_errors(form) }}
+             
     <div class="panel panel-default">
 
         <div class="panel-heading">

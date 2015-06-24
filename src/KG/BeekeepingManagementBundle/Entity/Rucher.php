@@ -26,8 +26,8 @@ class Rucher
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
-     * @Assert\NotBlank()
-     * @Assert\Length(max=25, maxMessage="Le nom du rucher ne peut dépasser {{ limit }} caractères.")
+     * @Assert\NotBlank(message="Veuillez remplir le nom du rucher")
+     * @Assert\Length(max=25, maxMessage="Le nom du rucher ne peut dépasser {{ limit }} caractères")
      */
     private $nom;
 

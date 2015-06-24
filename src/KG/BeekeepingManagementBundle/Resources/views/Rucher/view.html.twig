@@ -29,6 +29,15 @@
     <strong>Rucher</strong>  
 
     <hr>
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        {% if loop.first %}
+            <div class="alert alert-success" role="alert">
+        {% endif %}
+                <i><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</i>
+        {% if loop.last %}        
+            </div>
+        {% endif %}
+    {% endfor %}
     
     <div class="panel panel-default">
         <div class="panel-body">
@@ -37,6 +46,8 @@
                     <div class="thumbnail">
                     {% if rucher.image is not null %}
                         <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}">
+                    {% else %}
+                        <img src="../../../logo.gif" alt="logo">
                     {% endif %} 
                     </div>
                 </div>

@@ -42,7 +42,7 @@ class Image
     /**
      * @var UploadedFile 
      * @Assert\Image(maxSize="500k",
-     *               maxSizeMessage="Le fichier est trop lourd ({{ size }}Mo). La taille maximale autorisée est {{ limit }}Mo.",
+     *               maxSizeMessage="Le fichier est trop lourd ({{ size }}Mo), la taille maximale autorisée est {{ limit }}Mo",
      *               mimeTypesMessage="Le fichier envoyé n'est pas une image" )
      * 
      */

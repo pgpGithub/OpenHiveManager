@@ -9,10 +9,8 @@
 
 		// Create the defaults once
 	    var defaults = {
-				//location: "Waterloo, ON", //city, region -KGR
-				//country: "Canada", //country -KGR
-				longitude: "2.29448130", //+KGR
-				latitude: "48.85837009", //+KGR
+				longitude: "2.29448130", 
+				latitude: "48.85837009", 
 				displayCityNameOnly: false,
 				api : "openweathermap", //api: yahoo or openweathermap
 				forecast: 5, //number of days to forecast, max 5
@@ -25,7 +23,6 @@
 
 		var apiurls = {
 			"openweathermap" : ["http://api.openweathermap.org/data/2.5/weather", "http://api.openweathermap.org/data/2.5/forecast/daily"]
-			//"yahoo" : ["https://query.yahooapis.com/v1/public/yql"] -KGR
 		};
 
 		// Plugin Constructor
@@ -42,8 +39,7 @@
 			//set units if otherwise not set
 			if (!this.settings.units || this.settings.units == "auto") {
 				//basically just support for auto units of USA
-				//this.settings.units = (["united states", "usa", "united states of america", "us"].indexOf(this.settings.country.toLowerCase()) == -1)?"metric":"imperial"; -KGR
-				this.settings.units = "metric"; //+KGR
+				this.settings.units = "metric";
 			}
 			
 			//bound forecast to max of 5 days, api won't return more then that
@@ -93,10 +89,6 @@
 				//params[0] is sent to apiurls[api][0] and so on
 				var params = []; 
 
-				//build location query string
-				//var location = this.settings.location + " " + this.settings.country; KGR
-
-
 				//build the paramaters required for specified api
 				if (this.settings.api == "openweathermap") {
 					//openweathermap requires two requests: one for today, another for the forecast.
@@ -105,9 +97,8 @@
 
 					//the first request grabs the daily forecast
 					var parameters = {}; 
-					//parameters.q = location; KGR
-					parameters.lat = this.settings.latitude;//+KGR
-					parameters.lon = this.settings.longitude;//+KGR
+					parameters.lat = this.settings.latitude;
+					parameters.lon = this.settings.longitude;
 					parameters.units = this.settings.units;
 					if(this.settings.apikey) parameters.appid = this.settings.apikey;
 
@@ -119,21 +110,6 @@
 					params.push(parameters); //params for second request url
 
 				}
-				/* BEGIN OF -KGR
-				else if (this.settings.api == "yahoo") {
-					//yahoo weather uses c and f for metric/imperial unit identifiers,
-					//convert our stored text string to match what they expect
-					var u = (this.settings.units == "metric")?"c":"f";
-					
-					//see yahoo yql weather api for details on params passed to api
-					var parameters = {}; 
-					parameters.q = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + location + "') AND u='" + u +"'";
-					parameters.env = "store://datatables.org/alltableswithkeys"; //some sort of api version info... because yahoo.
-					parameters.format = "json";
-					params.push(parameters);
-
-				}END OF -KGR*/ 
-
 
 				//for each request send the associated paramaters, then when all are done render all data
 				var requests = []; //requests sent
@@ -169,13 +145,6 @@
 						console.log(args);
 						promise.reject(args, that);
 					}
-					/* BEGIN OF -KGR
-					else if (that.settings.api == "yahoo" && (args.query.count == 0 || args.query.results.channel.description == "Yahoo! Weather Error")) {
-						//yahoo weather really should return a better error checking method.
-						console.log("Error interacting with the yahoo api see error object below for details:");
-						console.log(args);
-						promise.reject(args, that);
-					} END OF -KGR */
 					else {
 
 						//now take that fancy api data and map it to a common format with datamapper function
@@ -219,16 +188,6 @@
 						error = error[1] + " See console log for details.";
 					}
 				}
-				/* BEGIN OF -KGR
-				else if (context.settings.api == "yahoo") {
-					
-					if (error.query.results) {
-						error = "Error: " + error.query.results.channel.item.title + ". See console log for details.";
-					}
-					else {
-						error = "Error: no results. See console log for details.";
-					}
-				} END OF -KGR*/
 
 				var div = $("<div/>", {"class": "weather " + context.settings.view});
 				$("<h2/>").text("Error").appendTo(div);
@@ -270,7 +229,6 @@
 					var today = $("<div/>", {"class": "wiToday"});
 					var iconGroup = $("<div/>", {"class": "wiIconGroup"});
 					$("<div/>", {"class" : "wi "+ "wi"+weather.today.code}).appendTo(iconGroup);
-					//$("<p/>", {"class" : "wiText"}).text(weather.today.desc).appendTo(iconGroup); -KGR
 					iconGroup.appendTo(today);
 					$("<p/>", {"class" : "wiTemperature"}).html(weather.today.temp.now + "<sup>" + degrees + "</sup>").appendTo(today);
 					today.appendTo(div);
@@ -347,38 +305,6 @@
 			});
 		};
 
-
-		/* 
-		//datamapper converts raw aka dirty un-standardize data from either api
-		//into a unified format for easier use as follows:
-			{
-				location : String, //as returned back from api
-				today : {
-					temp : {
-						//temperatures are in units requested from api
-						now : Number, ex. 18 
-						min : Number, ex. 24
-						max : Number ex. 12
-					},
-					desc : String, ex. "Partly Cloudy"
-					code : Number, ex. "801" see css or weather codes for meaning
-					wind : {
-						speed : 4, //either km/h or mph
-						deg : Number, //direction in degrees from North
-					},
-					pressure : Number, //barometric pressure
-					humidity : Number, //% humidity
-					sunrise : Time,
-					sunset : Time,
-					day :  String,
-
-				},
-				forecast : [{Day: String, code:Number, desc: String, temp : {min:number, max:number}}]
-			}
-		//note: input data is in an array of the returned api result request(s) in the same order as setup in the apiurls
-		//All data manipulation and cleaning up happens below
-		//making this was tedious.
-		*/
 		function datamapper (input, settings) {
 
 			var out = {}; //map input to out
@@ -393,12 +319,8 @@
 				else if (input[1].city.name != ""){ //sometimes the api doesn't return a location. weird, try the name from second request
 					out.location = input[1].city.name + ", " + input[1].city.country;
 					out.city =  input[1].city.name;
-				}/* BEGIN OF -KGR
-				else { //still no location? fall back to settings
-					out.location =  settings.location + ", " + settings.country;
-					out.city = settings.location;
-				} END OF -KGR */
-
+				}
+                                
 				out.today = {};
 				out.today.temp = {};
 				out.today.temp.now = Math.round(input[0].main.temp);
@@ -429,98 +351,6 @@
 				}
 
 			}
-			/* BEGIN OF -KGR
-			else if (settings.api == "yahoo") {
-
-				//key = yahoo code, value = standard code (based on openweathermap codes)
-				var codes = {
-					0  : "900",	//tornado
-					1  : "901",	//tropical storm
-					2  : "902",	//hurricane
-					3  : "212",	//severe thunderstorms
-					4  : "200",	//thunderstorms
-					5  : "616",	//mixed rain and snow
-					6  : "612",	//mixed rain and sleet
-					7  : "611",	//mixed snow and sleet
-					8  : "511",	//freezing drizzle
-					9  : "301",	//drizzle
-					10 : "511",	//freezing rain
-					11 : "521",	//showers
-					12 : "521",	//showers
-					13 : "600",	//snow flurries
-					14 : "615",	//light snow showers
-					15 : "601",	//blowing snow
-					16 : "601",	//snow
-					17 : "906",	//hail
-					18 : "611",	//sleet
-					19 : "761",	//dust
-					20 : "741",	//foggy
-					21 : "721",	//haze
-					22 : "711",	//smoky
-					23 : "956",	//blustery
-					24 : "954",	//windy
-					25 : "903",	//cold
-					26 : "802",	//cloudy
-					27 : "802",	//mostly cloudy (night)
-					28 : "802",	//mostly cloudy (day)
-					29 : "802",	//partly cloudy (night)
-					30 : "802",	//partly cloudy (day)
-					31 : "800",	//clear (night)
-					32 : "800",	//sunny
-					33 : "951",	//fair (night)
-					34 : "951",	//fair (day)
-					35 : "906",	//mixed rain and hail
-					36 : "904",	//hot
-					37 : "210",	//isolated thunderstorms
-					38 : "210",	//scattered thunderstorms
-					39 : "210",	//scattered thunderstorms
-					40 : "521",	//scattered showers
-					41 : "602",	//heavy snow
-					42 : "621",	//scattered snow showers
-					43 : "602",	//heavy snow
-					44 : "802",	//partly cloudy
-					45 : "201",	//thundershowers
-					46 : "621",	//snow showers
-					47 : "210",	//isolated thundershowers
-				   3200: "951",	//not available... alright... lets make that sunny.
-				}
-
-				input = input.query.results.channel; //get rid of a bunch of silly yahoo nested objects;
-				
-				out.location =  input.location.city + ", " + input.location.country;
-				out.city = input.location.city;
-
-				out.today = {};
-				out.today.temp = {};
-				out.today.temp.now = Math.round(input.item.condition.temp);
-				out.today.temp.min = Math.round(input.item.forecast[0].low);
-				out.today.temp.max = Math.round(input.item.forecast[0].high);
-
-				out.today.desc = input.item.condition.text.capitalize();
-				out.today.code = codes[input.item.condition.code]; //map weather code
-
-				out.today.wind = {};
-				out.today.wind.speed = input.wind.speed;
-				out.today.wind.deg = input.wind.direction;
-				out.today.humidity = input.atmosphere.humidity;
-				out.today.pressure = input.atmosphere.pressure;
-				out.today.sunrise = input.astronomy.sunrise.toUpperCase();
-				out.today.sunset = input.astronomy.sunset.toUpperCase();
-
-				out.today.day = getDayString(new Date());
-				
-				out.forecast = [];
-				//grab only the number of forecast days desired from settings
-				for (var i = 0; i < settings.forecast; i++) {
-					var forecast = {};
-					forecast.day = getDayString(new Date(input.item.forecast[i].date));
-					forecast.code = codes[input.item.forecast[i].code]; //map weather code
-					forecast.desc = input.item.forecast[i].text.capitalize();
-					forecast.temp = {max: Math.round(input.item.forecast[i].high), min: Math.round(input.item.forecast[i].low)}
-					out.forecast.push(forecast);
-				}
-			} END OF -KGR */
-
 			return out;
 
 		};
