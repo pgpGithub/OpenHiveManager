@@ -1,0 +1,7 @@
+kg_site_home:
+    path:      /
+    defaults:  { _controller: KGSiteBundle:Accueil:index }
+
+        
+
+    

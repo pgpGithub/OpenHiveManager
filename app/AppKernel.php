@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new KG\UserBundle\KGUserBundle(),
+            new KG\SiteBundle\KGSiteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
