@@ -46,7 +46,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ KGBeekeepingManagementBundle ]
+    bundles:        [ KGBeekeepingManagementBundle, KGSiteBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
