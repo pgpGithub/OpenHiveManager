@@ -28,16 +28,18 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-
-              <li class="dropdown">
-                <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
-                  <strong>Admin</strong> <span class="caret"></span></a>
-                <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                  <li><a href="#">Mon Profil</a></li>
-                </ul>
-              </li>
-
-              <li><a href="#">Déconnexion</a></li>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li class="dropdown">
+                  <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+                    <strong>{{ app.user.username }}</strong> <span class="caret"></span></a>
+                  <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                    <li><a href="#">Mon Profil</a></li>
+                  </ul>
+                </li>                
+                <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+            {% else %}
+                <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+            {% endif %}    
             </ul>
           </div>
         </div>

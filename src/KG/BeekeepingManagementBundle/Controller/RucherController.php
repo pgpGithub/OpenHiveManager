@@ -7,9 +7,13 @@ use KG\BeekeepingManagementBundle\Form\RucherType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class RucherController extends Controller
 {
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function indexAction($page)
     {
         if ($page < 1){
@@ -36,7 +40,10 @@ class RucherController extends Controller
                             )
         ); 
     }
-    
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */    
     public function viewAction($id)
     {
         $rucher = $this->getDoctrine()->getManager()->getRepository('KGBeekeepingManagementBundle:Rucher')->find($id);
@@ -46,7 +53,10 @@ class RucherController extends Controller
                             )
         );
     }
-    
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */    
     public function addAction(Request $request)
     {
         $rucher = new Rucher();

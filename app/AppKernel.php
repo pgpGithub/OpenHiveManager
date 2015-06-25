@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new KG\BeekeepingManagementBundle\KGBeekeepingManagementBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
-            //new FOS\UserBundle\FOSUserBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             new KG\UserBundle\KGUserBundle(),
         );
 

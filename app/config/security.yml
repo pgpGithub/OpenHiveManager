@@ -2,33 +2,34 @@
 
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        KG\UserBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_RESPONSABLE: [ROLE_USER]
+        ROLE_ADMIN:       [ROLE_RESPONSABLE]       
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] 
 
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        main:
+            id: fos_user.user_provider.username
 
     firewalls:
         dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+            pattern:        ^/(_(profiler|wdt)|css|images|js)/
+            security:       false
         main:
-            pattern: ^/
-            anonymous: true
-            provider:  in_memory
+            pattern:        ^/
+            anonymous:      true
+            provider:       main
             form_login:
-                login_path: login
-                check_path: login_check
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
             logout:
-                path:   logout
-                target: /platform            
-
+                path:       fos_user_security_logout
+                target:     /platform  
+            remember_me:
+                key:        %secret%    
+                
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/rucher, roles: ROLE_USER }
+    
