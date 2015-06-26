@@ -1,6 +1,6 @@
 {# src/KG/BeekeepingManagementBundle/Resources/views/Rucher/add.html.twig #}
 
-{% extends "KGSiteBundle::layout.html.twig" %}
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -25,7 +25,7 @@
 
 {% form_theme form "KGBeekeepingManagementBundle:Rucher:form_layout.html.twig" %}
 
-{% block body %}
+{% block screen %}
     <strong>Rucher</strong>  
     <hr>
     {{ form_errors(form.nom) }}

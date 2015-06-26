@@ -1,12 +1,12 @@
 {# src/KG/BeekeepingManagementBundle/Resources/views/Rucher/index.html.twig #}
 
-{% extends "KGSiteBundle::layout.html.twig" %}
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
 {% block title %}{{ parent() }} - Ruchers{% endblock %}
 
 {% block rucher %}class="active"{% endblock %}
 
-{% block body %}
+{% block screen %}
     <strong>Rucher</strong>  
     <a title="Créer un rucher" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_rucher') }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer un rucher</a>
     <hr>
