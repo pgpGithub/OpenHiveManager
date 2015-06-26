@@ -33,4 +33,5 @@ security:
                 
     access_control:
         - { path: ^/rucher, roles: ROLE_USER }
+        - { path: ^/exploitation, roles: ROLE_USER }
     
