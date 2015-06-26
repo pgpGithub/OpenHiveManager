@@ -1,0 +1,65 @@
+{% extends 'KGUserBundle::layout.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite' 
+        '@KGUserBundle/Resources/public/css/login/login_panel.css'%}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@KGUserBundle/Resources/public/js/login/login_panel.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>  
+    {% endjavascripts %}
+{% endblock %}
+
+{% block fos_user_content %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <div class="row" style="margin-top:20px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form action="{{ path("fos_user_security_check") }}" method="post">
+                <fieldset>
+                    <h2>Please Sign In</h2>
+                    <hr class="colorgraph">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+                    <div class="form-group">
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control input-lg" placeholder="{{ 'security.login.username'|trans }}" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" id="password" name="_password" required="required" class="form-control input-lg" placeholder="{{ 'security.login.password'|trans }}"/>
+                    </div>
+
+                    <span class="button-checkbox">
+                        <button type="button" class="btn" data-color="info">{{ 'security.login.remember_me'|trans }}</button>
+                        <input type="checkbox" name="_remember_me" id="remember_me" checked="checked" class="hidden">
+                        <a href="" class="btn btn-link pull-right">Forgot Password?</a>
+                    </span>
+
+                    <hr class="colorgraph">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">                
+                            <input type="submit" id="_submit" name="_submit" class="btn btn-lg btn-success btn-block" value="{{ 'security.login.submit'|trans }}" />
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <a href="" class="btn btn-lg btn-primary btn-block">Register</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>            
+{% endblock fos_user_content %}
+                                                    
+
+                                                        
+
+
+  
