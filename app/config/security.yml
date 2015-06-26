@@ -5,8 +5,7 @@ security:
         KG\UserBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_RESPONSABLE: [ROLE_USER]
-        ROLE_ADMIN:       [ROLE_RESPONSABLE]       
+        ROLE_ADMIN:       [ROLE_USER]       
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] 
 
     providers:

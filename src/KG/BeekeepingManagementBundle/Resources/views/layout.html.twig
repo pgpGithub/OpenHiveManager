@@ -7,6 +7,7 @@
         <strong>Exploitation</strong>
         <hr>
             <ul class="nav nav-pills nav-stacked">
+                <li {% block exploitation %}{% endblock %}><a href="{{ path('kg_beekeeping_management_home_exploitation') }}" title="Exploitation">Exploitation</a></li>
                 <li {% block rucher %}{% endblock %}><a href="{{ path('kg_beekeeping_management_home_rucher') }}" title="Rucher">Rucher</a></li>
             </ul>
     </div><!-- /span-3 -->

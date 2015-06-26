@@ -21,6 +21,14 @@ class Rucher
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+     /**
+      * @var Exploitation 
+      * 
+      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation")
+      * @ORM\JoinColumn(nullable=false)
+      */
+    private $exploitation;
 
     /**
      * @var string
@@ -32,9 +40,9 @@ class Rucher
     private $nom;
 
     /**
-    * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="rucher")
-    * @Assert\Valid()
-    */
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="rucher")
+     * @Assert\Valid()
+     */
     private $ruches;
     
     /**
@@ -131,7 +139,7 @@ class Rucher
     /**
      * Remove ruche
      *
-     * @param Ruche $ruches
+     * @param Ruche $ruche
      */
     public function removeRuche(Ruche $ruche)
     {
@@ -193,4 +201,27 @@ class Rucher
     {
         return $this->localisation;
     }
+    
+    /**
+     * Set exploitation
+     *
+     * @param Exploitation $exploitation
+     * @return Rucher
+     */
+    public function setExploitation(Exploitation $exploitation)
+    {
+        $this->exploitation= $exploitation;
+
+        return $this;
+    }
+
+    /**
+     * Get Exploitation
+     *
+     * @return Exploitation 
+     */
+    public function getExploitation()
+    {
+        return $this->exploitation;
+    }    
 }

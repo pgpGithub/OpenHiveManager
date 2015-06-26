@@ -1,3 +1,7 @@
+kg_beekeeping_management_home_exploitation:
+    path:      /exploitation
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:index }
+        
 kg_beekeeping_management_home_rucher:
     path:      /rucher/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:index, page: 1 }
