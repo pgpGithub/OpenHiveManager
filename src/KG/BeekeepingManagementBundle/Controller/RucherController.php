@@ -20,8 +20,9 @@ class RucherController extends Controller
             throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
         
-        $maxRuchers     = $this->container->getParameter('max_ruchers_per_page');
-        $ruchers_count  = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getNbRucherTotal();
+        $maxRuchers    = $this->container->getParameter('max_ruchers_per_page');
+        $ruchers       = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getList($page, $maxRuchers);
+        $ruchers_count = count($ruchers); 
         
         $pagination = array(
             'page'         => $page,
@@ -29,8 +30,6 @@ class RucherController extends Controller
             'pages_count'  => max ( ceil($ruchers_count / $maxRuchers), 1),
             'route_params' => array()
         );
-        
-        $ruchers = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getList($page, $maxRuchers);
         
         return $this->render('KGBeekeepingManagementBundle:Rucher:index.html.twig', 
                             array(  
