@@ -22,7 +22,7 @@ class RucherController extends Controller
         
         $maxRuchers    = $this->container->getParameter('max_ruchers_per_page');
         $ruchers       = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getList($page, $maxRuchers);
-        $ruchers_count = $ruchers = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getList($page, $maxRuchers); 
+        $ruchers_count = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getNbRucherTotal(); 
         
         $pagination = array(
             'page'         => $page,
