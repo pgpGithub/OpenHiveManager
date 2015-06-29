@@ -9,9 +9,6 @@ use FOS\UserBundle\Model\User as BaseUser;
  * User
  *
  * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"user" = "User", "apiculteur" = "Apiculteur"})
  */
 class User extends BaseUser
 {
