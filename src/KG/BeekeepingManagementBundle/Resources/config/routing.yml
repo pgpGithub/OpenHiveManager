@@ -1,6 +1,8 @@
 kg_beekeeping_management_home_exploitation:
-    path:      /exploitation
-    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:index }
+    path:      /exploitation/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:index, page: 1 }
+    requirements:
+        page:  \d+
 
 kg_beekeeping_management_add_exploitation:
     path:      /exploitation/nouvelle-exploitation

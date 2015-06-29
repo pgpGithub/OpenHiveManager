@@ -5,8 +5,7 @@ security:
         KG\UserBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_APICULTEUR:  [ROLE_USER]  
-        ROLE_ADMIN:       [ROLE_APICULTEUR]       
+        ROLE_ADMIN:       [ROLE_USER]       
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] 
 
     providers:
@@ -33,6 +32,6 @@ security:
                 key:        %secret%    
                 
     access_control:
-        - { path: ^/rucher, roles: ROLE_APICULTEUR }
-        - { path: ^/exploitation, roles: ROLE_APICULTEUR }
+        - { path: ^/rucher, roles: ROLE_USER }
+        - { path: ^/exploitation, roles: ROLE_USER }
     
