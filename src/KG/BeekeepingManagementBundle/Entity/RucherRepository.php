@@ -24,4 +24,13 @@ class RucherRepository extends EntityRepository
         
         return new Paginator($q);
     }
+    
+    public function getNbRucherTotal()
+    {
+        return $this->_em->createQueryBuilder()
+                ->select('count(rucher.id)')
+                ->from('KGBeekeepingManagementBundle:Rucher','rucher')
+                ->getQuery()
+                ->getSingleScalarResult();
+    }    
 }
