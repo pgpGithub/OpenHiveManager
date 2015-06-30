@@ -30,7 +30,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->apiculteurExploitations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->apiculteurExploitations = new \Doctrine\Common\Collections\ArrayCollection();  
     }
 
     /**
@@ -52,6 +52,7 @@ class User extends BaseUser
     public function addApiculteurExploitations(\KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation $apiculteurExploitation)
     {
         $this->apiculteurExploitations[] = $apiculteurExploitation;
+        $apiculteurExploitation->setApiculteur($this);
 
         return $this;
     }
