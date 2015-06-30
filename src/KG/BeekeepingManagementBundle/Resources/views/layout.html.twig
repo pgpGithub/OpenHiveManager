@@ -1,16 +1,35 @@
 {% extends 'KGSiteBundle::layout.html.twig' %}
 
+{% block menu_user %}
+    <li><a href="{{ path('kg_beekeeping_management_home_exploitation') }}">Mes exploitations</a></li>
+{% endblock %}
+
 {% block body %}
     {% if is_granted('ROLE_USER') %}
         {{ parent() }}
         <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3">
         <!-- Left -->
-            <strong>Exploitation</strong>
+            <!-- Split button -->
+            <div class="btn-group btn-block">
+              <button class="col-sm-10 btn btn-sm btn-info">Deny</button>
+
+              <button class="col-sm-2 btn btn-sm btn-info dropdown-toggle"
+                      data-toggle="dropdown">
+                <span class="caret"></span>
+              </button>
+
+              <ul class="dropdown-menu btn-block">
+                <li><a href="#">Reason 1</a></li>
+                <li><a href="#">Reason 2</a></li>
+                <li><a href="#">Reason 3</a></li>
+              </ul>
+            </div>
+            
             <hr>
-                <ul class="nav nav-pills nav-stacked">
-                    <li {% block exploitation %}{% endblock %}><a href="{{ path('kg_beekeeping_management_home_exploitation') }}" title="Exploitation">Exploitation</a></li>
-                    <li {% block rucher %}{% endblock %}><a href="{{ path('kg_beekeeping_management_home_rucher') }}" title="Rucher">Rucher</a></li>
-                </ul>
+            <ul class="nav nav-pills nav-stacked">
+                <li {% block exploitation %}{% endblock %}><a href="{{ path('kg_beekeeping_management_home_exploitation') }}" title="Exploitation">Exploitation</a></li>
+                <li {% block rucher %}{% endblock %}><a href="{{ path('kg_beekeeping_management_home_rucher') }}" title="Rucher">Rucher</a></li>
+            </ul>
         </div><!-- /span-3 -->
         <div class="col-xs-7 col-sm-8 col-md-9 col-lg-9">
         <!-- Right -->

@@ -23,7 +23,7 @@
                 <span class="icon-toggle"></span>
                 </button>
                 <a class="navbar-brand" href="#">BeeManager</a>
-          </div>
+          </div>  
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -31,7 +31,9 @@
                   <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
                     <strong>{{ app.user.username }}</strong> <span class="caret"></span></a>
                   <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                    <li><a href="{{ path('fos_user_profile_show') }}">Mon Profil</a></li>
+                    <li><a href="{{ path('fos_user_profile_show') }}">Mon Profil</a></li> 
+                    {% block menu_user %}
+                    {% endblock %}
                   </ul>
                 </li>                
                 <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
