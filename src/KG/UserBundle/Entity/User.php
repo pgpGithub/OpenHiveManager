@@ -4,6 +4,8 @@ namespace KG\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use KG\BeekeepingManagementBundle\Entity\Exploitation;
+use KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation;
 
 /**
  * User
@@ -23,6 +25,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation", mappedBy="apiculteur")
      */
     private $apiculteurExploitations;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", cascade={"persist"})
+     */
+    private $exploitationEnCours;
     
     /**
      * Constructor
@@ -46,10 +53,10 @@ class User extends BaseUser
     /**
      * Add apiculteurExploitations
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation $apiculteurExploitation
+     * @param ApiculteurExploitation $apiculteurExploitation
      * @return User
      */
-    public function addApiculteurExploitations(\KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation $apiculteurExploitation)
+    public function addApiculteurExploitation(ApiculteurExploitation $apiculteurExploitation)
     {
         $this->apiculteurExploitations[] = $apiculteurExploitation;
         $apiculteurExploitation->setApiculteur($this);
@@ -60,9 +67,9 @@ class User extends BaseUser
     /**
      * Remove apiculteurExploitations
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation $apiculteurExploitation
+     * @param ApiculteurExploitation $apiculteurExploitation
      */
-    public function removeApiculteurExploitations(\KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation $apiculteurExploitation)
+    public function removeApiculteurExploitation(ApiculteurExploitation $apiculteurExploitation)
     {
         $this->apiculteurExploitations->removeElement($apiculteurExploitation);
     }
@@ -75,5 +82,28 @@ class User extends BaseUser
     public function getApiculteurExploitations()
     {
         return $this->apiculteurExploitations;
+    }
+
+    /**
+     * Set exploitationEnCours
+     *
+     * @param Exploitation $exploitationEnCours
+     * @return User
+     */
+    public function setExploitationEnCours(Exploitation $exploitationEnCours = null)
+    {
+        $this->exploitationEnCours = $exploitationEnCours;
+
+        return $this;
+    }
+
+    /**
+     * Get exploitationEnCours
+     *
+     * @return Exploitation 
+     */
+    public function getExploitationEnCours()
+    {
+        return $this->exploitationEnCours;
     }
 }

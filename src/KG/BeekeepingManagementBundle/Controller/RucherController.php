@@ -59,7 +59,7 @@ class RucherController extends Controller
     public function addAction(Request $request)
     {
         $rucher = new Rucher();
-        $form = $this->get('form.factory')->create(new RucherType, $rucher);
+        $form = $this->createForm(new RucherType, $rucher);
         
         if ($form->handleRequest($request)->isValid()){
                         
