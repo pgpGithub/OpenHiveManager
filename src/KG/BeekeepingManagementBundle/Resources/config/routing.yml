@@ -13,7 +13,11 @@ kg_beekeeping_management_view_exploitation:
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:view }
     requirements:
         id: \d*
-        
+
+kg_beekeeping_management_menu_exploitation:
+    path:      /exploitation/menu-exploitation
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:menu }
+    
 kg_beekeeping_management_home_rucher:
     path:      /rucher/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:index, page: 1 }

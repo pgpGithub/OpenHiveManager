@@ -25,7 +25,7 @@ class Rucher
      /**
       * @var Exploitation 
       * 
-      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation")
+      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="ruchers")
       * @ORM\JoinColumn(nullable=false)
       */
     private $exploitation;

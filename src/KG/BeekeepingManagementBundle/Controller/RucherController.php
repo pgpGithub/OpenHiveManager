@@ -20,9 +20,10 @@ class RucherController extends Controller
             throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
         
-        $maxRuchers    = $this->container->getParameter('max_ruchers_per_page');
-        $ruchers       = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getList($page, $maxRuchers);
-        $ruchers_count = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getNbRucherTotal(); 
+        $maxRuchers     = $this->container->getParameter('max_ruchers_per_page');
+        $exploitationId = $this->getUser()->getExploitationEnCours()->getId();
+        $ruchers        = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getListByExploitation($page, $maxRuchers, $exploitationId);
+        $ruchers_count  = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->countByExploitation($exploitationId); 
         
         $pagination = array(
             'page'         => $page,
@@ -63,6 +64,7 @@ class RucherController extends Controller
         
         if ($form->handleRequest($request)->isValid()){
                         
+            $rucher->setExploitation($this->getUser()->getExploitationEnCours());
             $em = $this->getDoctrine()->getManager();
             $em->persist($rucher);
             $em->flush();

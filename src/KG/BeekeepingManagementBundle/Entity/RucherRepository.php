@@ -13,11 +13,13 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class RucherRepository extends EntityRepository
 {
-    public function getList($page=1, $maxperpage=10)
+    public function getListByExploitation($page=1, $maxperpage=10, $exploitation)
     {
-        $q = $this->_em->createQueryBuilder()
-             ->select('rucher')
-             ->from('KGBeekeepingManagementBundle:Rucher','rucher');
+        $q = $this->createQueryBuilder('r')
+                  ->leftJoin('r.exploitation','e')
+                  ->addSelect('e')
+                  ->where('e.id = :id')
+                  ->setParameter('id',$exploitation);
         
         $q->setFirstResult(($page-1)*$maxperpage)
           ->setMaxResults($maxperpage);
@@ -25,12 +27,14 @@ class RucherRepository extends EntityRepository
         return new Paginator($q);
     }
     
-    public function getNbRucherTotal()
+    public function countByExploitation($exploitation)
     {
-        return $this->_em->createQueryBuilder()
-                ->select('count(rucher.id)')
-                ->from('KGBeekeepingManagementBundle:Rucher','rucher')
-                ->getQuery()
-                ->getSingleScalarResult();
-    }    
+        return $this->createQueryBuilder('r')
+                    ->addSelect('COUNT(r)')
+                    ->leftJoin('r.exploitation','e')
+                    ->where('e.id = :id')
+                    ->setParameter('id',$exploitation)
+                    ->getQuery()
+                    ->getSingleScalarResult();
+    }     
 }
