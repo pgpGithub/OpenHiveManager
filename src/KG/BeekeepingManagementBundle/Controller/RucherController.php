@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class RucherController extends Controller
 {
@@ -43,15 +45,12 @@ class RucherController extends Controller
 
     /**
     * @Security("has_role('ROLE_USER')")
+    * @Route("/rucher/affichage-rucher/{rucher_id}")
+    * @ParamConverter("rucher", class="KGBeekeepingManagementBundle:Rucher", options={"repository_method" = "getRucherByExploitation"}) 
     */    
-    public function viewAction(Rucher $rucher, $id)
+    public function viewAction(Rucher $rucher)
     {
-        $rucher = $this->getDoctrine()->getManager()->getRepository('KGBeekeepingManagementBundle:Rucher')->getRucherByExploitation($id, $this->getUser()->getExploitationEnCours()->getId());
-        return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', 
-                            array( 
-                                'rucher'    =>$rucher
-                            )
-        );
+        return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', array( 'rucher' => $rucher ));
     }
 
     /**

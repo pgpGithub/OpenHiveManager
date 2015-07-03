@@ -29,8 +29,8 @@ kg_beekeeping_management_add_rucher:
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:add }
     
 kg_beekeeping_management_view_rucher:
-    path:      /rucher/affichage-rucher/{id}
+    path:      /rucher/affichage-rucher/{rucher_id}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view }
     requirements:
-        id: \d+
+        rucher_id: \d+
     
