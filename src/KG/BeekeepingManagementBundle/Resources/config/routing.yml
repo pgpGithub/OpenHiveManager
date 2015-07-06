@@ -15,7 +15,13 @@ kg_beekeeping_management_menu_exploitation:
 kg_beekeeping_management_add_rucher:
     path:      /rucher/nouveau-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:add }
-    
+
+kg_beekeeping_management_delete_rucher:
+    path:      /rucher/supprimer-rucher/{id}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:delete }
+    requirements:
+        id: \d+
+        
 kg_beekeeping_management_view_rucher:
     path:      /rucher/affichage-rucher/{id}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view }

@@ -56,6 +56,14 @@ class Rucher
      * @Assert\Valid()
      */
     private $localisation;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="supprime", type="boolean")
+     */
+    private $supprime = false;
+    
     
     /**
      * Constructor
@@ -223,5 +231,28 @@ class Rucher
     public function getExploitation()
     {
         return $this->exploitation;
-    }    
+    }
+    
+    /**
+     * Set supprime
+     *
+     * @param string $supprime
+     * @return Exploitation
+     */
+    public function setSupprime($supprime)
+    {
+        $this->supprime = $supprime;
+
+        return $this;
+    }
+
+    /**
+     * Get supprime
+     *
+     * @return boolean 
+     */
+    public function getSupprime()
+    {
+        return $this->supprime;
+    }      
 }

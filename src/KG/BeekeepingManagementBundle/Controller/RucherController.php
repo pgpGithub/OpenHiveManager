@@ -27,6 +27,28 @@ class RucherController extends Controller
     /**
     * @Security("has_role('ROLE_USER')")
     */    
+    public function deleteAction(Rucher $rucher)
+    {
+        if( $rucher->getExploitation() != $this->getUser()->getExploitationEnCours()){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+        
+        if ($rucher->getImage() != null){
+            $rucher->getImage()->setSupprime(true);           
+        }
+        $rucher->getLocalisation()->setSupprime(true);
+        $rucher->setSupprime(true);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($rucher);
+        $em->flush();
+
+        //$this->getSession()->getFlashBag()->add('success','Rucher supprimé avec succès');
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation', array('exploitation_id' => $this->getUser()->getExploitationEnCours()->getId())));
+    }
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */    
     public function addAction(Request $request)
     {
         $rucher = new Rucher();

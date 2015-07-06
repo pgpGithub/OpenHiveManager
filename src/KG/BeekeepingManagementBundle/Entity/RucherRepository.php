@@ -19,6 +19,7 @@ class RucherRepository extends EntityRepository
                   ->leftJoin('r.exploitation','e')
                   ->addSelect('e')
                   ->where('e.id = :id')
+                  ->andWhere('r.supprime = false')
                   ->setParameter('id',$exploitation);
         
         $q->setFirstResult(($page-1)*$maxperpage)
@@ -33,6 +34,7 @@ class RucherRepository extends EntityRepository
                     ->select('COUNT(r)')
                     ->leftJoin('r.exploitation','e')
                     ->where('e.id = :id')
+                    ->andWhere('r.supprime = false')                
                     ->setParameter('id',$exploitation)
                     ->getQuery()
                     ->getSingleScalarResult();
@@ -45,6 +47,7 @@ class RucherRepository extends EntityRepository
                     ->addSelect('e')
                     ->where('e.id = :exploitation')
                     ->andWhere('r.id = :id')
+                    ->andWhere('r.supprime = false')
                     ->setParameter('exploitation',$exploitation)
                     ->setParameter('id',$id)
                     ->getQuery()

@@ -49,6 +49,14 @@ class Image
     private $file;
     
     private $tempFilename;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="supprime", type="boolean")
+     */
+    private $supprime = false;
+    
     
     /**
      * Get id
@@ -201,5 +209,28 @@ class Image
     public function getWebPath()
     {
       return $this->getUploadDir().'/'.$this->getId().'.'.$this->getUrl();
-    }     
+    } 
+    
+    /**
+     * Set supprime
+     *
+     * @param string $supprime
+     * @return Exploitation
+     */
+    public function setSupprime($supprime)
+    {
+        $this->supprime = $supprime;
+
+        return $this;
+    }
+
+    /**
+     * Get supprime
+     *
+     * @return boolean 
+     */
+    public function getSupprime()
+    {
+        return $this->supprime;
+    }       
 }

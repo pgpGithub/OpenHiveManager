@@ -24,6 +24,9 @@
 {% block title %}{{ parent() }} - Rucher{% endblock %}
 
 {% block screen %}
+    <strong>{{ app.user.exploitationEnCours.nom }}</strong>  
+    <hr>    
+    
     {% for flashMessage in app.session.flashbag.get('success') %}
         {% if loop.first %}
             <div class="alert alert-success" role="alert">
@@ -33,7 +36,7 @@
             </div>
         {% endif %}
     {% endfor %}
-    
+
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">
@@ -52,7 +55,7 @@
                 <div class="col-md-4">
                     <div class="pull-right">
                         <a title="Editer" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_rucher') }}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Editer</a>
-                        <a title="Supprimer" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_rucher') }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
+                        <a title="Supprimer" data-toggle="modal" href="{{ path('kg_beekeeping_management_delete_rucher', { 'id' : rucher.id }) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
                     </div> 
                 </div>        
             </div>
