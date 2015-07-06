@@ -21,13 +21,9 @@
 
 {% block title %}{{ parent() }} - Créer un rucher{% endblock %}
 
-{% block rucher %}class="active"{% endblock %}
-
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
 {% block screen %}
-    <strong>Rucher</strong>  
-    <hr>
     {{ form_errors(form.nom) }}
     {{ form_errors(form.image.file) }}
     {{ form_errors(form) }}

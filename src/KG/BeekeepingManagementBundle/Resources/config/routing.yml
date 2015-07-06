@@ -1,36 +1,24 @@
-kg_beekeeping_management_home_exploitation:
-    path:      /exploitation/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:index, page: 1 }
-    requirements:
-        page:  \d+
-
 kg_beekeeping_management_add_exploitation:
     path:      /exploitation/nouvelle-exploitation
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:add }
-
+       
 kg_beekeeping_management_view_exploitation:
-    path:      /exploitation/affichage-exploitation/{id}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:view }
+    path:      /exploitation/affichage-exploitation/{page}/{exploitation_id}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:view, page: 1 }
     requirements:
-        id: \d*
-
+        exploitation_id: \d+
+    
 kg_beekeeping_management_menu_exploitation:
     path:      /exploitation/menu-exploitation
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:menu }
-    
-kg_beekeeping_management_home_rucher:
-    path:      /rucher/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:index, page: 1 }
-    requirements:
-        page:  \d+
-        
+           
 kg_beekeeping_management_add_rucher:
     path:      /rucher/nouveau-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:add }
     
 kg_beekeeping_management_view_rucher:
-    path:      /rucher/affichage-rucher/{rucher_id}
+    path:      /rucher/affichage-rucher/{id}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view }
     requirements:
-        rucher_id: \d+
+        id: \d+
     

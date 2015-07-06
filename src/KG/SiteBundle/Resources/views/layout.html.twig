@@ -25,12 +25,12 @@
                 <a class="navbar-brand" href="#">BeeManager</a>
           </div>
           <div class="navbar-collapse collapse">
-            {% if is_granted('ROLE_USER') %}
-                {% block menu_exploitation %}             
-                {% endblock %}
-            {% endif %}    
             <ul class="nav navbar-nav pull-right">
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% if is_granted('ROLE_USER') %}
+                    {% block menu_exploitation %}             
+                    {% endblock %}
+                {% endif %}    
                 <li class="dropdown">
                   <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
                     <strong>{{ app.user.username }}</strong> <span class="caret"></span></a>

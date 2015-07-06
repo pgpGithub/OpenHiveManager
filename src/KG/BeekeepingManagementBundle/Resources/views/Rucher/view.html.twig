@@ -23,12 +23,7 @@
 
 {% block title %}{{ parent() }} - Rucher{% endblock %}
 
-{% block rucher %}class="active"{% endblock %}
-
 {% block screen %}
-    <strong>Rucher</strong>  
-
-    <hr>
     {% for flashMessage in app.session.flashbag.get('success') %}
         {% if loop.first %}
             <div class="alert alert-success" role="alert">
