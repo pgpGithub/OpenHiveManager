@@ -1,0 +1,53 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/accueil.html.twig #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Accueil{% endblock %}
+
+{% block screen %}
+    <strong>Bienvenue dans BeeManager</strong>  
+    <a title="Créer une exploitation" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_exploitation') }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une exploitation</a>
+    <hr>
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        {% if loop.first %}
+            <div class="alert alert-success" role="alert">
+        {% endif %}
+                <i><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</i>
+        {% if loop.last %}        
+            </div>
+        {% endif %}
+    {% endfor %}
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-list"></span> Liste des exploitations
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {% for exploitation in exploitations %}
+                            <li class="list-group-item">
+                                {{ exploitation.nom }}
+                                <div class="pull-right action-buttons">
+                                    <a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="label label-info">{{ nbExploitations }} exploitations</span>
+                        </div>
+                        <div class="col-md-6">
+                            {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -24,7 +24,7 @@ security:
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
                 always_use_default_target_path : true
-                default_target_path: /exploitation/affichage-exploitation
+                default_target_path: /index
             logout:
                 path:       fos_user_security_logout
                 target:     /login 

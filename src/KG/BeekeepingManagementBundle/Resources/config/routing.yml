@@ -1,3 +1,7 @@
+kg_beekeeping_management_home:
+    path:      /index
+    defaults:  { _controller: KGBeekeepingManagementBundle:Accueil:index, page: 1 }
+        
 kg_beekeeping_management_add_exploitation:
     path:      /exploitation/nouvelle-exploitation
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:add }

@@ -3,10 +3,6 @@
 {% block menu_user %}
     
 {% endblock %}
-
-{% block menu_exploitation %}
-    {{ render(controller("KGBeekeepingManagementBundle:Exploitation:menu")) }}
-{% endblock %}
     
 {% block body %}
     {% if is_granted('ROLE_USER') %}
