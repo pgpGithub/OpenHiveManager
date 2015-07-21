@@ -22,15 +22,11 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-toggle"></span>
                 </button>
-                <a class="navbar-brand" href="#">BeeManager</a>
+                <a class="navbar-brand" href="{{ path('kg_beekeeping_management_home') }}">BeeManager</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {% if is_granted('ROLE_USER') %}
-                    {% block menu_exploitation %}             
-                    {% endblock %}
-                {% endif %}    
                 <li class="dropdown">
                   <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
                     <strong>{{ app.user.username }}</strong> <span class="caret"></span></a>
