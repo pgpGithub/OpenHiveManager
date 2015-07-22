@@ -15,7 +15,7 @@ class RucherType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',          'text')                
+            ->add('nom', 'text')                
             ->add('image', new ImageType(), array('required' => false)) 
             ->add('localisation', new LocalisationType() )          
         ;

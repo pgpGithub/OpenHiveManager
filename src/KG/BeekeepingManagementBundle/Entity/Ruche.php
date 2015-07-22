@@ -3,12 +3,13 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ruche
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\rucheRepository")
+ * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\RucheRepository")
  */
 class Ruche
 {
@@ -43,6 +44,11 @@ class Ruche
      */
     private $rucher;
    
+    /**
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"})
+     * @Assert\Valid()
+     */
+    private $image;
     
     /**
      * Get id
@@ -123,4 +129,26 @@ class Ruche
         return $this->rucher;
     }
 
+    /**
+     * Set image
+     *
+     * @param Image $image
+     * @return Ruche
+     */
+    public function setImage(Image $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return Image 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }    
 }

@@ -7,7 +7,7 @@
     {% stylesheets 
         'css/ol/ol.css' 
         '@KGBeekeepingManagementBundle/Resources/public/css/weather/*'
-        '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css' %}
+        '@KGBeekeepingManagementBundle/Resources/public/css/map/display_map.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}
 {% endblock %}
@@ -78,6 +78,43 @@
                     </div> 
                 </div>
             </div>
+            
+            <hr>
+            
+            <a title="Créer une ruche" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_ruche') }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une ruche</a>        
+        
+            <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-list"></span> Liste des ruches
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            {% for ruche in ruches %}
+                                <li class="list-group-item">
+                                    {{ ruche.nom }}
+                                    <div class="pull-right action-buttons">
+                                        <a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'id': ruche.id }) }}" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span class="label label-info">{{ nbRuches }} ruches</span>
+                            </div>
+                            <div class="col-md-6">
+                                {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        
         </div>
     </div>
 {% endblock %}

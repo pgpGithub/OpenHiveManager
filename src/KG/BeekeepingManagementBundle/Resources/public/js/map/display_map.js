@@ -25,6 +25,6 @@ var map = new ol.Map({
 
 map.addOverlay(new ol.Overlay({
   position: coordinate,
-  element: $('<img src="../../../location.png">')
+  element: $('<img src="../../../../location.png">')
   .css({marginTop: '-275%', marginLeft: '-50%'})
 }));

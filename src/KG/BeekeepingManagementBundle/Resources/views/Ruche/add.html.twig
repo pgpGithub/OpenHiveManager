@@ -4,22 +4,13 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite' 
-        'css/ol/ol.css' 
-        '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css'%}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts 'js/ol/ol.js'
-                   '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js' %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>  
-    {% endjavascripts %}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Créer un rucher{% endblock %}
+{% block title %}{{ parent() }} - Créer une ruche{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
@@ -36,7 +27,7 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="panel-title">Création d'un rucher</h3>
+                    <h3 class="panel-title">Création d'une ruche</h3>
                 </div>
             </div>
         </div>
@@ -59,20 +50,6 @@
                         {{ form_widget(form.image.file) }}
                     </div>
                 </div>
-            </div>
-            
-            <div class="row">        
-                {{ form_widget(form.localisation.latitude) }}
-                {{ form_widget(form.localisation.longitude) }}
-
-                <div class="col-md-offset-2 col-md-8">
-                    <h4><center>Localisez le rucher sur la carte</center></h4>            
-                    <div id="map" 
-                         class="map thumbnail" 
-                         data-latitude="kg_beekeepingmanagementbundle_rucher_localisation_latitude"
-                         data-longitude="kg_beekeepingmanagementbundle_rucher_localisation_longitude">
-                    </div>
-                </div>    
             </div>
             
             <div class="row">    

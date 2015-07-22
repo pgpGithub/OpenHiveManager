@@ -17,7 +17,7 @@ class RucheType extends AbstractType
         $builder
             ->add('nom',  'text')
             ->add('type', 'text')
-            //->add('rucher')
+            ->add('image', new ImageType(), array('required' => false)) 
         ;
     }
     
