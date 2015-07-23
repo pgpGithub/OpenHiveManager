@@ -24,7 +24,7 @@
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
 {% block screen %}
-    <strong>{{ app.user.exploitationEnCours.nom }}</strong>  
+    <strong>{{ exploitation.nom }}</strong>  
     <hr>    
     
     {{ form_errors(form.nom) }}

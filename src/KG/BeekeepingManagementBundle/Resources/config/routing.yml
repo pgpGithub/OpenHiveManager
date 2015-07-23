@@ -7,43 +7,43 @@ kg_beekeeping_management_add_exploitation:
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:add }
        
 kg_beekeeping_management_view_exploitation:
-    path:      /exploitation/affichage-exploitation/{page}/{exploitation_id}
+    path:      /exploitation/{exploitation_id}/affichage-exploitation/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:view, page: 1 }
     requirements:
         exploitation_id: \d+
-    
-kg_beekeeping_management_menu_exploitation:
-    path:      /exploitation/menu-exploitation
-    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:menu }
            
 kg_beekeeping_management_add_rucher:
-    path:      /rucher/creer-rucher
+    path:      /exploitation/{exploitation_id}/rucher/creer-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:add }
-
+    requirements:
+        exploitation_id: \d+
+        
 kg_beekeeping_management_delete_rucher:
-    path:      /rucher/supprimer-rucher/{id}
+    path:      /exploitation/rucher/{rucher_id}/supprimer-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:delete }
     requirements:
-        id: \d+
+        rucher_id: \d+
         
 kg_beekeeping_management_view_rucher:
-    path:      /rucher/affichage-rucher/{page}/{rucher_id}
+    path:      /exploitation/rucher/{rucher_id}/affichage-rucher/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view, page: 1 }
     requirements:
         rucher_id: \d+
 
 kg_beekeeping_management_add_ruche:
-    path:      /rucher/creer-ruche
+    path:      /exploitation/rucher/{rucher_id}/ruche/creer-ruche/
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:add }
-
+    requirements:
+        rucher_id: \d+
+        
 kg_beekeeping_management_delete_ruche:
-    path:      /rucher/supprimer-ruche/{id}
+    path:      /exploitation/rucher/ruche/{ruche_id}/supprimer-ruche
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:delete }
     requirements:
-        id: \d+
+        ruche_id: \d+
         
 kg_beekeeping_management_view_ruche:
-    path:      /rucher/affichage-ruche/{ruche_id}
+    path:      /exploitation/rucher/ruche/{ruche_id}/affichage-ruche
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view }
     requirements:
-        ruche_id: \d+    
+        ruche_id: \d+

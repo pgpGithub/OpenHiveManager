@@ -24,7 +24,7 @@
 {% block title %}{{ parent() }} - Rucher{% endblock %}
 
 {% block screen %}
-    <strong>{{ app.user.exploitationEnCours.nom }}</strong>  
+    <strong>{{ rucher.exploitation.nom }}</strong>  
     <hr>    
     
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -45,7 +45,7 @@
                     {% if rucher.image is not null %}
                         <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}">
                     {% else %}
-                        <img src="../../../logo.gif" alt="logo">
+                        <img src="../../../../logo.gif" alt="logo">
                     {% endif %} 
                     </div>
                 </div>
@@ -54,8 +54,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="pull-right">
-                        <a title="Editer" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_rucher') }}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Editer</a>
-                        <a title="Supprimer" data-toggle="modal" href="{{ path('kg_beekeeping_management_delete_rucher', { 'id' : rucher.id }) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
+                        <a title="Editer" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id' : rucher.exploitation.id }) }}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Editer</a>
+                        <a title="Supprimer" data-toggle="modal" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
                     </div> 
                 </div>        
             </div>
@@ -81,40 +81,43 @@
             
             <hr>
             
-            <a title="Créer une ruche" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_ruche') }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une ruche</a>        
-        
             <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <span class="glyphicon glyphicon-list"></span> Liste des ruches
-                    </div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            {% for ruche in ruches %}
-                                <li class="list-group-item">
-                                    {{ ruche.nom }}
-                                    <div class="pull-right action-buttons">
-                                        <a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'id': ruche.id }) }}" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="panel-footer">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <span class="label label-info">{{ nbRuches }} ruches</span>
-                            </div>
-                            <div class="col-md-6">
-                                {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
+                <div class="col-md-12">
+                    <a title="Créer une ruche" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_ruche', { 'rucher_id' : rucher.id }) }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une ruche</a>                                
+                </div>
+            </div>
+                
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-list"></span> Liste des ruches
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                {% for ruche in ruches %}
+                                    <li class="list-group-item">
+                                        {{ ruche.nom }}
+                                        <div class="pull-right action-buttons">
+                                            <a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="label label-info">{{ nbRuches }} ruches</span>
+                                </div>
+                                <div class="col-md-6">
+                                    {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-                        
+            </div>              
         </div>
     </div>
 {% endblock %}

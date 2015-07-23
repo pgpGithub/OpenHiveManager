@@ -15,10 +15,11 @@
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
 {% block screen %}
-    <strong>{{ app.user.exploitationEnCours.nom }}</strong>  
+    <strong>{{ rucher.exploitation.nom }}</strong>  
     <hr>    
     
     {{ form_errors(form.nom) }}
+    {{ form_errors(form.type) }}
     {{ form_errors(form.image.file) }}
     {{ form_errors(form) }}
              
@@ -36,13 +37,22 @@
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
             <div class="row">
                 <div class="form-group">
-                    {{ form_label(form.nom, "Nom du rucher :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                    {{ form_label(form.nom, "Nom de la ruche :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-5 col-md-5">
                         {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>    
             </div>
-            
+                    
+            <div class="row">
+                <div class="form-group">
+                    {{ form_label(form.nom, "Type de ruche :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                    <div class="col-sm-5 col-md-5">
+                        {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>    
+            </div>
+                    
             <div class="row">        
                 <div class="form-group">
                     {{ form_label(form.image.file, "Photo :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}

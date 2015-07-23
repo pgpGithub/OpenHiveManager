@@ -13,7 +13,7 @@
 {% block title %}{{ parent() }} - Ruche{% endblock %}
 
 {% block screen %}
-    <strong>{{ app.user.exploitationEnCours.nom }}</strong>  
+    <strong>{{ ruche.rucher.exploitation.nom }}</strong>  
     <hr>    
     
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -34,7 +34,7 @@
                     {% if ruche.image is not null %}
                         <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}">
                     {% else %}
-                        <img src="../../../logo.gif" alt="logo">
+                        <img src="../../../../../logo.gif" alt="logo">
                     {% endif %} 
                     </div>
                 </div>
@@ -43,8 +43,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="pull-right">
-                        <a title="Editer" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_ruche') }}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Editer</a>
-                        <a title="Supprimer" data-toggle="modal" href="{{ path('kg_beekeeping_management_delete_ruche', { 'id' : ruche.id }) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
+                        {#<a title="Editer" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_ruche', { 'rucher_id' : rucher.id }) }}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Editer</a>#}
+                        <a title="Supprimer" data-toggle="modal" href="{{ path('kg_beekeeping_management_delete_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
                     </div> 
                 </div>        
             </div>

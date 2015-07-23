@@ -25,12 +25,7 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation", mappedBy="apiculteur")
      */
     private $apiculteurExploitations;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", cascade={"persist"})
-     */
-    private $exploitationEnCours;
-    
+       
     /**
      * Constructor
      */
@@ -84,26 +79,4 @@ class User extends BaseUser
         return $this->apiculteurExploitations;
     }
 
-    /**
-     * Set exploitationEnCours
-     *
-     * @param Exploitation $exploitationEnCours
-     * @return User
-     */
-    public function setExploitationEnCours(Exploitation $exploitationEnCours = null)
-    {
-        $this->exploitationEnCours = $exploitationEnCours;
-
-        return $this;
-    }
-
-    /**
-     * Get exploitationEnCours
-     *
-     * @return Exploitation 
-     */
-    public function getExploitationEnCours()
-    {
-        return $this->exploitationEnCours;
-    }
 }
