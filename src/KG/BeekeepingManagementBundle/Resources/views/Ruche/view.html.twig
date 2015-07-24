@@ -12,10 +12,14 @@
 
 {% block title %}{{ parent() }} - Ruche{% endblock %}
 
-{% block screen %}
-    <strong>{{ ruche.rucher.exploitation.nom }}</strong>  
-    <hr>    
-    
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': ruche.rucher.exploitation.id }) }}">{{ ruche.rucher.exploitation.nom }}</a></li>
+    <li><a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.rucher.id }) }}">{{ ruche.rucher.nom }}</a></li>
+    <li><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}">{{ ruche.nom }}</a></li>
+{% endblock %} 
+
+{% block screen %}  
     {% for flashMessage in app.session.flashbag.get('success') %}
         {% if loop.first %}
             <div class="alert alert-success" role="alert">

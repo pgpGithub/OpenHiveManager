@@ -29,7 +29,7 @@ class AccueilController extends Controller
         );
              
         return $this->render('KGBeekeepingManagementBundle::index.html.twig', 
-                array(  //'exploitation' => $exploitation,
+                array(  
                         'exploitations'      => $exploitations,
                         'nbExploitations'    => $exploitations_count,
                         'pagination'         => $pagination));

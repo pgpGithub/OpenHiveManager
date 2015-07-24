@@ -8,6 +8,12 @@
     {% if is_granted('ROLE_USER') %}
         {{ parent() }}
         <div class="col-xs-12">
+            <ol class="breadcrumb">
+            {% block breadcrumbs %}
+                <li><a href="{{ path('kg_beekeeping_management_home') }}">Accueil</a></li>
+            {% endblock %} 
+            </ol>
+            <hr>
             {% block screen %}
             {% endblock %} 
         </div>

@@ -5,9 +5,7 @@
 {% block title %}{{ parent() }} - Accueil{% endblock %}
 
 {% block screen %}
-    <strong>Bienvenue dans BeeManager</strong>  
     <a title="Créer une exploitation" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_exploitation') }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une exploitation</a>
-    <hr>
     {% for flashMessage in app.session.flashbag.get('success') %}
         {% if loop.first %}
             <div class="alert alert-success" role="alert">

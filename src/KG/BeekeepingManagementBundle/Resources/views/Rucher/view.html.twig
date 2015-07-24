@@ -23,9 +23,13 @@
 
 {% block title %}{{ parent() }} - Rucher{% endblock %}
 
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': rucher.exploitation.id }) }}">{{ rucher.exploitation.nom }}</a></li>
+    <li><a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ rucher.nom }}</a></li>
+{% endblock %} 
+
 {% block screen %}
-    <strong>{{ rucher.exploitation.nom }}</strong>  
-    <hr>    
     
     {% for flashMessage in app.session.flashbag.get('success') %}
         {% if loop.first %}

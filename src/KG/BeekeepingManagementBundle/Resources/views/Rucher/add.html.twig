@@ -21,12 +21,14 @@
 
 {% block title %}{{ parent() }} - Créer un rucher{% endblock %}
 
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}">{{ exploitation.nom }}</a></li>
+{% endblock %} 
+
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
 {% block screen %}
-    <strong>{{ exploitation.nom }}</strong>  
-    <hr>    
-    
     {{ form_errors(form.nom) }}
     {{ form_errors(form.image.file) }}
     {{ form_errors(form) }}
