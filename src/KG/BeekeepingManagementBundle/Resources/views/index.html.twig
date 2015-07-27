@@ -5,7 +5,6 @@
 {% block title %}{{ parent() }} - Accueil{% endblock %}
 
 {% block screen %}
-    <a title="Créer une exploitation" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_exploitation') }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une exploitation</a>
     {% for flashMessage in app.session.flashbag.get('success') %}
         {% if loop.first %}
             <div class="alert alert-success" role="alert">
@@ -21,6 +20,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-list"></span> Liste des exploitations
+                    <a title="Créer une exploitation" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_exploitation') }}" class="btn btn-info btn-xs pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une exploitation</a>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">

@@ -84,18 +84,13 @@
             </div>
             
             <hr>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <a title="Créer une ruche" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_ruche', { 'rucher_id' : rucher.id }) }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une ruche</a>                                
-                </div>
-            </div>
-                
+               
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-list"></span> Liste des ruches
+                            <a title="Créer une ruche" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_ruche', { 'rucher_id' : rucher.id }) }}" class="btn btn-info btn-xs pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une ruche</a>
                         </div>
                         <div class="panel-body">
                             <ul class="list-group">
