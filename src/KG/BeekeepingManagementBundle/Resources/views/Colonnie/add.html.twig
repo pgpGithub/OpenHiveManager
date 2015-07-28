@@ -1,0 +1,47 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/Visite/add.html.twig #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}{{ parent() }} - Créer une visite{% endblock %}
+
+{% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': rucher.exploitation.id }) }}">{{ rucher.exploitation.nom }}</a></li>
+    <li><a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ rucher.nom }}</a></li>
+    <li><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}">{{ ruche.nom }}</a></li>
+{% endblock %} 
+            
+{% block screen %}   
+    {{ form_errors(form.nom) }}
+    {{ form_errors(form.type) }}
+    {{ form_errors(form.image.file) }}
+    {{ form_errors(form) }}
+             
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="panel-title">Création d'une visite</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body">                
+            
+                                
+   
+        </div>       
+    </div>
+
+{% endblock %}

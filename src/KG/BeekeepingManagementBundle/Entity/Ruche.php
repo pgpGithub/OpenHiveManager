@@ -50,6 +50,11 @@ class Ruche
      */
     private $image;
 
+     /**
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie")
+     */
+    private $Colonnie;
+    
     /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Visite", mappedBy="ruche")
      * @Assert\Valid()
@@ -196,5 +201,28 @@ class Ruche
     public function getVisites()
     {
         return $this->visites;
+    }
+
+    /**
+     * Set Colonnie
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonnie
+     * @return Ruche
+     */
+    public function setColonnie(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonnie = null)
+    {
+        $this->Colonnie = $colonnie;
+
+        return $this;
+    }
+
+    /**
+     * Get Colonnie
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Colonnie 
+     */
+    public function getColonnie()
+    {
+        return $this->Colonnie;
     }
 }
