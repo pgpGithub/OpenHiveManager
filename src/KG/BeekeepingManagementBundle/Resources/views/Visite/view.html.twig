@@ -1,0 +1,39 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/Visite/view.html.twig #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}{{ parent() }} - Visite{% endblock %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': ruche.rucher.exploitation.id }) }}">{{ ruche.rucher.exploitation.nom }}</a></li>
+    <li><a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.rucher.id }) }}">{{ ruche.rucher.nom }}</a></li>
+    <li><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}">{{ ruche.nom }}</a></li>
+    <li><a href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date }}</a></li>
+{% endblock %} 
+
+{% block screen %}  
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        {% if loop.first %}
+            <div class="alert alert-success" role="alert">
+        {% endif %}
+                <i><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</i>
+        {% if loop.last %}        
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            
+        </div>
+    </div>
+{% endblock %}

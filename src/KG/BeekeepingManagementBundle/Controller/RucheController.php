@@ -18,7 +18,7 @@ class RucheController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}}) 
     */    
-    public function viewAction(Ruche $ruche)
+    public function viewAction(Ruche $ruche, $page)
     {
         $apiculteurExploitations = $ruche->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
@@ -33,7 +33,24 @@ class RucheController extends Controller
         if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
-        return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig', array( 'ruche' => $ruche ));
+        
+        $maxVisites     = $this->container->getParameter('max_visites_per_page');
+        $visites        = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByRuche($page, $maxVisites, $ruche->getId());
+        $visites_count  = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->countByRuche($ruche->getId()); 
+
+        $pagination = array(
+            'page'         => $page,
+            'route'        => 'kg_beekeeping_management_view_ruche',
+            'pages_count'  => max ( ceil($visites_count / $maxVisites), 1),
+            'route_params' => array('ruche_id' => $ruche->getId())
+        );
+        
+        return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig',
+                array(  'ruche'       => $ruche,
+                        'visites'     => $visites,
+                        'nbVisites'    => $visites_count,
+                        'pagination'  => $pagination
+                ));        
     }
 
     /**

@@ -1,4 +1,4 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Rucher/view.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Ruche/view.html.twig #}
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
@@ -54,6 +54,39 @@
             </div>
                     
             <hr>
+               
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-list"></span> Liste des visites
+                            <a title="Créer une visite" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_visite', { 'ruche_id' : ruche.id }) }}" class="btn btn-info btn-xs pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une visite</a>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                {% for visite in visites %}
+                                    <li class="list-group-item">
+                                        {#{{ visite.date }}#}
+                                        <div class="pull-right action-buttons">
+                                            <a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="label label-info">{{ nbVisites }} visites</span>
+                                </div>
+                                <div class="col-md-6">
+                                    {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
         </div>
     </div>
 {% endblock %}

@@ -49,6 +49,12 @@ class Ruche
      * @Assert\Valid()
      */
     private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Visite", mappedBy="ruche")
+     * @Assert\Valid()
+     */
+    private $visites;
     
     /**
      * Get id
@@ -151,4 +157,44 @@ class Ruche
     {
         return $this->image;
     }    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->visites = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add visites
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Visite $visites
+     * @return Ruche
+     */
+    public function addVisite(\KG\BeekeepingManagementBundle\Entity\Visite $visites)
+    {
+        $this->visites[] = $visites;
+
+        return $this;
+    }
+
+    /**
+     * Remove visites
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Visite $visites
+     */
+    public function removeVisite(\KG\BeekeepingManagementBundle\Entity\Visite $visites)
+    {
+        $this->visites->removeElement($visites);
+    }
+
+    /**
+     * Get visites
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVisites()
+    {
+        return $this->visites;
+    }
 }

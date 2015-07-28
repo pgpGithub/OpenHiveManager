@@ -7,7 +7,7 @@ kg_beekeeping_management_add_exploitation:
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:add }
        
 kg_beekeeping_management_view_exploitation:
-    path:      /exploitation/{exploitation_id}/affichage-exploitation/{page}
+    path:      /exploitation/{exploitation_id}/afficher-exploitation/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:view, page: 1 }
     requirements:
         exploitation_id: \d+
@@ -25,7 +25,7 @@ kg_beekeeping_management_delete_rucher:
         rucher_id: \d+
         
 kg_beekeeping_management_view_rucher:
-    path:      /exploitation/rucher/{rucher_id}/affichage-rucher/{page}
+    path:      /exploitation/rucher/{rucher_id}/afficher-rucher/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view, page: 1 }
     requirements:
         rucher_id: \d+
@@ -43,7 +43,25 @@ kg_beekeeping_management_delete_ruche:
         ruche_id: \d+
         
 kg_beekeeping_management_view_ruche:
-    path:      /exploitation/rucher/ruche/{ruche_id}/affichage-ruche
-    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view }
+    path:      /exploitation/rucher/ruche/{ruche_id}/afficher-ruche/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view, page: 1 }
     requirements:
         ruche_id: \d+
+        
+kg_beekeeping_management_add_visite:
+    path:      /exploitation/rucher/ruche/{ruche_id}/creer-visite/
+    defaults:  { _controller: KGBeekeepingManagementBundle:Visite:add }
+    requirements:
+        rucher_id: \d+
+        
+kg_beekeeping_management_delete_visite:
+    path:      /exploitation/rucher/ruche/visite/{visite_id}/supprimer-visite
+    defaults:  { _controller: KGBeekeepingManagementBundle:Visite:delete }
+    requirements:
+        ruche_id: \d+
+        
+kg_beekeeping_management_view_visite:
+    path:      /exploitation/rucher/ruche/visite/{visite_id}/afficher-visite
+    defaults:  { _controller: KGBeekeepingManagementBundle:Visite:view }
+    requirements:
+        ruche_id: \d+        
