@@ -1,4 +1,4 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Visite/view.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Colonnie/view.html.twig #}
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
@@ -14,10 +14,8 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': ruche.rucher.exploitation.id }) }}">{{ ruche.rucher.exploitation.nom }}</a></li>
-    <li><a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.rucher.id }) }}">{{ ruche.rucher.nom }}</a></li>
-    <li><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}">{{ ruche.nom }}</a></li>
-    <li><a href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date }}</a></li>
+    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': colonnie.exploitation.id }) }}">{{ colonnie.exploitation.nom }}</a></li>
+    <li><a href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}">{{ colonnie.nom }}</a></li>
 {% endblock %} 
 
 {% block screen %}  
@@ -33,7 +31,17 @@
 
     <div class="panel panel-default">
         <div class="panel-body">
-            
+            <div class="row">
+                <div class="col-md-5">
+                    <h3 class="panel-title"><strong><font size="5">Colonnie {{ colonnie.nom }}</font></strong></h3>
+                </div>
+                <div class="col-md-4">
+                    <div class="pull-right">
+                        {#<a title="Editer" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_ruche', { 'rucher_id' : rucher.id }) }}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Editer</a>#}
+                        <a title="Supprimer" data-toggle="modal" href="{{ path('kg_beekeeping_management_delete_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
+                    </div> 
+                </div>        
+            </div>
         </div>
     </div>
 {% endblock %}
