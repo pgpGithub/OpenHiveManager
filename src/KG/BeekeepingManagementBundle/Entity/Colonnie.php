@@ -2,6 +2,7 @@
 
 namespace KG\BeekeepingManagementBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,7 +38,15 @@ class Colonnie
      */
     private $race;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez remplir le nom de la colonnie")
+     * @Assert\Length(max=25, maxMessage="Le nom de la colonnie ne peut dépasser {{ limit }} caractères") 
+     */
+    private $nom;
+    
     /**
      * Get id
      *
@@ -93,5 +102,28 @@ class Colonnie
     public function getExploitation()
     {
         return $this->exploitation;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Colonnie
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
     }
 }

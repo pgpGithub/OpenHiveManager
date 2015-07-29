@@ -3,6 +3,7 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ColonnieRepository
@@ -12,4 +13,30 @@ use Doctrine\ORM\EntityRepository;
  */
 class ColonnieRepository extends EntityRepository
 {
+    public function getListByExploitation($page=1, $maxperpage=10, $exploitation)
+    {
+        $q = $this->createQueryBuilder('c')
+                  ->leftJoin('c.exploitation','e')
+                  ->addSelect('e')
+                  ->where('e.id = :id')
+                  //->andWhere('c.supprime = false')
+                  ->setParameter('id',$exploitation);
+        
+        $q->setFirstResult(($page-1)*$maxperpage)
+          ->setMaxResults($maxperpage);
+        
+        return new Paginator($q);
+    }
+    
+    public function countByExploitation($exploitation)
+    {
+        return $this->createQueryBuilder('c')
+                    ->select('COUNT(c)')
+                    ->leftJoin('c.exploitation','e')
+                    ->where('e.id = :id')
+                    //->andWhere('c.supprime = false')                
+                    ->setParameter('id',$exploitation)
+                    ->getQuery()
+                    ->getSingleScalarResult();
+    }      
 }

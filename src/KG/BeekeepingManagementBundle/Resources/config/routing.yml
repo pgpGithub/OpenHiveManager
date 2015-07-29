@@ -7,11 +7,17 @@ kg_beekeeping_management_add_exploitation:
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:add }
        
 kg_beekeeping_management_view_exploitation:
-    path:      /exploitation/{exploitation_id}/afficher-exploitation/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:view, page: 1 }
+    path:      /exploitation/{exploitation_id}/afficher-exploitation/rucher/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:viewRucher, page: 1 }
     requirements:
         exploitation_id: \d+
-           
+
+kg_beekeeping_management_view_exploitation_colonnie:
+    path:      /exploitation/{exploitation_id}/afficher-exploitation/colonnie/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:viewColonnie, page: 1 }
+    requirements:
+        exploitation_id: \d+
+        
 kg_beekeeping_management_add_rucher:
     path:      /exploitation/{exploitation_id}/rucher/creer-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:add }
@@ -64,4 +70,22 @@ kg_beekeeping_management_view_visite:
     path:      /exploitation/rucher/ruche/visite/{visite_id}/afficher-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:view }
     requirements:
-        ruche_id: \d+        
+        ruche_id: \d+ 
+        
+kg_beekeeping_management_add_colonnie:
+    path:      /exploitation/{exploitation_id}/colonnie/creer-colonnie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:add }
+    requirements:
+        exploitation_id: \d+
+        
+kg_beekeeping_management_delete_colonnie:
+    path:      /exploitation/colonnie/{colonnie_id}/supprimer-colonnie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:delete }
+    requirements:
+        rucher_id: \d+
+        
+kg_beekeeping_management_view_colonnie:
+    path:      /exploitation/colonnie/{colonnie_id}/afficher-colonnie/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:view, page: 1 }
+    requirements:
+        rucher_id: \d+        
