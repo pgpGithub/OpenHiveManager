@@ -20,7 +20,25 @@ class ColonnieType extends AbstractType
             ->add('race', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Race',
                         'property' => 'libelle'
-                    ));
+                    ))
+            ->add('affectation', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Affectation',
+                        'property' => 'libelle'
+                    ))
+            ->add('provenanceColonnie', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Provenance',
+                        'property' => 'libelle'
+                    ))
+            ->add('provenanceReine', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Provenance',
+                        'property' => 'libelle'
+                    ))                
+            ->add('anneeReine')
+            ->add('clippage')
+            ->add('marquage', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Marquage',
+                        'property' => 'libelle'
+                    ));       
     }
     
     /**
