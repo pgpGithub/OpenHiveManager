@@ -23,7 +23,28 @@ class ColonnieType extends AbstractType
                         'property' => 'libelle'
                     ))
                 
-            ->add('anneeColonnie')  
+            ->add('anneeColonnie', 'collot_datetime', 
+                    array( 
+                            'pickerOptions' =>
+                                array('format' => 'yyyy',
+                                    'autoclose' => true,
+                                    'startDate' => '1950',
+                                    'endDate' => '2100', 
+                                    'startView' => 'decade',
+                                    'minView' => 'decade',
+                                    'maxView' => 'decade',
+                                    'todayBtn' => false,
+                                    'todayHighlight' => false,
+                                    'keyboardNavigation' => true,
+                                    'language' => 'fr',
+                                    'forceParse' => true,
+                                    'pickerReferer ' => 'default', 
+                                    'pickerPosition' => 'bottom-right',
+                                    'viewSelect' => 'decade',
+                                    'initialDate' => date('Y'), 
+                                ),
+                            'read_only' => true
+                ))
                 
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
@@ -35,12 +56,43 @@ class ColonnieType extends AbstractType
                         'property' => 'libelle'
                     ))
                 
+            ->add('etat', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Etat',
+                        'property' => 'libelle'
+                    ))
+                
+            ->add('agressivite', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Agressivite',
+                        'property' => 'libelle'
+                    ))
+                
             ->add('provenanceReine', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Provenance',
                         'property' => 'libelle'
                     ))     
                 
-            ->add('anneeReine')
+            ->add('anneeReine', 'collot_datetime', 
+                    array( 
+                            'pickerOptions' =>
+                                array('format' => 'yyyy',
+                                    'autoclose' => true,
+                                    'startDate' => '1950',
+                                    'endDate' => '2100', 
+                                    'startView' => 'decade',
+                                    'minView' => 'decade',
+                                    'maxView' => 'decade',
+                                    'todayBtn' => false,
+                                    'todayHighlight' => false,
+                                    'keyboardNavigation' => true,
+                                    'language' => 'fr',
+                                    'forceParse' => true,
+                                    'pickerReferer ' => 'default', 
+                                    'pickerPosition' => 'bottom-right',
+                                    'viewSelect' => 'decade',
+                                    'initialDate' => date('Y'), 
+                                ),
+                            'read_only' => true
+                ))
                 
             ->add('clippage', 'checkbox', array(
                 'required'  => false,

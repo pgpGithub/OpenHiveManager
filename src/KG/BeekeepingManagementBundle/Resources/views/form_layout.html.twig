@@ -1,13 +1,5 @@
 {% extends 'form_div_layout.html.twig' %}
 
-{% block form_label %}
-    {{ parent() }}
- 
-    {% if required %}
-        <span class="obligatoire" title="Ce champ est obligatoire">*</span>
-    {% endif %}
-{% endblock %}
-
 {% block form_errors %}
     {% spaceless %}
         {% if errors|length > 0 %}
