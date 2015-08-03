@@ -237,7 +237,7 @@ class Rucher
      * Set supprime
      *
      * @param string $supprime
-     * @return Exploitation
+     * @return Rucher
      */
     public function setSupprime($supprime)
     {

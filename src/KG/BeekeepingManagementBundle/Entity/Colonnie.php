@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Colonnie
  *
- * @ORM\Table()
+ * @ORM\Table(name="colonnie",uniqueConstraints={@ORM\UniqueConstraint(name="search_idx", columns={"nom", "exploitation_id"})})
  * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ColonnieRepository")
  */
 class Colonnie
@@ -27,6 +27,7 @@ class Colonnie
       * 
       * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="colonnies")
       * @ORM\JoinColumn(nullable=false)
+      * @Assert\Valid() 
       */
     private $exploitation;
     
@@ -35,13 +36,14 @@ class Colonnie
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Race")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
      */
     private $race;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=25)
      * @Assert\NotBlank(message="Veuillez remplir le nom de la colonnie")
      * @Assert\Length(max=25, maxMessage="Le nom de la colonnie ne peut dépasser {{ limit }} caractères") 
      */
@@ -51,6 +53,7 @@ class Colonnie
      * @var \DateTime
      *
      * @ORM\Column(name="anneeColonnie", type="datetime")
+     * @Assert\DateTime()
      */
     private $anneeColonnie;
 
@@ -59,6 +62,7 @@ class Colonnie
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Affectation")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
      */
     private $affectation;
 
@@ -67,6 +71,7 @@ class Colonnie
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Provenance")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
      */
     private $provenanceColonnie;
 
@@ -75,6 +80,7 @@ class Colonnie
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Etat")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
      */
     private $etat;
     
@@ -83,6 +89,7 @@ class Colonnie
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Agressivite")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
      */
     private $agressivite;
     
@@ -90,6 +97,7 @@ class Colonnie
      * @var \DateTime
      *
      * @ORM\Column(name="anneeReine", type="datetime")
+     * @Assert\DateTime()
      */
     private $anneeReine;
 
@@ -105,6 +113,7 @@ class Colonnie
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Marquage")
      * @ORM\JoinColumn()
+     * @Assert\Valid() 
      */
     private $marquage;    
 
@@ -113,6 +122,7 @@ class Colonnie
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Provenance")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
      */
     private $provenanceReine;
     
@@ -121,8 +131,16 @@ class Colonnie
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie")
      * @ORM\JoinColumn()
+     * @Assert\Valid() 
      */
     private $colonnieMere;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="supprime", type="boolean")
+     */
+    private $supprime = false;
     
     /**
      * Get id
@@ -433,4 +451,27 @@ class Colonnie
     {
         return $this->agressivite;
     }
+    
+    /**
+     * Set supprime
+     *
+     * @param string $supprime
+     * @return \KG\BeekeepingManagementBundle\Entity\Agressivite 
+     */
+    public function setSupprime($supprime)
+    {
+        $this->supprime = $supprime;
+
+        return $this;
+    }
+
+    /**
+     * Get supprime
+     *
+     * @return boolean 
+     */
+    public function getSupprime()
+    {
+        return $this->supprime;
+    }          
 }

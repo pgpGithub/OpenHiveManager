@@ -2,6 +2,8 @@
 
 namespace KG\BeekeepingManagementBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\MarquageRepository")
+ * @UniqueEntity(fields="nom", message="Un marquage existe déjà avec ce libellé") 
  */
 class Marquage
 {
@@ -24,9 +27,12 @@ class Marquage
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string", length=255)
+     * @ORM\Column(name="libelle", type="string", length=15, unique=true)
+     * @Assert\NotBlank(message="Veuillez remplir le libellé du marquage")
+     * @Assert\Length(max=15, maxMessage="Le libellé du marquage ne peut dépasser {{ limit }} caractères")
      */
     private $libelle;
+
 
 
     /**

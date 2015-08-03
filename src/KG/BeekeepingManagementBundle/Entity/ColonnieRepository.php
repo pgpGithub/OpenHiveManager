@@ -34,9 +34,10 @@ class ColonnieRepository extends EntityRepository
                     ->select('COUNT(c)')
                     ->leftJoin('c.exploitation','e')
                     ->where('e.id = :id')
-                    //->andWhere('c.supprime = false')                
+                    ->andWhere('c.supprime = false')                
                     ->setParameter('id',$exploitation)
                     ->getQuery()
                     ->getSingleScalarResult();
-    }      
+    }   
+      
 }
