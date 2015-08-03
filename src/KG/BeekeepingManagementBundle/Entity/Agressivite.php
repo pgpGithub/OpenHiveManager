@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\AgressiviteRepository")
- * @UniqueEntity(fields="nom", message="Une agressivité existe déjà avec ce libellé")
+ * @UniqueEntity(fields="libelle", message="Une agressivité existe déjà avec ce libellé")
  */
 class Agressivite
 {

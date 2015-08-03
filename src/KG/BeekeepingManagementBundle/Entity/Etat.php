@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\EtatRepository")
- * @UniqueEntity(fields="nom", message="Un état existe déjà avec ce libellé") 
+ * @UniqueEntity(fields="libelle", message="Un état existe déjà avec ce libellé") 
  */
 class Etat
 {

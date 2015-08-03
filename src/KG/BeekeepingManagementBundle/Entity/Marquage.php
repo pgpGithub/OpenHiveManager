@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\MarquageRepository")
- * @UniqueEntity(fields="nom", message="Un marquage existe déjà avec ce libellé") 
+ * @UniqueEntity(fields="libelle", message="Un marquage existe déjà avec ce libellé") 
  */
 class Marquage
 {

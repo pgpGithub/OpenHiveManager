@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\AffectationRepository")
- * @UniqueEntity(fields="nom", message="Une affectation existe déjà avec ce libellé") 
+ * @UniqueEntity(fields="libelle", message="Une affectation existe déjà avec ce libellé") 
  */
 class Affectation
 {
