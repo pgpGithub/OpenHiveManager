@@ -23,7 +23,7 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}">{{ exploitation.nom }}</a></li>
+    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}" class="btn btn-info">{{ exploitation.nom }}</a>
 {% endblock %} 
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}

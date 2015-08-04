@@ -14,10 +14,10 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': ruche.rucher.exploitation.id }) }}">{{ ruche.rucher.exploitation.nom }}</a></li>
-    <li><a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.rucher.id }) }}">{{ ruche.rucher.nom }}</a></li>
-    <li><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}">{{ ruche.nom }}</a></li>
-    <li><a href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date }}</a></li>
+    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': ruche.rucher.exploitation.id }) }}" class="btn btn-info">{{ ruche.rucher.exploitation.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.rucher.id }) }}" class="btn btn-info">{{ ruche.rucher.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}" class="btn btn-info">{{ ruche.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}" class="btn btn-info">{{ visite.date }}</a>
 {% endblock %} 
 
 {% block screen %}  

@@ -14,8 +14,8 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': colonnie.exploitation.id }) }}">{{ colonnie.exploitation.nom }}</a></li>
-    <li><a href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}">{{ colonnie.nom }}</a></li>
+    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': colonnie.exploitation.id }) }}" class="btn btn-info">{{ colonnie.exploitation.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-info">{{ colonnie.nom }}</a>
 {% endblock %} 
 
 {% block screen %}  

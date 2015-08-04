@@ -20,7 +20,9 @@ class ColonnieType extends AbstractType
                 
             ->add('race', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Race',
-                        'property' => 'libelle'
+                        'property' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
                     ))
                 
             ->add('anneeColonnie', 'collot_datetime', 
@@ -48,27 +50,37 @@ class ColonnieType extends AbstractType
                 
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
-                        'property' => 'libelle'
+                        'property' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
                     ))
                 
             ->add('provenanceColonnie', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Provenance',
-                        'property' => 'libelle'
+                        'property' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
                     ))
                 
             ->add('etat', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Etat',
-                        'property' => 'libelle'
+                        'property' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
                     ))
                 
             ->add('agressivite', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Agressivite',
-                        'property' => 'libelle'
+                        'property' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
                     ))
                 
             ->add('provenanceReine', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Provenance',
-                        'property' => 'libelle'
+                        'property' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
                     ))     
                 
             ->add('anneeReine', 'collot_datetime', 
@@ -100,7 +112,9 @@ class ColonnieType extends AbstractType
         
             ->add('marquage', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Marquage',
-                        'property' => 'libelle'
+                        'property' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
                     ));       
     }
     

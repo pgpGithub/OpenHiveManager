@@ -37,6 +37,7 @@ class Colonnie
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Race")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner la race de la colonnie")
      */
     private $race;
 
@@ -53,6 +54,7 @@ class Colonnie
      * @var \DateTime
      *
      * @ORM\Column(name="anneeColonnie", type="datetime")
+     * @Assert\NotBlank(message="Veuillez remplir l'année de naissance la colonnie")
      * @Assert\DateTime()
      */
     private $anneeColonnie;
@@ -63,6 +65,7 @@ class Colonnie
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Affectation")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner l'affectation de la colonnie")
      */
     private $affectation;
 
@@ -72,6 +75,7 @@ class Colonnie
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Provenance")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner la provenance de la colonnie")
      */
     private $provenanceColonnie;
 
@@ -81,6 +85,7 @@ class Colonnie
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Etat")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner l'état de la colonnie")
      */
     private $etat;
     
@@ -90,6 +95,7 @@ class Colonnie
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Agressivite")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner l'agressivité de la colonnie")
      */
     private $agressivite;
     
@@ -98,6 +104,7 @@ class Colonnie
      *
      * @ORM\Column(name="anneeReine", type="datetime")
      * @Assert\DateTime()
+     * @Assert\NotBlank(message="Veuillez remplir l'année de naissance de la reine")
      */
     private $anneeReine;
 
@@ -114,6 +121,7 @@ class Colonnie
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Marquage")
      * @ORM\JoinColumn()
      * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner le marquage de la reine")
      */
     private $marquage;    
 
@@ -122,7 +130,8 @@ class Colonnie
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Provenance")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid() 
+     * @Assert\Valid()
+     * @Assert\NotBlank(message="Veuillez sélectionner la provenance de la reine") 
      */
     private $provenanceReine;
     

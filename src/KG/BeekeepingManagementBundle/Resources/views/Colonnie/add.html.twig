@@ -25,12 +25,20 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}">{{ exploitation.nom }}</a></li>
+    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}" class="btn btn-info">{{ exploitation.nom }}</a>
 {% endblock %} 
             
 {% block screen %}   
     {{ form_errors(form.nom) }}
     {{ form_errors(form.race) }}
+    {{ form_errors(form.affectation) }}
+    {{ form_errors(form.anneeColonnie) }}
+    {{ form_errors(form.provenanceColonnie) }}
+    {{ form_errors(form.etat) }} 
+    {{ form_errors(form.agressivite) }}
+    {{ form_errors(form.anneeReine) }}
+    {{ form_errors(form.provenanceReine) }}
+    {{ form_errors(form.marquage) }}
     {{ form_errors(form) }}
              
     <div class="panel panel-default">
