@@ -144,6 +144,14 @@ class Colonnie
      */
     private $colonnieMere;
 
+     /**
+     * @var Ruche
+     * 
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="Colonnie")
+     * @Assert\Valid() 
+     */
+    private $ruche;
+    
     /**
      * @var boolean
      *
@@ -483,4 +491,27 @@ class Colonnie
     {
         return $this->supprime;
     }          
+
+    /**
+     * Set ruche
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Ruche $ruche
+     * @return Colonnie
+     */
+    public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche = null)
+    {
+        $this->ruche = $ruche;
+
+        return $this;
+    }
+
+    /**
+     * Get ruche
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Ruche 
+     */
+    public function getRuche()
+    {
+        return $this->ruche;
+    }
 }

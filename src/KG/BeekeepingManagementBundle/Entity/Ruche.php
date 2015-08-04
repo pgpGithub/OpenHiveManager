@@ -51,7 +51,8 @@ class Ruche
     private $image;
 
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="Ruche")
+     * @Assert\Valid()
      */
     private $Colonnie;
     
