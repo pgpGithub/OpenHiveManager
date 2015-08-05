@@ -24,7 +24,7 @@ class Visite
     /**
      * @var Ruche
      * 
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="ruches")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="visites")
      * @ORM\JoinColumn(nullable=false)
      */
     private $ruche;    
