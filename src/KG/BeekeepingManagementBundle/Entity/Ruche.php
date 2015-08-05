@@ -40,10 +40,18 @@ class Ruche
      * @var Rucher
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="ruches")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn()
      */
     private $rucher;
-   
+
+    /**
+     * @var Exploitation
+     * 
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="ruches")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $exploitation;
+    
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"})
      * @Assert\Valid()
@@ -225,5 +233,28 @@ class Ruche
     public function getColonnie()
     {
         return $this->Colonnie;
+    }
+
+    /**
+     * Set exploitation
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Exploitation $exploitation
+     * @return Ruche
+     */
+    public function setExploitation(\KG\BeekeepingManagementBundle\Entity\Exploitation $exploitation)
+    {
+        $this->exploitation = $exploitation;
+
+        return $this;
+    }
+
+    /**
+     * Get exploitation
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Exploitation 
+     */
+    public function getExploitation()
+    {
+        return $this->exploitation;
     }
 }

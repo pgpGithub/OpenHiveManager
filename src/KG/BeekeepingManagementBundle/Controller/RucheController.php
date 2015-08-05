@@ -67,7 +67,8 @@ class RucheController extends Controller
     */    
     public function addAction(Rucher $rucher, Request $request)
     {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
+        $exploitation = $rucher->getExploitation();
+        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -87,6 +88,7 @@ class RucheController extends Controller
         if ($form->handleRequest($request)->isValid()){
                         
             $ruche->setRucher($rucher);
+            $ruche->setExploitation($exploitation);
             $em = $this->getDoctrine()->getManager();
             $em->persist($ruche);
             $em->flush();

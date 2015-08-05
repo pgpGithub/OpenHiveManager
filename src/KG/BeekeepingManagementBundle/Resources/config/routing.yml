@@ -17,6 +17,12 @@ kg_beekeeping_management_view_exploitation_colonnie:
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:viewColonnie, page: 1 }
     requirements:
         exploitation_id: \d+
+
+kg_beekeeping_management_view_exploitation_ruche:
+    path:      /exploitation/{exploitation_id}/afficher-exploitation/ruche/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:viewRuche, page: 1 }
+    requirements:
+        exploitation_id: \d+
         
 kg_beekeeping_management_add_rucher:
     path:      /exploitation/{exploitation_id}/rucher/creer-rucher

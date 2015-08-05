@@ -38,5 +38,32 @@ class RucheRepository extends EntityRepository
                     ->setParameter('id',$rucher)
                     ->getQuery()
                     ->getSingleScalarResult();
-    }     
+    }
+    
+    public function getListByExploitation($page=1, $maxperpage=10, $exploitation)
+    {
+        $q = $this->createQueryBuilder('ruche')
+                  ->leftJoin('ruche.exploitation','exploitation')
+                  ->addSelect('exploitation')
+                  ->where('exploitation.id = :id')
+                  //->andWhere('ruche.supprime = false')
+                  ->setParameter('id',$exploitation);
+        
+        $q->setFirstResult(($page-1)*$maxperpage)
+          ->setMaxResults($maxperpage);
+        
+        return new Paginator($q);
+    } 
+    
+    public function countByExploitation($exploitation)
+    {
+        return $this->createQueryBuilder('ruche')
+                    ->select('COUNT(ruche)')
+                    ->leftJoin('ruche.exploitation','exploitation')
+                    ->where('exploitation.id = :id')
+                    //->andWhere('ruche.supprime = false')                
+                    ->setParameter('id',$exploitation)
+                    ->getQuery()
+                    ->getSingleScalarResult();
+    }    
 }
