@@ -42,11 +42,17 @@ kg_beekeeping_management_view_rucher:
     requirements:
         rucher_id: \d+
 
-kg_beekeeping_management_add_ruche:
-    path:      /exploitation/rucher/{rucher_id}/ruche/creer-ruche/
-    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:add }
+kg_beekeeping_management_add_ruche_from_exploitation:
+    path:      /exploitation/{exploitation_id}/ruche/creer-ruche/
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:addFromExploitation }
     requirements:
         rucher_id: \d+
+
+kg_beekeeping_management_add_ruche_from_rucher:
+    path:      /exploitation/rucher/{rucher_id}/ruche/creer-ruche/
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:addFromRucher }
+    requirements:
+        rucher_id: \d+        
         
 kg_beekeeping_management_delete_ruche:
     path:      /exploitation/rucher/ruche/{ruche_id}/supprimer-ruche
