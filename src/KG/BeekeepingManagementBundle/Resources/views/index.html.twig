@@ -19,31 +19,39 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <span class="glyphicon glyphicon-list"></span> Liste des exploitations
-                    <a title="Créer une exploitation" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_exploitation') }}" class="btn btn-info btn-xs pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une exploitation</a>
+                    Exploitations ({{ nbExploitations }})
                 </div>
-                <div class="panel-body">
-                    <ul class="list-group">
-                        {% for exploitation in exploitations %}
-                            <li class="list-group-item">
-                                {{ exploitation.nom }}
-                                <div class="pull-right action-buttons">
-                                    <a title="Afficher l'exploitation" href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}" class="btn btn-xs btn-success pull-right"><span class="glyphicon glyphicon-eye-open"></span> Afficher</a>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <span class="label label-info">{{ nbExploitations }} exploitations</span>
+                <div class="panel-body">  
+                    <div class = "row">
+                        <div class="col-md-12">
+                            <a title="Créer une exploitation" data-toggle="modal" href="{{ path('kg_beekeeping_management_add_exploitation') }}" class="btn btn-info btn-xs pull-right"><span class="glyphicon glyphicon-plus-sign"></span> Créer une exploitation</a>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+
+                    <hr>
+                        
+                    <div class="table-responsive">
+                        <table id="mytable" class="table table-bordred table-striped">
+                            <thead>
+                                <th>Exploitation</th>                            
+                                <th>Afficher</th>
+                            </thead>
+                            <tbody>
+                                {% for exploitation in exploitations %}
+                                    <tr>
+                                        <td>{{ exploitation.nom }}</td>
+                                        <td><a title="Afficher l'exploitation" href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a></td>                                        
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
                         </div>
                     </div>
-                </div>
+                </div>                        
             </div>
         </div>
     </div>
