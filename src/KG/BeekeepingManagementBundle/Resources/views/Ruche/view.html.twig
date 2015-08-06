@@ -43,7 +43,42 @@
                         <img src="../../../../logo.gif" alt="logo" class="img-thumbnail img-responsive">
                     {% endif %}           
                 </div>
-                <div class=" col-md-9 col-lg-9 "> 
+                <div class=" col-md-9 col-lg-9 ">
+                    {% if ruche.colonnie %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Colonnie {{ ruche.colonnie.nom }}
+                            <span class="pull-right">
+                                <a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': ruche.colonnie.id }) }}" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i></a>
+                            </span>
+                        </div>                          
+                        <div class="panel-body">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Race :</strong></td>
+                                        <td>{{ ruche.colonnie.race.libelle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Affectation :</strong></td>
+                                        <td>{{ ruche.colonnie.affectation.libelle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Etat :</strong></td>
+                                        <td>{{ ruche.colonnie.etat.libelle }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                                  
+                    </div>
+                    {% endif %}                
+                </div>
+            </div> 
+             
+            <hr>
+                
+            <div class="row">    
+                <div class=" col-md-12"> 
                     <div class="table-responsive">
                         <table id="mytable" class="table table-bordred table-striped">
                             <thead>
@@ -64,9 +99,9 @@
                         <div class="col-md-12">
                             {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
                         </div>
-                    </div>                            
+                    </div> 
                 </div>
-            </div>             
+            </div>                   
         </div>            
         <div class="panel-footer">
             <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
