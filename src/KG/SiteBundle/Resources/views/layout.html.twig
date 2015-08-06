@@ -16,8 +16,8 @@
     </head>
 
     <body>
-        <!-- Header -->
-        <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+
+        <div id="top-nav" class="navbar navbar-inverse navbar-fixed-top">
           <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-toggle"></span>
@@ -47,7 +47,9 @@
             </ul>
           </div>
         </div>
-        <!-- /Header -->
+
+        {% block header %}
+        {% endblock %}
         
         <!-- Main -->
         <div class="container">
