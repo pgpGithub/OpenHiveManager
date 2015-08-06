@@ -31,6 +31,7 @@
                 <li><a href="#">Contact</a></li>  
                 <li><a href="#">Faire un don</a></li>  
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li><a href="{{ path('kg_beekeeping_management_home') }}">Manager</a></li>
                 <li class="dropdown">
                   <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
                     <strong>{{ app.user.username }}</strong> <span class="caret"></span></a>
@@ -39,7 +40,7 @@
                     {% block menu_user %}
                     {% endblock %}
                   </ul>
-                </li>                
+                </li>
                 <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
                 {% else %}
                 <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
