@@ -25,7 +25,7 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}" class="btn btn-info">{{ exploitation.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}" class="btn btn-primary">{{ exploitation.nom }}</a>
 {% endblock %} 
             
 {% block screen %}   
@@ -41,7 +41,7 @@
     {{ form_errors(form.marquage) }}
     {{ form_errors(form) }}
              
-    <div class="panel panel-info">
+    <div class="panel panel-primary">
 
         <div class="panel-heading">
             <h3 class="panel-title">Création d'une colonnie</h3>

@@ -14,8 +14,8 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation_colonnie', { 'exploitation_id': colonnie.exploitation.id }) }}" class="btn btn-info">{{ colonnie.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-info">{{ colonnie.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_exploitation_colonnie', { 'exploitation_id': colonnie.exploitation.id }) }}" class="btn btn-primary">{{ colonnie.exploitation.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-primary">{{ colonnie.nom }}</a>
 {% endblock %} 
 
 {% block screen %}  
@@ -29,7 +29,7 @@
         {% endif %}
     {% endfor %}
          
-    <div class="panel panel-info">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Colonnie {{ colonnie.nom }}</h3>
         </div>

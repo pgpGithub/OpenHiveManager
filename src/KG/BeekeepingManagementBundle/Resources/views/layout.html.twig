@@ -1,11 +1,7 @@
 {% extends 'KGSiteBundle::layout.html.twig' %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets filter='cssrewrite' 
-        '@KGBeekeepingManagementBundle/Resources/public/css/layout.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
+    {{ parent() }} 
 {% endblock %}
 
 {% block menu_user %}
@@ -19,7 +15,7 @@
             <div class="row">
                 <div class="btn-group btn-breadcrumb">
                 {% block breadcrumbs %}
-                    <a href="{{ path('kg_beekeeping_management_home') }}" class="btn btn-info"><i class="glyphicon glyphicon-home"></i></a>
+                    <a href="{{ path('kg_beekeeping_management_home') }}" class="btn btn-primary"><i class="glyphicon glyphicon-home"></i></a>
                 {% endblock %} 
                 </div>
                 <hr>

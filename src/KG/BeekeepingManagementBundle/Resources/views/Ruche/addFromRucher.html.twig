@@ -16,8 +16,8 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': rucher.exploitation.id }) }}" class="btn btn-info">{{ rucher.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}" class="btn btn-info">{{ rucher.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': rucher.exploitation.id }) }}" class="btn btn-primary">{{ rucher.exploitation.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}" class="btn btn-primary">{{ rucher.nom }}</a>
 {% endblock %} 
             
 {% block screen %}   
@@ -26,7 +26,7 @@
     {{ form_errors(form.image.file) }}
     {{ form_errors(form) }}
              
-    <div class="panel panel-info">
+    <div class="panel panel-primary">
 
         <div class="panel-heading">
             <h3 class="panel-title">Création d'une ruche</h3>
