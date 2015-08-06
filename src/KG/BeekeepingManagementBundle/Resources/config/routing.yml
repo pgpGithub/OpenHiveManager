@@ -1,5 +1,5 @@
 kg_beekeeping_management_home:
-    path:      /index
+    path:      /software
     defaults:  { _controller: KGBeekeepingManagementBundle:Accueil:index, page: 1 }
         
 kg_beekeeping_management_add_exploitation:

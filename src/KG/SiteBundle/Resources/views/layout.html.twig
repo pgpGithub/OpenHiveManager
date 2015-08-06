@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{% block title %}BeeManager{% endblock %}</title>
+        <title>{% block title %}OpenHiveManager{% endblock %}</title>
 
         {% block stylesheets %}
             {% stylesheets filter='cssrewrite' 'css/bootstrap/bootstrap.css' %}
@@ -22,11 +22,15 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-toggle"></span>
                 </button>
-                <a class="navbar-brand" href="{{ path('kg_beekeeping_management_home') }}">BeeManager</a>
+                <a class="navbar-brand" href="{{ path('kg_site_home') }}">OpenHiveManager</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li><a href="{{ path('kg_site_home') }}">Accueil</a></li>
+                <li><a href="#">CGU</a></li>
+                <li><a href="#">Contact</a></li>  
+                <li><a href="#">Faire un don</a></li>  
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <li class="dropdown">
                   <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
                     <strong>{{ app.user.username }}</strong> <span class="caret"></span></a>
@@ -37,9 +41,9 @@
                   </ul>
                 </li>                
                 <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
-            {% else %}
+                {% else %}
                 <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
-            {% endif %}    
+                {% endif %}    
             </ul>
           </div>
         </div>
