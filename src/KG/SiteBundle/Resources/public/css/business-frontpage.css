@@ -7,3 +7,7 @@
     -o-background-size: cover;
 }
 
+.label {
+    font-size: 30%;
+    vertical-align:middle;
+}
