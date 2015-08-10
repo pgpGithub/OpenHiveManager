@@ -73,10 +73,6 @@ class RucherController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        if ($rucher->getImage() != null){
-            $rucher->getImage()->setSupprime(true);           
-        }
-        $rucher->getLocalisation()->setSupprime(true);
         $rucher->setSupprime(true);
         
         foreach ( $rucher->getRuches() as $ruche ){

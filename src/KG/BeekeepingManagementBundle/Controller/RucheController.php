@@ -74,10 +74,7 @@ class RucheController extends Controller
         if( $not_permitted || $ruche->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
-
-        if ($ruche->getImage() != null){
-            $ruche->getImage()->setSupprime(true);           
-        }        
+    
         $ruche->setSupprime(true);
         $ruche->setColonnie(NULL);
         $em = $this->getDoctrine()->getManager();

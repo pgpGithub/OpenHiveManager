@@ -35,13 +35,6 @@ class Localisation
      * @Assert\NotBlank(message="Veuillez remplir la latitude")
      */
     private $latitude;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="supprime", type="boolean")
-     */
-    private $supprime = false;
     
     /**
      * Set longitude
@@ -95,27 +88,5 @@ class Localisation
         $this->setLongitude($latlng['lng']);
         return $this;
     }
-    
-    /**
-     * Set supprime
-     *
-     * @param string $supprime
-     * @return Exploitation
-     */
-    public function setSupprime($supprime)
-    {
-        $this->supprime = $supprime;
-
-        return $this;
-    }
-
-    /**
-     * Get supprime
-     *
-     * @return boolean 
-     */
-    public function getSupprime()
-    {
-        return $this->supprime;
-    }       
+         
 }

@@ -147,7 +147,7 @@ class Colonnie
      /**
      * @var Ruche
      * 
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonnie", cascade={"persist"}))
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonnie"))
      * @Assert\Valid() 
      */
     private $ruche;
