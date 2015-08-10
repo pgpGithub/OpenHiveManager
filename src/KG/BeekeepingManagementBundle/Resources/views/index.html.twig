@@ -26,13 +26,11 @@
                         <table id="mytable" class="table table-bordred table-striped">
                             <thead>
                                 <th>Exploitation</th>                            
-                                <th>Afficher</th>
                             </thead>
                             <tbody>
                                 {% for exploitation in exploitations %}
                                     <tr>
-                                        <td>{{ exploitation.nom }}</td>
-                                        <td><a title="Afficher l'exploitation" href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a></td>                                        
+                                        <td><a title="Afficher l'exploitation" href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}">{{ exploitation.nom }}</a></td>                                        
                                     </tr>
                                 {% endfor %}
                             </tbody>
