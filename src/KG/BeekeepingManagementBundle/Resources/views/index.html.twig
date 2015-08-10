@@ -25,12 +25,18 @@
                     <div class="table-responsive">
                         <table id="mytable" class="table table-bordred table-striped">
                             <thead>
-                                <th>Exploitation</th>                            
+                                <th>Exploitation</th>
+                                <th>Nombre de ruchers</th>
+                                <th>Nombre de ruches</th>
+                                <th>Nombre de colonnies</th>
                             </thead>
                             <tbody>
                                 {% for exploitation in exploitations %}
                                     <tr>
                                         <td><a title="Afficher l'exploitation" href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}">{{ exploitation.nom }}</a></td>                                        
+                                        <td>{{ exploitation.ruchers|length }}</td>
+                                        <td>{{ exploitation.ruches|length }}</td>
+                                        <td>{{ exploitation.colonnies|length }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
