@@ -31,7 +31,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || $ruche->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -49,17 +49,43 @@ class RucheController extends Controller
         return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig',
                 array(  'ruche'       => $ruche,
                         'visites'     => $visites,
-                        'nbVisites'    => $visites_count,
+                        'nbVisites'   => $visites_count,
                         'pagination'  => $pagination
                 ));        
     }
 
     /**
     * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}}) 
     */    
     public function deleteAction(Ruche $ruche)
     {
+        $exploitation = $ruche->getExploitation();
+        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
+        $not_permitted = true;
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $ruche->getSupprime() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
 
+        if ($ruche->getImage() != null){
+            $ruche->getImage()->setSupprime(true);           
+        }        
+        $ruche->setSupprime(true);
+        $ruche->setColonnie(NULL);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($ruche);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add('success','Ruche supprimée avec succès');
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation_ruche', array('exploitation_id' => $exploitation->getId())));        
     }
     
     /**
@@ -79,7 +105,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || $rucher->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -122,7 +148,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || $exploitation->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

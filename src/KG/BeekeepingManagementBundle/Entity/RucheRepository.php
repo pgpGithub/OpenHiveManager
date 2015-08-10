@@ -16,10 +16,10 @@ class RucheRepository extends EntityRepository
     public function getListByRucher($page=1, $maxperpage=10, $rucher)
     {
         $q = $this->createQueryBuilder('ruche')
-                  ->leftJoin('ruche.rucher','rucher')
+                  ->leftJoin('ruche.rucher','rucher')               
                   ->addSelect('rucher')
                   ->where('rucher.id = :id')
-                  //->andWhere('ruche.supprime = false')
+                  ->andWhere('ruche.supprime = false')    
                   ->setParameter('id',$rucher);
         
         $q->setFirstResult(($page-1)*$maxperpage)
@@ -34,7 +34,7 @@ class RucheRepository extends EntityRepository
                     ->select('COUNT(ruche)')
                     ->leftJoin('ruche.rucher','rucher')
                     ->where('rucher.id = :id')
-                    //->andWhere('ruche.supprime = false')                
+                    ->andWhere('ruche.supprime = false')                
                     ->setParameter('id',$rucher)
                     ->getQuery()
                     ->getSingleScalarResult();
@@ -46,7 +46,7 @@ class RucheRepository extends EntityRepository
                   ->leftJoin('ruche.exploitation','exploitation')
                   ->addSelect('exploitation')
                   ->where('exploitation.id = :id')
-                  //->andWhere('ruche.supprime = false')
+                  ->andWhere('ruche.supprime = false')                    
                   ->setParameter('id',$exploitation);
         
         $q->setFirstResult(($page-1)*$maxperpage)
@@ -61,7 +61,7 @@ class RucheRepository extends EntityRepository
                     ->select('COUNT(ruche)')
                     ->leftJoin('ruche.exploitation','exploitation')
                     ->where('exploitation.id = :id')
-                    //->andWhere('ruche.supprime = false')                
+                    ->andWhere('ruche.supprime = false')                
                     ->setParameter('id',$exploitation)
                     ->getQuery()
                     ->getSingleScalarResult();

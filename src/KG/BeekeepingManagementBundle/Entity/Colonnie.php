@@ -147,7 +147,7 @@ class Colonnie
      /**
      * @var Ruche
      * 
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonnie")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonnie", cascade={"persist"}))
      * @Assert\Valid() 
      */
     private $ruche;
@@ -473,7 +473,7 @@ class Colonnie
      * Set supprime
      *
      * @param string $supprime
-     * @return \KG\BeekeepingManagementBundle\Entity\Agressivite 
+     * @return Colonnie 
      */
     public function setSupprime($supprime)
     {

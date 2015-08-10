@@ -19,7 +19,7 @@ class ColonnieRepository extends EntityRepository
                   ->leftJoin('c.exploitation','e')
                   ->addSelect('e')
                   ->where('e.id = :id')
-                  //->andWhere('c.supprime = false')
+                  ->andWhere('c.supprime = false')
                   ->setParameter('id',$exploitation);
         
         $q->setFirstResult(($page-1)*$maxperpage)

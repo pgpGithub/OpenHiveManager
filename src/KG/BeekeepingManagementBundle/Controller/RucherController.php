@@ -30,7 +30,7 @@ class RucherController extends Controller
             }
         }
         
-        if( $not_permitted || $page < 1 ){
+        if( $not_permitted || $page < 1 || $rucher->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -54,20 +54,22 @@ class RucherController extends Controller
 
     /**
     * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}}) 
     */    
     public function deleteAction(Rucher $rucher)
     {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
+        $exploitation = $rucher->getExploitation();
+        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getValues()->getApiculteur->getId() == $this->getUser()->getId() ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
                 $not_permitted = false;
                 break;
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || $rucher->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -76,12 +78,17 @@ class RucherController extends Controller
         }
         $rucher->getLocalisation()->setSupprime(true);
         $rucher->setSupprime(true);
+        
+        foreach ( $rucher->getRuches() as $ruche ){
+            $ruche->setRucher(NULL);
+        }
+                
         $em = $this->getDoctrine()->getManager();
         $em->persist($rucher);
         $em->flush();
 
         //$this->getSession()->getFlashBag()->add('success','Rucher supprimé avec succès');
-        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation', array('exploitation_id' => $this->getUser()->getExploitationEnCours()->getId())));
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation', array('exploitation_id' => $exploitation->getId())));
     }
     
     /**
@@ -99,7 +106,7 @@ class RucherController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || $exploitation->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

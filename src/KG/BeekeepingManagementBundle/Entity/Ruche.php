@@ -69,6 +69,12 @@ class Ruche
      * @Assert\Valid()
      */
     private $visites;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="supprime", type="boolean")
+     */
+    private $supprime = false;
     
     /**
      * Get id
@@ -132,7 +138,7 @@ class Ruche
      * @param Rucher $rucher
      * @return Ruche
      */
-    public function setRucher(Rucher $rucher)
+    public function setRucher(Rucher $rucher = null)
     {
         $this->rucher = $rucher;
 
@@ -257,4 +263,27 @@ class Ruche
     {
         return $this->exploitation;
     }
+    
+    /**
+     * Set supprime
+     *
+     * @param string $supprime
+     * @return Ruche
+     */
+    public function setSupprime($supprime)
+    {
+        $this->supprime = $supprime;
+
+        return $this;
+    }
+
+    /**
+     * Get supprime
+     *
+     * @return boolean 
+     */
+    public function getSupprime()
+    {
+        return $this->supprime;
+    }      
 }

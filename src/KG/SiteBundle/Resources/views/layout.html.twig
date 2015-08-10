@@ -7,7 +7,9 @@
         <title>{% block title %}OpenHiveManager{% endblock %}</title>
 
         {% block stylesheets %}
-            {% stylesheets filter='cssrewrite' 'css/bootstrap/bootstrap.css' %}
+            {% stylesheets filter='cssrewrite' 
+                'css/bootstrap/bootstrap.css'
+                '@KGSiteBundle/Resources/public/css/layout.css'%}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
             {% endstylesheets %}
         {% endblock %}

@@ -30,7 +30,7 @@ class ColonnieController extends Controller
             }
         }
         
-        if( $not_permitted || $page < 1 ){
+        if( $not_permitted || $page < 1 || $colonnie->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
        
@@ -40,30 +40,33 @@ class ColonnieController extends Controller
 
     /**
     * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("colonnie", options={"mapping": {"colonnie_id" : "id"}})  
     */    
     public function deleteAction(Colonnie $colonnie)
     {
-        $apiculteurExploitations = $colonnie->getExploitation()->getApiculteurExploitations();
+        $exploitation = $colonnie->getExploitation();
+        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getValues()->getApiculteur->getId() == $this->getUser()->getId() ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
                 $not_permitted = false;
                 break;
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || $colonnie->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
         $colonnie->setSupprime(true);
+        $colonnie->getRuche()->setColonnie(NULL);
         $em = $this->getDoctrine()->getManager();
         $em->persist($colonnie);
         $em->flush();
 
-        //$this->getSession()->getFlashBag()->add('success','Rucher supprimé avec succès');
-        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation_colonnie', array('exploitation_id' => $this->getUser()->getExploitationEnCours()->getId())));
+        $this->get('session')->getFlashBag()->add('success','Colonnie supprimée avec succès');
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation_colonnie', array('exploitation_id' => $exploitation->getId())));
     }
     
     /**
@@ -81,7 +84,7 @@ class ColonnieController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || $exploitation->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

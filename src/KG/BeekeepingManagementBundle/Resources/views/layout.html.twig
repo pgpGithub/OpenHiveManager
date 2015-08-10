@@ -1,7 +1,11 @@
 {% extends 'KGSiteBundle::layout.html.twig' %}
 
 {% block stylesheets %}
-    {{ parent() }} 
+    {{ parent() }}  
+    {% stylesheets filter='cssrewrite' 
+        '@KGBeekeepingManagementBundle/Resources/public/css/layout.css'%}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}        
 {% endblock %}
 
 {% block menu_user %}

@@ -46,7 +46,7 @@ class Rucher
     private $ruches;
     
     /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"}, cascade={"persist"})
      * @Assert\Valid()
      */
     private $image;
@@ -63,7 +63,7 @@ class Rucher
      * @ORM\Column(name="supprime", type="boolean")
      */
     private $supprime = false;
-    
+
     
     /**
      * Constructor
