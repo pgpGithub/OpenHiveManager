@@ -12,6 +12,12 @@ kg_beekeeping_management_view_exploitation:
     requirements:
         exploitation_id: \d+
 
+kg_beekeeping_management_delete_exploitation:
+    path:      /exploitation/{exploitation_id}/supprimer-exploitation/
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:delete }
+    requirements:
+        exploitation_id: \d+
+        
 kg_beekeeping_management_view_exploitation_colonnie:
     path:      /exploitation/{exploitation_id}/afficher-exploitation/colonnie/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:viewColonnie, page: 1 }
