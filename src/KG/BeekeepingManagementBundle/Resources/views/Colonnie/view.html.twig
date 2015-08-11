@@ -128,12 +128,16 @@
             <div class="row">
                 <div class="col-md-12">
                 {%if colonnie.colonniesFilles is empty %}<a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>{% endif %}
-                <span class="pull-right">
-                    {% if not colonnie.ruche %}<a title="Enrucher" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-download-alt"></i></a>{% endif %}
-                    <a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-scissors"></i></a>
-                    <a title="Editer" href="{{ path('kg_beekeeping_management_update_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a title="Déclarer morte" href="{{ path('kg_beekeeping_management_update_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></a>
-                </span>
+                {% if not colonnie.morte %}
+                    <span class="pull-right">
+                            {% if not colonnie.ruche %}
+                                <a title="Enrucher" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-download-alt"></i></a>
+                            {% endif %}
+                            <a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-scissors"></i></a>
+                            <a title="Editer" href="{{ path('kg_beekeeping_management_update_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                            <a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></a>
+                    </span>
+                {% endif %}
                 </div>                           
             </div>
         </div>
