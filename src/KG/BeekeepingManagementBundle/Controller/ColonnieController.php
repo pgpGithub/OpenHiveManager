@@ -5,6 +5,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\Colonnie;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
 use KG\BeekeepingManagementBundle\Form\ColonnieType;
+use KG\BeekeepingManagementBundle\Form\DiviserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -55,12 +56,12 @@ class ColonnieController extends Controller
             }
         }
         
-        if( $not_permitted || $colonnie->getSupprime() ){
+        if( $not_permitted || $colonnie->getSupprime() || !$colonnie->getColonniesFilles()->isEmpty() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
         $colonnie->setSupprime(true);
-        $colonnie->getRuche()->setColonnie(NULL);
+        $colonnie->getRuche()->setColonnie(null);
         $em = $this->getDoctrine()->getManager();
         $em->persist($colonnie);
         $em->flush();
@@ -146,5 +147,54 @@ class ColonnieController extends Controller
                                    'colonnie' => $colonnie 
                             ));
     } 
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("colonnieMere", options={"mapping": {"colonnie_id" : "id"}}) 
+    */    
+    public function diviserAction(Colonnie $colonnieMere, Request $request)
+    {
+        $not_permitted = true;
+        
+        foreach ( $colonnieMere->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $colonnieMere->getSupprime() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+        
+        $colonnieFille = new Colonnie();
+        $colonnieFille->setExploitation($colonnieMere->getExploitation());
+        $colonnieFille->setRace($colonnieMere->getRace());
+        $colonnieFille->setAnneeColonnie(new \DateTime());
+        $colonnieFille->setProvenanceColonnie($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Provenance')->findOneByLibelle("Division"));
+        $colonnieFille->setEtat($colonnieMere->getEtat());
+        $colonnieFille->setAgressivite($colonnieMere->getAgressivite());
+        $colonnieFille->setColonnieMere($colonnieMere);
+        
+        $form = $this->createForm(new DiviserType, $colonnieFille);
+        
+        if ($form->handleRequest($request)->isValid()){
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($colonnieFille);
+            $em->flush();
+        
+            $request->getSession()->getFlashBag()->add('success','Colonnie divisée avec succès');
+        
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonnie', array('colonnie_id' => $colonnieFille->getId())));
+        }
+
+        return $this->render('KGBeekeepingManagementBundle:Colonnie:diviser.html.twig', 
+                             array('form'         => $form->createView(),
+                                   'colonnieMere' => $colonnieMere, 
+                                   'colonnieFille'=> $colonnieFille
+                            ));        
+    }     
+        
 }    
     

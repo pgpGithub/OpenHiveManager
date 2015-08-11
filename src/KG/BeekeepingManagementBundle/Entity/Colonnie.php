@@ -138,16 +138,22 @@ class Colonnie
      /**
      * @var Colonnie
      * 
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="colonniesFilles")
      * @ORM\JoinColumn()
      * @Assert\Valid() 
      */
     private $colonnieMere;
 
      /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", mappedBy="colonnieMere")
+     * @Assert\Valid() 
+     */
+    private $colonniesFilles;
+    
+     /**
      * @var Ruche
      * 
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonnie"))
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonnie")
      * @Assert\Valid() 
      */
     private $ruche;
@@ -158,6 +164,13 @@ class Colonnie
      * @ORM\Column(name="supprime", type="boolean")
      */
     private $supprime = false;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="morte", type="boolean")
+     */
+    private $morte = false;    
     
     /**
      * Get id
@@ -513,5 +526,68 @@ class Colonnie
     public function getRuche()
     {
         return $this->ruche;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->colonniesFilles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add colonniesFilles
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles
+     * @return Colonnie
+     */
+    public function addColonniesFille(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles)
+    {
+        $this->colonniesFilles[] = $colonniesFilles;
+
+        return $this;
+    }
+
+    /**
+     * Remove colonniesFilles
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles
+     */
+    public function removeColonniesFille(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles)
+    {
+        $this->colonniesFilles->removeElement($colonniesFilles);
+    }
+
+    /**
+     * Get colonniesFilles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getColonniesFilles()
+    {
+        return $this->colonniesFilles;
+    }
+
+    /**
+     * Set morte
+     *
+     * @param boolean $morte
+     * @return Colonnie
+     */
+    public function setMorte($morte)
+    {
+        $this->morte = $morte;
+
+        return $this;
+    }
+
+    /**
+     * Get morte
+     *
+     * @return boolean 
+     */
+    public function getMorte()
+    {
+        return $this->morte;
     }
 }

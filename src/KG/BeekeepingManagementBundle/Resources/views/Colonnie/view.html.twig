@@ -36,7 +36,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-3 col-lg-3 " align="center"> 
-                    <img src="../../../../img/abeille/{{ colonnie.race.libelle }}.jpg" alt="{{ colonnie.race.libelle }}" class="img-thumbnail img-responsive">             
+                    <img src="../../../../../../img/abeille/{{ colonnie.race.libelle }}.jpg" alt="{{ colonnie.race.libelle }}" class="img-thumbnail img-responsive">             
                 </div>
 
                 <div class=" col-md-9 col-lg-9 "> 
@@ -50,6 +50,43 @@
                                 <td><strong>Année :</strong></td>
                                 <td>{{ colonnie.anneeColonnie|date("Y") }}</td>
                             </tr>
+                            
+                            {% if colonnie.colonnieMere %}
+                            <tr>
+                                <td><strong>Colonnie mère :</strong></td>
+                                <td><a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.colonnieMere.id }) }}">{{ colonnie.colonnieMere.nom }}</a></td>
+                            </tr>                              
+                            {% endif %}
+
+                            {% if colonnie.colonniesFilles is not empty %}
+                            <tr>
+                                <td><strong>Colonnies filles :</strong></td>
+                                <td>
+                                    {% for colonnieFille in colonnie.colonniesFilles %}
+                                        {% if not loop.first %}
+                                            - 
+                                        {% endif %}
+                                        <a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnieFille.id }) }}">{{ colonnieFille.nom }}</a>
+                                    {% endfor %}
+                                </td>
+                            </tr>                              
+                            {% endif %}
+
+                            {% if colonnie.ruche %}
+                            <tr>
+                                <td><strong>Ruche :</strong></td>
+                                <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': colonnie.ruche.id }) }}">{{ colonnie.ruche.nom }}</a></td>
+                            </tr>
+                            
+                            {% if colonnie.ruche.rucher %}
+                            <tr>
+                                <td><strong>Rucher :</strong></td>
+                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': colonnie.ruche.rucher.id }) }}">{{ colonnie.ruche.rucher.nom }}</a></td>
+                            </tr>                              
+                            {% endif %}                            
+                            
+                            {% endif %}
+                            
                             <tr>
                                 <td><strong>Affectation :</strong></td>
                                 <td>{{ colonnie.affectation.libelle }}</td>
@@ -67,11 +104,11 @@
                                 <td>{{ colonnie.agressivite.libelle }}</td>
                             </tr>
                             <tr>
-                                <td><strong>Année de la Reine :</strong></td>
+                                <td><strong>Année de la reine :</strong></td>
                                 <td>{{ colonnie.anneeReine|date("Y") }}</td>
                             </tr>
                             <tr>
-                                <td><strong>Provenance de la Reine :</strong></td>
+                                <td><strong>Provenance de la reine :</strong></td>
                                 <td>{{ colonnie.provenanceReine.libelle }}</td>
                             </tr>
                             <tr>
@@ -87,13 +124,18 @@
             </div>
           </div>
         </div>
-        <div class="panel-footer">
-            <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
-            <span class="pull-right">
-                {% if not colonnie.ruche %}<a title="Enrucher" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-download-alt"></i></a>{% endif %}
-                <a title="Diviser" href="{{ path('kg_beekeeping_management_delete_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-scissors"></i></a>
-                <a title="Editer" href="{{ path('kg_beekeeping_management_update_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-            </span>
+        <div class="panel-footer">              
+            <div class="row">
+                <div class="col-md-12">
+                {%if colonnie.colonniesFilles is empty %}<a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>{% endif %}
+                <span class="pull-right">
+                    {% if not colonnie.ruche %}<a title="Enrucher" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-download-alt"></i></a>{% endif %}
+                    <a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-scissors"></i></a>
+                    <a title="Editer" href="{{ path('kg_beekeeping_management_update_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a title="Déclarer morte" href="{{ path('kg_beekeeping_management_update_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></a>
+                </span>
+                </div>                           
+            </div>
         </div>
     </div>                        
 {% endblock %}

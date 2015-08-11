@@ -64,7 +64,7 @@ kg_beekeeping_management_add_ruche_from_exploitation:
     path:      /exploitation/{exploitation_id}/ruche/creer-ruche/
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:addFromExploitation }
     requirements:
-        rucher_id: \d+
+        exploitation_id: \d+
 
 kg_beekeeping_management_add_ruche_from_rucher:
     path:      /exploitation/rucher/{rucher_id}/ruche/creer-ruche/
@@ -94,19 +94,19 @@ kg_beekeeping_management_add_visite:
     path:      /exploitation/rucher/ruche/{ruche_id}/creer-visite/
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:add }
     requirements:
-        rucher_id: \d+
+        ruche_id: \d+
         
 kg_beekeeping_management_delete_visite:
     path:      /exploitation/rucher/ruche/visite/{visite_id}/supprimer-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:delete }
     requirements:
-        ruche_id: \d+
+        visite_id: \d+
         
 kg_beekeeping_management_view_visite:
     path:      /exploitation/rucher/ruche/visite/{visite_id}/afficher-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:view }
     requirements:
-        ruche_id: \d+ 
+        visite_id: \d+ 
         
 kg_beekeeping_management_add_colonnie:
     path:      /exploitation/{exploitation_id}/colonnie/creer-colonnie
@@ -118,16 +118,22 @@ kg_beekeeping_management_delete_colonnie:
     path:      /exploitation/colonnie/{colonnie_id}/supprimer-colonnie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:delete }
     requirements:
-        rucher_id: \d+
+        colonnie_id: \d+
 
 kg_beekeeping_management_update_colonnie:
     path:      /exploitation/colonnie/{colonnie_id}/modifier-colonnie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:update }
     requirements:
-        rucher_id: \d+
-        
+        colonnie_id: \d+      
+
 kg_beekeeping_management_view_colonnie:
-    path:      /exploitation/colonnie/{colonnie_id}/afficher-colonnie/{page}
+    path:      /exploitation/rucher/ruche/visite/{colonnie_id}/afficher-colonnie/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:view, page: 1 }
     requirements:
-        rucher_id: \d+        
+        colonnie_id: \d+         
+        
+kg_beekeeping_management_diviser_colonnie:
+    path:      /exploitation/colonnie/{colonnie_id}/diviser-colonnie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:diviser }
+    requirements:
+        colonnie_id: \d+        
