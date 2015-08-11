@@ -1,0 +1,81 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/Ruche/add.html.twig #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}{{ parent() }} - Créer une ruche{% endblock %}
+
+{% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': ruche.exploitation.id }) }}" class="btn btn-primary">{{ ruche.exploitation.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.rucher.id }) }}" class="btn btn-primary">{{ ruche.rucher.nom }}</a>
+{% endblock %} 
+            
+{% block screen %}   
+    {{ form_errors(form.nom) }}
+    {{ form_errors(form.type) }}
+    {{ form_errors(form.image.file) }}
+    {{ form_errors(form) }}
+             
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">Modification de la ruche {{ ruche.nom }}</h3>
+        </div>
+
+        <div class="panel-body">                
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            
+            <div class="form-group">
+                {{ form_label(form.nom, "Nom de la ruche :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                <div class="col-sm-5 col-md-5">
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                </div>  
+            </div>
+                    
+            <div class="form-group">
+                {{ form_label(form.type, "Type de ruche :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                <div class="col-sm-5 col-md-5">
+                    {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>    
+                        
+            <div class="form-group">
+                {{ form_label(form.image.file, "Photo :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                <div class="col-sm-2 col-md-2">
+                    {{ form_widget(form.image.file) }}
+                </div>
+            </div>
+            
+            {{ form_rest(form) }}
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="pull-right">
+                        <a href="{{ app.request.headers.get('referer') }}" class="btn btn-default">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            Annuler
+                        </a>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                            Sauvegarder
+                        </button>
+                    </div>
+                </div>        
+            </div>
+                             
+            {{ form_end(form) }}         
+        </div>       
+    </div>
+
+{% endblock %}

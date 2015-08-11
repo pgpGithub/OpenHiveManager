@@ -108,4 +108,43 @@ class ColonnieController extends Controller
                                    'exploitation' => $exploitation 
                             ));
     } 
-}
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("colonnie", options={"mapping": {"colonnie_id" : "id"}}) 
+    */    
+    public function updateAction(Colonnie $colonnie, Request $request)
+    {
+        $not_permitted = true;
+        
+        foreach ( $colonnie->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $colonnie->getSupprime() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+        
+        $form = $this->createForm(new ColonnieType, $colonnie);
+        
+        if ($form->handleRequest($request)->isValid()){
+                        
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($colonnie);
+            $em->flush();
+        
+            $request->getSession()->getFlashBag()->add('success','Colonnie mise à jour avec succès');
+        
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonnie', array('colonnie_id' => $colonnie->getId())));
+        }
+
+        return $this->render('KGBeekeepingManagementBundle:Colonnie:update.html.twig', 
+                             array('form'     => $form->createView(),
+                                   'colonnie' => $colonnie 
+                            ));
+    } 
+}    
+    

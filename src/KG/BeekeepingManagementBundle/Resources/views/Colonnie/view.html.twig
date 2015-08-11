@@ -92,7 +92,7 @@
             <span class="pull-right">
                 {% if not colonnie.ruche %}<a title="Enrucher" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-download-alt"></i></a>{% endif %}
                 <a title="Diviser" href="{{ path('kg_beekeeping_management_delete_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-scissors"></i></a>
-                <a title="Editer" href="{{ path('kg_beekeeping_management_delete_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a title="Editer" href="{{ path('kg_beekeeping_management_update_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
             </span>
         </div>
     </div>                        

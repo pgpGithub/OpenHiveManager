@@ -125,5 +125,43 @@ class RucherController extends Controller
                              array('form'         => $form->createView(),
                                    'exploitation' => $exploitation 
                             ));
-    } 
+    }
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}}) 
+    */    
+    public function updateAction(Rucher $rucher, Request $request)
+    {
+        $not_permitted = true;
+        
+        foreach ( $rucher->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $rucher->getSupprime() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+        
+        $form = $this->createForm(new RucherType, $rucher);
+        
+        if ($form->handleRequest($request)->isValid()){
+                        
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($rucher);
+            $em->flush();
+        
+            $request->getSession()->getFlashBag()->add('success','Rucher mis à jour avec succès');
+        
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $rucher->getId())));
+        }
+
+        return $this->render('KGBeekeepingManagementBundle:Rucher:update.html.twig', 
+                             array('form'   => $form->createView(),
+                                   'rucher' => $rucher 
+                            ));
+    }     
 }

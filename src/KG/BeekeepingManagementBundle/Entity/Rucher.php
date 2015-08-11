@@ -46,7 +46,7 @@ class Rucher
     private $ruches;
     
     /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"}, cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"})
      * @Assert\Valid()
      */
     private $image;

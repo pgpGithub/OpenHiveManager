@@ -12,6 +12,12 @@ kg_beekeeping_management_view_exploitation:
     requirements:
         exploitation_id: \d+
 
+kg_beekeeping_management_update_exploitation:
+    path:      /exploitation/{exploitation_id}/modifier-exploitation/
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:update }
+    requirements:
+        exploitation_id: \d+
+        
 kg_beekeeping_management_delete_exploitation:
     path:      /exploitation/{exploitation_id}/supprimer-exploitation/
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:delete }
@@ -36,6 +42,12 @@ kg_beekeeping_management_add_rucher:
     requirements:
         exploitation_id: \d+
         
+kg_beekeeping_management_update_rucher:
+    path:      /exploitation/rucher/{rucher_id}/modifier-rucher
+    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:update }
+    requirements:
+        rucher_id: \d+
+        
 kg_beekeeping_management_delete_rucher:
     path:      /exploitation/rucher/{rucher_id}/supprimer-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:delete }
@@ -59,6 +71,12 @@ kg_beekeeping_management_add_ruche_from_rucher:
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:addFromRucher }
     requirements:
         rucher_id: \d+        
+
+kg_beekeeping_management_update_ruche:
+    path:      /exploitation/rucher/ruche/{ruche_id}/modifier-ruche
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:update }
+    requirements:
+        ruche_id: \d+
         
 kg_beekeeping_management_delete_ruche:
     path:      /exploitation/rucher/ruche/{ruche_id}/supprimer-ruche
@@ -99,6 +117,12 @@ kg_beekeeping_management_add_colonnie:
 kg_beekeeping_management_delete_colonnie:
     path:      /exploitation/colonnie/{colonnie_id}/supprimer-colonnie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:delete }
+    requirements:
+        rucher_id: \d+
+
+kg_beekeeping_management_update_colonnie:
+    path:      /exploitation/colonnie/{colonnie_id}/modifier-colonnie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:update }
     requirements:
         rucher_id: \d+
         
