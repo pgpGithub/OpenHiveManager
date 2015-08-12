@@ -6,6 +6,7 @@ use KG\BeekeepingManagementBundle\Entity\Colonnie;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
 use KG\BeekeepingManagementBundle\Form\ColonnieType;
 use KG\BeekeepingManagementBundle\Form\DiviserType;
+use KG\BeekeepingManagementBundle\Form\CauseType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -204,7 +205,7 @@ class ColonnieController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonnie", options={"mapping": {"colonnie_id" : "id"}})  
     */    
-    public function tuerAction(Colonnie $colonnie)
+    public function tuerAction(Colonnie $colonnie, Request $request)
     {
         $exploitation = $colonnie->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
@@ -220,19 +221,33 @@ class ColonnieController extends Controller
         if( $not_permitted || $colonnie->getSupprime() || $colonnie->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
+
+        $form = $this->createForm(new CauseType, $colonnie);
         
-        $colonnie->setMorte(true);
-        
-        if( $colonnie->getRuche() ){
-            $colonnie->getRuche()->setColonnie(null);
+        if ($form->handleRequest($request)->isValid()){
+            if(!($colonnie->getCauses()->isEmpty() && empty($colonnie->getAutreCause()))){ 
+                $colonnie->setMorte(true);
+
+                if( $colonnie->getRuche() ){
+                    $colonnie->getRuche()->setColonnie(null);
+                }
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($colonnie);
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add('success','Colonnie déclarée morte avec succès');
+                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonnie', array('colonnie_id' => $colonnie->getId())));                          
+            }
+            else{
+                $this->get('session')->getFlashBag()->add('danger','Veuillez renseigner au moins une cause de la mort');  
+            }                     
         }
         
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($colonnie);
-        $em->flush();
-
-        $this->get('session')->getFlashBag()->add('success','Colonnie déclarée morte avec succès');
-        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonnie', array('colonnie_id' => $colonnie->getId())));
+        return $this->render('KGBeekeepingManagementBundle:Colonnie:tuer.html.twig', 
+                             array('form'     => $form->createView(),
+                                   'colonnie' => $colonnie, 
+                            ));  
     }    
         
 }    

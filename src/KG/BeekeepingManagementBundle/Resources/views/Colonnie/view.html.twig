@@ -39,8 +39,26 @@
                     <img src="../../../../../../img/abeille/{{ colonnie.race.libelle }}.jpg" alt="{{ colonnie.race.libelle }}" class="img-thumbnail img-responsive">             
                 </div>
 
-                <div class=" col-md-9 col-lg-9 "> 
-                    <table class="table">
+                <div class=" col-md-9 col-lg-9 ">
+                    {% if colonnie.morte %}
+                    <div class="alert alert-danger" role="alert">
+                        <h4><i class="glyphicon glyphicon-alert"></i> Cette colonnie est morte</h4>
+                        <strong>Causes de la mort :</strong></td>
+                        {% for cause in colonnie.causes %}
+                            {% if not loop.first %}
+                                - 
+                            {% endif %}
+                            {{ cause.libelle }}
+                        {% endfor %}
+
+                        {% if colonnie.causes is not empty and colonnie.autreCause %}
+                            -
+                        {% endif %}
+                        {{ colonnie.autreCause }}
+                    </div>
+                    {% endif %}
+                        
+                    <table class="table">    
                         <tbody>
                             <tr>
                                 <td><strong>Race :</strong></td>

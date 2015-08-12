@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Colonnie
  *
- * @ORM\Table(name="colonnie",uniqueConstraints={@ORM\UniqueConstraint(name="search_idx", columns={"nom", "exploitation_id"})})
+ * @ORM\Table()
  * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ColonnieRepository")
  */
 class Colonnie
@@ -171,6 +171,22 @@ class Colonnie
      * @ORM\Column(name="morte", type="boolean")
      */
     private $morte = false;    
+
+    /**
+     * @var Cause
+     * 
+     * @ORM\ManyToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Cause")
+     * @Assert\Valid() 
+     */
+    private $causes;    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="autreCause", type="string", length=50, nullable=true)
+     * @Assert\Length(max=50, maxMessage="La cause ne peut dépasser {{ limit }} caractères") 
+     */
+    private $autreCause;
     
     /**
      * Get id
@@ -589,5 +605,61 @@ class Colonnie
     public function getMorte()
     {
         return $this->morte;
+    }
+
+    /**
+     * Add cause
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Cause $cause
+     * @return Colonnie
+     */
+    public function addCause(\KG\BeekeepingManagementBundle\Entity\Cause $cause)
+    {
+        $this->causes[] = $cause;
+
+        return $this;
+    }
+
+    /**
+     * Remove cause
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Cause $cause
+     */
+    public function removeCause(\KG\BeekeepingManagementBundle\Entity\Cause $cause)
+    {
+        $this->causes->removeElement($cause);
+    }
+
+    /**
+     * Get cause
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCauses()
+    {
+        return $this->causes;
+    }
+
+    /**
+     * Set autreCause
+     *
+     * @param string $autreCause
+     * @return Colonnie
+     */
+    public function setAutreCause($autreCause)
+    {
+        $this->autreCause = $autreCause;
+
+        return $this;
+    }
+
+    /**
+     * Get autreCause
+     *
+     * @return string 
+     */
+    public function getAutreCause()
+    {
+        return $this->autreCause;
     }
 }
