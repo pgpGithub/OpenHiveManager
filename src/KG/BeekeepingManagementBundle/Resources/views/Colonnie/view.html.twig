@@ -78,7 +78,7 @@
 
                             {% if colonnie.colonniesFilles is not empty %}
                             <tr>
-                                <td><strong>Colonnies filles :</strong></td>
+                                <td><strong>Colonnie{% if colonnie.colonniesFilles|length > 1 %}s{% endif %} fille{% if colonnie.colonniesFilles|length > 1 %}s{% endif %} :</strong></td>
                                 <td>
                                     {% for colonnieFille in colonnie.colonniesFilles %}
                                         {% if not loop.first %}
