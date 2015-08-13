@@ -62,10 +62,12 @@ class ColonnieController extends Controller
         }
         
         $colonnie->setSupprime(true);
+        $colonnie->setColonnieMere(null);
         
         if( $colonnie->getRuche() ){
             $colonnie->getRuche()->setColonnie(null);
         }
+        
         
         $em = $this->getDoctrine()->getManager();
         $em->persist($colonnie);
@@ -168,7 +170,7 @@ class ColonnieController extends Controller
             }
         }
         
-        if( $not_permitted || $colonnieMere->getSupprime() || $colonnie->getMorte() ){
+        if( $not_permitted || $colonnieMere->getSupprime() || $colonnieMere->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -180,6 +182,7 @@ class ColonnieController extends Controller
         $colonnieFille->setEtat($colonnieMere->getEtat());
         $colonnieFille->setAgressivite($colonnieMere->getAgressivite());
         $colonnieFille->setColonnieMere($colonnieMere);
+        $colonnieMere->addColonniesFilles($colonnieFille);
         
         $form = $this->createForm(new DiviserType, $colonnieFille);
         

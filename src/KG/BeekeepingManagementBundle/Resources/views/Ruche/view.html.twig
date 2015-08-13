@@ -44,34 +44,40 @@
                     {% endif %}           
                 </div>
                 <div class=" col-md-9 col-lg-9 ">
-                    {% if ruche.colonnie %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Colonnie {{ ruche.colonnie.nom }}
-                            <span class="pull-right">
-                                <a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': ruche.colonnie.id }) }}" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i></a>
-                            </span>
+                            {% if ruche.colonnie %}
+                                Colonnie {{ ruche.colonnie.nom }}
+                                <span class="pull-right">
+                                    <a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': ruche.colonnie.id }) }}" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                </span>
+                            {% else %}
+                                Colonnie
+                            {% endif %}                                  
                         </div>                          
                         <div class="panel-body">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Race :</strong></td>
-                                        <td>{{ ruche.colonnie.race.libelle }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Affectation :</strong></td>
-                                        <td>{{ ruche.colonnie.affectation.libelle }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Etat :</strong></td>
-                                        <td>{{ ruche.colonnie.etat.libelle }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            {% if ruche.colonnie %}
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Race :</strong></td>
+                                            <td>{{ ruche.colonnie.race.libelle }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Affectation :</strong></td>
+                                            <td>{{ ruche.colonnie.affectation.libelle }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Etat :</strong></td>
+                                            <td>{{ ruche.colonnie.etat.libelle }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                Il n'y a pas de colonnie dans cette ruche.
+                            {% endif %}                 
                         </div>                                  
-                    </div>
-                    {% endif %}                
+                    </div>             
                 </div>
             </div> 
              

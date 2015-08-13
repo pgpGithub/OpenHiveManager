@@ -138,14 +138,14 @@ class Colonnie
      /**
      * @var Colonnie
      * 
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="colonniesFilles")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="colonniesFilles", cascade="persist")
      * @ORM\JoinColumn()
      * @Assert\Valid() 
      */
     private $colonnieMere;
 
      /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", mappedBy="colonnieMere")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", mappedBy="colonnieMere", cascade="persist")
      * @Assert\Valid() 
      */
     private $colonniesFilles;
@@ -557,7 +557,7 @@ class Colonnie
      * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles
      * @return Colonnie
      */
-    public function addColonniesFille(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles)
+    public function addColonniesFilles(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles)
     {
         $this->colonniesFilles[] = $colonniesFilles;
 
@@ -569,7 +569,7 @@ class Colonnie
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles
      */
-    public function removeColonniesFille(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles)
+    public function removeColonniesFilles(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles)
     {
         $this->colonniesFilles->removeElement($colonniesFilles);
     }
