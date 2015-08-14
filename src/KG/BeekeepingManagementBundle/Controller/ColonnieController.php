@@ -20,7 +20,7 @@ class ColonnieController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonnie", options={"mapping": {"colonnie_id" : "id"}})  
     */    
-    public function viewAction(Colonnie $colonnie, $page)
+    public function viewAction(Colonnie $colonnie)
     {
         $apiculteurExploitations = $colonnie->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
@@ -32,7 +32,7 @@ class ColonnieController extends Controller
             }
         }
         
-        if( $not_permitted || $page < 1 || $colonnie->getSupprime() ){
+        if( $not_permitted || $colonnie->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
        
@@ -57,24 +57,27 @@ class ColonnieController extends Controller
             }
         }
         
-        if( $not_permitted || $colonnie->getSupprime() || !$colonnie->getColonniesFilles()->isEmpty() ){
+        if( $not_permitted || $colonnie->getSupprime() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $colonnie->setSupprime(true);
-        $colonnie->setColonnieMere(null);
-        
-        if( $colonnie->getRuche() ){
-            $colonnie->getRuche()->setColonnie(null);
-        }
-        
-        
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($colonnie);
-        $em->flush();
+        if( !$colonnie->getColonniesFilles()->isEmpty() ){
+            $this->get('session')->getFlashBag()->add('danger','Vous ne pouvez pas supprimer une colonnie possédant des colonnies filles');            
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonnie', array('colonnie_id' => $colonnie->getId())));
+        }else{
+            $colonnie->setSupprime(true);
 
-        $this->get('session')->getFlashBag()->add('success','Colonnie supprimée avec succès');
-        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation_colonnie', array('exploitation_id' => $exploitation->getId())));
+            if( $colonnie->getRuche() ){
+                $colonnie->getRuche()->setColonnie(null);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($colonnie);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success','Colonnie supprimée avec succès');
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation_colonnie', array('exploitation_id' => $exploitation->getId())));            
+        }
     }
     
     /**

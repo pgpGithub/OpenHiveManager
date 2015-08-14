@@ -40,10 +40,10 @@ class Rucher
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="rucher")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", mappedBy="rucher")
      * @Assert\Valid()
      */
-    private $ruches;
+    private $emplacements;    
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"})
@@ -127,41 +127,6 @@ class Rucher
     public function getDateCreation()
     {
         return $this->dateCreation;
-    }
-    
-    /**
-     * Add ruche
-     *
-     * @param Ruche $ruche
-     * @return Rucher
-     */
-    public function addRuche(Ruche $ruche)
-    {
-        $this->ruches[] = $ruche;
-        
-        $ruche->setRucher($this);
-
-        return $this;
-    }
-
-    /**
-     * Remove ruche
-     *
-     * @param Ruche $ruche
-     */
-    public function removeRuche(Ruche $ruche)
-    {
-        $this->ruches->removeElement($ruche);
-    }
-
-    /**
-     * Get ruches
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getRuches()
-    {
-        return $this->ruches;
     }
 
     /**
@@ -255,4 +220,37 @@ class Rucher
     {
         return $this->supprime;
     }      
+
+    /**
+     * Add emplacements
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Emplacement $emplacements
+     * @return Rucher
+     */
+    public function addEmplacement(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacements)
+    {
+        $this->emplacements[] = $emplacements;
+
+        return $this;
+    }
+
+    /**
+     * Remove emplacements
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Emplacement $emplacements
+     */
+    public function removeEmplacement(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacements)
+    {
+        $this->emplacements->removeElement($emplacements);
+    }
+
+    /**
+     * Get emplacements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmplacements()
+    {
+        return $this->emplacements;
+    }
 }

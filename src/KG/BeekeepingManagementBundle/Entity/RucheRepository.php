@@ -12,34 +12,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  * repository methods below.
  */
 class RucheRepository extends EntityRepository
-{
-    public function getListByRucher($page=1, $maxperpage=10, $rucher)
-    {
-        $q = $this->createQueryBuilder('ruche')
-                  ->leftJoin('ruche.rucher','rucher')               
-                  ->addSelect('rucher')
-                  ->where('rucher.id = :id')
-                  ->andWhere('ruche.supprime = false')    
-                  ->setParameter('id',$rucher);
-        
-        $q->setFirstResult(($page-1)*$maxperpage)
-          ->setMaxResults($maxperpage);
-        
-        return new Paginator($q);
-    }
-    
-    public function countByRucher($rucher)
-    {
-        return $this->createQueryBuilder('ruche')
-                    ->select('COUNT(ruche)')
-                    ->leftJoin('ruche.rucher','rucher')
-                    ->where('rucher.id = :id')
-                    ->andWhere('ruche.supprime = false')                
-                    ->setParameter('id',$rucher)
-                    ->getQuery()
-                    ->getSingleScalarResult();
-    }
-    
+{    
     public function getListByExploitation($page=1, $maxperpage=10, $exploitation)
     {
         $q = $this->createQueryBuilder('ruche')

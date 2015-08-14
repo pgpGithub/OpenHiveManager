@@ -64,13 +64,7 @@ kg_beekeeping_management_add_ruche_from_exploitation:
     path:      /exploitation/{exploitation_id}/ruche/creer-ruche/
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:addFromExploitation }
     requirements:
-        exploitation_id: \d+
-
-kg_beekeeping_management_add_ruche_from_rucher:
-    path:      /exploitation/rucher/{rucher_id}/ruche/creer-ruche/
-    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:addFromRucher }
-    requirements:
-        rucher_id: \d+        
+        exploitation_id: \d+     
 
 kg_beekeeping_management_update_ruche:
     path:      /exploitation/rucher/ruche/{ruche_id}/modifier-ruche
@@ -127,8 +121,8 @@ kg_beekeeping_management_update_colonnie:
         colonnie_id: \d+      
 
 kg_beekeeping_management_view_colonnie:
-    path:      /exploitation/rucher/ruche/visite/{colonnie_id}/afficher-colonnie/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:view, page: 1 }
+    path:      /exploitation/rucher/ruche/visite/{colonnie_id}/afficher-colonnie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:view }
     requirements:
         colonnie_id: \d+         
         
@@ -142,4 +136,28 @@ kg_beekeeping_management_tuer_colonnie:
     path:      /exploitation/colonnie/{colonnie_id}/tuer-colonnie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:tuer }
     requirements:
-        colonnie_id: \d+          
+        colonnie_id: \d+ 
+        
+kg_beekeeping_management_add_emplacement:
+    path:      /exploitation/rucher/{rucher_id}/creer-emplacement/
+    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:add }
+    requirements:
+        ruche_id: \d+
+        
+kg_beekeeping_management_delete_emplacement:
+    path:      /exploitation/rucher/emplacement/{emplacement_id}/supprimer-emplacement
+    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:delete }
+    requirements:
+        visite_id: \d+
+        
+kg_beekeeping_management_view_emplacement:
+    path:      /exploitation/rucher/emplacement/{emplacement_id}/afficher-emplacement
+    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:view }
+    requirements:
+        visite_id: \d+   
+        
+kg_beekeeping_management_update_emplacement:
+    path:      /exploitation/rucher/emplacement/{emplacement_id}/modifier-emplacement
+    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:update }
+    requirements:
+        colonnie_id: \d+              

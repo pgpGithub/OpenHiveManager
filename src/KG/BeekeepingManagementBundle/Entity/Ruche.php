@@ -37,13 +37,6 @@ class Ruche
     private $type;
 
     /**
-     * @var Rucher
-     * 
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="ruches")
-     */
-    private $rucher;
-
-    /**
      * @var Exploitation
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="ruches")
@@ -62,6 +55,12 @@ class Ruche
      * @Assert\Valid()
      */
     private $colonnie;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="ruche")
+     * @Assert\Valid()
+     */
+    private $emplacement;
     
     /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Visite", mappedBy="ruche")
@@ -129,29 +128,6 @@ class Ruche
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set rucher
-     *
-     * @param Rucher $rucher
-     * @return Ruche
-     */
-    public function setRucher(Rucher $rucher = null)
-    {
-        $this->rucher = $rucher;
-
-        return $this;
-    }
-    
-    /**
-     * Get rucher
-     *
-     * @return Rucher 
-     */
-    public function getRucher()
-    {
-        return $this->rucher;
     }
 
     /**
@@ -285,4 +261,27 @@ class Ruche
     {
         return $this->supprime;
     }      
+
+    /**
+     * Set emplacement
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Emplacement $emplacement
+     * @return Ruche
+     */
+    public function setEmplacement(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacement = null)
+    {
+        $this->emplacement = $emplacement;
+
+        return $this;
+    }
+
+    /**
+     * Get emplacement
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Emplacement 
+     */
+    public function getEmplacement()
+    {
+        return $this->emplacement;
+    }
 }

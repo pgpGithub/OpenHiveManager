@@ -34,22 +34,22 @@ class RucherController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $maxRuches     = $this->container->getParameter('max_ruches_per_page');
-        $ruches        = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Ruche')->getListByRucher($page, $maxRuches, $rucher->getId());
-        $ruches_count  = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Ruche')->countByRucher($rucher->getId()); 
+        $maxEmplacements    = $this->container->getParameter('max_emplacements_per_page');
+        $emplacements       = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->getListByRucher($page, $maxEmplacements, $rucher->getId());
+        $emplacements_count = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->countByRucher($rucher->getId()); 
 
         $pagination = array(
             'page'         => $page,
             'route'        => 'kg_beekeeping_management_view_rucher',
-            'pages_count'  => max ( ceil($ruches_count / $maxRuches), 1),
+            'pages_count'  => max ( ceil($emplacements_count / $maxEmplacements), 1),
             'route_params' => array('rucher_id' => $rucher->getId())
         );
         
         return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', 
-                array(  'rucher'      => $rucher,
-                        'ruches'      => $ruches,
-                        'nbRuches'    => $ruches_count,
-                        'pagination'  => $pagination));
+                array(  'rucher'         => $rucher,
+                        'emplacements'   => $emplacements,
+                        'nbEmplacements' => $emplacements_count,
+                        'pagination'     => $pagination));
     }
 
     /**

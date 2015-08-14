@@ -84,50 +84,6 @@ class RucheController extends Controller
         $this->get('session')->getFlashBag()->add('success','Ruche supprimée avec succès');
         return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation_ruche', array('exploitation_id' => $exploitation->getId())));        
     }
-    
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
-    */    
-    public function addFromRucherAction(Rucher $rucher, Request $request)
-    {
-        $exploitation = $rucher->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $rucher->getSupprime() ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-        
-        $ruche = new Ruche();
-        $form = $this->createForm(new RucheType, $ruche);
-        
-        if ($form->handleRequest($request)->isValid()){
-                        
-            $ruche->setRucher($rucher);
-            $ruche->setExploitation($exploitation);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($ruche);
-            $em->flush();
-        
-            $request->getSession()->getFlashBag()->add('success','Ruche créée avec succès');
-        
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId())));
-        }
-
-        return $this->render('KGBeekeepingManagementBundle:Ruche:addFromRucher.html.twig', 
-                             array(
-                                    'form'   => $form->createView(),
-                                    'rucher' => $rucher
-                ));
-    }
 
     /**
     * @Security("has_role('ROLE_USER')")
