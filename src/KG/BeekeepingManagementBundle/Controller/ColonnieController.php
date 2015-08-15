@@ -276,6 +276,7 @@ class ColonnieController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
 
+        $ancienneRuche = $colonnie->getRuche();
         $securityContext = $this->container->get('security.context');
         $form = $this->createForm(new EnrucherType($securityContext, $colonnie->getExploitation()), $colonnie);
                 
@@ -283,7 +284,9 @@ class ColonnieController extends Controller
             
             $em = $this->getDoctrine()->getManager();
             $colonnie->getRuche()->setColonnie($colonnie);
+            $ancienneRuche->setColonnie(NULL);
             $em->persist($colonnie);
+            $em->persist($ancienneRuche);
             $em->flush();
         
             $request->getSession()->getFlashBag()->add('success','Colonnie enruchée avec succès');
