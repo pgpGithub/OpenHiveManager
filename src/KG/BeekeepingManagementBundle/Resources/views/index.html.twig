@@ -34,9 +34,27 @@
                                 {% for exploitation in exploitations %}
                                     <tr>
                                         <td><a title="Afficher l'exploitation" href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}">{{ exploitation.nom }}</a></td>                                        
-                                        <td>{{ exploitation.ruchers|length }}</td>
-                                        <td>{{ exploitation.ruches|length }}</td>
-                                        <td>{{ exploitation.colonnies|length }}</td>
+                                        <td>
+                                            {% set nbRuchers = 0 %}
+                                            {% for rucher in exploitation.ruchers if not rucher.supprime %}
+                                                {% set nbRuchers = nbRuchers + 1 %}
+                                            {% endfor %}    
+                                            {{ nbRuchers }}                                        
+                                        </td>
+                                        <td>
+                                            {% set nbRuches = 0 %}
+                                            {% for ruche in exploitation.ruches if not ruche.supprime %}
+                                                {% set nbRuches = nbRuches + 1 %}
+                                            {% endfor %}    
+                                            {{ nbRuches }} 
+                                        </td>
+                                        <td>
+                                            {% set nbColonnies = 0 %}
+                                            {% for colonnie in exploitation.colonnies if not ( colonnie.supprime or colonnie.morte ) %}
+                                                {% set nbColonnies = nbColonnies + 1 %}
+                                            {% endfor %}    
+                                            {{ nbColonnies }} 
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
