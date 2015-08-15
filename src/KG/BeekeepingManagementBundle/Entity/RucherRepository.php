@@ -27,7 +27,7 @@ class RucherRepository extends EntityRepository
         
         return new Paginator($q);
     }
-    
+
     public function countByExploitation($exploitation)
     {
         return $this->createQueryBuilder('r')

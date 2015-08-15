@@ -27,6 +27,17 @@ class RucheRepository extends EntityRepository
         
         return new Paginator($q);
     } 
+
+    public function getAvailableListByExploitation($exploitation)
+    {
+        return $this->createQueryBuilder('ruche')
+                    ->leftJoin('ruche.exploitation','exploitation')
+                    ->addSelect('exploitation')
+                    ->where('exploitation.id = :id')
+                    ->andWhere('ruche.supprime = false')
+                    ->andWhere('ruche.colonnie is NULL')
+                    ->setParameter('id',$exploitation);
+    } 
     
     public function countByExploitation($exploitation)
     {

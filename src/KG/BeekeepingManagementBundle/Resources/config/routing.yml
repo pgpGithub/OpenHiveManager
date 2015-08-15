@@ -131,6 +131,12 @@ kg_beekeeping_management_diviser_colonnie:
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:diviser }
     requirements:
         colonnie_id: \d+
+
+kg_beekeeping_management_enrucher_colonnie:
+    path:      /exploitation/colonnie/{colonnie_id}/enrucher-colonnie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:enrucher }
+    requirements:
+        colonnie_id: \d+
         
 kg_beekeeping_management_tuer_colonnie:
     path:      /exploitation/colonnie/{colonnie_id}/tuer-colonnie

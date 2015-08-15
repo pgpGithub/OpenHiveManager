@@ -5,6 +5,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\Colonnie;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
 use KG\BeekeepingManagementBundle\Form\ColonnieType;
+use KG\BeekeepingManagementBundle\Form\EnrucherType;
 use KG\BeekeepingManagementBundle\Form\DiviserType;
 use KG\BeekeepingManagementBundle\Form\CauseType;
 use Symfony\Component\HttpFoundation\Request;
@@ -255,6 +256,45 @@ class ColonnieController extends Controller
                                    'colonnie' => $colonnie, 
                             ));  
     }    
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("colonnie", options={"mapping": {"colonnie_id" : "id"}}) 
+    */    
+    public function enrucherAction(Colonnie $colonnie, Request $request)
+    {
+        $not_permitted = true;
         
+        foreach ( $colonnie->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $colonnie->getSupprime() || $colonnie->getMorte() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+
+        $securityContext = $this->container->get('security.context');
+        $form = $this->createForm(new EnrucherType($securityContext, $colonnie->getExploitation()), $colonnie);
+                
+        if ($form->handleRequest($request)->isValid()){
+            
+            $em = $this->getDoctrine()->getManager();
+            $colonnie->getRuche()->setColonnie($colonnie);
+            $em->persist($colonnie);
+            $em->flush();
+        
+            $request->getSession()->getFlashBag()->add('success','Colonnie enruchée avec succès');
+        
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $colonnie->getRuche()->getId())));
+        }
+
+        return $this->render('KGBeekeepingManagementBundle:Colonnie:enrucher.html.twig', 
+                             array('form'     => $form->createView(),
+                                   'colonnie' => $colonnie
+                            ));        
+    }
 }    
     

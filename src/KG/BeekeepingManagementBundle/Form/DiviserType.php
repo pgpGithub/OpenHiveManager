@@ -5,7 +5,6 @@ namespace KG\BeekeepingManagementBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\RaceRepository;
 
 class DiviserType extends AbstractType
 {
@@ -74,7 +73,7 @@ class DiviserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonnie'
-        ));
+        ));         
     }
 
     /**
@@ -82,6 +81,6 @@ class DiviserType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_colonnie';
+        return 'kg_beekeepingmanagementbundle_diviser';
     }
 }

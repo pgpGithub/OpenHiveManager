@@ -3,7 +3,6 @@
 namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Ruche;
-use KG\BeekeepingManagementBundle\Entity\Rucher;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
 use KG\BeekeepingManagementBundle\Form\RucheType;
 use Symfony\Component\HttpFoundation\Request;
