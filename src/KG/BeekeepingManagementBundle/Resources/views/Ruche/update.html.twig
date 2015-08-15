@@ -17,7 +17,7 @@
 {% block breadcrumbs %}
     {{ parent() }}
     <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': ruche.exploitation.id }) }}" class="btn btn-primary">{{ ruche.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.rucher.id }) }}" class="btn btn-primary">{{ ruche.rucher.nom }}</a>
+    {% if ruche.emplacement %}<a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.emplacement.rucher.id }) }}" class="btn btn-primary">{{ ruche.emplacement.rucher.nom }}</a>{% endif %}
 {% endblock %} 
             
 {% block screen %}   
