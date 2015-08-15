@@ -16,7 +16,12 @@ class RucheType extends AbstractType
     {
         $builder
             ->add('nom',  'text')
-            ->add('type', 'text')
+            ->add('type', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:TypeRuche',
+                        'property' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
+                    ))
             ->add('image', new ImageType(), array('required' => false)) 
         ;
     }

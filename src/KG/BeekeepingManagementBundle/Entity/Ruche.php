@@ -30,9 +30,12 @@ class Ruche
     private $nom;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @var TypeRuche
+     * 
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\TypeRuche")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner le type de la ruche")
      */
     private $type;
 
