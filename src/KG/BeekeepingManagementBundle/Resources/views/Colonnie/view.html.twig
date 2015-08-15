@@ -106,10 +106,10 @@
                                 <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': colonnie.ruche.id }) }}">{{ colonnie.ruche.nom }}</a></td>
                             </tr>
                             
-                            {% if colonnie.ruche.rucher %}
+                            {% if colonnie.ruche.emplacement %}
                             <tr>
                                 <td><strong>Rucher :</strong></td>
-                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': colonnie.ruche.rucher.id }) }}">{{ colonnie.ruche.rucher.nom }}</a></td>
+                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': colonnie.ruche.emplacement.rucher.id }) }}">{{ colonnie.ruche.emplacement.rucher.nom }}</a></td>
                             </tr>                              
                             {% endif %}                            
                             
