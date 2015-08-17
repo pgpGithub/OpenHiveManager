@@ -9,16 +9,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use KG\BeekeepingManagementBundle\Entity\RucheRepository;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Security\Core\SecurityContext;
 
 class EnrucherType extends AbstractType
 {
-    private $securityContext;
     private $exploitation;
     
-    public function __construct(SecurityContext $securityContext, Exploitation $exploitation)
+    public function __construct(Exploitation $exploitation)
     {
-        $this->securityContext = $securityContext;
         $this->exploitation = $exploitation;
     }
 

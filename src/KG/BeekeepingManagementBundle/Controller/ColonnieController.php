@@ -277,8 +277,7 @@ class ColonnieController extends Controller
         }
 
         $ancienneRuche = $colonnie->getRuche();
-        $securityContext = $this->container->get('security.context');
-        $form = $this->createForm(new EnrucherType($securityContext, $colonnie->getExploitation()), $colonnie);
+        $form = $this->createForm(new EnrucherType($colonnie->getExploitation()), $colonnie);
                 
         if ($form->handleRequest($request)->isValid()){
             
