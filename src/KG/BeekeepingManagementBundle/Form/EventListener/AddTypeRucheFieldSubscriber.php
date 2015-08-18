@@ -28,7 +28,7 @@ class AddTypeRucheFieldSubscriber implements EventSubscriberInterface
     {
         $formOptions = array(
             'class'         => 'KGBeekeepingManagementBundle:TypeRuche',
-            'mapped'        => false,
+            'property'      => 'libelle',
             'empty_value'   => '',
             'attr'          => array(
                 'class' => 'type_selector',
