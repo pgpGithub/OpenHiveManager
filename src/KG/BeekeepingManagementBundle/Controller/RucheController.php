@@ -4,7 +4,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Ruche;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
-use KG\BeekeepingManagementBundle\Form\RucheType;
+use KG\BeekeepingManagementBundle\Form\Type\RucheType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

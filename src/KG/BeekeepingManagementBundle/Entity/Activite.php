@@ -27,7 +27,7 @@ class Activite
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string", length=25, unique=true) 
+     * @ORM\Column(name="libelle", type="string", length=25, unique=true)
      * @Assert\NotBlank(message="Veuillez remplir le libellé de l'activité")
      * @Assert\Length(max=25, maxMessage="Le libellé de l'activité ne peut dépasser {{ limit }} caractères")
      */

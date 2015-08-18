@@ -43,8 +43,6 @@ class Emplacement
     private $soleil;
 
     /**
-     * @var Orientation
-     * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Orientation")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
@@ -53,16 +51,12 @@ class Emplacement
     private $orientation;
 
      /**
-      * @var Rucher 
-      * 
       * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="emplacements")
       * @ORM\JoinColumn(nullable=false)
       */
     private $rucher;    
 
      /**
-     * @var Ruche
-     * 
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="emplacement")
      * @Assert\Valid() 
      */

@@ -4,7 +4,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Rucher;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
-use KG\BeekeepingManagementBundle\Form\RucherType;
+use KG\BeekeepingManagementBundle\Form\Type\RucherType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

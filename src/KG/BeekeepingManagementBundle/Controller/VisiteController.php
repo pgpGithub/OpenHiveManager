@@ -3,7 +3,7 @@
 namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Ruche;
-use KG\BeekeepingManagementBundle\Form\VisiteType;
+use KG\BeekeepingManagementBundle\Form\Type\VisiteType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

@@ -1,12 +1,12 @@
 <?php
 
-namespace KG\BeekeepingManagementBundle\Form;
+namespace KG\BeekeepingManagementBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ImageType extends AbstractType
+class ActiviteType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,7 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file', array('label' => false))
+            ->add('libelle')
         ;
     }
     
@@ -25,7 +25,7 @@ class ImageType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Image'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Activite'
         ));
     }
 
@@ -34,6 +34,6 @@ class ImageType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_image';
+        return 'kg_beekeepingmanagementbundle_activite';
     }
 }

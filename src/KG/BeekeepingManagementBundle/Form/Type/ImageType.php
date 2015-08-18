@@ -1,12 +1,12 @@
 <?php
 
-namespace KG\BeekeepingManagementBundle\Form;
+namespace KG\BeekeepingManagementBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RucheType extends AbstractType
+class ImageType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,14 +15,7 @@ class RucheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',  'text')
-            ->add('type', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:TypeRuche',
-                        'property' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
-            ->add('image', new ImageType(), array('required' => false)) 
+            ->add('file', 'file', array('label' => false))
         ;
     }
     
@@ -32,7 +25,7 @@ class RucheType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Ruche'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Image'
         ));
     }
 
@@ -41,6 +34,6 @@ class RucheType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_ruche';
+        return 'kg_beekeepingmanagementbundle_image';
     }
 }

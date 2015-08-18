@@ -1,12 +1,14 @@
 <?php
 
-namespace KG\BeekeepingManagementBundle\Form;
+namespace KG\BeekeepingManagementBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use KG\BeekeepingManagementBundle\Form\EventListener\AddTypeRucheFieldSubscriber;
+use KG\BeekeepingManagementBundle\Form\EventListener\AddRucheFieldSubscriber;
 
-class ExploitationType extends AbstractType
+class EnrucherType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,19 +16,18 @@ class ExploitationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $propertyPathToRuche = 'ruche';
+        
         $builder
-            ->add('nom', 'text')                  
-        ;
+            ->addEventSubscriber(new AddRucheFieldSubscriber($propertyPathToRuche))
+            ->addEventSubscriber(new AddTypeRucheFieldSubscriber($propertyPathToRuche));
     }
     
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Exploitation'
-        ));
+    {       
     }
 
     /**
@@ -34,6 +35,6 @@ class ExploitationType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_exploitation';
+        return 'kg_beekeepingmanagementbundle_enrucher';
     }
 }

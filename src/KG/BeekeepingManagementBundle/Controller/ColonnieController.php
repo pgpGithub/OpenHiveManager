@@ -4,10 +4,10 @@ namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Colonnie;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
-use KG\BeekeepingManagementBundle\Form\ColonnieType;
-use KG\BeekeepingManagementBundle\Form\EnrucherType;
-use KG\BeekeepingManagementBundle\Form\DiviserType;
-use KG\BeekeepingManagementBundle\Form\CauseType;
+use KG\BeekeepingManagementBundle\Form\Type\ColonnieType;
+use KG\BeekeepingManagementBundle\Form\Type\EnrucherType;
+use KG\BeekeepingManagementBundle\Form\Type\DiviserType;
+use KG\BeekeepingManagementBundle\Form\Type\CauseType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -277,7 +277,7 @@ class ColonnieController extends Controller
         }
 
         $ancienneRuche = $colonnie->getRuche();
-        $form = $this->createForm(new EnrucherType($colonnie->getExploitation()), $colonnie);
+        $form = $this->createForm(new EnrucherType(), $colonnie);
                 
         if ($form->handleRequest($request)->isValid()){
             
@@ -297,6 +297,19 @@ class ColonnieController extends Controller
                              array('form'     => $form->createView(),
                                    'colonnie' => $colonnie
                             ));        
+    }
+    
+    /**
+     * @Route("/ruches", name="select_ruches")
+     */
+    public function ruchesAction(Request $request)
+    {
+        $type_id = $request->request->get('type_id');
+        
+        $em     = $this->getDoctrine()->getManager();
+        $ruches = $em->getRepository('KGBeekeepingManagementBundle:Ruche')->findByTypeId($type_id);
+
+        return new JsonResponse($ruches);
     }
 }    
     

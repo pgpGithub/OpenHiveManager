@@ -30,8 +30,6 @@ class Ruche
     private $nom;
 
     /**
-     * @var TypeRuche
-     * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\TypeRuche")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
@@ -40,8 +38,6 @@ class Ruche
     private $type;
 
     /**
-     * @var Exploitation
-     * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="ruches")
      * @ORM\JoinColumn(nullable=false)
      */

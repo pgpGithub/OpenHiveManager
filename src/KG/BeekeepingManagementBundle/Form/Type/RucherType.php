@@ -1,12 +1,12 @@
 <?php
 
-namespace KG\BeekeepingManagementBundle\Form;
+namespace KG\BeekeepingManagementBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EmplacementType extends AbstractType
+class RucherType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,14 +15,9 @@ class EmplacementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('soleil')
-            ->add('orientation', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Orientation',
-                        'property' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
+            ->add('nom', 'text')                
+            ->add('image', new ImageType(), array('required' => false)) 
+            ->add('localisation', new LocalisationType() )          
         ;
     }
     
@@ -32,7 +27,7 @@ class EmplacementType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Emplacement'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Rucher'
         ));
     }
 
@@ -41,6 +36,6 @@ class EmplacementType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_emplacement';
+        return 'kg_beekeepingmanagementbundle_rucher';
     }
 }
