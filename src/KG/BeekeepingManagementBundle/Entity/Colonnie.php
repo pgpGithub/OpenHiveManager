@@ -167,7 +167,16 @@ class Colonnie
      * @Assert\Length(max=50, maxMessage="La cause ne peut dépasser {{ limit }} caractères") 
      */
     private $autreCause;
-    
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->causes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->colonniesFilles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *

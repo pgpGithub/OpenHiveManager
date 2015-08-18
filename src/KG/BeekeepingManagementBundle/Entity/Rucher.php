@@ -68,7 +68,7 @@ class Rucher
      */
     public function __construct()
     {
-        $this->ruches = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->emplacements = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
