@@ -18,7 +18,7 @@ class RucheType extends AbstractType
             ->add('nom',  'text')
             ->add('type', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:TypeRuche',
-                        'property' => 'libelle',
+                        'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
                     ))

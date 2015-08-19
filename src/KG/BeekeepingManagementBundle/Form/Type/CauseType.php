@@ -17,10 +17,10 @@ class CauseType extends AbstractType
     {
         $builder                             
             ->add('causes', 'entity', array(
-                        'class'    => 'KGBeekeepingManagementBundle:Cause',
-                        'property' => 'libelle',
-                        'multiple' => true,
-                        'required' => false
+                        'class'        => 'KGBeekeepingManagementBundle:Cause',
+                        'choice_label' => 'libelle',
+                        'multiple'     => true,
+                        'required'     => false
                     ))
             ->add('autreCause', 'text', array('required' => false));
     }   

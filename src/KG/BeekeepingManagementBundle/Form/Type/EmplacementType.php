@@ -19,7 +19,7 @@ class EmplacementType extends AbstractType
             ->add('soleil')
             ->add('orientation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Orientation',
-                        'property' => 'libelle',
+                        'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
                     ))

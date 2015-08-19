@@ -28,8 +28,9 @@ class AddTypeRucheFieldSubscriber implements EventSubscriberInterface
     {
         $formOptions = array(
             'class'         => 'KGBeekeepingManagementBundle:TypeRuche',
-            'property'      => 'libelle',
+            'choice_label'  => 'libelle',
             'empty_value'   => '',
+            'mapped'        => 'false',
             'attr'          => array(
                 'class' => 'type_selector',
             ),
@@ -51,7 +52,7 @@ class AddTypeRucheFieldSubscriber implements EventSubscriberInterface
             return;
         }
  
-        $accessor = PropertyAccess::getPropertyAccessor();
+        $accessor = PropertyAccess::createPropertyAccessor();
  
         $ruche    = $accessor->getValue($data, $this->propertyPathToRuche);
         $type = ($ruche) ? $ruche->getType() : null;

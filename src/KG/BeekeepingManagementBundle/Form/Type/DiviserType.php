@@ -19,14 +19,14 @@ class DiviserType extends AbstractType
                                
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
-                        'property' => 'libelle',
+                        'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
                     ))
                 
             ->add('provenanceReine', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Provenance',
-                        'property' => 'libelle',
+                        'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
                     ))     
@@ -60,7 +60,7 @@ class DiviserType extends AbstractType
         
             ->add('marquage', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Marquage',
-                        'property' => 'libelle',
+                        'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
                     ));       

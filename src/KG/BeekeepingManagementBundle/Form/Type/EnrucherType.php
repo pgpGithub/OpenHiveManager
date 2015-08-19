@@ -19,8 +19,8 @@ class EnrucherType extends AbstractType
         $propertyPathToRuche = 'ruche';
         
         $builder
-            ->addEventSubscriber(new AddRucheFieldSubscriber($propertyPathToRuche))
-            ->addEventSubscriber(new AddTypeRucheFieldSubscriber($propertyPathToRuche));
+            ->addEventSubscriber(new AddTypeRucheFieldSubscriber($propertyPathToRuche))
+            ->addEventSubscriber(new AddRucheFieldSubscriber($propertyPathToRuche));
     }
     
     /**
