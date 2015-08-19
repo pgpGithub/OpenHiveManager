@@ -532,13 +532,6 @@ class Colonnie
     {
         return $this->ruche;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->colonniesFilles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add colonniesFilles
