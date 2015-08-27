@@ -5,8 +5,8 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use KG\BeekeepingManagementBundle\Form\EventListener\AddTypeRucheFieldSubscriber;
-use KG\BeekeepingManagementBundle\Form\EventListener\AddRucheFieldSubscriber;
+use KG\BeekeepingManagementBundle\Form\EventListener\EnrucherTypeRucheFieldSubscriber;
+use KG\BeekeepingManagementBundle\Form\EventListener\EnrucherRucheFieldSubscriber;
 
 class EnrucherType extends AbstractType
 {
@@ -19,8 +19,8 @@ class EnrucherType extends AbstractType
         $propertyPathToRuche = 'ruche';
         
         $builder
-            ->addEventSubscriber(new AddTypeRucheFieldSubscriber($propertyPathToRuche))
-            ->addEventSubscriber(new AddRucheFieldSubscriber($propertyPathToRuche));
+            ->addEventSubscriber(new EnrucherTypeRucheFieldSubscriber($propertyPathToRuche))
+            ->addEventSubscriber(new EnrucherRucheFieldSubscriber($propertyPathToRuche));
     }
     
     /**

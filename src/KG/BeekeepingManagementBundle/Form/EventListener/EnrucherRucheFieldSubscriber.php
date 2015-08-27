@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityRepository;
  
-class AddRucheFieldSubscriber implements EventSubscriberInterface
+class EnrucherRucheFieldSubscriber implements EventSubscriberInterface
 {
     private $propertyPathToRuche;
  

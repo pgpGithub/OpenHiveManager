@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  
-class AddTypeRucheFieldSubscriber implements EventSubscriberInterface
+class EnrucherTypeRucheFieldSubscriber implements EventSubscriberInterface
 {
     private $propertyPathToRuche;
  
