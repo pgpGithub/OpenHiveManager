@@ -29,6 +29,7 @@ class AddRucheFieldSubscriber implements EventSubscriberInterface
     {
         $formOptions = array(
             'class'         => 'KGBeekeepingManagementBundle:Ruche',
+            'choice_label'  => 'nom',
             'empty_value'   => '',
             'attr'          => array(
                 'class' => 'ruche_selector',
