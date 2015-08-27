@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ColonnieController extends Controller
@@ -283,9 +283,14 @@ class ColonnieController extends Controller
             
             $em = $this->getDoctrine()->getManager();
             $colonnie->getRuche()->setColonnie($colonnie);
-            $ancienneRuche->setColonnie(NULL);
+            
             $em->persist($colonnie);
-            $em->persist($ancienneRuche);
+            
+            if($ancienneRuche){
+                $ancienneRuche->setColonnie(NULL);
+                $em->persist($ancienneRuche);
+            }
+            
             $em->flush();
         
             $request->getSession()->getFlashBag()->add('success','Colonnie enruchée avec succès');
@@ -298,10 +303,10 @@ class ColonnieController extends Controller
                                    'colonnie' => $colonnie
                             ));        
     }
-    
+
     /**
-     * @Route("/ruches", name="select_ruches")
-     */
+    * @Security("has_role('ROLE_USER')")
+    */      
     public function ruchesAction(Request $request)
     {
         $type_id = $request->request->get('type_id');

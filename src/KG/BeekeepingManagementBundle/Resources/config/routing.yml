@@ -121,7 +121,7 @@ kg_beekeeping_management_update_colonnie:
         colonnie_id: \d+      
 
 kg_beekeeping_management_view_colonnie:
-    path:      /exploitation/rucher/ruche/visite/{colonnie_id}/afficher-colonnie
+    path:      /exploitation/colonnie/{colonnie_id}/afficher-colonnie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:view }
     requirements:
         colonnie_id: \d+         
@@ -137,6 +137,12 @@ kg_beekeeping_management_enrucher_colonnie:
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:enrucher }
     requirements:
         colonnie_id: \d+
+
+kg_beekeeping_management_select_ruches_colonnie:
+    path:      /exploitation/colonnie/select_ruches-colonnie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:ruches }
+    options:
+        expose: true    
         
 kg_beekeeping_management_tuer_colonnie:
     path:      /exploitation/colonnie/{colonnie_id}/tuer-colonnie

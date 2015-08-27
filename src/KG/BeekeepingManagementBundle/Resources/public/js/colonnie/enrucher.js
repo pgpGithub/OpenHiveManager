@@ -1,19 +1,19 @@
-$("#type").change(function(){
+$("#kg_beekeepingmanagementbundle_enrucher_type").change(function(){
     var data = {
-        type: $(this).val()
+        type_id: $(this).val()
     };
  
     $.ajax({
         type: 'post',
-        url: '{{ path("select_ruches") }}',
+        url: Routing.generate('kg_beekeeping_management_select_ruches_colonnie'),
         data: data,
         success: function(data) {
-            var $ruche_selector = $('#ruche');
+            var $ruche_selector = $('#kg_beekeepingmanagementbundle_enrucher_ruche');
  
-            $ruche_selector.html('<option>Ruche</option>');
+            $ruche_selector.html('<option></option>');
  
             for (var i=0, total = data.length; i < total; i++) {
-                $ruche_selector.append('<option value="' + data[i].id + '">' + data[i].libelle + '</option>');
+                $ruche_selector.append('<option value="' + data[i].id + '">' + data[i].nom + '</option>');
             }
         }
     });

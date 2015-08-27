@@ -30,7 +30,7 @@ class AddTypeRucheFieldSubscriber implements EventSubscriberInterface
             'class'         => 'KGBeekeepingManagementBundle:TypeRuche',
             'choice_label'  => 'libelle',
             'empty_value'   => '',
-            'mapped'        => 'false',
+            'mapped'        => false,
             'attr'          => array(
                 'class' => 'type_selector',
             ),
