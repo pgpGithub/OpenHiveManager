@@ -280,22 +280,26 @@ class ColonnieController extends Controller
         $form = $this->createForm(new EnrucherType(), $colonnie);
                 
         if ($form->handleRequest($request)->isValid()){
-            
-            $em = $this->getDoctrine()->getManager();
-            $colonnie->getRuche()->setColonnie($colonnie);
-            
-            $em->persist($colonnie);
-            
-            if($ancienneRuche){
-                $ancienneRuche->setColonnie(NULL);
-                $em->persist($ancienneRuche);
+            if($colonnie->getRuche()){
+                $em = $this->getDoctrine()->getManager();
+                $colonnie->getRuche()->setColonnie($colonnie);
+
+                $em->persist($colonnie);
+
+                if($ancienneRuche){
+                    $ancienneRuche->setColonnie(NULL);
+                    $em->persist($ancienneRuche);
+                }
+
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('success','Colonnie enruchée avec succès');
+
+                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $colonnie->getRuche()->getId())));
+            }else{
+                $this->get('session')->getFlashBag()->add('danger','Veuillez choisir une ruche dans laquelle placer votre colonnie');                 
             }
             
-            $em->flush();
-        
-            $request->getSession()->getFlashBag()->add('success','Colonnie enruchée avec succès');
-        
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $colonnie->getRuche()->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Colonnie:enrucher.html.twig', 

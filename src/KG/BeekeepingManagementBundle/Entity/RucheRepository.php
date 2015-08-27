@@ -27,17 +27,6 @@ class RucheRepository extends EntityRepository
         
         return new Paginator($q);
     } 
-
-    public function getAvailableListByExploitation($exploitation)
-    {
-        return $this->createQueryBuilder('ruche')
-                    ->leftJoin('ruche.exploitation','exploitation')
-                    ->addSelect('exploitation')
-                    ->where('exploitation.id = :id')
-                    ->andWhere('ruche.supprime = false')
-                    ->andWhere('ruche.colonnie is NULL')
-                    ->setParameter('id',$exploitation);
-    } 
     
     public function countByExploitation($exploitation)
     {
@@ -51,15 +40,20 @@ class RucheRepository extends EntityRepository
                     ->getSingleScalarResult();
     }  
     
-    public function findByTypeId($type)
+    public function queryfindByTypeId($type)
     {
         return $this->createQueryBuilder('ruche')
                     ->leftJoin('ruche.type', 'type')
                     ->addSelect('type')
                     ->where('type.id = :type')
-                    ->andWhere('ruche.supprime = false')
+                    ->andWhere('ruche.supprime = false')                   
+                    ->setParameter('type',$type);
+    }
+
+    public function findByTypeId($type)
+    {
+        return $this->queryfindByTypeId($type)
                     ->andWhere('ruche.colonnie is NULL')
-                    ->setParameter('type',$type)
                     ->getQuery()
                     ->getArrayResult();
     }

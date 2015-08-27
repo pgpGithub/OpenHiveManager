@@ -35,12 +35,7 @@ class EnrucherRucheFieldSubscriber implements EventSubscriberInterface
                 'class' => 'ruche_selector',
             ),
             'query_builder' => function (EntityRepository $repository) use ($type) {
-                $qb = $repository->createQueryBuilder('ruche')
-                    ->innerJoin('ruche.type', 'type')
-                    ->where('type.id = :type')
-                    ->setParameter('type', $type)
-                ;
- 
+                $qb = $repository->queryfindByTypeId($type);
                 return $qb;
             }
         );
