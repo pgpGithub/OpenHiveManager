@@ -26,9 +26,19 @@
 {% endblock %} 
             
 {% block screen %}   
-
+    {% for flashMessage in app.session.flashbag.get('danger') %}
+        {% if loop.first %}
+            <div class="alert alert-danger" role="alert">
+        {% endif %}
+                <i><span class="glyphicon glyphicon-remove-sign"></span> {{ flashMessage }}</i>
+        {% if loop.last %}        
+            </div>
+        {% endif %}
+    {% endfor %}   
+    {{ form_errors(form.type) }}
+    {{ form_errors(form.ruche) }}
     {{ form_errors(form) }}
-             
+    
     <div class="panel panel-primary">
 
         <div class="panel-heading">

@@ -280,7 +280,13 @@ class ColonnieController extends Controller
         $form = $this->createForm(new EnrucherType(), $colonnie);
                 
         if ($form->handleRequest($request)->isValid()){
-            if($colonnie->getRuche()){
+            if(!$colonnie->getRuche()){
+                $this->get('session')->getFlashBag()->add('danger','Veuillez choisir une ruche dans laquelle placer votre colonnie');                 
+            }
+            elseif($colonnie->getRuche()->getColonnie()){
+                $this->get('session')->getFlashBag()->add('danger','Cette ruche est déjà occupée par une colonnie');
+            }
+            else{
                 $em = $this->getDoctrine()->getManager();
                 $colonnie->getRuche()->setColonnie($colonnie);
 
@@ -296,10 +302,7 @@ class ColonnieController extends Controller
                 $request->getSession()->getFlashBag()->add('success','Colonnie enruchée avec succès');
 
                 return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $colonnie->getRuche()->getId())));
-            }else{
-                $this->get('session')->getFlashBag()->add('danger','Veuillez choisir une ruche dans laquelle placer votre colonnie');                 
-            }
-            
+            }  
         }
 
         return $this->render('KGBeekeepingManagementBundle:Colonnie:enrucher.html.twig', 
