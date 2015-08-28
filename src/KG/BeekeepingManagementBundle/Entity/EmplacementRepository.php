@@ -38,5 +38,23 @@ class EmplacementRepository extends EntityRepository
                     ->setParameter('id',$rucher)
                     ->getQuery()
                     ->getSingleScalarResult();
+    }   
+
+    public function queryfindByRucherId($rucher)
+    {
+        return $this->createQueryBuilder('emplacement')
+                    ->leftJoin('emplacement.rucher', 'rucher')
+                    ->addSelect('rucher')
+                    ->where('rucher.id = :rucher')
+                    ->andWhere('emplacement.supprime = false')                   
+                    ->setParameter('rucher',$rucher);
+    }
+
+    public function findByRucherId($rucher)
+    {
+        return $this->queryfindByRucherId($rucher)
+                    ->andWhere('emplacement.ruche is NULL')
+                    ->getQuery()
+                    ->getArrayResult();
     }    
 }

@@ -83,6 +83,12 @@ kg_beekeeping_management_view_ruche:
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view, page: 1 }
     requirements:
         ruche_id: \d+
+
+kg_beekeeping_management_transhumer_ruche:
+    path:      /exploitation/ruche/{ruche_id}/transhumer-ruche
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:transhumer }
+    requirements:
+        ruche_id: \d+
         
 kg_beekeeping_management_add_visite:
     path:      /exploitation/rucher/ruche/{ruche_id}/creer-visite/
@@ -143,6 +149,12 @@ kg_beekeeping_management_select_ruches_colonnie:
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:ruches }
     options:
         expose: true    
+
+kg_beekeeping_management_select_emplacements_ruche:
+    path:      /exploitation/ruche/select_emplacements-ruche
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:emplacements }
+    options:
+        expose: true
         
 kg_beekeeping_management_tuer_colonnie:
     path:      /exploitation/colonnie/{colonnie_id}/tuer-colonnie
