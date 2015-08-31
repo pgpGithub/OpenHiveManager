@@ -240,6 +240,9 @@ class ColonnieController extends Controller
                 $colonnie->setMorte(true);
 
                 if( $colonnie->getRuche() ){
+                    if( $colonnie->getRuche()->getEmplacement() ){
+                        $colonnie->getRuche()->setEmplacement(null);
+                    }
                     $colonnie->getRuche()->setColonnie(null);
                 }
 
