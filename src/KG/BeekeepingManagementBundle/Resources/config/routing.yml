@@ -138,6 +138,12 @@ kg_beekeeping_management_diviser_colonnie:
     requirements:
         colonnie_id: \d+
 
+kg_beekeeping_management_renouveler_reine_colonnie:
+    path:      /exploitation/colonnie/{colonnie_id}/renouveler_reine-colonnie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:renouvelerReine }
+    requirements:
+        colonnie_id: \d+
+        
 kg_beekeeping_management_enrucher_colonnie:
     path:      /exploitation/colonnie/{colonnie_id}/enrucher-colonnie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:enrucher }

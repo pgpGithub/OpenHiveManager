@@ -30,15 +30,15 @@
             
 {% block screen %}   
     {{ form_errors(form.nom) }}
-    {{ form_errors(form.race) }}
+    {{ form_errors(form.reine.race) }}
     {{ form_errors(form.affectation) }}
     {{ form_errors(form.anneeColonnie) }}
     {{ form_errors(form.provenanceColonnie) }}
     {{ form_errors(form.etat) }} 
     {{ form_errors(form.agressivite) }}
-    {{ form_errors(form.anneeReine) }}
-    {{ form_errors(form.provenanceReine) }}
-    {{ form_errors(form.marquage) }}
+    {{ form_errors(form.reine.anneeReine) }}
+    {{ form_errors(form.reine.provenanceReine) }}
+    {{ form_errors(form.reine.marquage) }}
     {{ form_errors(form) }}
              
     <div class="panel panel-primary">
@@ -59,14 +59,7 @@
                     <div class="col-sm-5 col-md-5">
                         {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
                     </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_label(form.race, "Race :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.race, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                </div>    
+                </div>     
 
                 <div class="form-group">
                     {{ form_label(form.affectation, "Affectation :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
@@ -108,35 +101,40 @@
             <fieldset> 
                 
                 <legend>Reine</legend>
-                
                 <div class="form-group">
-                    {{ form_label(form.anneeReine, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                    {{ form_label(form.reine.race, "Race :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.anneeReine, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(form.reine.race, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>  
+                    
+                <div class="form-group">
+                    {{ form_label(form.reine.anneeReine, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                    <div class="col-sm-5 col-md-5">
+                        {{ form_widget(form.reine.anneeReine, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>    
 
                 <div class="form-group">
-                    {{ form_label(form.provenanceReine, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                    {{ form_label(form.reine.provenanceReine, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.provenanceReine, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(form.reine.provenanceReine, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>    
 
                 <div class="form-group">
-                    {{ form_label(form.marquage, "Marquage :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                    {{ form_label(form.reine.marquage, "Marquage :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.marquage, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(form.reine.marquage, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>    
 
                 <div class="form-group">
-                  <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Clippage :</label>
-                  <div class="col-sm-5 col-md-5">
-                      {{ form_widget(form.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                  </div>
-                </div>
-             
+                    <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Clippage :</label>
+                    <div class="col-sm-5 col-md-5">
+                        {{ form_widget(form.reine.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                    </div>
+                </div>                   
             </fieldset>
                          
             {{ form_rest(form) }}

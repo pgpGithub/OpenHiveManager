@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DiviserType extends AbstractType
+class UpdateColonnieType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,9 +16,23 @@ class DiviserType extends AbstractType
     {
         $builder
             ->add('nom')
-                               
+                                               
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
+                        'choice_label' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
+                    ))
+                                
+            ->add('etat', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Etat',
+                        'choice_label' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
+                    ))
+                
+            ->add('agressivite', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Agressivite',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
@@ -32,7 +46,7 @@ class DiviserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonnie'
-        ));         
+        ));
     }
 
     /**
@@ -40,6 +54,6 @@ class DiviserType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_diviser';
+        return 'kg_beekeepingmanagementbundle_colonnie';
     }
 }

@@ -30,15 +30,9 @@
             
 {% block screen %}   
     {{ form_errors(form.nom) }}
-    {{ form_errors(form.race) }}
     {{ form_errors(form.affectation) }}
-    {{ form_errors(form.anneeColonnie) }}
-    {{ form_errors(form.provenanceColonnie) }}
     {{ form_errors(form.etat) }} 
     {{ form_errors(form.agressivite) }}
-    {{ form_errors(form.anneeReine) }}
-    {{ form_errors(form.provenanceReine) }}
-    {{ form_errors(form.marquage) }}
     {{ form_errors(form) }}
              
     <div class="panel panel-primary">
@@ -49,107 +43,34 @@
 
         <div class="panel-body">                
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-            
-            <fieldset>
-                
-                <legend>Colonnie</legend>
-                
-                <div class="form-group">
-                    {{ form_label(form.nom, "Nom :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_label(form.race, "Race :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {% if colonnie.ColonnieMere or colonnie.ColonniesFilles is not empty %}
-                            {{ form_widget(form.race, {'attr': {'class': 'form-control'}, 'disabled' : 'true'}) }}
-                        {% else %}
-                            {{ form_widget(form.race, {'attr': {'class': 'form-control'}}) }}
-                        {% endif %}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_label(form.affectation, "Affectation :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.affectation, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_label(form.anneeColonnie, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {% if colonnie.ColonnieMere or colonnie.ColonniesFilles is not empty %}
-                            {{ form_widget(form.anneeColonnie, {'attr': {'class': 'form-control'}, 'disabled' : 'true'}) }}
-                        {% else %}
-                            {{ form_widget(form.anneeColonnie, {'attr': {'class': 'form-control'}}) }}
-                        {% endif %}                            
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_label(form.provenanceColonnie, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {% if colonnie.ColonnieMere or colonnie.ColonniesFilles is not empty %}
-                            {{ form_widget(form.provenanceColonnie, {'attr': {'class': 'form-control'}, 'disabled' : 'true'}) }}
-                        {% else %}
-                            {{ form_widget(form.provenanceColonnie, {'attr': {'class': 'form-control'}}) }}
-                        {% endif %}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_label(form.etat, "Etat :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                </div>                      
-
-                <div class="form-group">
-                    {{ form_label(form.agressivite, "Agressivité :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.agressivite, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                </div>                    
-            
-            </fieldset>
-            
-            <fieldset> 
-                
-                <legend>Reine</legend>
-                
-                <div class="form-group">
-                    {{ form_label(form.anneeReine, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.anneeReine, {'attr': {'class': 'form-control'}, 'disabled' : 'true'}) }}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_label(form.provenanceReine, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.provenanceReine, {'attr': {'class': 'form-control'}, 'disabled' : 'true'}) }}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_label(form.marquage, "Marquage :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.marquage, {'attr': {'class': 'form-control'}, 'disabled' : 'true'}) }}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                  <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Clippage :</label>
-                  <div class="col-sm-5 col-md-5">
-                      {{ form_widget(form.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non', 'disabled' : 'true'}}) }}
-                  </div>
+                            
+            <div class="form-group">
+                {{ form_label(form.nom, "Nom :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                <div class="col-sm-5 col-md-5">
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
                 </div>
-             
-            </fieldset>
+            </div>    
+
+            <div class="form-group">
+                {{ form_label(form.affectation, "Affectation :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                <div class="col-sm-5 col-md-5">
+                    {{ form_widget(form.affectation, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>      
+
+            <div class="form-group">
+                {{ form_label(form.etat, "Etat :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                <div class="col-sm-5 col-md-5">
+                    {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>                      
+
+            <div class="form-group">
+                {{ form_label(form.agressivite, "Agressivité :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                <div class="col-sm-5 col-md-5">
+                    {{ form_widget(form.agressivite, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>                    
                          
             {{ form_rest(form) }}
 

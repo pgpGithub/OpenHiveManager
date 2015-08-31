@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ColonnieType extends AbstractType
+class ReineType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,10 +14,22 @@ class ColonnieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('nom')
-                               
-            ->add('anneeColonnie', 'collot_datetime', 
+        $builder              
+            ->add('race', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Race',
+                        'choice_label' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
+                    ))
+                                
+            ->add('provenanceReine', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:ProvenanceReine',
+                        'choice_label' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
+                    ))     
+                
+            ->add('anneeReine', 'collot_datetime', 
                     array( 
                             'pickerOptions' =>
                                 array('format' => 'yyyy',
@@ -40,35 +52,16 @@ class ColonnieType extends AbstractType
                             'read_only' => true
                 ))
                 
-            ->add('affectation', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Affectation',
+            ->add('clippage', 'checkbox', array(
+                'required'  => false,
+            ))
+        
+            ->add('marquage', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Marquage',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
-                    ))
-                
-            ->add('provenanceColonnie', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Provenance',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
-                
-            ->add('etat', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Etat',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
-                
-            ->add('agressivite', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Agressivite',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
-                
-            ->add('reine', new ReineType());       
+                    ));       
     }
     
     /**
@@ -77,7 +70,7 @@ class ColonnieType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonnie'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Reine'
         ));
     }
 

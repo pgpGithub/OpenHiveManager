@@ -3,8 +3,11 @@
 namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Colonnie;
+use KG\BeekeepingManagementBundle\Entity\Reine;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
+use KG\BeekeepingManagementBundle\Form\Type\ReineType;
 use KG\BeekeepingManagementBundle\Form\Type\ColonnieType;
+use KG\BeekeepingManagementBundle\Form\Type\UpdateColonnieType;
 use KG\BeekeepingManagementBundle\Form\Type\EnrucherType;
 use KG\BeekeepingManagementBundle\Form\Type\DiviserType;
 use KG\BeekeepingManagementBundle\Form\Type\CauseType;
@@ -140,7 +143,7 @@ class ColonnieController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $form = $this->createForm(new ColonnieType, $colonnie);
+        $form = $this->createForm(new UpdateColonnieType, $colonnie);
         
         if ($form->handleRequest($request)->isValid()){
                         
@@ -179,11 +182,11 @@ class ColonnieController extends Controller
         }
         
         $colonnieFille = new Colonnie();
+        $colonnieFille->setReine(new Reine());
         $colonnieFille->setExploitation($colonnieMere->getExploitation());
-        $colonnieFille->setRace($colonnieMere->getRace());
+        $colonnieFille->getReine()->setRace($colonnieMere->getReine()->getRace());
         $colonnieFille->setAnneeColonnie(new \DateTime());
         $colonnieFille->setProvenanceColonnie($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Provenance')->findOneByLibelle("Division"));
-        $colonnieFille->setProvenanceReine($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Provenance')->findOneByLibelle("Division"));
         $colonnieFille->setEtat($colonnieMere->getEtat());
         $colonnieFille->setAgressivite($colonnieMere->getAgressivite());
         $colonnieFille->setColonnieMere($colonnieMere);
@@ -323,6 +326,54 @@ class ColonnieController extends Controller
         $ruches = $em->getRepository('KGBeekeepingManagementBundle:Ruche')->findByTypeId($type_id);
 
         return new JsonResponse($ruches);
+    } 
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("colonnie", options={"mapping": {"colonnie_id" : "id"}}) 
+    */    
+    public function renouvelerReineAction(Colonnie $colonnie, Request $request)
+    {
+        $not_permitted = true;
+        
+        foreach ( $colonnie->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $colonnie->getSupprime() || $colonnie->getMorte() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+
+        $ancienneRace = $colonnie->getReine()->getRace();
+        $ancienneAnnee = $colonnie->getReine()->getAnneeReine();
+        
+        $form = $this->createForm(new ReineType(), $colonnie->getReine());
+                
+        if ($form->handleRequest($request)->isValid()){
+            
+            if( ( !$colonnie->getColonniesFilles()->isEmpty() || $colonnie->getColonnieMere() ) &&
+                ( $colonnie->getReine()->getRace() != $ancienneRace || $colonnie->getReine()->getProvenanceReine() != $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:ProvenanceReine')->findOneByLibelle("Naissance naturelle"))){
+                    $this->get('session')->getFlashBag()->add('danger','Cette colonnie est affiliée à d\'autres colonnies. Pour insérer une reine provenant d\'une autre colonnie, veuillez créer une nouvelle colonnie et déclarer la mort de la colonnie actuelle');
+                }
+            elseif( ( !$colonnie->getColonniesFilles()->isEmpty() || $colonnie->getColonnieMere() ) &&
+                    $colonnie->getReine()->getAnneeReine() < $ancienneAnnee && $colonnie->getReine()->getProvenanceReine() == $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:ProvenanceReine')->findOneByLibelle("Naissance naturelle")){
+                    $this->get('session')->getFlashBag()->add('danger','La nouvelle reine ne peut pas être plus vieille que l\'ancienne');
+                }
+            else{
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($colonnie);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('success','Reine renouvelée avec succès');
+                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonnie', array('colonnie_id' => $colonnie->getId())));                
+            }
+        }
+
+        return $this->render('KGBeekeepingManagementBundle:Colonnie:renouvelerReine.html.twig', 
+                             array('form'     => $form->createView(),
+                                   'colonnie' => $colonnie
+                            ));        
     }
 }    
-    

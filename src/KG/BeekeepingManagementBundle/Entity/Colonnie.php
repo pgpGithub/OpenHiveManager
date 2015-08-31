@@ -30,14 +30,6 @@ class Colonnie
     private $exploitation;
     
     /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Race")
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid()
-     * @Assert\NotBlank(message="Veuillez sélectionner la race de la colonnie")
-     */
-    private $race;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=25)
@@ -88,36 +80,11 @@ class Colonnie
     private $agressivite;
     
      /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="anneeReine", type="datetime")
-     * @Assert\DateTime()
-     * @Assert\NotBlank(message="Veuillez remplir l'année de naissance de la reine")
-     */
-    private $anneeReine;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="clippage", type="boolean")
-     */
-    private $clippage;    
-
-    /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Marquage")
-     * @ORM\JoinColumn()
-     * @Assert\Valid()
-     * @Assert\NotBlank(message="Veuillez sélectionner le marquage de la reine")
-     */
-    private $marquage;    
-
-    /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Provenance")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="colonnie", cascade="persist")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
-     * @Assert\NotBlank(message="Veuillez sélectionner la provenance de la reine") 
      */
-    private $provenanceReine;
+    private $reine;
     
      /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="colonniesFilles", cascade="persist")
@@ -187,30 +154,6 @@ class Colonnie
         return $this->id;
     }
 
-
-    /**
-     * Set race
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Race $race
-     * @return Colonnie
-     */
-    public function setRace(\KG\BeekeepingManagementBundle\Entity\Race $race)
-    {
-        $this->race = $race;
-
-        return $this;
-    }
-
-    /**
-     * Get race
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Race 
-     */
-    public function getRace()
-    {
-        return $this->race;
-    }
-
     /**
      * Set exploitation
      *
@@ -255,29 +198,6 @@ class Colonnie
     public function getNom()
     {
         return $this->nom;
-    }
-
-    /**
-     * Set clippage
-     *
-     * @param boolean $clippage
-     * @return Colonnie
-     */
-    public function setClippage($clippage)
-    {
-        $this->clippage = $clippage;
-
-        return $this;
-    }
-
-    /**
-     * Get clippage
-     *
-     * @return boolean 
-     */
-    public function getClippage()
-    {
-        return $this->clippage;
     }
 
     /**
@@ -327,52 +247,6 @@ class Colonnie
     }
 
     /**
-     * Set marquage
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Marquage $marquage
-     * @return Colonnie
-     */
-    public function setMarquage(\KG\BeekeepingManagementBundle\Entity\Marquage $marquage = null)
-    {
-        $this->marquage = $marquage;
-
-        return $this;
-    }
-
-    /**
-     * Get marquage
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Marquage 
-     */
-    public function getMarquage()
-    {
-        return $this->marquage;
-    }
-
-    /**
-     * Set provenanceReine
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Provenance $provenanceReine
-     * @return Colonnie
-     */
-    public function setProvenanceReine(\KG\BeekeepingManagementBundle\Entity\Provenance $provenanceReine)
-    {
-        $this->provenanceReine = $provenanceReine;
-
-        return $this;
-    }
-
-    /**
-     * Get provenanceReine
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Provenance 
-     */
-    public function getProvenanceReine()
-    {
-        return $this->provenanceReine;
-    }
-
-    /**
      * Set colonnieMere
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonnieMere
@@ -416,29 +290,6 @@ class Colonnie
     public function getAnneeColonnie()
     {
         return $this->anneeColonnie;
-    }
-
-    /**
-     * Set anneeReine
-     *
-     * @param \DateTime $anneeReine
-     * @return Colonnie
-     */
-    public function setAnneeReine($anneeReine)
-    {
-        $this->anneeReine = $anneeReine;
-
-        return $this;
-    }
-
-    /**
-     * Get anneeReine
-     *
-     * @return \DateTime 
-     */
-    public function getAnneeReine()
-    {
-        return $this->anneeReine;
     }
 
     /**
@@ -643,5 +494,28 @@ class Colonnie
     public function getAutreCause()
     {
         return $this->autreCause;
+    }
+
+    /**
+     * Set reine
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Reine $reine
+     * @return Colonnie
+     */
+    public function setReine(\KG\BeekeepingManagementBundle\Entity\Reine $reine = null)
+    {
+        $this->reine = $reine;
+
+        return $this;
+    }
+
+    /**
+     * Get reine
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Reine 
+     */
+    public function getReine()
+    {
+        return $this->reine;
     }
 }
