@@ -82,7 +82,6 @@
                                 <th>Orientation</th>
                                 <th>Ruche</th>
                                 <th>Colonnie</th>                            
-                                <th>Transhumer</th>
                             </thead>
                             <tbody>
                                 {% for emplacement in emplacements %}
@@ -91,8 +90,7 @@
                                         <td>{{ emplacement.soleil }}</td>
                                         <td>{{ emplacement.orientation.libelle }}</td>
                                         <td>{% if emplacement.ruche %}<a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>{% endif %}
-                                        <td>{% if emplacement.ruche %}{% if emplacement.ruche.colonnie %}<a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': emplacement.ruche.colonnie.id }) }}">{{ emplacement.ruche.colonnie.nom }}</a>{% endif %}{% endif %}</td>
-                                        <td>{% if emplacement.ruche %}<a title="Transhumer la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-transfer"></span></a>{% endif %}</td>                                        
+                                        <td>{% if emplacement.ruche %}{% if emplacement.ruche.colonnie %}<a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': emplacement.ruche.colonnie.id }) }}">{{ emplacement.ruche.colonnie.nom }}</a>{% endif %}{% endif %}</td>                                      
                                     </tr>
                                 {% endfor %}
                             </tbody>

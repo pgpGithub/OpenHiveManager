@@ -124,28 +124,28 @@
                 <div class="form-group">
                     {{ form_label(form.anneeReine, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.anneeReine, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(form.anneeReine, {'attr': {'class': 'form-control'}, 'disabled' : 'true'}) }}
                     </div>
                 </div>    
 
                 <div class="form-group">
                     {{ form_label(form.provenanceReine, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.provenanceReine, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(form.provenanceReine, {'attr': {'class': 'form-control'}, 'disabled' : 'true'}) }}
                     </div>
                 </div>    
 
                 <div class="form-group">
                     {{ form_label(form.marquage, "Marquage :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.marquage, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(form.marquage, {'attr': {'class': 'form-control'}, 'disabled' : 'true'}) }}
                     </div>
                 </div>    
 
                 <div class="form-group">
                   <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Clippage :</label>
                   <div class="col-sm-5 col-md-5">
-                      {{ form_widget(form.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                      {{ form_widget(form.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non', 'disabled' : 'true'}}) }}
                   </div>
                 </div>
              

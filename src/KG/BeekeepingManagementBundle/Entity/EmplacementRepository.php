@@ -53,7 +53,9 @@ class EmplacementRepository extends EntityRepository
     public function findByRucherId($rucher)
     {
         return $this->queryfindByRucherId($rucher)
-                    ->andWhere('emplacement.ruche is NULL')
+                    ->leftJoin('emplacement.ruche', 'ruche')
+                    ->addSelect('ruche')
+                    ->andWhere('ruche.emplacement is NULL')
                     ->getQuery()
                     ->getArrayResult();
     }    

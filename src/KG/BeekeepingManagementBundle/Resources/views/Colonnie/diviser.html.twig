@@ -13,7 +13,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
-                    '@KGBeekeepingManagementBundle/Resources/public/js/colonnie/add.js'%}
+                   '@KGBeekeepingManagementBundle/Resources/public/js/colonnie/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
     {{ form_javascript(form) }}
@@ -32,7 +32,6 @@
     {{ form_errors(form.nom) }}
     {{ form_errors(form.affectation) }}
     {{ form_errors(form.anneeReine) }}
-    {{ form_errors(form.provenanceReine) }}
     {{ form_errors(form.marquage) }}
     {{ form_errors(form) }}
              
@@ -68,18 +67,11 @@
             <fieldset> 
                 
                 <legend>Reine</legend>
-                
+
                 <div class="form-group">
                     {{ form_label(form.anneeReine, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-5 col-md-5">
                         {{ form_widget(form.anneeReine, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_label(form.provenanceReine, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                    <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.provenanceReine, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>    
 

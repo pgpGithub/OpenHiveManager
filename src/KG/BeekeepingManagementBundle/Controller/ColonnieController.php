@@ -183,6 +183,7 @@ class ColonnieController extends Controller
         $colonnieFille->setRace($colonnieMere->getRace());
         $colonnieFille->setAnneeColonnie(new \DateTime());
         $colonnieFille->setProvenanceColonnie($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Provenance')->findOneByLibelle("Division"));
+        $colonnieFille->setProvenanceReine($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Provenance')->findOneByLibelle("Division"));
         $colonnieFille->setEtat($colonnieMere->getEtat());
         $colonnieFille->setAgressivite($colonnieMere->getAgressivite());
         $colonnieFille->setColonnieMere($colonnieMere);

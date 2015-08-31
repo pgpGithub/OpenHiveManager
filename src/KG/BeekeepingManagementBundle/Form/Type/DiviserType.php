@@ -22,14 +22,7 @@ class DiviserType extends AbstractType
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
-                    ))
-                
-            ->add('provenanceReine', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Provenance',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))     
+                    ))  
                 
             ->add('anneeReine', 'collot_datetime', 
                     array( 
