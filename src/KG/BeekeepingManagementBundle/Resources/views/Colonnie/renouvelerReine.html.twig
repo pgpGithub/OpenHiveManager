@@ -45,20 +45,43 @@
     {{ form_errors(form.provenanceReine) }}
     {{ form_errors(form.marquage) }}
     {{ form_errors(form) }}
-             
+
+    {% if colonnie.colonnieMere or not colonnie.colonniesFilles.empty %}
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
+        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+        Cette colonnie est affiliée à d'autres colonnies. Pour y intégrer une reine d'une autre race ou d'une autre colonnie, déclarez cette colonnie comme morte et créez en une autre. 
+    </div>
+    {% endif %} 
+    
     <div class="panel panel-primary">
 
         <div class="panel-heading">
             <h3 class="panel-title">Renouvelement de la Reine de la colonnie {{ colonnie.nom }}</h3>
         </div>
-
+        
         <div class="panel-body">                
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                        
             <div class="form-group">
                 {{ form_label(form.race, "Race :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                 <div class="col-sm-5 col-md-5">
-                    {{ form_widget(form.race, {'attr': {'class': 'form-control'}}) }}
+                    {% if colonnie.colonnieMere or not colonnie.colonniesFilles.empty %}
+                        {{ form_widget(form.race, {'attr': {'class': 'form-control'}, 'disabled': 'true'}) }}
+                    {% else %}
+                        {{ form_widget(form.race, {'attr': {'class': 'form-control'}}) }}
+                    {% endif %}    
+                </div>
+            </div>      
+
+            <div class="form-group">
+                {{ form_label(form.provenanceReine, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                <div class="col-sm-5 col-md-5">
+                    {% if colonnie.colonnieMere or not colonnie.colonniesFilles.empty %}
+                        {{ form_widget(form.provenanceReine, {'attr': {'class': 'form-control'}, 'disabled': 'true'}) }}
+                    {% else %}
+                        {{ form_widget(form.provenanceReine, {'attr': {'class': 'form-control'}}) }}
+                    {% endif %}
                 </div>
             </div>    
 
@@ -67,15 +90,8 @@
                 <div class="col-sm-5 col-md-5">
                     {{ form_widget(form.anneeReine, {'attr': {'class': 'form-control'}}) }}
                 </div>
-            </div>    
-
-            <div class="form-group">
-                {{ form_label(form.provenanceReine, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                <div class="col-sm-5 col-md-5">
-                    {{ form_widget(form.provenanceReine, {'attr': {'class': 'form-control'}}) }}
-                </div>
-            </div>    
-
+            </div>  
+                
             <div class="form-group">
                 {{ form_label(form.marquage, "Marquage :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                 <div class="col-sm-5 col-md-5">
