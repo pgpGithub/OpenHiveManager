@@ -1,4 +1,4 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Colonnie/renouvelerReine.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Reine/renouveler.html.twig #}
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
@@ -39,10 +39,7 @@
             </div>
         {% endif %}
     {% endfor %}   
-    
-    {{ form_errors(form.race) }}
-    {{ form_errors(form.anneeReine) }}
-    {{ form_errors(form.provenanceReine) }}
+
     {{ form_errors(form.marquage) }}
     {{ form_errors(form) }}
              
@@ -53,28 +50,7 @@
         </div>
 
         <div class="panel-body">                
-            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-                       
-            <div class="form-group">
-                {{ form_label(form.race, "Race :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                <div class="col-sm-5 col-md-5">
-                    {{ form_widget(form.race, {'attr': {'class': 'form-control'}}) }}
-                </div>
-            </div>    
-
-            <div class="form-group">
-                {{ form_label(form.anneeReine, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                <div class="col-sm-5 col-md-5">
-                    {{ form_widget(form.anneeReine, {'attr': {'class': 'form-control'}}) }}
-                </div>
-            </div>    
-
-            <div class="form-group">
-                {{ form_label(form.provenanceReine, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-                <div class="col-sm-5 col-md-5">
-                    {{ form_widget(form.provenanceReine, {'attr': {'class': 'form-control'}}) }}
-                </div>
-            </div>    
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}          
 
             <div class="form-group">
                 {{ form_label(form.marquage, "Marquage :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}

@@ -79,6 +79,6 @@ class ReineType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_colonnie';
+        return 'kg_beekeepingmanagementbundle_reine';
     }
 }
