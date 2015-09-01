@@ -152,7 +152,7 @@
                                     {% else %}    
                                         {% set marquage = 'Aucun' %}
                                     {% endif %}
-                                    {{ marquage }}
+                                    {% if colonnie.reine.provenanceReine %}{{ marquage }}{% endif %}
                                 </td>
                             </tr>
                             <tr>

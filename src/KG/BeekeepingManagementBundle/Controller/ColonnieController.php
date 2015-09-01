@@ -3,6 +3,7 @@
 namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Colonnie;
+use KG\BeekeepingManagementBundle\Entity\Reine;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
 use KG\BeekeepingManagementBundle\Form\Type\ColonnieType;
 use KG\BeekeepingManagementBundle\Form\Type\UpdateColonnieType;
@@ -141,17 +142,24 @@ class ColonnieController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
+        $ancienClippage = $colonnie->getReine()->getClippage();
+                
         $form = $this->createForm(new UpdateColonnieType, $colonnie);
         
         if ($form->handleRequest($request)->isValid()){
-                        
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($colonnie);
-            $em->flush();
-        
-            $request->getSession()->getFlashBag()->add('success','Colonnie mise à jour avec succès');
-        
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonnie', array('colonnie_id' => $colonnie->getId())));
+            
+            if($ancienClippage && !$colonnie->getReine()->getClippage()){
+                $this->get('session')->getFlashBag()->add('danger','Le clippage ne peut pas être annulé');
+            }else{
+                
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($colonnie);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('success','Colonnie mise à jour avec succès');
+
+                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonnie', array('colonnie_id' => $colonnie->getId())));
+            }
         }
 
         return $this->render('KGBeekeepingManagementBundle:Colonnie:update.html.twig', 

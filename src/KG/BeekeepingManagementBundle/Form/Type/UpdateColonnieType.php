@@ -36,7 +36,9 @@ class UpdateColonnieType extends AbstractType
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
-                    ));       
+                    ))
+             
+            ->add('reine', new UpdateReineType());             
     }
     
     /**
