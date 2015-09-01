@@ -46,9 +46,9 @@ class Reine
     private $clippage;    
 
     /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Marquage")
-     * @ORM\JoinColumn()
-     * @Assert\Valid()
+     * @var boolean
+     *
+     * @ORM\Column(name="marquage", type="boolean", nullable=true)
      */
     private $marquage;    
 
@@ -206,29 +206,6 @@ class Reine
     }
 
     /**
-     * Set marquage
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Marquage $marquage
-     * @return Reine
-     */
-    public function setMarquage(\KG\BeekeepingManagementBundle\Entity\Marquage $marquage = null)
-    {
-        $this->marquage = $marquage;
-
-        return $this;
-    }
-
-    /**
-     * Get marquage
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Marquage 
-     */
-    public function getMarquage()
-    {
-        return $this->marquage;
-    }
-
-    /**
      * Set provenanceReine
      *
      * @param \KG\BeekeepingManagementBundle\Entity\ProvenanceReine $provenanceReine
@@ -273,4 +250,28 @@ class Reine
     {
         return $this->colonnie;
     }
+
+    /**
+     * Set marquage
+     *
+     * @param boolean $marquage
+     * @return Reine
+     */
+    public function setMarquage($marquage)
+    {
+        $this->marquage = $marquage;
+
+        return $this;
+    }
+
+    /**
+     * Get marquage
+     *
+     * @return boolean 
+     */
+    public function getMarquage()
+    {
+        return $this->marquage;
+    }
+    
 }

@@ -38,7 +38,6 @@
     {{ form_errors(form.agressivite) }}
     {{ form_errors(form.reine.anneeReine) }}
     {{ form_errors(form.reine.provenanceReine) }}
-    {{ form_errors(form.reine.marquage) }}
     {{ form_errors(form) }}
              
     <div class="panel panel-primary">
@@ -123,17 +122,17 @@
                 </div>    
 
                 <div class="form-group">
-                    {{ form_label(form.reine.marquage, "Marquage :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                    <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Marquage :</label>
                     <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.reine.marquage, {'attr': {'class': 'form-control'}}) }}
+                      {{ form_widget(form.reine.marquage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
                     </div>
-                </div>    
+                </div>     
 
                 <div class="form-group">
-                  <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Clippage :</label>
-                  <div class="col-sm-5 col-md-5">
+                    <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Clippage :</label>
+                    <div class="col-sm-5 col-md-5">
                       {{ form_widget(form.reine.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                  </div>
+                    </div>
                 </div>               
             </fieldset>
                          

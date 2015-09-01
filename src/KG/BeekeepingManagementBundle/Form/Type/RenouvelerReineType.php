@@ -19,12 +19,9 @@ class RenouvelerReineType extends AbstractType
                 'required'  => false,
             ))
         
-            ->add('marquage', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Marquage',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ));       
+            ->add('marquage', 'checkbox', array(
+                'required'  => false,
+            ));       
     }
     
     /**

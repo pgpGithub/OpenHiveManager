@@ -17,7 +17,7 @@
     <a href="{{ path('kg_beekeeping_management_view_exploitation_colonnie', { 'exploitation_id': colonnie.exploitation.id }) }}" class="btn btn-primary">{{ colonnie.exploitation.nom }}</a>
     <a href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-primary">{{ colonnie.nom }}</a>
 {% endblock %} 
-
+                                   
 {% block screen %}  
     {% for flashMessage in app.session.flashbag.get('success') %}
         {% if loop.first %}
@@ -141,7 +141,19 @@
                             </tr>
                             <tr>
                                 <td><strong>Marquage :</strong></td>
-                                <td>{% if colonnie.reine.marquage %}{{ colonnie.reine.marquage.libelle }}{% endif %}</td>
+                                <td>                                   
+                                    {% if colonnie.reine.marquage %}
+                                        {% set annee = colonnie.reine.anneeReine|date("Y")|last %}
+                                        {% if annee == 0 or annee == 5 %}{% set marquage = 'Bleu' %}{% endif %}
+                                        {% if annee == 1 or annee == 6 %}{% set marquage = 'Blanc' %}{% endif %}
+                                        {% if annee == 2 or annee == 7 %}{% set marquage = 'Jaune' %}{% endif %}
+                                        {% if annee == 3 or annee == 8 %}{% set marquage = 'Rouge' %}{% endif %}
+                                        {% if annee == 4 or annee == 9 %}{% set marquage = 'Vert' %}{% endif %}
+                                    {% else %}    
+                                        {% set marquage = 'Aucun' %}
+                                    {% endif %}
+                                    {{ marquage }}
+                                </td>
                             </tr>
                             <tr>
                                 <td><strong>Clippage :</strong></td>
