@@ -22,6 +22,12 @@ class RucheType extends AbstractType
                         'empty_value' => '',
                         'empty_data'  => null
                     ))
+            ->add('matiere', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Matiere',
+                        'choice_label' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
+                    ))
             ->add('image', new ImageType(), array('required' => false)) 
         ;
     }

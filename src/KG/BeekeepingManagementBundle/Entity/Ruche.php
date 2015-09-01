@@ -38,6 +38,14 @@ class Ruche
     private $type;
 
     /**
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Matiere")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner la matière de la ruche")
+     */
+    private $matiere;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="ruches")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -282,5 +290,28 @@ class Ruche
     public function getEmplacement()
     {
         return $this->emplacement;
+    }
+
+    /**
+     * Set matiere
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Matiere $matiere
+     * @return Ruche
+     */
+    public function setMatiere(\KG\BeekeepingManagementBundle\Entity\Matiere $matiere)
+    {
+        $this->matiere = $matiere;
+
+        return $this;
+    }
+
+    /**
+     * Get matiere
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Matiere 
+     */
+    public function getMatiere()
+    {
+        return $this->matiere;
     }
 }
