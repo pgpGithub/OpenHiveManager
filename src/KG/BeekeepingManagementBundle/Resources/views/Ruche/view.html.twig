@@ -43,19 +43,27 @@
                         <img src="../../../../../no_picture.png" alt="logo" class="img-thumbnail img-responsive">
                     {% endif %}           
                 </div>
-                <div class=" col-md-9 col-lg-9 ">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                <div class=" col-md-4 col-lg-4 ">
+                    <h4>Descriptif</h4>
+                    <table class="table">  
+                        <tbody>
+                            <tr>
+                                <td><strong>Type :</strong></td>
+                                <td>{{ ruche.type.libelle }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Matière :</strong></td>
+                                <td>{{ ruche.matiere.libelle }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>            
+                <div class=" col-md-5 col-lg-5 ">            
+                        <h4>Colonnie 
                             {% if ruche.colonnie %}
-                                Colonnie {{ ruche.colonnie.nom }}
-                                <span class="pull-right">
-                                    <a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': ruche.colonnie.id }) }}" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                </span>
-                            {% else %}
-                                Colonnie
+                                <a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': ruche.colonnie.id }) }}"> {{ ruche.colonnie.nom }}</a>
                             {% endif %}                                  
-                        </div>                          
-                        <div class="panel-body">
+                        </h4>                          
                             {% if ruche.colonnie %}
                                 <table class="table">
                                     <tbody>
@@ -75,9 +83,7 @@
                                 </table>
                             {% else %}
                                 Il n'y a pas de colonnie dans cette ruche.
-                            {% endif %}                 
-                        </div>                                  
-                    </div>             
+                            {% endif %}                                      
                 </div>
             </div> 
              
