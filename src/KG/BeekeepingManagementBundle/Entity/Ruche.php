@@ -55,6 +55,11 @@ class Ruche
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Cadre", mappedBy="ruche", cascade={"persist"})
      */
     private $cadres;  
+
+    /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"persist"})
+     */
+    private $hausses; 
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"})
@@ -312,5 +317,38 @@ class Ruche
     public function getCadres()
     {
         return $this->cadres;
+    }
+
+    /**
+     * Add hausses
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausses
+     * @return Ruche
+     */
+    public function addHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausses)
+    {
+        $this->hausses[] = $hausses;
+
+        return $this;
+    }
+
+    /**
+     * Remove hausses
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausses
+     */
+    public function removeHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausses)
+    {
+        $this->hausses->removeElement($hausses);
+    }
+
+    /**
+     * Get hausses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHausses()
+    {
+        return $this->hausses;
     }
 }
