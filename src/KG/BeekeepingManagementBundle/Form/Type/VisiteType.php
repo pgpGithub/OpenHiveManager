@@ -15,8 +15,12 @@ class VisiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('activite')
-        ;
+                ->add('activite', 'entity', array(
+                            'class' => 'KGBeekeepingManagementBundle:Activite',
+                            'choice_label' => 'libelle',
+                            'empty_value' => '',
+                            'empty_data'  => null
+                        ));
     }
     
     /**

@@ -16,27 +16,43 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': rucher.exploitation.id }) }}" class="btn btn-info">{{ rucher.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}" class="btn btn-info">{{ rucher.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}" class="btn btn-info">{{ ruche.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': colonnie.exploitation.id }) }}" class="btn btn-primary">{{ colonnie.exploitation.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': colonnie.ruche.emplacement.rucher.id }) }}" class="btn btn-primary">{{ colonnie.ruche.emplacement.rucher.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': colonnie.ruche.id }) }}" class="btn btn-primary">{{ colonnie.ruche.nom }}</a>
 {% endblock %} 
             
 {% block screen %}   
-    {{ form_errors(form.nom) }}
-    {{ form_errors(form.type) }}
-    {{ form_errors(form.image.file) }}
+    {{ form_errors(form.activite) }}
     {{ form_errors(form) }}
              
-    <div class="panel panel-default">
+    <div class="panel panel-primary">
 
         <div class="panel-heading">
            <h3 class="panel-title">Création d'une visite</h3>
         </div>
 
         <div class="panel-body">                
-            
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                                 
-   
+            {{ form_rest(form) }}
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="pull-right">
+                        <a href="{{ app.request.headers.get('referer') }}" class="btn btn-default">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            Annuler
+                        </a>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                            Sauvegarder
+                        </button>
+                    </div>
+                </div>        
+            </div>
+                                
+            {{ form_end(form) }}     
         </div>       
     </div>
 

@@ -91,19 +91,19 @@ kg_beekeeping_management_transhumer_ruche:
         ruche_id: \d+
         
 kg_beekeeping_management_add_visite:
-    path:      /exploitation/rucher/ruche/{ruche_id}/creer-visite/
+    path:      /exploitation/rucher/ruche/colonnie/{colonnie_id}/creer-visite/
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:add }
     requirements:
         ruche_id: \d+
         
 kg_beekeeping_management_delete_visite:
-    path:      /exploitation/rucher/ruche/visite/{visite_id}/supprimer-visite
+    path:      /exploitation/rucher/ruche/colonnie/visite/{visite_id}/supprimer-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:delete }
     requirements:
         visite_id: \d+
         
 kg_beekeeping_management_view_visite:
-    path:      /exploitation/rucher/ruche/visite/{visite_id}/afficher-visite
+    path:      /exploitation/rucher/ruche/colonnie/visite/{visite_id}/afficher-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:view }
     requirements:
         visite_id: \d+ 

@@ -118,7 +118,7 @@
         <div class="panel-footer">
             <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
             <span class="pull-right">
-                {%if ruche.colonnie %}<a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'ruche_id' : ruche.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i></a>{% endif %}
+                {%if ruche.colonnie %}<a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonnie_id' : ruche.colonnie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i></a>{% endif %}
                 <a title="Editer" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
             </span>
         </div>                                                        
