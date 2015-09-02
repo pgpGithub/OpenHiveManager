@@ -104,6 +104,12 @@ class Colonnie
      * @Assert\Valid()
      */
     private $ruche;
+
+    /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Visite", mappedBy="colonnie")
+     * @Assert\Valid()
+     */
+    private $visites;
     
     /**
      * @var boolean
@@ -140,8 +146,9 @@ class Colonnie
      */
     public function __construct()
     {
-        $this->causes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->colonniesFilles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->causes           = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->colonniesFilles  = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->visites          = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -518,4 +525,37 @@ class Colonnie
     {
         return $this->reine;
     }
+
+    /**
+     * Add visites
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Visite $visites
+     * @return Ruche
+     */
+    public function addVisite(\KG\BeekeepingManagementBundle\Entity\Visite $visites)
+    {
+        $this->visites[] = $visites;
+
+        return $this;
+    }
+
+    /**
+     * Remove visites
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Visite $visites
+     */
+    public function removeVisite(\KG\BeekeepingManagementBundle\Entity\Visite $visites)
+    {
+        $this->visites->removeElement($visites);
+    }
+
+    /**
+     * Get visites
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVisites()
+    {
+        return $this->visites;
+    }    
 }

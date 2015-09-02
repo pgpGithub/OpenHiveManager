@@ -2,7 +2,7 @@
 
 namespace KG\BeekeepingManagementBundle\Controller;
 
-use KG\BeekeepingManagementBundle\Entity\Ruche;
+use KG\BeekeepingManagementBundle\Entity\Colonnie;
 use KG\BeekeepingManagementBundle\Form\Type\VisiteType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -34,7 +34,7 @@ class VisiteController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}})  
     */    
-    public function addAction(Ruche $ruche, Request $request)
+    public function addAction(Colonnie $colonnie, Request $request)
     {
         
     } 

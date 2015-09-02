@@ -37,9 +37,12 @@ class RucheController extends Controller
         }
         
         $maxVisites     = $this->container->getParameter('max_visites_per_page');
-        $visites        = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByRuche($page, $maxVisites, $ruche->getId());
-        $visites_count  = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->countByRuche($ruche->getId()); 
-
+        
+        if($ruche->getColonnie()){
+            $visites        = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByColonnie($page, $maxVisites, $ruche->getColonnie()->getId());
+            $visites_count  = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->countByColonnie($ruche->getColonnie()->getId()); 
+        }
+        
         $pagination = array(
             'page'         => $page,
             'route'        => 'kg_beekeeping_management_view_ruche',

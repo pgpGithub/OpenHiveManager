@@ -13,14 +13,14 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class VisiteRepository extends EntityRepository
 {
-    public function getListByRuche($page=1, $maxperpage=10, $ruche)
+    public function getListByColonnie($page=1, $maxperpage=10, $colonnie)
     {
         $q = $this->createQueryBuilder('visite')
-                  ->leftJoin('visite.ruche','ruche')
-                  ->addSelect('ruche')
-                  ->where('ruche.id = :id')
-                  //->andWhere('ruche.supprime = false')
-                  ->setParameter('id',$ruche);
+                  ->leftJoin('visite.colonnie','colonnie')
+                  ->addSelect('colonnie')
+                  ->where('colonnie.id = :id')
+                  ->andWhere('visite.supprime = false')
+                  ->setParameter('id',$colonnie);
         
         $q->setFirstResult(($page-1)*$maxperpage)
           ->setMaxResults($maxperpage);
@@ -28,14 +28,14 @@ class VisiteRepository extends EntityRepository
         return new Paginator($q);
     }
     
-    public function countByRuche($ruche)
+    public function countByColonnie($colonnie)
     {
         return $this->createQueryBuilder('visite')
                     ->select('COUNT(visite)')
-                    ->leftJoin('visite.ruche','ruche')
-                    ->where('ruche.id = :id')
-                    //->andWhere('ruche.supprime = false')                
-                    ->setParameter('id',$ruche)
+                    ->leftJoin('visite.colonnie','colonnie')
+                    ->where('colonnie.id = :id')
+                    ->andWhere('visite.supprime = false')                
+                    ->setParameter('id',$colonnie)
                     ->getQuery()
                     ->getSingleScalarResult();
     }      

@@ -24,16 +24,23 @@ class Visite
     /**
      * @var Ruche
      * 
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="visites")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="visites")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $ruche;    
+    private $colonnie;    
     
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Activite")
      * @ORM\JoinColumn(nullable=false)
      */
     private $activite;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="supprime", type="boolean")
+     */
+    private $supprime = false;    
 
     /**
      * Get id
@@ -69,25 +76,49 @@ class Visite
     }
 
     /**
-     * Set ruche
+     * Set colonnie
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Ruche $ruche
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonnie
      * @return Visite
      */
-    public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche)
+    public function setColonnie(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonnie)
     {
-        $this->ruche = $ruche;
+        $this->colonnie = $colonnie;
 
         return $this;
     }
 
     /**
-     * Get ruche
+     * Get colonnie
      *
-     * @return \KG\BeekeepingManagementBundle\Entity\Ruche 
+     * @return \KG\BeekeepingManagementBundle\Entity\Colonnie 
      */
-    public function getRuche()
+    public function getColonnie()
     {
-        return $this->ruche;
+        return $this->colonnie;
     }
+
+    /**
+     * Set supprime
+     *
+     * @param string $supprime
+     * @return Visite 
+     */
+    public function setSupprime($supprime)
+    {
+        $this->supprime = $supprime;
+
+        return $this;
+    }
+
+    /**
+     * Get supprime
+     *
+     * @return boolean 
+     */
+    public function getSupprime()
+    {
+        return $this->supprime;
+    }      
+    
 }
