@@ -2,6 +2,7 @@
 
 namespace KG\BeekeepingManagementBundle\Controller;
 
+use KG\BeekeepingManagementBundle\Entity\Cadre;
 use KG\BeekeepingManagementBundle\Entity\Ruche;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
 use KG\BeekeepingManagementBundle\Form\Type\RucheType;
@@ -41,6 +42,9 @@ class RucheController extends Controller
         if($ruche->getColonnie()){
             $visites        = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByColonnie($page, $maxVisites, $ruche->getColonnie()->getId());
             $visites_count  = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->countByColonnie($ruche->getColonnie()->getId()); 
+        }else{
+            $visites        = 0;
+            $visites_count  = 0;           
         }
         
         $pagination = array(
@@ -133,7 +137,7 @@ class RucheController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("exploitation", options={"mapping": {"exploitation_id" : "id"}})  
     */    
-    public function addFromExploitationAction(Exploitation $exploitation, Request $request)
+    public function addAction(Exploitation $exploitation, Request $request)
     {
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
@@ -153,18 +157,34 @@ class RucheController extends Controller
         $form = $this->createForm(new RucheType, $ruche);
         
         if ($form->handleRequest($request)->isValid()){
-                        
-            $ruche->setExploitation($exploitation);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($ruche);
-            $em->flush();
-        
-            $request->getSession()->getFlashBag()->add('success','Ruche créée avec succès');
-        
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId())));
+
+            $nbCadres = $form->get('nbCadres')->getData();
+            
+            if($nbCadres < 0){
+                $this->get('session')->getFlashBag()->add('danger','Le nombre de cadres max ne peut pas être négatif');
+            }elseif($nbCadres >15){
+                $this->get('session')->getFlashBag()->add('danger','Le nombre de cadres max est trop élevé');
+            }else{            
+                $ruche->setExploitation($exploitation);
+
+                for ($nbCadres = $form->get('nbCadres')->getData(); $nbCadres > 0; $nbCadres--)
+                {
+                    $cadre = new Cadre();
+                    $ruche->addCadre($cadre);
+                    $cadre->setRuche($ruche);               
+                }
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($ruche);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('success','Ruche créée avec succès');
+
+                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId())));
+            }
         }
 
-        return $this->render('KGBeekeepingManagementBundle:Ruche:addFromExploitation.html.twig', 
+        return $this->render('KGBeekeepingManagementBundle:Ruche:add.html.twig', 
                              array(
                                     'form'         => $form->createView(),
                                     'exploitation' => $exploitation

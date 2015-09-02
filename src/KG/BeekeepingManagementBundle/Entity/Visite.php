@@ -38,6 +38,13 @@ class Visite
     /**
      * @var boolean
      *
+     * @ORM\Column(name="reine", type="boolean")
+     */
+    private $reine = false;    
+    
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="supprime", type="boolean")
      */
     private $supprime = false;    

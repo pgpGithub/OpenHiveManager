@@ -50,6 +50,11 @@ class Ruche
      * @ORM\JoinColumn(nullable=false)
      */
     private $exploitation;
+
+    /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Cadre", mappedBy="ruche", cascade={"persist"})
+     */
+    private $cadres;  
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"})
@@ -267,5 +272,45 @@ class Ruche
     public function getMatiere()
     {
         return $this->matiere;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cadres = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add cadres
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Cadre $cadres
+     * @return Ruche
+     */
+    public function addCadre(\KG\BeekeepingManagementBundle\Entity\Cadre $cadres)
+    {
+        $this->cadres[] = $cadres;
+
+        return $this;
+    }
+
+    /**
+     * Remove cadres
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Cadre $cadres
+     */
+    public function removeCadre(\KG\BeekeepingManagementBundle\Entity\Cadre $cadres)
+    {
+        $this->cadres->removeElement($cadres);
+    }
+
+    /**
+     * Get cadres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCadres()
+    {
+        return $this->cadres;
     }
 }

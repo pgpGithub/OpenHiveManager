@@ -60,9 +60,9 @@ kg_beekeeping_management_view_rucher:
     requirements:
         rucher_id: \d+
 
-kg_beekeeping_management_add_ruche_from_exploitation:
+kg_beekeeping_management_add_ruche:
     path:      /exploitation/{exploitation_id}/ruche/creer-ruche/
-    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:addFromExploitation }
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:add }
     requirements:
         exploitation_id: \d+     
 
