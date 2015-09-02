@@ -95,6 +95,7 @@
                 
             <div class="row">    
                 <div class=" col-md-12"> 
+                    {%if ruche.emplacement %}                    
                     <div class="table-responsive">
                         <table id="mytable" class="table table-bordred table-striped">
                             <thead>
@@ -109,13 +110,18 @@
                                     </tr>
                                 {% endfor %}
                             </tbody>
-                        </table>
+                        </table>                
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
                         </div>
                     </div> 
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        <center><i class="glyphicon glyphicon-alert"></i> Veuillez placer cette ruche dans un rucher pour créer des visites.</center>
+                    </div>                           
+                {% endif %}   
                 </div>
             </div>                   
         </div>            
