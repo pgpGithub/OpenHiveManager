@@ -161,8 +161,8 @@ class RucheController extends Controller
 
             $nbCadres = $form->get('nbCadres')->getData();
             
-            if($nbCadres < 0){
-                $this->get('session')->getFlashBag()->add('danger','Le nombre de cadres max ne peut pas être négatif');
+            if($nbCadres < 1){
+                $this->get('session')->getFlashBag()->add('danger','Le nombre de cadres max doit être supérieur à 0');
             }elseif($nbCadres >15){
                 $this->get('session')->getFlashBag()->add('danger','Le nombre de cadres max est trop élevé');
             }else{            
