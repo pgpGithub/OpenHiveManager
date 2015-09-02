@@ -5,6 +5,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\Cadre;
 use KG\BeekeepingManagementBundle\Entity\Ruche;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
+use KG\BeekeepingManagementBundle\Form\Type\UpdateRucheType;
 use KG\BeekeepingManagementBundle\Form\Type\RucheType;
 use KG\BeekeepingManagementBundle\Form\Type\TranshumerType;
 use Symfony\Component\HttpFoundation\Request;
@@ -113,7 +114,7 @@ class RucheController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $form = $this->createForm(new RucheType, $ruche);
+        $form = $this->createForm(new UpdateRucheType, $ruche);
         
         if ($form->handleRequest($request)->isValid()){
                         
