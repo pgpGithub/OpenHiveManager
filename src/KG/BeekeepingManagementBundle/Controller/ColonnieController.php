@@ -71,6 +71,9 @@ class ColonnieController extends Controller
             $colonnie->setSupprime(true);
 
             if( $colonnie->getRuche() ){
+                if($colonnie->getRuche()->getEmplacement()){
+                    $colonnie->getRuche()->setEmplacement(null);
+                }
                 $colonnie->getRuche()->setColonnie(null);
             }
 
