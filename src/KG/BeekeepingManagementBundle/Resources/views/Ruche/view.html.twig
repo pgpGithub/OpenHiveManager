@@ -30,6 +30,12 @@
         {% endif %}
     {% endfor %}
 
+    {% if not ruche.emplacement and ruche.colonnie %}
+    <div class="alert alert-warning" role="alert">
+        <center><i class="glyphicon glyphicon-alert"></i> Veuillez placer cette ruche dans un rucher pour créer des visites.</center>
+    </div>
+    {% endif %}
+    
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Ruche {{ ruche.nom }}</h3>
@@ -91,6 +97,7 @@
                 </div>
             </div> 
 
+            {%if ruche.emplacement %}     
             <hr>
                 
             <div class="row">    
@@ -145,8 +152,7 @@
             <hr>
                 
             <div class="row">    
-                <div class=" col-md-12"> 
-                    {%if ruche.emplacement %}                    
+                <div class=" col-md-12">         
                     <div class="table-responsive">
                         <table id="mytable" class="table table-bordred table-striped">
                             <thead>
@@ -167,14 +173,10 @@
                         <div class="col-md-12">
                             {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
                         </div>
-                    </div> 
-                {% else %}
-                    <div class="alert alert-warning" role="alert">
-                        <center><i class="glyphicon glyphicon-alert"></i> Veuillez placer cette ruche dans un rucher pour créer des visites.</center>
-                    </div>                           
-                {% endif %}   
+                    </div>                         
                 </div>
-            </div>                   
+            </div>  
+            {% endif %}            
         </div>  
                 
         <div class="panel-footer">
