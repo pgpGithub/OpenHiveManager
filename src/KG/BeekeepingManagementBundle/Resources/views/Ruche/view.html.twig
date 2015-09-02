@@ -90,7 +90,58 @@
                             {% endif %}                                      
                 </div>
             </div> 
-             
+
+            <hr>
+                
+            <div class="row">    
+                <div class=" col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Cadres</h4>
+                        </div>
+                        <div class="panel-body">
+                            {% for cadre in ruche.cadres %}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" style="width: {{ cadre.miel }}%">
+                                        <span class="sr-only">{{ cadre.miel }}% Miel</span>
+                                    </div>
+                                    <div class="progress-bar progress-bar-danger" style="width: {{ cadre.couvain }}%">
+                                        <span class="sr-only">{{ cadre.couvain }}% Couvain</span>
+                                    </div>
+                                    <div class="progress-bar progress-bar-info" style="width: {{ cadre.pollen }}%">
+                                        <span class="sr-only">{{ cadre.pollen }}% Pollen</span>
+                                    </div>
+                                </div>                                         
+                            {% endfor %}
+                        </div> 
+                    </div>    
+                    <h5>Légende :</h5>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning" style="width: 33.33%">
+                            Miel
+                        </div>
+                        <div class="progress-bar progress-bar-danger" style="width: 33.33%">
+                            Couvain
+                        </div>
+                        <div class="progress-bar progress-bar-info" style="width: 33.33%">
+                            Pollen
+                        </div>
+                    </div>   
+                </div>
+                <div class=" col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Hausses</h4>
+                        </div>
+                        <div class="panel-body">
+                            {% for cadre in ruche.cadres %}
+                                        
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>    
+            </div> 
+                
             <hr>
                 
             <div class="row">    
@@ -124,7 +175,8 @@
                 {% endif %}   
                 </div>
             </div>                   
-        </div>            
+        </div>  
+                
         <div class="panel-footer">
             <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
             <span class="pull-right">

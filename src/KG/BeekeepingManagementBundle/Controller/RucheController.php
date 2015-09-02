@@ -172,7 +172,7 @@ class RucheController extends Controller
                 {
                     $cadre = new Cadre();
                     $ruche->addCadre($cadre);
-                    $cadre->setRuche($ruche);               
+                    $cadre->setRuche($ruche);
                 }
 
                 $em = $this->getDoctrine()->getManager();
