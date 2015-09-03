@@ -6,14 +6,18 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
- 
+
+use Doctrine\ORM\EntityRepository;
+
 class TranshumerRucherFieldSubscriber implements EventSubscriberInterface
 {
     private $propertyPathToEmplacement;
- 
-    public function __construct($propertyPathToEmplacement)
+    private $exploitation;
+    
+    public function __construct($propertyPathToEmplacement, $exploitation)
     {
         $this->propertyPathToEmplacement = $propertyPathToEmplacement;
+        $this->exploitation = $exploitation;
     }
  
     public static function getSubscribedEvents()
@@ -24,8 +28,10 @@ class TranshumerRucherFieldSubscriber implements EventSubscriberInterface
         );
     }
  
-    private function addRucherForm($form, $type = null)
-    {
+    private function addRucherForm($form, $rucher = null)
+    {       
+        $exploitation = $this->exploitation;
+        
         $formOptions = array(
             'class'         => 'KGBeekeepingManagementBundle:Rucher',
             'choice_label'  => 'nom',
@@ -34,9 +40,13 @@ class TranshumerRucherFieldSubscriber implements EventSubscriberInterface
             'attr'          => array(
                 'class' => 'rucher_selector',
             ),
+            'query_builder' => function (EntityRepository $repository) use ($exploitation) {
+                $qb = $repository->queryfindByExploitationId($exploitation);
+                return $qb;
+            }
         );
  
-        if ($type) {
+        if ($rucher) {
             $formOptions['data'] = $rucher;
         }
  

@@ -332,10 +332,11 @@ class ColonnieController extends Controller
     */      
     public function ruchesAction(Request $request)
     {
-        $type_id = $request->request->get('type_id');
+        $type_id         = $request->request->get('type_id');
+        $exploitation_id = $request->request->get('exploitation_id');
         
         $em     = $this->getDoctrine()->getManager();
-        $ruches = $em->getRepository('KGBeekeepingManagementBundle:Ruche')->findByTypeId($type_id);
+        $ruches = $em->getRepository('KGBeekeepingManagementBundle:Ruche')->findByTypeId($type_id, $exploitation_id);
 
         return new JsonResponse($ruches);
     } 

@@ -40,19 +40,23 @@ class RucheRepository extends EntityRepository
                     ->getSingleScalarResult();
     }  
     
-    public function queryfindByTypeId($type)
+    public function queryfindByTypeId($type, $exploitation)
     {
         return $this->createQueryBuilder('ruche')
                     ->leftJoin('ruche.type', 'type')
                     ->addSelect('type')
+                    ->leftJoin('ruche.exploitation', 'exploitation')
+                    ->addSelect('exploitation')
                     ->where('type.id = :type')
-                    ->andWhere('ruche.supprime = false')                   
-                    ->setParameter('type',$type);
+                    ->andWhere('ruche.supprime = false')
+                    ->andWhere('exploitation.id = :exploitation')
+                    ->setParameter('type',$type)
+                    ->setParameter('exploitation', $exploitation);
     }
 
-    public function findByTypeId($type)
+    public function findByTypeId($type, $exploitation)
     {
-        return $this->queryfindByTypeId($type)
+        return $this->queryfindByTypeId($type, $exploitation)
                     ->andWhere('ruche.colonnie is NULL')
                     ->getQuery()
                     ->getArrayResult();

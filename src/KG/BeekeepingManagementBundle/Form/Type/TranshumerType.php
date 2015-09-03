@@ -17,9 +17,10 @@ class TranshumerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $propertyPathToEmplacement = 'emplacement';
+        $exploitation = $builder->getData()->getExploitation()->getId();
         
         $builder
-            ->addEventSubscriber(new TranshumerRucherFieldSubscriber($propertyPathToEmplacement))
+            ->addEventSubscriber(new TranshumerRucherFieldSubscriber($propertyPathToEmplacement, $exploitation))
             ->addEventSubscriber(new TranshumerEmplacementFieldSubscriber($propertyPathToEmplacement));
     }
     

@@ -17,10 +17,11 @@ class EnrucherType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $propertyPathToRuche = 'ruche';
+        $exploitation = $builder->getData()->getExploitation()->getId();
         
         $builder
             ->addEventSubscriber(new EnrucherTypeRucheFieldSubscriber($propertyPathToRuche))
-            ->addEventSubscriber(new EnrucherRucheFieldSubscriber($propertyPathToRuche));
+            ->addEventSubscriber(new EnrucherRucheFieldSubscriber($propertyPathToRuche, $exploitation));
     }
     
     /**

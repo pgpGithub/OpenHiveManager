@@ -12,9 +12,10 @@ class EnrucherRucheFieldSubscriber implements EventSubscriberInterface
 {
     private $propertyPathToRuche;
  
-    public function __construct($propertyPathToRuche)
+    public function __construct($propertyPathToRuche, $exploitation)
     {
         $this->propertyPathToRuche = $propertyPathToRuche;
+        $this->exploitation        = $exploitation;
     }
  
     public static function getSubscribedEvents()
@@ -27,6 +28,8 @@ class EnrucherRucheFieldSubscriber implements EventSubscriberInterface
  
     private function addRucheForm($form, $type)
     {
+        $exploitation = $this->exploitation;
+        
         $formOptions = array(
             'class'         => 'KGBeekeepingManagementBundle:Ruche',
             'choice_label'  => 'nom',
@@ -34,8 +37,8 @@ class EnrucherRucheFieldSubscriber implements EventSubscriberInterface
             'attr'          => array(
                 'class' => 'ruche_selector',
             ),
-            'query_builder' => function (EntityRepository $repository) use ($type) {
-                $qb = $repository->queryfindByTypeId($type);
+            'query_builder' => function (EntityRepository $repository) use ($type, $exploitation) {
+                $qb = $repository->queryfindByTypeId($type, $exploitation);
                 return $qb;
             }
         );

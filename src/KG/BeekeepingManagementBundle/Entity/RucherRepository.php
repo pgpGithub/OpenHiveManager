@@ -52,5 +52,22 @@ class RucherRepository extends EntityRepository
                     ->setParameter('id',$id)
                     ->getQuery()
                     ->getSingleResult();
-    }    
+    }  
+
+    public function queryfindByExploitationId($exploitation)
+    {
+        return $this->createQueryBuilder('rucher')
+                    ->leftJoin('rucher.exploitation', 'exploitation')
+                    ->addSelect('exploitation')
+                    ->where('exploitation.id = :exploitation')
+                    ->andWhere('rucher.supprime = false')                   
+                    ->setParameter('exploitation',$exploitation);
+    }
+    
+    public function findByExploitationId($exploitation)
+    {
+        return $this->queryfindByExploitationId($exploitation)
+                    ->getQuery()
+                    ->getArrayResult();
+    }     
 }
