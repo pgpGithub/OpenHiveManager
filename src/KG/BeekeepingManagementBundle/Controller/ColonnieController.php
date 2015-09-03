@@ -302,6 +302,9 @@ class ColonnieController extends Controller
             elseif($colonnie->getRuche()->getColonnie()){
                 $this->get('session')->getFlashBag()->add('danger','Cette ruche est déjà occupée par une colonnie');
             }
+            elseif($colonnie->getRuche()->getExploitation()->getId () != $colonnie->getExploitation()->getId()){
+                $this->get('session')->getFlashBag()->add('danger','Cette ruche n\'est pas dans la même exploitation que la colonnie');                
+            }
             else{
                 $em = $this->getDoctrine()->getManager();
                 $colonnie->getRuche()->setColonnie($colonnie);

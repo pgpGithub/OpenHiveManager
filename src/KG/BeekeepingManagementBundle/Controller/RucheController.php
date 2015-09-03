@@ -222,6 +222,9 @@ class RucheController extends Controller
             elseif($ruche->getEmplacement()->getRuche()){
                 $this->get('session')->getFlashBag()->add('danger','Cet emplacement est déjà occupé par une ruche');
             }
+            elseif($ruche->getEmplacement()->getRucher()->getExploitation()->getId() != $ruche->getExploitation()->getId()){
+                $this->get('session')->getFlashBag()->add('danger','Ce rucher n\'est pas dans la même exploitation que la ruche');                
+            }
             else{
                 $em = $this->getDoctrine()->getManager();
                 $ruche->getEmplacement()->setRuche($ruche);
