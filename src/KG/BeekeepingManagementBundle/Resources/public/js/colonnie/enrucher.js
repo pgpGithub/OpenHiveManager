@@ -1,7 +1,7 @@
 $("#kg_beekeepingmanagementbundle_enrucher_type").change(function(){
     var data = {
         type_id: $(this).val(),
-        exploitation_id: '11'
+        exploitation_id: $('#exploitation').val()
     };
  
     $.ajax({
