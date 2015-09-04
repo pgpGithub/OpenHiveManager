@@ -41,14 +41,89 @@ class Visite
      * @ORM\Column(name="reine", type="boolean")
      */
     private $reine = false;    
-    
+
     /**
      * @var boolean
      *
-     * @ORM\Column(name="supprime", type="boolean")
+     * @ORM\Column(name="essaimage", type="boolean")
      */
-    private $supprime = false;    
+    private $essaimage = false;    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Etat")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner l'état de la colonnie")
+     */
+    private $etat;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Agressivite")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner l'agressivité de la colonnie")
+     */
+    private $agressivite;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nourrissement", type="string", length=50)  
+     * @Assert\Length(max=50, maxMessage="Le type de nourrissement ne peut dépasser {{ limit }} caractères")
+     */
+    private $nourrissement;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="quantite", type="integer")
+     */
+    private $quantite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="traitement", type="string", length=50)  
+     * @Assert\Length(max=50, maxMessage="Le type de traitement ne peut dépasser {{ limit }} caractères")
+     */
+    private $traitement;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="miel", type="integer")
+     */
+    private $miel;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pollen", type="integer")
+     */
+    private $pollen;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="propolis", type="integer")
+     */
+    private $propolis;    
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="gelee", type="integer")
+     */
+    private $gelee; 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observations", type="text", length=300)
+     * @Assert\Length(max=300, maxMessage="Le champ observations ne peut dépasser {{ limit }} caractères") 
+     */
+    private $observations;
+    
     /**
      * Get id
      *
@@ -103,29 +178,5 @@ class Visite
     public function getColonnie()
     {
         return $this->colonnie;
-    }
-
-    /**
-     * Set supprime
-     *
-     * @param string $supprime
-     * @return Visite 
-     */
-    public function setSupprime($supprime)
-    {
-        $this->supprime = $supprime;
-
-        return $this;
-    }
-
-    /**
-     * Get supprime
-     *
-     * @return boolean 
-     */
-    public function getSupprime()
-    {
-        return $this->supprime;
-    }      
-    
+    }   
 }

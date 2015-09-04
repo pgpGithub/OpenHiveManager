@@ -25,6 +25,12 @@ class Cadre
      * @var integer
      *
      * @ORM\Column(name="couvain", type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 100,
+     *      minMessage = "Le pourcentage de couvain ne peut pas être négatif",
+     *      maxMessage = "Le pourcentage de couvain ne peut pas dépasser 100%"
+     * )
      */
     private $couvain = 0;
 
@@ -32,6 +38,12 @@ class Cadre
      * @var integer
      *
      * @ORM\Column(name="pollen", type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 100,
+     *      minMessage = "Le pourcentage de pollen ne peut pas être négatif",
+     *      maxMessage = "Le pourcentage de pollen ne peut pas dépasser 100%"
+     * )
      */
     private $pollen = 0;
 
@@ -39,6 +51,12 @@ class Cadre
      * @var integer
      *
      * @ORM\Column(name="miel", type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 100,
+     *      minMessage = "Le pourcentage de miel ne peut pas être négatif",
+     *      maxMessage = "Le pourcentage de miel ne peut pas dépasser 100%"
+     * )
      */
     private $miel = 0;
 

@@ -19,7 +19,6 @@ class VisiteRepository extends EntityRepository
                   ->leftJoin('visite.colonnie','colonnie')
                   ->addSelect('colonnie')
                   ->where('colonnie.id = :id')
-                  ->andWhere('visite.supprime = false')
                   ->setParameter('id',$colonnie);
         
         $q->setFirstResult(($page-1)*$maxperpage)
@@ -33,8 +32,7 @@ class VisiteRepository extends EntityRepository
         return $this->createQueryBuilder('visite')
                     ->select('COUNT(visite)')
                     ->leftJoin('visite.colonnie','colonnie')
-                    ->where('colonnie.id = :id')
-                    ->andWhere('visite.supprime = false')                
+                    ->where('colonnie.id = :id')              
                     ->setParameter('id',$colonnie)
                     ->getQuery()
                     ->getSingleScalarResult();
