@@ -30,6 +30,16 @@
         {% endif %}
     {% endfor %}
 
+    {% for flashMessage in app.session.flashbag.get('danger') %}
+        {% if loop.first %}
+            <div class="alert alert-danger" role="alert">
+        {% endif %}
+                <i><span class="glyphicon glyphicon-remove-sign"></span> {{ flashMessage }}</i>
+        {% if loop.last %}        
+            </div>
+        {% endif %}
+    {% endfor %}     
+    
     {% if not ruche.emplacement and ruche.colonnie %}
     <div class="alert alert-warning" role="alert">
         <center><i class="glyphicon glyphicon-alert"></i> Veuillez placer cette ruche dans un rucher pour créer des visites.</center>
@@ -104,7 +114,7 @@
                 <div class=" col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title">Cadres</h4>
+                            Cadres
                         </div>
                         <div class="panel-body">
                             {% for cadre in ruche.cadres %}
@@ -129,12 +139,29 @@
                 <div class=" col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title">Hausses</h4>
+                            Hausses
+                            <span class="pull-right">
+                                <a title="Ajouter une hausse" href="{{ path('kg_beekeeping_management_add_hausse', { 'ruche_id' : ruche.id }) }}" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i></a>
+                                {% for hausse in ruche.hausses if hausse.contenu == 0 %}
+                                    {% if loop.first %}
+                                        <a title="Supprimer une hausse" href="{{ path('kg_beekeeping_management_delete_hausse', { 'ruche_id' : ruche.id }) }}" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></a>                                
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
                         </div>
                         <div class="panel-body">
-                            {% for cadre in ruche.cadres %}
-                                        
+                            <ul class="list-group">
+                            {% for hausse in ruche.hausses|reverse %}
+                                <li class="list-group-item">
+                                    <div class="progress">
+                                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ hausse.contenu }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ hausse.contenu }}%;">
+                                        <span class="sr-only">Miel</span>
+                                      </div>
+                                    </div>                                    
+                                </li>                                       
                             {% endfor %}
+                            </ul>
+                            <span class="label label-warning">Miel</span>
                         </div>
                     </div>
                 </div>    

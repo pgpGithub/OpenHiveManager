@@ -57,7 +57,7 @@ class Ruche
     private $cadres;  
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true))
      */
     private $hausses; 
     

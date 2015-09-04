@@ -4,6 +4,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Cadre;
 use KG\BeekeepingManagementBundle\Entity\Ruche;
+use KG\BeekeepingManagementBundle\Entity\Hausse;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
 use KG\BeekeepingManagementBundle\Form\Type\UpdateRucheType;
 use KG\BeekeepingManagementBundle\Form\Type\RucheType;
@@ -249,7 +250,81 @@ class RucheController extends Controller
                                    'ruche' => $ruche
                             ));      
     }
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}})  
+    */    
+    public function addHausseAction(Ruche $ruche, Request $request)
+    {
+        $apiculteurExploitations = $ruche->getExploitation()->getApiculteurExploitations();
+        $not_permitted = true;
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $ruche->getSupprime() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+        
+        $hausse = new Hausse();
+        $ruche->addHauss($hausse);
+        $hausse->setRuche($ruche);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($ruche);
+        $em->flush();
 
+        $request->getSession()->getFlashBag()->add('success','Hausse ajoutée avec succès');
+
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId())));
+    } 
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}})  
+    */    
+    public function deleteHausseAction(Ruche $ruche, Request $request)
+    {
+        $apiculteurExploitations = $ruche->getExploitation()->getApiculteurExploitations();
+        $not_permitted = true;
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $ruche->getSupprime() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+        
+        $hausses = $ruche->getHausses();
+        foreach ( $hausses as $hausse ){
+            if( $hausse->getContenu() == 0 ){
+                break;
+            }
+        }
+        
+        if($hausse->getContenu() == 0){
+            $ruche->removeHauss($hausse);
+            $hausse->setRuche(NULL);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ruche);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success','Hausse supprimée avec succès');
+        }
+        else{
+            $request->getSession()->getFlashBag()->add('danger','Suppression impossible : aucune hausse n\'est vide');
+        }
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId())));
+    } 
+    
     /**
     * @Security("has_role('ROLE_USER')")
     */      

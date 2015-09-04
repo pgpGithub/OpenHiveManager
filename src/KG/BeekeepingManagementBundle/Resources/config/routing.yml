@@ -84,6 +84,18 @@ kg_beekeeping_management_view_ruche:
     requirements:
         ruche_id: \d+
 
+kg_beekeeping_management_add_hausse:
+    path:      /exploitation/rucher/ruche/{ruche_id}/ajouter-hausse
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:addHausse}
+    requirements:
+        ruche_id: \d+
+
+kg_beekeeping_management_delete_hausse:
+    path:      /exploitation/rucher/ruche/{ruche_id}/supprimer-hausse
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:deleteHausse}
+    requirements:
+        ruche_id: \d+
+        
 kg_beekeeping_management_transhumer_ruche:
     path:      /exploitation/ruche/{ruche_id}/transhumer-ruche
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:transhumer }

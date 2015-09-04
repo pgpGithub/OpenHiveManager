@@ -73,7 +73,7 @@ class Hausse
      * @param \KG\BeekeepingManagementBundle\Entity\Ruche $ruche
      * @return Hausse
      */
-    public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche)
+    public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche = NULL)
     {
         $this->ruche = $ruche;
 
