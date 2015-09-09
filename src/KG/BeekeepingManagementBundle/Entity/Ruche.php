@@ -283,7 +283,8 @@ class Ruche
      */
     public function __construct()
     {
-        $this->cadres = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cadres  = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

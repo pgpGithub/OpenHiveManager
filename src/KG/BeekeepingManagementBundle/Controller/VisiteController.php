@@ -53,11 +53,12 @@ class VisiteController extends Controller
         }       
         
         $visite = new Visite();
+        $visite->setColonnie($colonnie);
+        
         $form = $this->createForm(new VisiteType, $visite);
         
         if ($form->handleRequest($request)->isValid()){
-                        
-            $visite->setColonnie($colonnie);
+                            
             $em = $this->getDoctrine()->getManager();
             $em->persist($visite);
             $em->flush();

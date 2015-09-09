@@ -20,7 +20,39 @@ class VisiteType extends AbstractType
                             'choice_label' => 'libelle',
                             'empty_value' => '',
                             'empty_data'  => null
-                        ));
+                        ))
+                ->add('reine', 'checkbox', array(
+                'required'  => false,
+                        ))
+                ->add('essaimage', 'checkbox', array(
+                'required'  => false,
+                        ))
+                ->add('etat', 'entity', array(
+                            'class' => 'KGBeekeepingManagementBundle:Etat',
+                            'choice_label' => 'libelle',
+                            'empty_value' => '',
+                            'empty_data'  => null
+                        ))
+                ->add('agressivite', 'entity', array(
+                            'class' => 'KGBeekeepingManagementBundle:Agressivite',
+                            'choice_label' => 'libelle',
+                            'empty_value' => '',
+                            'empty_data'  => null
+                        ))
+                ->add('nourrissement', 'textarea', array(
+                            'required'  => false,
+                        ))
+                ->add('traitement', 'textarea', array(
+                            'required'  => false,
+                        ))
+                ->add('miel')
+                ->add('pollen')
+                ->add('propolis')
+                ->add('gelee')
+                ->add('observations', 'textarea', array(
+                            'required'  => false,
+                        ))
+                ->add('colonnie', new ProductionType());                
     }
     
     /**

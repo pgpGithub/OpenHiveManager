@@ -75,13 +75,6 @@ class Visite
     private $nourrissement;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="quantite", type="integer")
-     */
-    private $quantite;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="traitement", type="string", length=50)  
@@ -180,4 +173,280 @@ class Visite
     {
         return $this->colonnie;
     }   
+
+    /**
+     * Set reine
+     *
+     * @param boolean $reine
+     * @return Visite
+     */
+    public function setReine($reine)
+    {
+        $this->reine = $reine;
+
+        return $this;
+    }
+
+    /**
+     * Get reine
+     *
+     * @return boolean 
+     */
+    public function getReine()
+    {
+        return $this->reine;
+    }
+
+    /**
+     * Set essaimage
+     *
+     * @param boolean $essaimage
+     * @return Visite
+     */
+    public function setEssaimage($essaimage)
+    {
+        $this->essaimage = $essaimage;
+
+        return $this;
+    }
+
+    /**
+     * Get essaimage
+     *
+     * @return boolean 
+     */
+    public function getEssaimage()
+    {
+        return $this->essaimage;
+    }
+
+    /**
+     * Set nourrissement
+     *
+     * @param string $nourrissement
+     * @return Visite
+     */
+    public function setNourrissement($nourrissement)
+    {
+        $this->nourrissement = $nourrissement;
+
+        return $this;
+    }
+
+    /**
+     * Get nourrissement
+     *
+     * @return string 
+     */
+    public function getNourrissement()
+    {
+        return $this->nourrissement;
+    }
+
+    /**
+     * Set quantite
+     *
+     * @param integer $quantite
+     * @return Visite
+     */
+    public function setQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    /**
+     * Get quantite
+     *
+     * @return integer 
+     */
+    public function getQuantite()
+    {
+        return $this->quantite;
+    }
+
+    /**
+     * Set traitement
+     *
+     * @param string $traitement
+     * @return Visite
+     */
+    public function setTraitement($traitement)
+    {
+        $this->traitement = $traitement;
+
+        return $this;
+    }
+
+    /**
+     * Get traitement
+     *
+     * @return string 
+     */
+    public function getTraitement()
+    {
+        return $this->traitement;
+    }
+
+    /**
+     * Set miel
+     *
+     * @param integer $miel
+     * @return Visite
+     */
+    public function setMiel($miel)
+    {
+        $this->miel = $miel;
+
+        return $this;
+    }
+
+    /**
+     * Get miel
+     *
+     * @return integer 
+     */
+    public function getMiel()
+    {
+        return $this->miel;
+    }
+
+    /**
+     * Set pollen
+     *
+     * @param integer $pollen
+     * @return Visite
+     */
+    public function setPollen($pollen)
+    {
+        $this->pollen = $pollen;
+
+        return $this;
+    }
+
+    /**
+     * Get pollen
+     *
+     * @return integer 
+     */
+    public function getPollen()
+    {
+        return $this->pollen;
+    }
+
+    /**
+     * Set propolis
+     *
+     * @param integer $propolis
+     * @return Visite
+     */
+    public function setPropolis($propolis)
+    {
+        $this->propolis = $propolis;
+
+        return $this;
+    }
+
+    /**
+     * Get propolis
+     *
+     * @return integer 
+     */
+    public function getPropolis()
+    {
+        return $this->propolis;
+    }
+
+    /**
+     * Set gelee
+     *
+     * @param integer $gelee
+     * @return Visite
+     */
+    public function setGelee($gelee)
+    {
+        $this->gelee = $gelee;
+
+        return $this;
+    }
+
+    /**
+     * Get gelee
+     *
+     * @return integer 
+     */
+    public function getGelee()
+    {
+        return $this->gelee;
+    }
+
+    /**
+     * Set observations
+     *
+     * @param string $observations
+     * @return Visite
+     */
+    public function setObservations($observations)
+    {
+        $this->observations = $observations;
+
+        return $this;
+    }
+
+    /**
+     * Get observations
+     *
+     * @return string 
+     */
+    public function getObservations()
+    {
+        return $this->observations;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Etat $etat
+     * @return Visite
+     */
+    public function setEtat(\KG\BeekeepingManagementBundle\Entity\Etat $etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Etat 
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Set agressivite
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Agressivite $agressivite
+     * @return Visite
+     */
+    public function setAgressivite(\KG\BeekeepingManagementBundle\Entity\Agressivite $agressivite)
+    {
+        $this->agressivite = $agressivite;
+
+        return $this;
+    }
+
+    /**
+     * Get agressivite
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Agressivite 
+     */
+    public function getAgressivite()
+    {
+        return $this->agressivite;
+    }
 }
