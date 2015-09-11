@@ -53,11 +53,13 @@ class Ruche
 
     /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Cadre", mappedBy="ruche", cascade={"persist"})
+     * @Assert\Valid() 
      */
     private $cadres;  
 
     /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true))
+     * @Assert\Valid() 
      */
     private $hausses; 
     

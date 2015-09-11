@@ -3,6 +3,7 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Cadre
@@ -25,6 +26,10 @@ class Hausse
      * @var integer
      *
      * @ORM\Column(name="contenu", type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Le taux de remplissage de la hausse ne peut pas être négatif"
+     * )
      */
     private $contenu = 0;
 

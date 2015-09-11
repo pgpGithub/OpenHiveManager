@@ -93,6 +93,10 @@ class Visite
      * @var integer
      *
      * @ORM\Column(name="miel", type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "La quantité de miel récoltée ne peut pas être négative"
+     * )
      */
     private $miel;
     
@@ -100,6 +104,10 @@ class Visite
      * @var integer
      *
      * @ORM\Column(name="pollen", type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "La quantité de pollen récoltée ne peut pas être négative"
+     * )
      */
     private $pollen;
 
@@ -107,6 +115,10 @@ class Visite
      * @var integer
      *
      * @ORM\Column(name="propolis", type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "La quantité de propolis récoltée ne peut pas être négative"
+     * )
      */
     private $propolis;    
 
@@ -114,6 +126,10 @@ class Visite
      * @var integer
      *
      * @ORM\Column(name="gelee", type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "La quantité de gelée récoltée ne peut pas être négative"
+     * )
      */
     private $gelee; 
 

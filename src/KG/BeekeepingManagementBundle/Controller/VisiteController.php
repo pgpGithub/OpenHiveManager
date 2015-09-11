@@ -73,7 +73,9 @@ class VisiteController extends Controller
         $form = $this->createForm(new VisiteType, $visite);
         
         if ($form->handleRequest($request)->isValid()){
-                            
+                   
+            $visite->getColonnie()->setEtat($visite->getEtat());
+            $visite->getColonnie()->setAgressivite($visite->getAgressivite());
             $em = $this->getDoctrine()->getManager();
             $em->persist($visite);
             $em->flush();
@@ -113,7 +115,9 @@ class VisiteController extends Controller
         $form = $this->createForm(new VisiteType, $visite);
         
         if ($form->handleRequest($request)->isValid()){
-                        
+             
+            $visite->getColonnie()->setEtat($visite->getEtat());
+            $visite->getColonnie()->setAgressivite($visite->getAgressivite());
             $em = $this->getDoctrine()->getManager();
             $em->persist($visite);
             $em->flush();
