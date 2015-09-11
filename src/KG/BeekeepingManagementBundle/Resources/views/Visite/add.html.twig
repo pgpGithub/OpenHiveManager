@@ -45,6 +45,12 @@
             
                 <fieldset>
                     <legend>Généralités :</legend>          
+                    <div class="form-group">
+                        {{ form_label(form.date, "Date :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                        <div class="col-sm-5 col-md-5">
+                            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>    
                     
                     <div class="form-group">
                         {{ form_label(form.activite, "Activité :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}

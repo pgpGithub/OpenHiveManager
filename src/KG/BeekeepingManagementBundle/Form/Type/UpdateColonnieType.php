@@ -23,21 +23,7 @@ class UpdateColonnieType extends AbstractType
                         'empty_value' => '',
                         'empty_data'  => null
                     ))
-                                
-            ->add('etat', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Etat',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
-                
-            ->add('agressivite', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Agressivite',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
-             
+                                             
             ->add('reine', new UpdateReineType());             
     }
     

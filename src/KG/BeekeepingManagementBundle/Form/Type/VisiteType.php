@@ -14,6 +14,11 @@ class VisiteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $visites = $builder->getData()->getColonnie()->getVisites();
+        
+        $startDate = date_format($visites->last()->getDate(),"Y-m-d");
+        $endDate   = date("Y-m-d");
+        
         $builder
                 ->add('activite', 'entity', array(
                             'class' => 'KGBeekeepingManagementBundle:Activite',
@@ -22,10 +27,10 @@ class VisiteType extends AbstractType
                             'empty_data'  => null
                         ))
                 ->add('reine', 'checkbox', array(
-                'required'  => false,
+                            'required'  => false,
                         ))
                 ->add('essaimage', 'checkbox', array(
-                'required'  => false,
+                            'required'  => false,
                         ))
                 ->add('etat', 'entity', array(
                             'class' => 'KGBeekeepingManagementBundle:Etat',
@@ -52,7 +57,28 @@ class VisiteType extends AbstractType
                 ->add('observations', 'textarea', array(
                             'required'  => false,
                         ))
-                ->add('colonnie', new ProductionType());                
+                ->add('colonnie', new ProductionType())
+                ->add('date', 'collot_datetime', 
+                    array( 
+                            'pickerOptions' =>
+                                array('format' => 'dd/mm/yyyy',
+                                    'autoclose' => true,
+                                    'startDate' => (string)$startDate,
+                                    'endDate'   => (string)$endDate, 
+                                    'startView' => 'month',
+                                    'minView' => 'month',
+                                    'maxView' => 'month',
+                                    'todayBtn' => false,
+                                    'todayHighlight' => true,
+                                    'keyboardNavigation' => true,
+                                    'language' => 'fr',
+                                    'forceParse' => true,
+                                    'pickerReferer ' => 'default', 
+                                    'pickerPosition' => 'bottom-right',
+                                    'viewSelect' => 'month',
+                                ),
+                            'read_only' => true
+                ));                
     }
     
     /**

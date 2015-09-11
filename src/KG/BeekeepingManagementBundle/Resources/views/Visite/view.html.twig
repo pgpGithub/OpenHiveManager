@@ -14,10 +14,10 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': ruche.rucher.exploitation.id }) }}" class="btn btn-info">{{ ruche.rucher.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.rucher.id }) }}" class="btn btn-info">{{ ruche.rucher.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}" class="btn btn-info">{{ ruche.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}" class="btn btn-info">{{ visite.date }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': visite.colonnie.exploitation.id }) }}" class="btn btn-primary">{{ visite.colonnie.exploitation.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': visite.colonnie.ruche.emplacement.rucher.id }) }}" class="btn btn-primary">{{ visite.colonnie.ruche.emplacement.rucher.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': visite.colonnie.ruche.id }) }}" class="btn btn-primary">{{ visite.colonnie.ruche.nom }}</a>
+    {#<a href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}" class="btn btn-info">{{ visite.date }}</a>#}
 {% endblock %} 
 
 {% block screen %}  
@@ -30,10 +30,31 @@
             </div>
         {% endif %}
     {% endfor %}
+    
+    {% for flashMessage in app.session.flashbag.get('danger') %}
+        {% if loop.first %}
+            <div class="alert alert-danger" role="alert">
+        {% endif %}
+                <i><span class="glyphicon glyphicon-remove-sign"></span> {{ flashMessage }}</i>
+        {% if loop.last %}        
+            </div>
+        {% endif %}
+    {% endfor %}    
 
     <div class="panel panel-default">
         <div class="panel-body">
-            
+            {{ visite.activite.libelle }}
+            {{ visite.reine }}
+            {{ visite.essaimage }}
+            {{ visite.etat.libelle }}
+            {{ visite.agressivite.libelle }}
+            {{ visite.nourrissement }}
+            {{ visite.traitement }}
+            {{ visite.miel }}
+            {{ visite.propolis }}
+            {{ visite.pollen }}
+            {{ visite.gelee }}
+            {{ visite.observations }}
         </div>
     </div>
 {% endblock %}

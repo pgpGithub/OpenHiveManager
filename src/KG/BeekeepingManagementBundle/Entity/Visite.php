@@ -117,6 +117,14 @@ class Visite
      * @Assert\Length(max=300, maxMessage="Le champ observations ne peut dépasser {{ limit }} caractères") 
      */
     private $observations;
+
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime", nullable=true)
+     * @Assert\DateTime()
+     */
+    private $date;
     
     /**
      * Get id
@@ -448,5 +456,28 @@ class Visite
     public function getAgressivite()
     {
         return $this->agressivite;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Visite
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

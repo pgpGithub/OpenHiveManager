@@ -178,7 +178,7 @@
                                 <th>Afficher</th>
                             </thead>
                             <tbody>
-                                {% for visite in visites %}
+                                {% for visite in visites|reverse %}
                                     <tr>
                                         <td></td>
                                         <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a></td>                                        

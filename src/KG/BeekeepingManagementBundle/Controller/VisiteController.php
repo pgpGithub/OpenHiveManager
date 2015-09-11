@@ -20,7 +20,22 @@ class VisiteController extends Controller
     */    
     public function viewAction(Visite $visite)
     {
-
+        $apiculteurExploitations = $visite->getColonnie()->getExploitation()->getApiculteurExploitations();
+        $not_permitted = true;
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $visite->getColonnie()->getSupprime() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+       
+        return $this->render('KGBeekeepingManagementBundle:Visite:view.html.twig', 
+                array(  'visite' => $visite ));
     }
 
     /**
