@@ -191,7 +191,7 @@
                                         <td>{% if visite.risqueessaimage %}Oui{% else %}Non{% endif %}</td>
                                         <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
                                         <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
-                                        <td>{% if loop.first %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>{% endif %}</td>
+                                        <td>{% if loop.first %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>{% endif %}</td>
                                     </tr>    
                                 {% endfor %}
                             </tbody>
@@ -210,7 +210,16 @@
         <div class="panel-footer">
             <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
             <span class="pull-right">
-                {%if ruche.colonnie and ruche.emplacement %}{% set lastVisite = visites|last %}{% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}<a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonnie_id' : ruche.colonnie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i></a>{% endif %}{% endif %}
+                {%if ruche.colonnie and ruche.emplacement %}
+                    {% if visites is not empty %}
+                        {% set lastVisite = visites|last %}
+                        {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
+                            <a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonnie_id' : ruche.colonnie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i></a>
+                        {% endif %}
+                    {% else %}
+                        <a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonnie_id' : ruche.colonnie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i></a>
+                    {% endif %}
+                {% endif %}
                 <a title="Editer" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
             </span>
         </div>                                                        

@@ -1,0 +1,232 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/Visite/update.html.twig #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite' 'css/bootstrap_switch/bootstrap-switch.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}  
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
+                    '@KGBeekeepingManagementBundle/Resources/public/js/visite/add.js'%}
+        <script src="{{ asset_url }}" type="text/javascript"></script>  
+    {% endjavascripts %}
+    {{ form_javascript(form) }}
+{% endblock %}
+
+{% block title %}{{ parent() }} - Créer une visite{% endblock %}
+
+{% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': visite.colonnie.exploitation.id }) }}" class="btn btn-primary">{{ visite.colonnie.exploitation.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': visite.colonnie.ruche.emplacement.rucher.id }) }}" class="btn btn-primary">{{ visite.colonnie.ruche.emplacement.rucher.nom }}</a>
+    <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': visite.colonnie.ruche.id }) }}" class="btn btn-primary">{{ visite.colonnie.ruche.nom }}</a>
+{% endblock %} 
+            
+{% block screen %}   
+    {{ form_errors(form.activite) }}
+    {{ form_errors(form) }}
+             
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+           <h3 class="panel-title">Modification d'une visite</h3>
+        </div>
+
+        <div class="panel-body">                
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            
+                <fieldset>
+                    <legend>Généralités :</legend>          
+                    <div class="form-group">
+                        {{ form_label(form.date, "Date :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                        <div class="col-sm-5 col-md-5">
+                            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>    
+                    
+                    <div class="form-group">
+                        {{ form_label(form.activite, "Activité :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                        <div class="col-sm-5 col-md-5">
+                            {{ form_widget(form.activite, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Reine vue :</label>
+                        <div class="col-sm-5 col-md-5">
+                          {{ form_widget(form.reine, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                        </div>
+                    </div>   
+
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Eissaimage :</label>
+                        <div class="col-sm-5 col-md-5">
+                          {{ form_widget(form.essaimage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                        </div>
+                    </div>                          
+
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Risque Eissaimage :</label>
+                        <div class="col-sm-5 col-md-5">
+                          {{ form_widget(form.risqueessaimage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                        </div>
+                    </div> 
+                        
+                    <div class="form-group">
+                        {{ form_label(form.etat, "Etat :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                        <div class="col-sm-5 col-md-5">
+                            {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>                      
+
+                    <div class="form-group">
+                        {{ form_label(form.agressivite, "Agressivité :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                        <div class="col-sm-5 col-md-5">
+                            {{ form_widget(form.agressivite, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>                          
+                             
+                    <div class="form-group">
+                        {{ form_label(form.nourrissement, "Nourrissement :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                        <div class="col-sm-5 col-md-5">
+                            {{ form_widget(form.nourrissement, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>      
+                      
+                    <div class="form-group">
+                        {{ form_label(form.traitement, "Traitement :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                        <div class="col-sm-5 col-md-5">
+                            {{ form_widget(form.traitement, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>      
+
+                    <div class="form-group">
+                        {{ form_label(form.observations, "Observations :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                        <div class="col-sm-5 col-md-5">
+                            {{ form_widget(form.observations, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>                            
+                </fieldset>    
+                        
+                <fieldset>
+
+                    <legend>Récolte :</legend>   
+                        <div class="form-group">
+                            {{ form_label(form.miel, "Miel en kg :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                            <div class="col-sm-5 col-md-5">
+                                {{ form_widget(form.miel, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>   
+                            
+                        <div class="form-group">
+                            {{ form_label(form.pollen, "Pollen en g :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                            <div class="col-sm-5 col-md-5">
+                                {{ form_widget(form.pollen, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>  
+                            
+                        <div class="form-group">
+                            {{ form_label(form.propolis, "Propolis en g :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                            <div class="col-sm-5 col-md-5">
+                                {{ form_widget(form.propolis, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>  
+                            
+                        <div class="form-group">
+                            {{ form_label(form.gelee, "Gelée royale en g :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                            <div class="col-sm-5 col-md-5">
+                                {{ form_widget(form.gelee, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>                              
+                </fieldset>
+                        
+                <fieldset>
+
+                    <legend>Cadres :</legend>
+
+                    <ul class="list-group">
+                        {% for cadre in form.colonnie.ruche.cadres %}
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-sm-4 col-md-4 col-lg-4 ">
+                                        <div class="form-group">
+                                            {{ form_label(cadre.miel, "% de miel :", {'label_attr': {'class': 'col-sm-8 col-md-8 control-label'}}) }}
+                                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                                {{ form_widget(cadre.miel, {'attr': {'class': 'form-control'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4 ">                                                
+                                        <div class="form-group">
+                                            {{ form_label(cadre.couvain, "% de couvain :", {'label_attr': {'class': 'col-sm-8 col-md-8 control-label'}}) }}
+                                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                                {{ form_widget(cadre.couvain, {'attr': {'class': 'form-control'}}) }}
+                                            </div>
+                                        </div>        
+                                    </div> 
+                                    <div class="col-sm-4 col-md-4 col-lg-4 ">    
+                                        <div class="form-group">
+                                            {{ form_label(cadre.pollen, "% de pollen :", {'label_attr': {'class': 'col-sm-8 col-md-8 control-label'}}) }}
+                                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                                {{ form_widget(cadre.pollen, {'attr': {'class': 'form-control'}}) }}
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </li>                
+                        {% endfor %}
+                    </ul>    
+
+                </fieldset>       
+                        
+                <fieldset>
+
+                    <legend>Hausses :</legend>
+                    <div class="row">
+                        <div class="col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6">
+                            <ul class="list-group">
+                                {% for hausse in form.colonnie.ruche.hausses|reverse %}
+                                    <li class="list-group-item">
+                                        <div class="form-group">
+                                            {{ form_label(hausse.contenu, "% de miel :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                                            <div class="col-sm-5 col-md-5">
+                                                {{ form_widget(hausse.contenu, {'attr': {'class': 'form-control'}}) }}
+                                            </div>
+                                        </div> 
+                                    </li>    
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </fieldset>                         
+            {{ form_rest(form) }}
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="pull-right">
+                        <a href="{{ app.request.headers.get('referer') }}" class="btn btn-default">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            Annuler
+                        </a>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                            Sauvegarder
+                        </button>
+                    </div>
+                </div>        
+            </div>
+                                
+            {{ form_end(form) }}     
+        </div>       
+    </div>
+
+{% endblock %}

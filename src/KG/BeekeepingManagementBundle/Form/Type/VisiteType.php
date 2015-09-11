@@ -16,12 +16,20 @@ class VisiteType extends AbstractType
     {
         $visites = $builder->getData()->getColonnie()->getVisites();
         
+        $startDate = '2000-01-01';
+        
         if($visites->last()){
-            $startDate = date_add($visites->last()->getDate(),date_interval_create_from_date_string("1 days"));
-            $startDate = date_format($startDate,"Y-m-d");           
-        }
-        else{
-            $startDate = '2000-01-01';
+            if($visites->last()->getId() == $builder->getData()->getId()){
+                $len = count($visites) - 2;
+                if($visites{$len}){
+                    $startDate = date_add($visites{$len}->getDate(),date_interval_create_from_date_string("1 days"));
+                    $startDate = date_format($startDate,"Y-m-d");    
+                }
+            }
+            else{
+                $startDate = date_add($visites->last()->getDate(),date_interval_create_from_date_string("1 days"));
+                $startDate = date_format($startDate,"Y-m-d"); 
+            }
         }
         
         $endDate   = date("Y-m-d");

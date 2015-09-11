@@ -88,5 +88,45 @@ class VisiteController extends Controller
                                     'form'     => $form->createView(),
                                     'colonnie' => $colonnie
                 ));        
+    }
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("visite", options={"mapping": {"visite_id" : "id"}}) 
+    */    
+    public function updateAction(Visite $visite, Request $request)
+    {
+        $apiculteurExploitations = $visite->getColonnie()->getExploitation()->getApiculteurExploitations();
+        $not_permitted = true;
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $visite->getColonnie()->getSupprime() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+        
+        $form = $this->createForm(new VisiteType, $visite);
+        
+        if ($form->handleRequest($request)->isValid()){
+                        
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($visite);
+            $em->flush();
+        
+            $request->getSession()->getFlashBag()->add('success','Visite mise à jour avec succès');
+        
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_visite', array('visite_id' => $visite->getId())));
+        }
+
+        return $this->render('KGBeekeepingManagementBundle:Visite:update.html.twig', 
+                             array(
+                                    'form'  => $form->createView(),
+                                    'visite' => $visite
+                ));
     } 
 }

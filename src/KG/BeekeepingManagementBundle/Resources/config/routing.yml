@@ -107,6 +107,12 @@ kg_beekeeping_management_add_visite:
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:add }
     requirements:
         ruche_id: \d+
+
+kg_beekeeping_management_update_visite:
+    path:      /exploitation/rucher/ruche/colonnie/visite/{visite_id}/modifier-visite
+    defaults:  { _controller: KGBeekeepingManagementBundle:Visite:update }
+    requirements:
+        visite_id: \d+
         
 kg_beekeeping_management_delete_visite:
     path:      /exploitation/rucher/ruche/colonnie/visite/{visite_id}/supprimer-visite
