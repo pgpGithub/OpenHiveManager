@@ -175,14 +175,24 @@
                         <table id="mytable" class="table table-bordred table-striped">
                             <thead>
                                 <th>Visite</th>
-                                <th>Afficher</th>
+                                <th>Activité</th>
+                                <th>Etat</th>
+                                <th>Risque Essaimage</th>
+                                <th>Nourrissement</th>
+                                <th>Traitement</th>
+                                <th></th>
                             </thead>
                             <tbody>
                                 {% for visite in visites|reverse %}
                                     <tr>
-                                        <td></td>
-                                        <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a></td>                                        
-                                    </tr>
+                                        <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
+                                        <td>{{ visite.activite.libelle }}</td>
+                                        <td>{{ visite.etat.libelle }}</td>
+                                        <td>{% if visite.risqueessaimage %}Oui{% else %}Non{% endif %}</td>
+                                        <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
+                                        <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
+                                        <td>{% if loop.first %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>{% endif %}</td>
+                                    </tr>    
                                 {% endfor %}
                             </tbody>
                         </table>                
@@ -200,7 +210,7 @@
         <div class="panel-footer">
             <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
             <span class="pull-right">
-                {%if ruche.colonnie and ruche.emplacement %}<a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonnie_id' : ruche.colonnie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i></a>{% endif %}
+                {%if ruche.colonnie and ruche.emplacement %}{% set lastVisite = visites|last %}{% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}<a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonnie_id' : ruche.colonnie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i></a>{% endif %}{% endif %}
                 <a title="Editer" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
             </span>
         </div>                                                        

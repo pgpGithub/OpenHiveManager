@@ -16,7 +16,14 @@ class VisiteType extends AbstractType
     {
         $visites = $builder->getData()->getColonnie()->getVisites();
         
-        $startDate = date_format($visites->last()->getDate(),"Y-m-d");
+        if($visites->last()){
+            $startDate = date_add($visites->last()->getDate(),date_interval_create_from_date_string("1 days"));
+            $startDate = date_format($startDate,"Y-m-d");           
+        }
+        else{
+            $startDate = '2000-01-01';
+        }
+        
         $endDate   = date("Y-m-d");
         
         $builder
@@ -30,6 +37,9 @@ class VisiteType extends AbstractType
                             'required'  => false,
                         ))
                 ->add('essaimage', 'checkbox', array(
+                            'required'  => false,
+                        ))
+                ->add('risqueessaimage', 'checkbox', array(
                             'required'  => false,
                         ))
                 ->add('etat', 'entity', array(

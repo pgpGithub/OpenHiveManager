@@ -49,6 +49,13 @@ class Visite
      * @ORM\Column(name="essaimage", type="boolean")
      */
     private $essaimage = false;    
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="risqueessaimage", type="boolean")
+     */
+    private $risqueessaimage = false;    
     
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Etat")
@@ -69,7 +76,7 @@ class Visite
     /**
      * @var string
      *
-     * @ORM\Column(name="nourrissement", type="string", length=50)  
+     * @ORM\Column(name="nourrissement", type="string", length=50, nullable=true)  
      * @Assert\Length(max=50, maxMessage="Le type de nourrissement ne peut dépasser {{ limit }} caractères")
      */
     private $nourrissement;
@@ -77,7 +84,7 @@ class Visite
     /**
      * @var string
      *
-     * @ORM\Column(name="traitement", type="string", length=50)  
+     * @ORM\Column(name="traitement", type="string", length=50, nullable=true)  
      * @Assert\Length(max=50, maxMessage="Le type de traitement ne peut dépasser {{ limit }} caractères")
      */
     private $traitement;
@@ -113,7 +120,7 @@ class Visite
     /**
      * @var string
      *
-     * @ORM\Column(name="observations", type="text", length=300)
+     * @ORM\Column(name="observations", type="text", length=300, nullable=true)
      * @Assert\Length(max=300, maxMessage="Le champ observations ne peut dépasser {{ limit }} caractères") 
      */
     private $observations;
@@ -121,7 +128,7 @@ class Visite
      /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime", nullable=true)
+     * @ORM\Column(name="date", type="datetime")
      * @Assert\DateTime()
      */
     private $date;
@@ -479,5 +486,28 @@ class Visite
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set risqueessaimage
+     *
+     * @param boolean $risqueessaimage
+     * @return Visite
+     */
+    public function setRisqueessaimage($risqueessaimage)
+    {
+        $this->risqueessaimage = $risqueessaimage;
+
+        return $this;
+    }
+
+    /**
+     * Get risqueessaimage
+     *
+     * @return boolean 
+     */
+    public function getRisqueessaimage()
+    {
+        return $this->risqueessaimage;
     }
 }
