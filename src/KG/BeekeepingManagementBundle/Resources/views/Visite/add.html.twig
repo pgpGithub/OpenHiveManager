@@ -199,7 +199,8 @@
                     </ul>    
 
                 </fieldset>       
-                        
+                
+                {% if form.colonnie.ruche.hausses is not empty %}     
                 <fieldset>
 
                     <legend>Hausses :</legend>
@@ -219,7 +220,8 @@
                             </ul>
                         </div>
                     </div>
-                </fieldset>                         
+                </fieldset> 
+                {% endif %}            
             {{ form_rest(form) }}
 
             <div class="form-group">

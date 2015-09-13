@@ -75,7 +75,9 @@ class VisiteType extends AbstractType
                 ->add('observations', 'textarea', array(
                             'required'  => false,
                         ))
-                ->add('colonnie', new ProductionType())
+                ->add('colonnie', new ProductionType(), array(
+                            'label'  => false,
+                        ))
                 ->add('date', 'collot_datetime', 
                     array( 
                             'pickerOptions' =>

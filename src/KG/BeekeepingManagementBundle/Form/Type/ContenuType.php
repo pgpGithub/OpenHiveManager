@@ -15,7 +15,10 @@ class ContenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('cadres', 'collection', array('type' => new CadreType()))
-                ->add('hausses', 'collection', array('type' => new HausseType())); 
+                ->add('hausses', 'collection', array(
+                            'type'  => new HausseType(),
+                            'label' => false
+                        )); 
     }
     
     /**

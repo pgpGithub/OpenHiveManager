@@ -14,7 +14,9 @@ class ProductionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('ruche', new ContenuType());
+        $builder->add('ruche', new ContenuType(), array(
+                            'label'  => false,
+                        ));
     }
     
     /**
