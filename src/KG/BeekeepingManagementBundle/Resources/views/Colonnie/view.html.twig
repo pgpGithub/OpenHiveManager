@@ -165,7 +165,6 @@
                 {% if not colonnie.morte %}
                     <span class="pull-right">
                             <a title="Renouveler la reine" href="{{ path('kg_beekeeping_management_renouveler_reine', { 'reine_id': colonnie.reine.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-refresh"></i></a>
-                            <a title="Enrucher" href="{{ path('kg_beekeeping_management_enrucher_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-download-alt"></i></a>
                             <a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-scissors"></i></a>
                             <a title="Editer" href="{{ path('kg_beekeeping_management_update_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
                             <a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonnie', { 'colonnie_id' : colonnie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></a>

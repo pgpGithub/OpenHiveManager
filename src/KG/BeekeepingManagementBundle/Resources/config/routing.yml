@@ -1,17 +1,11 @@
 kg_beekeeping_management_home:
     path:      /manager
-    defaults:  { _controller: KGBeekeepingManagementBundle:Accueil:index, page: 1 }
+    defaults:  { _controller: KGBeekeepingManagementBundle:Accueil:index }
         
 kg_beekeeping_management_add_exploitation:
     path:      /exploitation/creer-exploitation
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:add }
        
-kg_beekeeping_management_view_exploitation:
-    path:      /exploitation/{exploitation_id}/afficher-exploitation/rucher/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:viewRucher, page: 1 }
-    requirements:
-        exploitation_id: \d+
-
 kg_beekeeping_management_update_exploitation:
     path:      /exploitation/{exploitation_id}/modifier-exploitation/
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:update }
@@ -148,13 +142,7 @@ kg_beekeeping_management_enrucher_colonnie:
     path:      /exploitation/colonnie/{colonnie_id}/enrucher-colonnie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:enrucher }
     requirements:
-        colonnie_id: \d+
-
-kg_beekeeping_management_select_ruches_colonnie:
-    path:      /exploitation/colonnie/select_ruches-colonnie
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:ruches }
-    options:
-        expose: true    
+        colonnie_id: \d+ 
 
 kg_beekeeping_management_select_emplacements_ruche:
     path:      /exploitation/ruche/select_emplacements-ruche

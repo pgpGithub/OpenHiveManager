@@ -25,7 +25,7 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation", mappedBy="apiculteur")
      */
     private $apiculteurExploitations;
-       
+    
     /**
      * Constructor
      */
@@ -78,5 +78,4 @@ class User extends BaseUser
     {
         return $this->apiculteurExploitations;
     }
-
 }

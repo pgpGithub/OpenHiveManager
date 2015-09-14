@@ -16,65 +16,7 @@
     {% endfor %}
     
     <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    Exploitations ({{ nbExploitations }})
-                </div>
-                <div class="panel-body">                          
-                    <div class="table-responsive">
-                        <table id="mytable" class="table table-bordred table-striped">
-                            <thead>
-                                <th>Exploitation</th>
-                                <th>Nombre de ruchers</th>
-                                {#<th>Nombre de ruches</th>
-                                <th>Nombre de colonnies</th>#}
-                            </thead>
-                            <tbody>
-                                {% for exploitation in exploitations %}
-                                    <tr>
-                                        <td><a title="Afficher l'exploitation" href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': exploitation.id }) }}">{{ exploitation.nom }}</a></td>                                        
-                                        <td>
-                                            {% set nbRuchers = 0 %}
-                                            {% for rucher in exploitation.ruchers if not rucher.supprime %}
-                                                {% set nbRuchers = nbRuchers + 1 %}
-                                            {% endfor %}    
-                                            {{ nbRuchers }}                                        
-                                        </td>
-                                        {#<td>
-                                            {% set nbRuches = 0 %}
-                                            {% for ruche in exploitation.ruches if not ruche.supprime %}
-                                                {% set nbRuches = nbRuches + 1 %}
-                                            {% endfor %}    
-                                            {{ nbRuches }} 
-                                        </td>
-                                        <td>
-                                            {% set nbColonnies = 0 %}
-                                            {% for colonnie in exploitation.colonnies if not ( colonnie.supprime or colonnie.morte ) %}
-                                                {% set nbColonnies = nbColonnies + 1 %}
-                                            {% endfor %}    
-                                            {{ nbColonnies }} 
-                                        </td>#}
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-footer">              
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a title="Créer une exploitation" href="{{ path('kg_beekeeping_management_add_exploitation') }}" class="pull-right btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i></a>
-                        </div>                           
-                    </div>
-                </div>                           
-            </div>
-        </div>
+
     </div>
 
 {% endblock %}

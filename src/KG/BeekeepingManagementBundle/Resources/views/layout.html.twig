@@ -17,6 +17,28 @@
         {{ parent() }}
         <div class="col-xs-12">
             <div class="row">
+                <div class="col-xs-10">
+                    <div class="page-header">
+                        <h2>Bienvenue dans l'exploitation {{ app.user.apiculteurExploitations|first.exploitation.nom }}</h2>
+                     </div>
+                </div>
+                <div class="col-xs-2">  
+                    <div class="dropdown" id="ruchers">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Ruchers
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            {% for rucher in app.user.apiculteurExploitations|first.exploitation.ruchers %}
+                                <li><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ rucher.nom }}</a></li>
+                            {% endfor %}
+                            <li role="separator" class="divider"></li>
+                            <li><a title="Créer un rucher" href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.apiculteurExploitations|first.exploitation.id }) }}">Créer un rucher</a></li>
+                        </ul>
+                    </div>                    
+                </div>    
+            </div>    
+            <div class="row">                
                 {% block screen %}
                 {% endblock %} 
             </div>

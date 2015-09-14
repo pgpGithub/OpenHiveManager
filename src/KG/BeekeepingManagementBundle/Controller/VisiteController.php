@@ -20,7 +20,7 @@ class VisiteController extends Controller
     */    
     public function viewAction(Visite $visite)
     {
-        $apiculteurExploitations = $visite->getColonnie()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $visite->getColonnie()->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -34,8 +34,8 @@ class VisiteController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
        
-        return $this->render('KGBeekeepingManagementBundle:Visite:view.html.twig', 
-                array(  'visite' => $visite ));
+        return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig', 
+                array(  'ruche' => $visite->getColonnie()->getRuche() ));
     }
 
     /**
@@ -52,7 +52,7 @@ class VisiteController extends Controller
     */    
     public function addAction(Colonnie $colonnie, Request $request)
     {
-        $exploitation = $colonnie->getExploitation();
+        $exploitation = $colonnie->getRuche()->getEmplacement()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
