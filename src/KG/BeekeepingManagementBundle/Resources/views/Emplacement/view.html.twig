@@ -12,13 +12,6 @@
 
 {% block title %}{{ parent() }} - Emplacement{% endblock %}
 
-{% block breadcrumbs %}
-    {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': emplacement.rucher.exploitation.id }) }}" class="btn btn-primary">{{ emplacement.rucher.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': emplacement.rucher.id }) }}" class="btn btn-primary">{{ emplacement.rucher.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}" class="btn btn-primary">{{ emplacement.nom }}</a>
-{% endblock %} 
-
 {% block screen %}  
     {% for flashMessage in app.session.flashbag.get('success') %}
         {% if loop.first %}

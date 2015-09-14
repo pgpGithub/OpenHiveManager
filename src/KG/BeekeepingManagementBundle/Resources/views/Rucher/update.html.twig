@@ -21,11 +21,6 @@
 
 {% block title %}{{ parent() }} - Modifier un rucher{% endblock %}
 
-{% block breadcrumbs %}
-    {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': rucher.exploitation.id }) }}" class="btn btn-primary">{{ rucher.exploitation.nom }}</a>
-{% endblock %} 
-
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
 {% block screen %}

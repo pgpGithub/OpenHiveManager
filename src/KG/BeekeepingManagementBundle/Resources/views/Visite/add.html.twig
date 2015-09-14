@@ -22,13 +22,6 @@
 {% block title %}{{ parent() }} - Créer une visite{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
-{% block breadcrumbs %}
-    {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': colonnie.exploitation.id }) }}" class="btn btn-primary">{{ colonnie.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': colonnie.ruche.emplacement.rucher.id }) }}" class="btn btn-primary">{{ colonnie.ruche.emplacement.rucher.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': colonnie.ruche.id }) }}" class="btn btn-primary">{{ colonnie.ruche.nom }}</a>
-{% endblock %} 
             
 {% block screen %}
     {{ form_errors(form.date) }}    

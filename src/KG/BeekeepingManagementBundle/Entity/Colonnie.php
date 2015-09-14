@@ -21,13 +21,6 @@ class Colonnie
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-     /**
-      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="colonnies")
-      * @ORM\JoinColumn(nullable=false)
-      * @Assert\Valid() 
-      */
-    private $exploitation;
     
     /**
      * @var string
@@ -159,29 +152,6 @@ class Colonnie
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set exploitation
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Exploitation $exploitation
-     * @return Colonnie
-     */
-    public function setExploitation(\KG\BeekeepingManagementBundle\Entity\Exploitation $exploitation)
-    {
-        $this->exploitation = $exploitation;
-
-        return $this;
-    }
-
-    /**
-     * Get exploitation
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Exploitation 
-     */
-    public function getExploitation()
-    {
-        return $this->exploitation;
     }
 
     /**

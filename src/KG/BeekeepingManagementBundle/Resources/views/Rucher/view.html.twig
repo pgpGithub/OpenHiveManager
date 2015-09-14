@@ -21,12 +21,6 @@
 
 {% block title %}{{ parent() }} - Rucher{% endblock %}
 
-{% block breadcrumbs %}
-    {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': rucher.exploitation.id }) }}" class="btn btn-primary">{{ rucher.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}" class="btn btn-primary">{{ rucher.nom }}</a>
-{% endblock %} 
-
 {% block screen %}
     
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -77,14 +71,24 @@
                                 <th>Ruche</th>
                                 <th>Colonnie</th>
                                 <th>Race</th>
+                                <th>Transhumer</th>
                             </thead>
                             <tbody>
                                 {% for emplacement in emplacements %}
                                     <tr>
                                         <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
-                                        <td>{% if emplacement.ruche %}<a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>{% endif %}
-                                        <td>{% if emplacement.ruche %}{% if emplacement.ruche.colonnie %}<a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': emplacement.ruche.colonnie.id }) }}">{{ emplacement.ruche.colonnie.nom }}</a>{% endif %}{% endif %}</td>                                      
-                                        <td>{% if emplacement.ruche %}{% if emplacement.ruche.colonnie %}{{ emplacement.ruche.colonnie.reine.race.libelle }}{% endif %}{% endif %}</td>
+                                        {% if emplacement.ruche %}
+                                            <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>
+                                            {% if emplacement.ruche.colonnie %}
+                                                <td><a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': emplacement.ruche.colonnie.id }) }}">{{ emplacement.ruche.colonnie.nom }}</a></td>
+                                                <td>{{ emplacement.ruche.colonnie.reine.race.libelle }}</td>
+                                                <td><a title="Transhumer la ruche" href="{{ path('kg_beekeeping_management_transhumer_ruche', { 'ruche_id': emplacement.ruche.id }) }}" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-transfer"></span></a></td>
+                                            {% endif %}
+                                        {% else %}
+                                            <td colspan="4">
+                                                <a title="Créer une colonnie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i> Créer une colonnie</a>                                                
+                                            </td> 
+                                        {% endif %}                                     
                                     </tr>
                                 {% endfor %}
                             </tbody>

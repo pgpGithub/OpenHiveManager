@@ -12,13 +12,6 @@
 
 {% block title %}{{ parent() }} - Ruche{% endblock %}
 
-{% block breadcrumbs %}
-    {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation_ruche', { 'exploitation_id': ruche.exploitation.id }) }}" class="btn btn-primary">{{ ruche.exploitation.nom }}</a>
-    {% if ruche.emplacement %}{% if ruche.emplacement.rucher %}<a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.emplacement.rucher.id }) }}" class="btn btn-primary">{{ ruche.emplacement.rucher.nom }}</a>{% endif %}{% endif %}
-    <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}" class="btn btn-primary">{{ ruche.nom }}</a>
-{% endblock %} 
-
 {% block screen %}  
     {% for flashMessage in app.session.flashbag.get('success') %}
         {% if loop.first %}
@@ -39,13 +32,7 @@
             </div>
         {% endif %}
     {% endfor %}     
-    
-    {% if not ruche.emplacement and ruche.colonnie %}
-    <div class="alert alert-warning" role="alert">
-        <center><i class="glyphicon glyphicon-alert"></i> Veuillez placer cette ruche dans un rucher pour créer des visites.</center>
-    </div>
-    {% endif %}
-    
+        
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Ruche {{ ruche.nom }}</h3>
@@ -64,6 +51,10 @@
                     <table class="table">  
                         <tbody>
                             <tr>
+                                <td><strong>Rucher :</strong></td>
+                                <td>{{ ruche.emplacement.rucher.nom }}</td>
+                            </tr>                                  
+                            <tr>
                                 <td><strong>Type :</strong></td>
                                 <td>{{ ruche.type.libelle }}</td>
                             </tr>
@@ -72,42 +63,39 @@
                                 <td>{{ ruche.matiere.libelle }}</td>
                             </tr>
                             <tr>
-                                <td><strong>Nombre de cadres max:</strong></td>
-                                <td>{{ ruche.cadres|length }}</td>
-                            </tr>                            
+                                <td><strong>% de soleil :</strong></td>
+                                <td>{{ ruche.emplacement.soleil }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Orientation :</strong></td>
+                                <td>{{ ruche.emplacement.orientation.libelle }}</td>
+                            </tr>                              
                         </tbody>
                     </table>
                 </div>            
                 <div class=" col-md-5 col-lg-5 ">            
-                        <h4>Colonnie 
-                            {% if ruche.colonnie %}
-                                <a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': ruche.colonnie.id }) }}"> {{ ruche.colonnie.nom }}</a>
-                            {% endif %}                                  
-                        </h4>                          
-                            {% if ruche.colonnie %}
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Race :</strong></td>
-                                            <td>{{ ruche.colonnie.reine.race.libelle }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Affectation :</strong></td>
-                                            <td>{{ ruche.colonnie.affectation.libelle }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Etat :</strong></td>
-                                            <td>{{ ruche.colonnie.etat.libelle }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            {% else %}
-                                Il n'y a pas de colonnie dans cette ruche.
-                            {% endif %}                                      
+                    <h4>Colonnie 
+                        <a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': ruche.colonnie.id }) }}"> {{ ruche.colonnie.nom }}</a>                               
+                    </h4>                          
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Race :</strong></td>
+                                    <td>{{ ruche.colonnie.reine.race.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Affectation :</strong></td>
+                                    <td>{{ ruche.colonnie.affectation.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Etat :</strong></td>
+                                    <td>{{ ruche.colonnie.etat.libelle }}</td>
+                                </tr>
+                            </tbody>
+                        </table>                                  
                 </div>
             </div> 
-
-            {%if ruche.emplacement %}     
+  
             <hr>
                 
             <div class="row">    
@@ -203,8 +191,7 @@
                         </div>
                     </div>                         
                 </div>
-            </div>  
-            {% endif %}            
+            </div>            
         </div>  
                 
         <div class="panel-footer">

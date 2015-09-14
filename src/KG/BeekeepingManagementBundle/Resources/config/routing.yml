@@ -23,19 +23,7 @@ kg_beekeeping_management_delete_exploitation:
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:delete }
     requirements:
         exploitation_id: \d+
-        
-kg_beekeeping_management_view_exploitation_colonnie:
-    path:      /exploitation/{exploitation_id}/afficher-exploitation/colonnie/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:viewColonnie, page: 1 }
-    requirements:
-        exploitation_id: \d+
-
-kg_beekeeping_management_view_exploitation_ruche:
-    path:      /exploitation/{exploitation_id}/afficher-exploitation/ruche/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:viewRuche, page: 1 }
-    requirements:
-        exploitation_id: \d+
-        
+                
 kg_beekeeping_management_add_rucher:
     path:      /exploitation/{exploitation_id}/rucher/creer-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:add }
@@ -61,10 +49,10 @@ kg_beekeeping_management_view_rucher:
         rucher_id: \d+
 
 kg_beekeeping_management_add_ruche:
-    path:      /exploitation/{exploitation_id}/ruche/creer-ruche/
+    path:      /exploitation/rucher/emplacement/{emplacement_id}/ruche/creer-ruche/
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:add }
     requirements:
-        exploitation_id: \d+     
+        emplacement_id: \d+     
 
 kg_beekeeping_management_update_ruche:
     path:      /exploitation/rucher/ruche/{ruche_id}/modifier-ruche
@@ -125,13 +113,7 @@ kg_beekeeping_management_view_visite:
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:view }
     requirements:
         visite_id: \d+ 
-        
-kg_beekeeping_management_add_colonnie:
-    path:      /exploitation/{exploitation_id}/colonnie/creer-colonnie
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:add }
-    requirements:
-        exploitation_id: \d+
-        
+               
 kg_beekeeping_management_delete_colonnie:
     path:      /exploitation/colonnie/{colonnie_id}/supprimer-colonnie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:delete }

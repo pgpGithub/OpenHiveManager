@@ -5,7 +5,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\Cadre;
 use KG\BeekeepingManagementBundle\Entity\Ruche;
 use KG\BeekeepingManagementBundle\Entity\Hausse;
-use KG\BeekeepingManagementBundle\Entity\Exploitation;
+use KG\BeekeepingManagementBundle\Entity\Emplacement;
 use KG\BeekeepingManagementBundle\Form\Type\UpdateRucheType;
 use KG\BeekeepingManagementBundle\Form\Type\RucheType;
 use KG\BeekeepingManagementBundle\Form\Type\TranshumerType;
@@ -25,7 +25,7 @@ class RucheController extends Controller
     */    
     public function viewAction(Ruche $ruche, $page)
     {
-        $apiculteurExploitations = $ruche->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $ruche->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -137,11 +137,11 @@ class RucheController extends Controller
 
     /**
     * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("exploitation", options={"mapping": {"exploitation_id" : "id"}})  
+    * @ParamConverter("emplacement", options={"mapping": {"emplacement_id" : "id"}})  
     */    
-    public function addAction(Exploitation $exploitation, Request $request)
+    public function addAction(Emplacement $emplacement, Request $request)
     {
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
+        $apiculteurExploitations = $emplacement->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -151,7 +151,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted || $exploitation->getSupprime() ){
+        if( $not_permitted || $emplacement->getRucher()->getSupprime() || $emplacement->getRuche() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -167,8 +167,6 @@ class RucheController extends Controller
             }elseif($nbCadres >15){
                 $this->get('session')->getFlashBag()->add('danger','Le nombre de cadres max est trop élevé');
             }else{            
-                $ruche->setExploitation($exploitation);
-
                 for ($nbCadres = $form->get('nbCadres')->getData(); $nbCadres > 0; $nbCadres--)
                 {
                     $cadre = new Cadre();
@@ -176,20 +174,21 @@ class RucheController extends Controller
                     $cadre->setRuche($ruche);
                 }
 
+                $ruche->setEmplacement($emplacement);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($ruche);
                 $em->flush();
 
                 $request->getSession()->getFlashBag()->add('success','Ruche créée avec succès');
 
-                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId())));
+                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $emplacement->getRucher()->getId())));
             }
         }
 
         return $this->render('KGBeekeepingManagementBundle:Ruche:add.html.twig', 
                              array(
-                                    'form'         => $form->createView(),
-                                    'exploitation' => $exploitation
+                                    'form'        => $form->createView(),
+                                    'emplacement' => $emplacement
                 ));
     }     
 

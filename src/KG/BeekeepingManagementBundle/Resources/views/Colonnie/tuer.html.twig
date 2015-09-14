@@ -22,11 +22,6 @@
 {% block title %}{{ parent() }} - Déclarer la mort d'une colonnie{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
-{% block breadcrumbs %}
-    {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': colonnie.exploitation.id }) }}" class="btn btn-primary">{{ colonnie.exploitation.nom }}</a>
-{% endblock %} 
             
 {% block screen %}  
     {% for flashMessage in app.session.flashbag.get('danger') %}

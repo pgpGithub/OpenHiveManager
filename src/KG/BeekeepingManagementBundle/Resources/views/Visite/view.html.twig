@@ -12,14 +12,6 @@
 
 {% block title %}{{ parent() }} - Visite{% endblock %}
 
-{% block breadcrumbs %}
-    {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': visite.colonnie.exploitation.id }) }}" class="btn btn-primary">{{ visite.colonnie.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': visite.colonnie.ruche.emplacement.rucher.id }) }}" class="btn btn-primary">{{ visite.colonnie.ruche.emplacement.rucher.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': visite.colonnie.ruche.id }) }}" class="btn btn-primary">{{ visite.colonnie.ruche.nom }}</a>
-    {#<a href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}" class="btn btn-info">{{ visite.date }}</a>#}
-{% endblock %} 
-
 {% block screen %}  
     {% for flashMessage in app.session.flashbag.get('success') %}
         {% if loop.first %}

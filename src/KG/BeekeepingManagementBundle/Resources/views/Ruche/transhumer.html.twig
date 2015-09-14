@@ -18,12 +18,6 @@
 {% block title %}{{ parent() }} - Transhumer une ruche{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
-{% block breadcrumbs %}
-    {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation_ruche', { 'exploitation_id': ruche.exploitation.id }) }}" class="btn btn-primary">{{ ruche.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}" class="btn btn-primary">{{ ruche.nom }}</a>
-{% endblock %} 
             
 {% block screen %}   
     {% for flashMessage in app.session.flashbag.get('danger') %}

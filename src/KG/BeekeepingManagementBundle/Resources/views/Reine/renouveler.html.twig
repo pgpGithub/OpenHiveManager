@@ -22,12 +22,6 @@
 {% block title %}{{ parent() }} - Créer une colonnie{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
-{% block breadcrumbs %}
-    {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation_colonnie', { 'exploitation_id': colonnie.exploitation.id }) }}" class="btn btn-primary">{{ colonnie.exploitation.nom }}</a>
-    <a href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': colonnie.id }) }}" class="btn btn-primary">{{ colonnie.nom }}</a>
-{% endblock %} 
             
 {% block screen %} 
     {{ form_errors(form) }}

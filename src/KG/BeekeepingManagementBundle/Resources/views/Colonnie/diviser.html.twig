@@ -22,11 +22,6 @@
 {% block title %}{{ parent() }} - Diviser une colonnie{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
-{% block breadcrumbs %}
-    {{ parent() }}
-    <a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': colonnieFille.exploitation.id }) }}" class="btn btn-primary">{{ colonnieFille.exploitation.nom }}</a>
-{% endblock %} 
             
 {% block screen %}   
     {{ form_errors(form.nom) }}

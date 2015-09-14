@@ -27,8 +27,8 @@
                             <thead>
                                 <th>Exploitation</th>
                                 <th>Nombre de ruchers</th>
-                                <th>Nombre de ruches</th>
-                                <th>Nombre de colonnies</th>
+                                {#<th>Nombre de ruches</th>
+                                <th>Nombre de colonnies</th>#}
                             </thead>
                             <tbody>
                                 {% for exploitation in exploitations %}
@@ -41,7 +41,7 @@
                                             {% endfor %}    
                                             {{ nbRuchers }}                                        
                                         </td>
-                                        <td>
+                                        {#<td>
                                             {% set nbRuches = 0 %}
                                             {% for ruche in exploitation.ruches if not ruche.supprime %}
                                                 {% set nbRuches = nbRuches + 1 %}
@@ -54,7 +54,7 @@
                                                 {% set nbColonnies = nbColonnies + 1 %}
                                             {% endfor %}    
                                             {{ nbColonnies }} 
-                                        </td>
+                                        </td>#}
                                     </tr>
                                 {% endfor %}
                             </tbody>
