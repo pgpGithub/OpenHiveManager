@@ -12,10 +12,11 @@
 				longitude: "2.29448130", 
 				latitude: "48.85837009", 
 				displayCityNameOnly: false,
+                                displayLocation : false,
 				api : "openweathermap", //api: yahoo or openweathermap
 				forecast: 5, //number of days to forecast, max 5
 				apikey : "", //optional api key for openweathermap
-				view : "full", //options: simple, today, partial, forecast, full
+				view : "forecast", //options: simple, today, partial, forecast, full
 				render : true, //render: false if you to make your own markup, true plugin generates markup
 				loadingAnimation: true, //show loading animation
 				//units : "metric" or "imperial" default: "auto"
@@ -217,12 +218,14 @@
 				//is mostly self-explainatory dom generating code from the weather object
 				var div = $("<div/>", {"class": "weather " + context.settings.view});
 				
-				if (context.settings.displayCityNameOnly) {
-					$("<h2/>").text(weather.city).appendTo(div);
-				}
-				else {
-					$("<h2/>").text(weather.location).appendTo(div);
-				}
+                                if (context.settings.displayLocation) {
+                                    if (context.settings.displayCityNameOnly) {
+                                            $("<h2/>").text(weather.city).appendTo(div);
+                                    }
+                                    else {
+                                            $("<h2/>").text(weather.location).appendTo(div);
+                                    }
+                                }
 				
 				
 				if (context.settings.view != "forecast") {

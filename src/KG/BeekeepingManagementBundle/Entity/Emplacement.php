@@ -58,7 +58,6 @@ class Emplacement
 
      /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="emplacement")
-     * @Assert\Valid() 
      */
     private $ruche;
 
