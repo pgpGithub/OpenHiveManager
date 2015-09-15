@@ -32,7 +32,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->apiculteurExploitations = new \Doctrine\Common\Collections\ArrayCollection();  
+        $this->apiculteurExploitations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -78,4 +78,22 @@ class User extends BaseUser
     {
         return $this->apiculteurExploitations;
     }
+
+    /**
+     * Get exploitations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExploitations()
+    {  
+        $exploitations = new \Doctrine\Common\Collections\ArrayCollection(); 
+                
+        foreach ( $this->apiculteurExploitations as $apiculteurExploitation ){
+            if( !$apiculteurExploitation->getExploitation()->getSupprime()){
+                $exploitations->add($apiculteurExploitation->getExploitation());
+            }
+        }
+        
+        return $exploitations;
+    }   
 }

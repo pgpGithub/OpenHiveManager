@@ -75,8 +75,11 @@ class RucherController extends Controller
         
         $rucher->setSupprime(true);
         
-        foreach ( $rucher->getRuches() as $ruche ){
-            $ruche->setRucher(NULL);
+        foreach ( $rucher->getEmplacements() as $emplacement ){
+            $emplacement->setSupprime(true);
+            if( $emplacement->getRuche() ){
+                $emplacement->getRuche()->setSupprime(true);
+            }
         }
                 
         $em = $this->getDoctrine()->getManager();
@@ -84,7 +87,7 @@ class RucherController extends Controller
         $em->flush();
 
         //$this->getSession()->getFlashBag()->add('success','Rucher supprimé avec succès');
-        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation', array('exploitation_id' => $exploitation->getId())));
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_home'));
     }
     
     /**
