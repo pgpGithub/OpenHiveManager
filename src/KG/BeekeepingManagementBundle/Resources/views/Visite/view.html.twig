@@ -12,29 +12,22 @@
 
 {% block title %}{{ parent() }} - Visite{% endblock %}
 
-{% block screen %}  
-    {% for flashMessage in app.session.flashbag.get('success') %}
-        {% if loop.first %}
-            <div class="alert alert-success" role="alert">
-        {% endif %}
-                <i><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</i>
-        {% if loop.last %}        
-            </div>
-        {% endif %}
-    {% endfor %}
-    
-    {% for flashMessage in app.session.flashbag.get('danger') %}
-        {% if loop.first %}
-            <div class="alert alert-danger" role="alert">
-        {% endif %}
-                <i><span class="glyphicon glyphicon-remove-sign"></span> {{ flashMessage }}</i>
-        {% if loop.last %}        
-            </div>
-        {% endif %}
-    {% endfor %}    
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-6">
+            <h4></h4>
+        </div>
+        <div class="col-xs-6">{#
+            <span class="pull-right">
+                <a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id' : rucher.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i><strong> Créer un emplacement</strong></a>
+                <a title="Modifier" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id' : rucher.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i><strong> Modifier</strong></a>
+            </span>
+        #}</div>
+    </div>    
+{% endblock %}
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+
+{% block panel_body %}    
             {{ visite.activite.libelle }}
             {{ visite.reine }}
             {{ visite.essaimage }}
@@ -47,6 +40,4 @@
             {{ visite.pollen }}
             {{ visite.gelee }}
             {{ visite.observations }}
-        </div>
-    </div>
 {% endblock %}

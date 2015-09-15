@@ -12,31 +12,22 @@
 
 {% block title %}{{ parent() }} - Emplacement{% endblock %}
 
-{% block screen %}  
-    {% for flashMessage in app.session.flashbag.get('success') %}
-        {% if loop.first %}
-            <div class="alert alert-success" role="alert">
-        {% endif %}
-                <i><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</i>
-        {% if loop.last %}        
-            </div>
-        {% endif %}
-    {% endfor %}
-
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Emplacement {{ emplacement.nom }}</h3>
-        </div>          
-        <div class="panel-body">
-            <div class="row">
-
-            </div>         
-        </div>            
-        <div class="panel-footer">
-            <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id' : emplacement.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-6">
+            <h4>Emplacement {{ emplacement.nom }}</h4>
+        </div>
+        <div class="col-xs-6">
             <span class="pull-right">
-                <a title="Editer" href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id' : emplacement.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a title="Modifier" href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id' : emplacement.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i><strong> Modifier</strong></a>
             </span>
-        </div>                                                        
+        </div>
+    </div>    
+{% endblock %}
+
+
+{% block panel_body %}  
+    <div class="row">
+        <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id' : emplacement.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>                                            
     </div>
 {% endblock %}
