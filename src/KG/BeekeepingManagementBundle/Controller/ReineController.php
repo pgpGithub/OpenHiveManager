@@ -21,7 +21,7 @@ class ReineController extends Controller
     {
         $not_permitted = true;
         
-        foreach ( $reine->getColonnie()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+        foreach ( $reine->getColonnie()->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
             if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
                 $not_permitted = false;
                 break;

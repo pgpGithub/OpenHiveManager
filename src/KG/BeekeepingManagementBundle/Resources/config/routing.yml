@@ -53,13 +53,7 @@ kg_beekeeping_management_update_ruche:
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:update }
     requirements:
         ruche_id: \d+
-        
-kg_beekeeping_management_delete_ruche:
-    path:      /exploitation/rucher/ruche/{ruche_id}/supprimer-ruche
-    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:delete }
-    requirements:
-        ruche_id: \d+
-        
+                
 kg_beekeeping_management_view_ruche:
     path:      /exploitation/rucher/ruche/{ruche_id}/afficher-ruche/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view, page: 1 }

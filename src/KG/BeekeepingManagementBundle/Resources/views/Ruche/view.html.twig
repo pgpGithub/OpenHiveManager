@@ -46,13 +46,13 @@
                         <img src="../../../../../no_picture.png" alt="logo" class="img-thumbnail img-responsive">
                     {% endif %}           
                 </div>
-                <div class=" col-md-4 col-lg-4 ">
+                <div class=" col-md-3 col-lg-3 ">
                     <h4>Descriptif</h4>
                     <table class="table">  
                         <tbody>
                             <tr>
                                 <td><strong>Rucher :</strong></td>
-                                <td>{{ ruche.emplacement.rucher.nom }}</td>
+                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.emplacement.rucher.id }) }}">{{ ruche.emplacement.rucher.nom }}</a></td>
                             </tr>                                  
                             <tr>
                                 <td><strong>Type :</strong></td>
@@ -73,27 +73,42 @@
                         </tbody>
                     </table>
                 </div>            
-                <div class=" col-md-5 col-lg-5 ">            
+                <div class=" col-md-3 col-lg-3 ">            
                     <h4>Colonnie 
                         <a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': ruche.colonnie.id }) }}"> {{ ruche.colonnie.nom }}</a>                               
                     </h4>                          
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td><strong>Race :</strong></td>
-                                    <td>{{ ruche.colonnie.reine.race.libelle }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Affectation :</strong></td>
-                                    <td>{{ ruche.colonnie.affectation.libelle }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Etat :</strong></td>
-                                    <td>{{ ruche.colonnie.etat.libelle }}</td>
-                                </tr>
-                            </tbody>
-                        </table>                                  
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><strong>Race :</strong></td>
+                                <td>{{ ruche.colonnie.reine.race.libelle }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Affectation :</strong></td>
+                                <td>{{ ruche.colonnie.affectation.libelle }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Etat :</strong></td>
+                                <td>{{ ruche.colonnie.etat.libelle }}</td>
+                            </tr>
+                        </tbody>
+                    </table>                                  
                 </div>
+                <div class=" col-md-3 col-lg-3 "> 
+                    <span class="pull-right">
+                        {%if ruche.colonnie and ruche.emplacement %}
+                            {% if visites is not empty %}
+                                {% set lastVisite = visites|last %}
+                                {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
+                                    <a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonnie_id' : ruche.colonnie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i><strong> Créer une visite</strong></a>
+                                {% endif %}
+                            {% else %}
+                            <a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonnie_id' : ruche.colonnie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i><strong> Créer une visite</strong></a>
+                            {% endif %}
+                        {% endif %}
+                        <a title="Modifier" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i><strong> Modifier</strong></a>
+                    </span>                    
+                </div>    
             </div> 
   
             <hr>
@@ -192,23 +207,6 @@
                     </div>                         
                 </div>
             </div>            
-        </div>  
-                
-        <div class="panel-footer">
-            <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
-            <span class="pull-right">
-                {%if ruche.colonnie and ruche.emplacement %}
-                    {% if visites is not empty %}
-                        {% set lastVisite = visites|last %}
-                        {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
-                            <a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonnie_id' : ruche.colonnie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i></a>
-                        {% endif %}
-                    {% else %}
-                        <a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonnie_id' : ruche.colonnie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i></a>
-                    {% endif %}
-                {% endif %}
-                <a title="Editer" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-            </span>
-        </div>                                                        
+        </div>                                                         
     </div>
 {% endblock %}

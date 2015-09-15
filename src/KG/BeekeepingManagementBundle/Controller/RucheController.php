@@ -66,37 +66,6 @@ class RucheController extends Controller
 
     /**
     * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}}) 
-    */    
-    public function deleteAction(Ruche $ruche)
-    {
-        $exploitation = $ruche->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $ruche->getSupprime() ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-    
-        $ruche->setSupprime(true);
-        $ruche->setColonnie(NULL);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($ruche);
-        $em->flush();
-
-        $this->get('session')->getFlashBag()->add('success','Ruche supprimée avec succès');
-        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation_ruche', array('exploitation_id' => $exploitation->getId())));        
-    }
-
-    /**
-    * @Security("has_role('ROLE_USER')")
     * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}})  
     */    
     public function updateAction(Ruche $ruche, Request $request)
@@ -253,7 +222,7 @@ class RucheController extends Controller
     */    
     public function addHausseAction(Ruche $ruche, Request $request)
     {
-        $apiculteurExploitations = $ruche->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $ruche->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -285,7 +254,7 @@ class RucheController extends Controller
     */    
     public function deleteHausseAction(Ruche $ruche, Request $request)
     {
-        $apiculteurExploitations = $ruche->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $ruche->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){

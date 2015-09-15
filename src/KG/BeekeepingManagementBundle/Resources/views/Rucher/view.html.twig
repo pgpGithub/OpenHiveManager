@@ -32,78 +32,106 @@
             </div>
         {% endif %}
     {% endfor %}
-
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Rucher {{ rucher.nom }}</h3>
-        </div>        
-        <div class="panel-body">            
-            <div class="row">
-                <div class="col-md-4" align="center"> 
-                    {% if rucher.image is not null %}
-                        <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}" class="img-thumbnail img-responsive">
-                    {% else %}
-                        <img src="../../../../no_picture.png" alt="logo" class="img-thumbnail img-responsive">
-                    {% endif %}           
-                </div>                
-                <div class="col-md-4">    
-                    <div id="weather"
-                         data-latitude="{{ rucher.localisation.latitude }}"
-                         data-longitude="{{ rucher.localisation.longitude }}">                   
-                    </div>
-                </div> 
-                <div class="col-md-4">     
+        
+                    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Rucher {{ rucher.nom }}</strong>
                     <span class="pull-right">
-                        <a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id' : rucher.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i><strong> Créer un emplacement</strong></a>
-                        <a title="Modifier" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id' : rucher.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i><strong> Modifier</strong></a>
-                    </span>
-                </div>    
-            </div>
-            
-            <hr>
-
-            <div class="row">
-                <div class=" col-md-12"> 
-                    <div class="table-responsive">
-                        <table id="mytable" class="table table-bordred table-striped">
-                            <thead>
-                                <th>Emplacement</th>
-                                <th>Ruche</th>
-                                <th>Colonnie</th>
-                                <th>Race</th>
-                                <th>Transhumer</th>
-                            </thead>
-                            <tbody>
-                                {% for emplacement in emplacements %}
-                                    <tr>
-                                        <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
-                                        {% if emplacement.ruche %}
-                                            <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>
-                                            {% if emplacement.ruche.colonnie %}
-                                                <td><a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': emplacement.ruche.colonnie.id }) }}">{{ emplacement.ruche.colonnie.nom }}</a></td>
-                                                <td>{{ emplacement.ruche.colonnie.reine.race.libelle }}</td>
-                                                <td><a title="Transhumer la ruche" href="{{ path('kg_beekeeping_management_transhumer_ruche', { 'ruche_id': emplacement.ruche.id }) }}" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-transfer"></span></a></td>
-                                            {% endif %}
-                                        {% else %}
-                                            <td colspan="4">
-                                                <a title="Créer une colonnie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i> Créer une colonnie</a>                                                
-                                            </td> 
-                                        {% endif %}                                     
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
-                        </div>
-                    </div>                            
+                        <a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id' : rucher.id }) }}" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i><strong> Créer un emplacement</strong></a>
+                        <a title="Modifier" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id' : rucher.id }) }}" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i><strong> Modifier</strong></a>
+                    </span>                    
                 </div>
-            </div>             
-        </div>
-        <div class="panel-footer">
-            <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                <div class="panel-body">                   
+                    <div class="row">
+                        <div class="col-sm-3" align="center"> 
+                            {% if rucher.image is not null %}
+                                <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}" class="img-thumbnail img-responsive">
+                            {% else %}
+                                <img src="../../../../no_picture.png" alt="logo" class="img-thumbnail img-responsive">
+                            {% endif %}           
+                        </div>
+                        <div class="col-sm-4">
+                            <h3>Propriétaire</h3>
+                            <table class="table">  
+                                <tbody>                                 
+                                    <tr>
+                                        <td><strong>Nom :</strong></td>
+                                        <td>Jean</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Prénom :</strong></td>
+                                        <td>Digue</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Adresse :</strong></td>
+                                        <td>31 rue du cul 75014 Paris</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Téléphone :</strong></td>
+                                        <td>06.42.35.48.10</td>
+                                    </tr>                              
+                                </tbody>
+                            </table>            
+                        </div>  
+                        <div class="col-sm-5">
+                            <h3>Météo</h3>
+                            <div id="weather"
+                                 data-latitude="{{ rucher.localisation.latitude }}"
+                                 data-longitude="{{ rucher.localisation.longitude }}">                   
+                            </div>
+                        </div> 
+                    </div>
+                            
+                    <hr>
+                            
+                    <div class="row">
+                        <div class=" col-md-12"> 
+                            <div class="table-responsive">
+                                <table id="mytable" class="table table-bordred table-striped">
+                                    <thead>
+                                        <th>Emplacement</th>
+                                        <th>Ruche</th>
+                                        <th>Colonnie</th>
+                                        <th>Race</th>
+                                        <th>Transhumer</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for emplacement in emplacements %}
+                                            <tr>
+                                                <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
+                                                {% if emplacement.ruche %}
+                                                    <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>
+                                                    {% if emplacement.ruche.colonnie %}
+                                                        <td><a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': emplacement.ruche.colonnie.id }) }}">{{ emplacement.ruche.colonnie.nom }}</a></td>
+                                                        <td>{{ emplacement.ruche.colonnie.reine.race.libelle }}</td>
+                                                        <td><a title="Transhumer la ruche" href="{{ path('kg_beekeeping_management_transhumer_ruche', { 'ruche_id': emplacement.ruche.id }) }}" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-transfer"></span></a></td>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <td colspan="4">
+                                                        <a title="Créer une colonnie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i> Créer une colonnie</a>                                                
+                                                    </td> 
+                                                {% endif %}                                     
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>             
+
+                    <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>                            
+                            
+                </div>
+            </div>        
         </div>
     </div>
+
 {% endblock %}

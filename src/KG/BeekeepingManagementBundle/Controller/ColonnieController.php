@@ -186,7 +186,7 @@ class ColonnieController extends Controller
     */    
     public function tuerAction(Colonnie $colonnie, Request $request)
     {
-        $exploitation = $colonnie->getExploitation();
+        $exploitation = $colonnie->getRuche()->getEmplacement()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
