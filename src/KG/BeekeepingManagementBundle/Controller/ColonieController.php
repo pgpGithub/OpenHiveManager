@@ -24,7 +24,7 @@ class ColonieController extends Controller
     */    
     public function viewAction(Colonie $colonie)
     {
-        $apiculteurExploitations = $colonie->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $colonie->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -48,8 +48,7 @@ class ColonieController extends Controller
     */    
     public function deleteAction(Colonie $colonie)
     {
-        $rucher = $colonie->getRuche()->getEmplacement()->getRucher();
-        $exploitation = $rucher->getExploitation();
+        $rucher = $colonie->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -196,10 +195,10 @@ class ColonieController extends Controller
         
         if ($form->handleRequest($request)->isValid()){
             if(!($colonie->getCauses()->isEmpty() && empty($colonie->getAutreCause()))){ 
-                $colonie->setMorte(true);
-                
+                $colonie->setMorte(true);                
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($colonie);
+                $em->remove($colonie->getRuche());
                 $em->flush();
 
                 $this->get('session')->getFlashBag()->add('success','Colonie déclarée morte avec succès');
