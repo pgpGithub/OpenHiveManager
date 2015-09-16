@@ -85,7 +85,7 @@
                     <thead>
                         <th>Emplacement</th>
                         <th>Ruche</th>
-                        <th>Colonnie</th>
+                        <th>Colonie</th>
                         <th>Race</th>
                         <th>Transhumer</th>
                     </thead>
@@ -95,14 +95,14 @@
                                 <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
                                 {% if emplacement.ruche %}
                                     <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>
-                                    {% if emplacement.ruche.colonnie %}
-                                        <td><a title="Afficher la colonnie" href="{{ path('kg_beekeeping_management_view_colonnie', { 'colonnie_id': emplacement.ruche.colonnie.id }) }}">{{ emplacement.ruche.colonnie.nom }}</a></td>
-                                        <td>{{ emplacement.ruche.colonnie.reine.race.libelle }}</td>
+                                    {% if emplacement.ruche.colonie %}
+                                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': emplacement.ruche.colonie.id }) }}">{{ emplacement.ruche.colonie.nom }}</a></td>
+                                        <td>{{ emplacement.ruche.colonie.reine.race.libelle }}</td>
                                         <td><a title="Transhumer la ruche" href="{{ path('kg_beekeeping_management_transhumer_ruche', { 'ruche_id': emplacement.ruche.id }) }}" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-transfer"></span></a></td>
                                     {% endif %}
                                 {% else %}
                                     <td colspan="4">
-                                        <a title="Créer une colonnie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i> Créer une colonnie</a>                                                
+                                        <a title="Créer une colonie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i> Créer une colonie</a>                                                
                                     </td> 
                                 {% endif %}                                     
                             </tr>

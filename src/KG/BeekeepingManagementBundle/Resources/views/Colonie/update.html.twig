@@ -1,4 +1,4 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Colonnie/update.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Colonie/update.html.twig #}
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
@@ -13,20 +13,20 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
-                    '@KGBeekeepingManagementBundle/Resources/public/js/colonnie/add.js'%}
+                    '@KGBeekeepingManagementBundle/Resources/public/js/colonie/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
     {{ form_javascript(form) }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Modifier une colonnie{% endblock %}
+{% block title %}{{ parent() }} - Modifier une colonie{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Modification de la colonnie {{ colonnie.nom }}</h4>
+            <h4>Modification de la colonie {{ colonie.nom }}</h4>
         </div>
     </div>
 {% endblock %}
@@ -75,7 +75,7 @@
         <div class="form-group">
             <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Clippage :</label>
             <div class="col-sm-5 col-md-5">
-              {% if colonnie.reine.clippage %}
+              {% if colonie.reine.clippage %}
                   {{ form_widget(form.reine.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}, 'disabled': 'true'}) }}
               {% else %}    
                   {{ form_widget(form.reine.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}

@@ -23,12 +23,12 @@ class Visite
     private $id;
 
     /**
-     * @var Ruche
+     * @var Colonie
      * 
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="visites")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="visites")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $colonnie;    
+    private $colonie;    
     
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Activite")
@@ -61,7 +61,7 @@ class Visite
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Etat")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
-     * @Assert\NotBlank(message="Veuillez sélectionner l'état de la colonnie")
+     * @Assert\NotBlank(message="Veuillez sélectionner l'état de la colonie")
      */
     private $etat;
     
@@ -69,7 +69,7 @@ class Visite
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Agressivite")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
-     * @Assert\NotBlank(message="Veuillez sélectionner l'agressivité de la colonnie")
+     * @Assert\NotBlank(message="Veuillez sélectionner l'agressivité de la colonie")
      */
     private $agressivite;
 
@@ -183,26 +183,26 @@ class Visite
     }
 
     /**
-     * Set colonnie
+     * Set colonie
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonnie
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonie
      * @return Visite
      */
-    public function setColonnie(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonnie)
+    public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie)
     {
-        $this->colonnie = $colonnie;
+        $this->colonie = $colonie;
 
         return $this;
     }
 
     /**
-     * Get colonnie
+     * Get colonie
      *
-     * @return \KG\BeekeepingManagementBundle\Entity\Colonnie 
+     * @return \KG\BeekeepingManagementBundle\Entity\Colonie 
      */
-    public function getColonnie()
+    public function getColonie()
     {
-        return $this->colonnie;
+        return $this->colonie;
     }   
 
     /**

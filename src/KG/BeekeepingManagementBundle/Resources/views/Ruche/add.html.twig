@@ -13,7 +13,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
-                    '@KGBeekeepingManagementBundle/Resources/public/js/colonnie/add.js'%}
+                    '@KGBeekeepingManagementBundle/Resources/public/js/colonie/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
     {{ form_javascript(form) }}
@@ -26,7 +26,7 @@
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Création d'une colonnie</h4>
+            <h4>Création d'une colonie</h4>
         </div>
     </div>
 {% endblock %}
@@ -86,82 +86,82 @@
 
     <fieldset>
 
-        <legend>Colonnie</legend>
+        <legend>Colonie</legend>
 
         <div class="form-group">
-            {{ form_label(form.colonnie.nom, "Nom :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.nom, "Nom :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonnie.nom, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.nom, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>     
 
         <div class="form-group">
-            {{ form_label(form.colonnie.affectation, "Affectation :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.affectation, "Affectation :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonnie.affectation, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.affectation, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>    
 
         <div class="form-group">
-            {{ form_label(form.colonnie.anneeColonnie, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.anneeColonie, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonnie.anneeColonnie, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.anneeColonie, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>    
 
         <div class="form-group">
-            {{ form_label(form.colonnie.provenanceColonnie, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.provenanceColonie, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonnie.provenanceColonnie, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.provenanceColonie, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>    
 
         <div class="form-group">
-            {{ form_label(form.colonnie.etat, "Etat :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.etat, "Etat :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonnie.etat, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.etat, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>                      
 
         <div class="form-group">
-            {{ form_label(form.colonnie.agressivite, "Agressivité :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.agressivite, "Agressivité :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonnie.agressivite, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.agressivite, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>                                
 
         <div class="form-group">
-            {{ form_label(form.colonnie.reine.race, "Race :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.reine.race, "Race :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonnie.reine.race, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.reine.race, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>  
 
         <div class="form-group">
-            {{ form_label(form.colonnie.reine.anneeReine, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.reine.anneeReine, "Année :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonnie.reine.anneeReine, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.reine.anneeReine, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>    
 
         <div class="form-group">
-            {{ form_label(form.colonnie.reine.provenanceReine, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.reine.provenanceReine, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonnie.reine.provenanceReine, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.reine.provenanceReine, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>    
 
         <div class="form-group">
             <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Marquage :</label>
             <div class="col-sm-5 col-md-5">
-              {{ form_widget(form.colonnie.reine.marquage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+              {{ form_widget(form.colonie.reine.marquage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
             </div>
         </div>     
 
         <div class="form-group">
             <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Clippage :</label>
             <div class="col-sm-5 col-md-5">
-              {{ form_widget(form.colonnie.reine.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+              {{ form_widget(form.colonie.reine.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
             </div>
         </div>               
     </fieldset>

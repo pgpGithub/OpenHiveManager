@@ -6,12 +6,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Colonnie
+ * Colonie
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ColonnieRepository")
+ * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ColonieRepository")
  */
-class Colonnie
+class Colonie
 {
     /**
      * @var integer
@@ -26,25 +26,31 @@ class Colonnie
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=25)
-     * @Assert\NotBlank(message="Veuillez remplir le nom de la colonnie")
-     * @Assert\Length(max=25, maxMessage="Le nom de la colonnie ne peut dépasser {{ limit }} caractères") 
+     * @Assert\NotBlank(message="Veuillez remplir le nom de la colonie")
+     * @Assert\Length(max=25, maxMessage="Le nom de la colonie ne peut dépasser {{ limit }} caractères") 
      */
     private $nom;
 
      /**
+      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="colonies")
+      * @ORM\JoinColumn(nullable=false)
+      */
+    private $exploitation;   
+    
+     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="anneeColonnie", type="datetime")
-     * @Assert\NotBlank(message="Veuillez remplir l'année de naissance la colonnie")
+     * @ORM\Column(name="anneeColonie", type="datetime")
+     * @Assert\NotBlank(message="Veuillez remplir l'année de naissance la colonie")
      * @Assert\DateTime()
      */
-    private $anneeColonnie;
+    private $anneeColonie;
 
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Affectation")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
-     * @Assert\NotBlank(message="Veuillez sélectionner l'affectation de la colonnie")
+     * @Assert\NotBlank(message="Veuillez sélectionner l'affectation de la colonie")
      */
     private $affectation;
 
@@ -52,15 +58,15 @@ class Colonnie
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Provenance")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
-     * @Assert\NotBlank(message="Veuillez sélectionner la provenance de la colonnie")
+     * @Assert\NotBlank(message="Veuillez sélectionner la provenance de la colonie")
      */
-    private $provenanceColonnie;
+    private $provenanceColonie;
 
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Etat")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
-     * @Assert\NotBlank(message="Veuillez sélectionner l'état de la colonnie")
+     * @Assert\NotBlank(message="Veuillez sélectionner l'état de la colonie")
      */
     private $etat;
     
@@ -68,38 +74,38 @@ class Colonnie
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Agressivite")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
-     * @Assert\NotBlank(message="Veuillez sélectionner l'agressivité de la colonnie")
+     * @Assert\NotBlank(message="Veuillez sélectionner l'agressivité de la colonie")
      */
     private $agressivite;
     
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="colonnie", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
     private $reine;
     
      /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="colonniesFilles", cascade="persist")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="coloniesFilles", cascade="persist")
      * @ORM\JoinColumn()
      * @Assert\Valid()
      */
-    private $colonnieMere;
+    private $colonieMere;
 
      /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", mappedBy="colonnieMere", cascade="persist")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="colonieMere", cascade="persist")
      * @Assert\Valid()
      */
-    private $colonniesFilles;
+    private $coloniesFilles;
     
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonnie", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     private $ruche;
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Visite", mappedBy="colonnie", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Visite", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     private $visites;
@@ -133,7 +139,7 @@ class Colonnie
     public function __construct()
     {
         $this->causes           = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->colonniesFilles  = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->coloniesFilles  = new \Doctrine\Common\Collections\ArrayCollection();
         $this->visites          = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -151,7 +157,7 @@ class Colonnie
      * Set nom
      *
      * @param string $nom
-     * @return Colonnie
+     * @return Colonie
      */
     public function setNom($nom)
     {
@@ -174,7 +180,7 @@ class Colonnie
      * Set affectation
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Affectation $affectation
-     * @return Colonnie
+     * @return Colonie
      */
     public function setAffectation(\KG\BeekeepingManagementBundle\Entity\Affectation $affectation)
     {
@@ -194,79 +200,79 @@ class Colonnie
     }
 
     /**
-     * Set provenanceColonnie
+     * Set provenanceColonie
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Provenance $provenanceColonnie
-     * @return Colonnie
+     * @param \KG\BeekeepingManagementBundle\Entity\Provenance $provenanceColonie
+     * @return Colonie
      */
-    public function setProvenanceColonnie(\KG\BeekeepingManagementBundle\Entity\Provenance $provenanceColonnie)
+    public function setProvenanceColonie(\KG\BeekeepingManagementBundle\Entity\Provenance $provenanceColonie)
     {
-        $this->provenanceColonnie = $provenanceColonnie;
+        $this->provenanceColonie = $provenanceColonie;
 
         return $this;
     }
 
     /**
-     * Get provenanceColonnie
+     * Get provenanceColonie
      *
      * @return \KG\BeekeepingManagementBundle\Entity\Provenance 
      */
-    public function getProvenanceColonnie()
+    public function getProvenanceColonie()
     {
-        return $this->provenanceColonnie;
+        return $this->provenanceColonie;
     }
 
     /**
-     * Set colonnieMere
+     * Set colonieMere
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonnieMere
-     * @return Colonnie
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonieMere
+     * @return Colonie
      */
-    public function setColonnieMere(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonnieMere = null)
+    public function setColonieMere(\KG\BeekeepingManagementBundle\Entity\Colonie $colonieMere = null)
     {
-        $this->colonnieMere = $colonnieMere;
+        $this->colonieMere = $colonieMere;
 
         return $this;
     }
 
     /**
-     * Get colonnieMere
+     * Get colonieMere
      *
-     * @return \KG\BeekeepingManagementBundle\Entity\Colonnie 
+     * @return \KG\BeekeepingManagementBundle\Entity\Colonie 
      */
-    public function getColonnieMere()
+    public function getColonieMere()
     {
-        return $this->colonnieMere;
+        return $this->colonieMere;
     }
 
     /**
-     * Set anneeColonnie
+     * Set anneeColonie
      *
-     * @param \DateTime $anneeColonnie
-     * @return Colonnie
+     * @param \DateTime $anneeColonie
+     * @return Colonie
      */
-    public function setAnneeColonnie($anneeColonnie)
+    public function setAnneeColonie($anneeColonie)
     {
-        $this->anneeColonnie = $anneeColonnie;
+        $this->anneeColonie = $anneeColonie;
 
         return $this;
     }
 
     /**
-     * Get anneeColonnie
+     * Get anneeColonie
      *
      * @return \DateTime 
      */
-    public function getAnneeColonnie()
+    public function getAnneeColonie()
     {
-        return $this->anneeColonnie;
+        return $this->anneeColonie;
     }
 
     /**
      * Set etat
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Etat $etat
-     * @return Colonnie
+     * @return Colonie
      */
     public function setEtat(\KG\BeekeepingManagementBundle\Entity\Etat $etat)
     {
@@ -289,7 +295,7 @@ class Colonnie
      * Set agressivite
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Agressivite $agressivite
-     * @return Colonnie
+     * @return Colonie
      */
     public function setAgressivite(\KG\BeekeepingManagementBundle\Entity\Agressivite $agressivite)
     {
@@ -312,7 +318,7 @@ class Colonnie
      * Set ruche
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Ruche $ruche
-     * @return Colonnie
+     * @return Colonie
      */
     public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche = null)
     {
@@ -332,43 +338,43 @@ class Colonnie
     }
 
     /**
-     * Add colonniesFilles
+     * Add coloniesFilles
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles
-     * @return Colonnie
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
+     * @return Colonie
      */
-    public function addColonniesFilles(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles)
+    public function addColoniesFilles(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
     {
-        $this->colonniesFilles[] = $colonniesFilles;
+        $this->coloniesFilles[] = $coloniesFilles;
 
         return $this;
     }
 
     /**
-     * Remove colonniesFilles
+     * Remove coloniesFilles
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
      */
-    public function removeColonniesFilles(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonniesFilles)
+    public function removeColoniesFilles(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
     {
-        $this->colonniesFilles->removeElement($colonniesFilles);
+        $this->coloniesFilles->removeElement($coloniesFilles);
     }
 
     /**
-     * Get colonniesFilles
+     * Get coloniesFilles
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getColonniesFilles()
+    public function getColoniesFilles()
     {
-        return $this->colonniesFilles;
+        return $this->coloniesFilles;
     }
 
     /**
      * Set morte
      *
      * @param boolean $morte
-     * @return Colonnie
+     * @return Colonie
      */
     public function setMorte($morte)
     {
@@ -391,7 +397,7 @@ class Colonnie
      * Add cause
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Cause $cause
-     * @return Colonnie
+     * @return Colonie
      */
     public function addCause(\KG\BeekeepingManagementBundle\Entity\Cause $cause)
     {
@@ -424,7 +430,7 @@ class Colonnie
      * Set autreCause
      *
      * @param string $autreCause
-     * @return Colonnie
+     * @return Colonie
      */
     public function setAutreCause($autreCause)
     {
@@ -447,7 +453,7 @@ class Colonnie
      * Set reine
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Reine $reine
-     * @return Colonnie
+     * @return Colonie
      */
     public function setReine(\KG\BeekeepingManagementBundle\Entity\Reine $reine = null)
     {
@@ -498,4 +504,73 @@ class Colonnie
     {
         return $this->visites;
     }    
+
+    /**
+     * Set rucher
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Rucher $rucher
+     * @return Colonie
+     */
+    public function setRucher(\KG\BeekeepingManagementBundle\Entity\Rucher $rucher)
+    {
+        $this->rucher = $rucher;
+
+        return $this;
+    }
+
+    /**
+     * Get rucher
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Rucher 
+     */
+    public function getRucher()
+    {
+        return $this->rucher;
+    }
+
+    /**
+     * Set exploitation
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Exploitation $exploitation
+     * @return Colonie
+     */
+    public function setExploitation(\KG\BeekeepingManagementBundle\Entity\Exploitation $exploitation)
+    {
+        $this->exploitation = $exploitation;
+
+        return $this;
+    }
+
+    /**
+     * Get exploitation
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Exploitation 
+     */
+    public function getExploitation()
+    {
+        return $this->exploitation;
+    }
+
+    /**
+     * Add coloniesFilles
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
+     * @return Colonie
+     */
+    public function addColoniesFille(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
+    {
+        $this->coloniesFilles[] = $coloniesFilles;
+
+        return $this;
+    }
+
+    /**
+     * Remove coloniesFilles
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
+     */
+    public function removeColoniesFille(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
+    {
+        $this->coloniesFilles->removeElement($coloniesFilles);
+    }
 }

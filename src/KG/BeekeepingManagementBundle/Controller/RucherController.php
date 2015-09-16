@@ -72,8 +72,16 @@ class RucherController extends Controller
         if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
-                
+        
         $em = $this->getDoctrine()->getManager();
+        
+        foreach ( $rucher->getEmplacements() as $emplacement){
+            $colonnie = $emplacement->getRuche()->getColonnie();
+            if( empty($colonnie->getColonniesFilles()) ){
+                $em->remove($colonnie);
+            }
+        }
+        
         $em->remove($rucher);
         $em->flush();
 

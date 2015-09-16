@@ -1,4 +1,4 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Colonnie/diviser.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Colonie/diviser.html.twig #}
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
@@ -13,20 +13,20 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
-                   '@KGBeekeepingManagementBundle/Resources/public/js/colonnie/add.js'%}
+                   '@KGBeekeepingManagementBundle/Resources/public/js/colonie/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
     {{ form_javascript(form) }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Diviser une colonnie{% endblock %}
+{% block title %}{{ parent() }} - Diviser une colonie{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Division de la colonnie {{ colonnieMere.nom }}</h4>
+            <h4>Division de la colonie {{ colonieMere.nom }}</h4>
         </div>
     </div>
 {% endblock %}

@@ -21,14 +21,14 @@ class ReineController extends Controller
     {
         $not_permitted = true;
         
-        foreach ( $reine->getColonnie()->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+        foreach ( $reine->getColonie()->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
             if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
                 $not_permitted = false;
                 break;
             }
         }
         
-        if( $not_permitted || $reine->getColonnie()->getMorte() ){
+        if( $not_permitted || $reine->getColonie()->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -41,12 +41,12 @@ class ReineController extends Controller
             $em->persist($reine);
             $em->flush();
             $request->getSession()->getFlashBag()->add('success','Reine renouvelée avec succès');
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonnie', array('colonnie_id' => $reine->getColonnie()->getId())));                
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $reine->getColonnie()->getId())));                
         }
 
         return $this->render('KGBeekeepingManagementBundle:Reine:renouveler.html.twig', 
                              array('form'     => $form->createView(),
-                                   'colonnie' => $reine->getColonnie()
+                                   'colonie' => $reine->getColonie()
                             ));        
     }
 }    

@@ -162,7 +162,7 @@
             <legend>Cadres :</legend>
 
             <ul class="list-group">
-                {% for cadre in form.colonnie.ruche.cadres %}
+                {% for cadre in form.colonie.ruche.cadres %}
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-sm-4 col-md-4 col-lg-4 ">
@@ -196,14 +196,14 @@
 
         </fieldset>       
 
-        {% if form.colonnie.ruche.hausses is not empty %}     
+        {% if form.colonie.ruche.hausses is not empty %}     
         <fieldset>
 
             <legend>Hausses :</legend>
             <div class="row">
                 <div class="col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6">
                     <ul class="list-group">
-                        {% for hausse in form.colonnie.ruche.hausses|reverse %}
+                        {% for hausse in form.colonie.ruche.hausses|reverse %}
                             <li class="list-group-item">
                                 <div class="form-group">
                                     {{ form_label(hausse.contenu, "% de miel :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}

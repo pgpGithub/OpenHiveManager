@@ -19,14 +19,14 @@
     {{ form_javascript(form) }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Créer une colonnie{% endblock %}
+{% block title %}{{ parent() }} - Créer une colonie{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Renouvelement de la Reine de la colonnie {{ colonnie.nom }}</h4>
+            <h4>Renouvelement de la Reine de la colonie {{ colonie.nom }}</h4>
         </div>
     </div>
 {% endblock %}

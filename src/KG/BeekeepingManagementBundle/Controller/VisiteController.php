@@ -3,7 +3,7 @@
 namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Visite;
-use KG\BeekeepingManagementBundle\Entity\Colonnie;
+use KG\BeekeepingManagementBundle\Entity\Colonie;
 use KG\BeekeepingManagementBundle\Form\Type\VisiteType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +20,7 @@ class VisiteController extends Controller
     */    
     public function viewAction(Visite $visite)
     {
-        $apiculteurExploitations = $visite->getColonnie()->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $visite->getColonie()->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -35,16 +35,16 @@ class VisiteController extends Controller
         }
        
         return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig', 
-                array(  'ruche' => $visite->getColonnie()->getRuche() ));
+                array(  'ruche' => $visite->getColonie()->getRuche() ));
     }
     
     /**
     * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("colonnie", options={"mapping": {"colonnie_id" : "id"}})  
+    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    public function addAction(Colonnie $colonnie, Request $request)
+    public function addAction(Colonie $colonie, Request $request)
     {
-        $exploitation = $colonnie->getRuche()->getEmplacement()->getRucher()->getExploitation();
+        $exploitation = $colonie->getRuche()->getEmplacement()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -60,27 +60,27 @@ class VisiteController extends Controller
         }       
         
         $visite = new Visite();
-        $visite->setColonnie($colonnie);
+        $visite->setColonie($colonie);
         
         $form = $this->createForm(new VisiteType, $visite);
         
         if ($form->handleRequest($request)->isValid()){
                    
-            $visite->getColonnie()->setEtat($visite->getEtat());
-            $visite->getColonnie()->setAgressivite($visite->getAgressivite());
+            $visite->getColonie()->setEtat($visite->getEtat());
+            $visite->getColonie()->setAgressivite($visite->getAgressivite());
             $em = $this->getDoctrine()->getManager();
             $em->persist($visite);
             $em->flush();
         
             $request->getSession()->getFlashBag()->add('success','Visite créée avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $visite->getColonnie()->getRuche()->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $visite->getColonie()->getRuche()->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Visite:add.html.twig', 
                              array(
                                     'form'     => $form->createView(),
-                                    'colonnie' => $colonnie
+                                    'colonie' => $colonie
                 ));        
     }
     
@@ -90,7 +90,7 @@ class VisiteController extends Controller
     */    
     public function updateAction(Visite $visite, Request $request)
     {
-        $apiculteurExploitations = $visite->getColonnie()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $visite->getColonie()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -108,8 +108,8 @@ class VisiteController extends Controller
         
         if ($form->handleRequest($request)->isValid()){
              
-            $visite->getColonnie()->setEtat($visite->getEtat());
-            $visite->getColonnie()->setAgressivite($visite->getAgressivite());
+            $visite->getColonie()->setEtat($visite->getEtat());
+            $visite->getColonie()->setAgressivite($visite->getAgressivite());
             $em = $this->getDoctrine()->getManager();
             $em->persist($visite);
             $em->flush();

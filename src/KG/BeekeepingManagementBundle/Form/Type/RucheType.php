@@ -30,7 +30,7 @@ class RucheType extends AbstractType
                     ))
             ->add('nbCadres', 'integer', array('mapped' => false))    
             ->add('image', new ImageType(), array('required' => false))
-            ->add('colonnie', new ColonnieType());
+            ->add('colonie', new ColonieType());
     }
     
     /**

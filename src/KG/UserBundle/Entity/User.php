@@ -22,7 +22,7 @@ class User extends BaseUser
     protected $id;
     
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation", mappedBy="apiculteur")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation", mappedBy="apiculteur", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $apiculteurExploitations;
     

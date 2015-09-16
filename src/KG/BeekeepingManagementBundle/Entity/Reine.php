@@ -26,7 +26,7 @@ class Reine
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Race")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
-     * @Assert\NotBlank(message="Veuillez sélectionner la race de la colonnie")
+     * @Assert\NotBlank(message="Veuillez sélectionner la race de la colonie")
      */
     private $race;
    
@@ -60,10 +60,10 @@ class Reine
     private $provenanceReine;
         
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", mappedBy="reine", cascade="persist")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="reine", cascade="persist")
      * @Assert\Valid()
      */
-    private $colonnie;
+    private $colonie;
     
     /**
      * Constructor
@@ -199,26 +199,26 @@ class Reine
     }
 
     /**
-     * Set colonnie
+     * Set 
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonnie
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonie
      * @return Reine
      */
-    public function setColonnie(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonnie = null)
+    public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie = null)
     {
-        $this->colonnie = $colonnie;
+        $this->colonie = $colonie;
 
         return $this;
     }
 
     /**
-     * Get colonnie
+     * Get colonie
      *
-     * @return \KG\BeekeepingManagementBundle\Entity\Colonnie 
+     * @return \KG\BeekeepingManagementBundle\Entity\Colonie 
      */
-    public function getColonnie()
+    public function getColonie()
     {
-        return $this->colonnie;
+        return $this->colonie;
     }
 
     /**

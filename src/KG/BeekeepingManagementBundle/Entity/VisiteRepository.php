@@ -13,13 +13,13 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class VisiteRepository extends EntityRepository
 {
-    public function getListByColonnie($page=1, $maxperpage=10, $colonnie)
+    public function getListByColonie($page=1, $maxperpage=10, $colonie)
     {
         $q = $this->createQueryBuilder('visite')
-                  ->leftJoin('visite.colonnie','colonnie')
-                  ->addSelect('colonnie')
-                  ->where('colonnie.id = :id')
-                  ->setParameter('id',$colonnie);
+                  ->leftJoin('visite.colonie','colonie')
+                  ->addSelect('colonie')
+                  ->where('colonie.id = :id')
+                  ->setParameter('id',$colonie);
         
         $q->setFirstResult(($page-1)*$maxperpage)
           ->setMaxResults($maxperpage);
@@ -27,13 +27,13 @@ class VisiteRepository extends EntityRepository
         return new Paginator($q);
     }
     
-    public function countByColonnie($colonnie)
+    public function countByColonie($colonie)
     {
         return $this->createQueryBuilder('visite')
                     ->select('COUNT(visite)')
-                    ->leftJoin('visite.colonnie','colonnie')
-                    ->where('colonnie.id = :id')              
-                    ->setParameter('id',$colonnie)
+                    ->leftJoin('visite.colonie','colonie')
+                    ->where('colonie.id = :id')              
+                    ->setParameter('id',$colonie)
                     ->getQuery()
                     ->getSingleScalarResult();
     }      

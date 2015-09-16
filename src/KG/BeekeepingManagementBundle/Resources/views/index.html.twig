@@ -2,4 +2,27 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Accueil{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}{{ parent() }} - Panneau de contrôle{% endblock %}
+
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Panneau de contrôle</h4>
+        </div>
+    </div>    
+{% endblock %}
+
+
+{% block panel_body %}
+    <div class="row">
+
+    </div>             
+{% endblock %}

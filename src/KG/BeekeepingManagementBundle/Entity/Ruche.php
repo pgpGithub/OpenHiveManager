@@ -62,11 +62,11 @@ class Ruche
     private $image;
 
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="ruche", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
-    private $colonnie;
+    private $colonie;
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="ruche")
@@ -153,26 +153,26 @@ class Ruche
     }    
     
     /**
-     * Set Colonnie
+     * Set Colonie
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonnie $colonnie
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonie
      * @return Ruche
      */
-    public function setColonnie(\KG\BeekeepingManagementBundle\Entity\Colonnie $colonnie = null)
+    public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie = null)
     {
-        $this->colonnie = $colonnie;
+        $this->colonie = $colonie;
 
         return $this;
     }
 
     /**
-     * Get Colonnie
+     * Get Colonie
      *
-     * @return \KG\BeekeepingManagementBundle\Entity\Colonnie 
+     * @return \KG\BeekeepingManagementBundle\Entity\Colonie 
      */
-    public function getColonnie()
+    public function getColonie()
     {
-        return $this->colonnie;
+        return $this->colonie;
     }   
 
     /**

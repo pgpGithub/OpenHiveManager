@@ -41,9 +41,9 @@ class RucheController extends Controller
         
         $maxVisites     = $this->container->getParameter('max_visites_per_page');
         
-        if($ruche->getColonnie()){
-            $visites        = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByColonnie($page, $maxVisites, $ruche->getColonnie()->getId());
-            $visites_count  = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->countByColonnie($ruche->getColonnie()->getId()); 
+        if($ruche->getColonie()){
+            $visites        = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByColonie($page, $maxVisites, $ruche->getColonie()->getId());
+            $visites_count  = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->countByColonie($ruche->getColonie()->getId()); 
         }else{
             $visites        = 0;
             $visites_count  = 0;           
@@ -143,6 +143,7 @@ class RucheController extends Controller
                     $cadre->setRuche($ruche);
                 }
 
+                $ruche->getColonie()->setExploitation($emplacement->getRucher()->getExploitation());
                 $ruche->setEmplacement($emplacement);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($ruche);

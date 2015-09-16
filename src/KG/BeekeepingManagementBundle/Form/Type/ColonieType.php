@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ColonnieType extends AbstractType
+class ColonieType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,7 +17,7 @@ class ColonnieType extends AbstractType
         $builder
             ->add('nom')
                                
-            ->add('anneeColonnie', 'collot_datetime', 
+            ->add('anneeColonie', 'collot_datetime', 
                     array( 
                             'pickerOptions' =>
                                 array('format' => 'yyyy',
@@ -47,7 +47,7 @@ class ColonnieType extends AbstractType
                         'empty_data'  => null
                     ))
                 
-            ->add('provenanceColonnie', 'entity', array(
+            ->add('provenanceColonie', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Provenance',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
@@ -77,7 +77,7 @@ class ColonnieType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonnie'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonie'
         ));
     }
 
@@ -86,6 +86,6 @@ class ColonnieType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_colonnie';
+        return 'kg_beekeepingmanagementbundle_colonie';
     }
 }

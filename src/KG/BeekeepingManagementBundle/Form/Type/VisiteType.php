@@ -14,7 +14,7 @@ class VisiteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $visites = $builder->getData()->getColonnie()->getVisites();
+        $visites = $builder->getData()->getColonie()->getVisites();
         
         $startDate = '2000-01-01';
         
@@ -75,7 +75,7 @@ class VisiteType extends AbstractType
                 ->add('observations', 'textarea', array(
                             'required'  => false,
                         ))
-                ->add('colonnie', new ProductionType(), array(
+                ->add('colonie', new ProductionType(), array(
                             'label'  => false,
                         ))
                 ->add('date', 'collot_datetime', 

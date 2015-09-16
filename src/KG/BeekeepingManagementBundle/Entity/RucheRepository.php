@@ -54,7 +54,7 @@ class RucheRepository extends EntityRepository
     public function findByTypeId($type, $exploitation)
     {
         return $this->queryfindByTypeId($type, $exploitation)
-                    ->andWhere('ruche.colonnie is NULL')
+                    ->andWhere('ruche.colonie is NULL')
                     ->getQuery()
                     ->getArrayResult();
     }

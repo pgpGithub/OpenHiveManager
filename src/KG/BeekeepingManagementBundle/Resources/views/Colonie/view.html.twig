@@ -1,0 +1,156 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/Colonie/view.html.twig #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}{{ parent() }} - Colonie{% endblock %}
+
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-6">
+            <h4>Colonie {{ colonie.nom }}</h4>
+        </div>
+        <div class="col-xs-6">
+        {% if not colonie.morte %}
+            <span class="pull-right">
+                <a title="Renouveler la reine" href="{{ path('kg_beekeeping_management_renouveler_reine', { 'reine_id': colonie.reine.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-refresh"></i> <strong>Renouveler reine</strong></a>
+                <a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-scissors"></i></a>
+                <a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></a>
+            </span>
+        {% endif %}
+        </div>
+    </div>    
+{% endblock %}
+
+
+{% block panel_body %}
+    <div class="row">
+        <div class="col-md-3 col-lg-3 " align="center"> 
+            <img src="../../../../img/abeille/{{ colonie.reine.race.libelle }}.jpg" alt="{{ colonie.reine.race.libelle }}" class="img-thumbnail img-responsive">             
+        </div>
+
+        <div class=" col-md-9 col-lg-9 ">
+            {% if colonie.morte %}
+            <div class="alert alert-danger" role="alert">
+                <h4><i class="glyphicon glyphicon-alert"></i> Cette colonie est morte</h4>
+                <strong>Causes de la mort :</strong></td>
+                {% for cause in colonie.causes %}
+                    {% if not loop.first %}
+                        - 
+                    {% endif %}
+                    {{ cause.libelle }}
+                {% endfor %}
+
+                {% if colonie.causes is not empty and colonie.autreCause %}
+                    -
+                {% endif %}
+                {{ colonie.autreCause }}
+            </div>
+            {% endif %}
+
+            <table class="table">    
+                <tbody>
+                    <tr>
+                        <td><strong>Race :</strong></td>
+                        <td>{{ colonie.reine.race.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Année :</strong></td>
+                        <td>{{ colonie.anneeColonie|date("Y") }}</td>
+                    </tr>
+
+                    {% if colonie.colonieMere %}
+                    <tr>
+                        <td><strong>Colonie mère :</strong></td>
+                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.colonieMere.id }) }}">{{ colonie.colonieMere.nom }}</a></td>
+                    </tr>                              
+                    {% endif %}
+
+                    {% if colonie.coloniesFilles is not empty %}
+                    <tr>
+                        <td><strong>Colonie{% if colonie.coloniesFilles|length > 1 %}s{% endif %} fille{% if colonie.coloniesFilles|length > 1 %}s{% endif %} :</strong></td>
+                        <td>
+                            {% for colonieFille in colonie.coloniesFilles if not colonieFille.supprime %}
+                                {% if not loop.first %}
+                                    - 
+                                {% endif %}
+                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonieFille.id }) }}">{{ colonieFille.nom }}</a>
+                            {% endfor %}
+                        </td>
+                    </tr>                              
+                    {% endif %}
+
+                    {% if colonie.ruche %}
+                    <tr>
+                        <td><strong>Ruche :</strong></td>
+                        <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': colonie.ruche.id }) }}">{{ colonie.ruche.nom }}</a></td>
+                    </tr>
+
+                    {% if colonie.ruche.emplacement %}
+                    <tr>
+                        <td><strong>Rucher :</strong></td>
+                        <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': colonie.ruche.emplacement.rucher.id }) }}">{{ colonie.ruche.emplacement.rucher.nom }}</a></td>
+                    </tr>                              
+                    {% endif %}                            
+
+                    {% endif %}
+
+                    <tr>
+                        <td><strong>Affectation :</strong></td>
+                        <td>{{ colonie.affectation.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Provenance :</strong></td>
+                        <td>{{ colonie.provenanceColonie.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Etat :</strong></td>
+                        <td>{{ colonie.etat.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Agressivité :</strong></td>
+                        <td>{{ colonie.agressivite.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Année de la reine :</strong></td>
+                        <td>{% if colonie.reine.anneeReine %}{{ colonie.reine.anneeReine|date("Y") }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Provenance de la reine :</strong></td>
+                        <td>{% if colonie.reine.provenanceReine %}{{ colonie.reine.provenanceReine.libelle }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marquage :</strong></td>
+                        <td>                                   
+                            {% if colonie.reine.marquage %}
+                                {% set annee = colonie.reine.anneeReine|date("Y")|last %}
+                                {% if annee == 0 or annee == 5 %}{% set marquage = 'Bleu' %}{% endif %}
+                                {% if annee == 1 or annee == 6 %}{% set marquage = 'Blanc' %}{% endif %}
+                                {% if annee == 2 or annee == 7 %}{% set marquage = 'Jaune' %}{% endif %}
+                                {% if annee == 3 or annee == 8 %}{% set marquage = 'Rouge' %}{% endif %}
+                                {% if annee == 4 or annee == 9 %}{% set marquage = 'Vert' %}{% endif %}
+                            {% else %}    
+                                {% set marquage = 'Aucun' %}
+                            {% endif %}
+                            {% if colonie.reine.provenanceReine %}{{ marquage }}{% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clippage :</strong></td>
+                        <td>{% if colonie.reine.provenanceReine %}{% if colonie.reine.clippage %} Oui {% else %} Non {% endif %}{% endif %}</td>
+                    </tr>
+                </tbody>
+          </table>
+    </div>
+  </div>
+
+    <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>                     
+{% endblock %}

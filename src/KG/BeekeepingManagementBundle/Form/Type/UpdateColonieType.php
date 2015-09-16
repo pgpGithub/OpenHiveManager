@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UpdateColonnieType extends AbstractType
+class UpdateColonieType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -33,7 +33,7 @@ class UpdateColonnieType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonnie'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonie'
         ));
     }
 
@@ -42,6 +42,6 @@ class UpdateColonnieType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_colonnie';
+        return 'kg_beekeepingmanagementbundle_colonie';
     }
 }

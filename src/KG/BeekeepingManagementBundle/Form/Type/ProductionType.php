@@ -25,7 +25,7 @@ class ProductionType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonnie'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonie'
         ));
     }
 

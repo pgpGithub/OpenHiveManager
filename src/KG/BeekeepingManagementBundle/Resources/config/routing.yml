@@ -79,64 +79,64 @@ kg_beekeeping_management_transhumer_ruche:
         ruche_id: \d+
         
 kg_beekeeping_management_add_visite:
-    path:      /exploitation/rucher/ruche/colonnie/{colonnie_id}/creer-visite/
+    path:      /exploitation/rucher/ruche/colonie/{colonie_id}/creer-visite/
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:add }
     requirements:
         ruche_id: \d+
 
 kg_beekeeping_management_update_visite:
-    path:      /exploitation/rucher/ruche/colonnie/visite/{visite_id}/modifier-visite
+    path:      /exploitation/rucher/ruche/colonie/visite/{visite_id}/modifier-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:update }
     requirements:
         visite_id: \d+
         
 kg_beekeeping_management_delete_visite:
-    path:      /exploitation/rucher/ruche/colonnie/visite/{visite_id}/supprimer-visite
+    path:      /exploitation/rucher/ruche/colonie/visite/{visite_id}/supprimer-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:delete }
     requirements:
         visite_id: \d+
         
 kg_beekeeping_management_view_visite:
-    path:      /exploitation/rucher/ruche/colonnie/visite/{visite_id}/afficher-visite
+    path:      /exploitation/rucher/ruche/colonie/visite/{visite_id}/afficher-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:view }
     requirements:
         visite_id: \d+ 
                
-kg_beekeeping_management_delete_colonnie:
-    path:      /exploitation/colonnie/{colonnie_id}/supprimer-colonnie
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:delete }
+kg_beekeeping_management_delete_colonie:
+    path:      /exploitation/colonie/{colonie_id}/supprimer-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:delete }
     requirements:
-        colonnie_id: \d+
+        colonie_id: \d+
 
-kg_beekeeping_management_update_colonnie:
-    path:      /exploitation/colonnie/{colonnie_id}/modifier-colonnie
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:update }
+kg_beekeeping_management_update_colonie:
+    path:      /exploitation/colonie/{colonie_id}/modifier-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:update }
     requirements:
-        colonnie_id: \d+      
+        colonie_id: \d+      
 
-kg_beekeeping_management_view_colonnie:
-    path:      /exploitation/colonnie/{colonnie_id}/afficher-colonnie
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:view }
+kg_beekeeping_management_view_colonie:
+    path:      /exploitation/colonie/{colonie_id}/afficher-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:view }
     requirements:
-        colonnie_id: \d+         
+        colonie_id: \d+         
         
-kg_beekeeping_management_diviser_colonnie:
-    path:      /exploitation/colonnie/{colonnie_id}/diviser-colonnie
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:diviser }
+kg_beekeeping_management_diviser_colonie:
+    path:      /exploitation/colonie/{colonie_id}/diviser-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:diviser }
     requirements:
-        colonnie_id: \d+
+        colonie_id: \d+
 
 kg_beekeeping_management_renouveler_reine:
-    path:      /exploitation/colonnie/reine/{reine_id}/renouveler-reine
+    path:      /exploitation/colonie/reine/{reine_id}/renouveler-reine
     defaults:  { _controller: KGBeekeepingManagementBundle:Reine:renouveler }
     requirements:
         reine_id: \d+
         
-kg_beekeeping_management_enrucher_colonnie:
-    path:      /exploitation/colonnie/{colonnie_id}/enrucher-colonnie
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:enrucher }
+kg_beekeeping_management_enrucher_colonie:
+    path:      /exploitation/colonie/{colonie_id}/enrucher-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:enrucher }
     requirements:
-        colonnie_id: \d+ 
+        colonie_id: \d+ 
 
 kg_beekeeping_management_select_emplacements_ruche:
     path:      /exploitation/ruche/select_emplacements-ruche
@@ -144,11 +144,11 @@ kg_beekeeping_management_select_emplacements_ruche:
     options:
         expose: true
         
-kg_beekeeping_management_tuer_colonnie:
-    path:      /exploitation/colonnie/{colonnie_id}/tuer-colonnie
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonnie:tuer }
+kg_beekeeping_management_tuer_colonie:
+    path:      /exploitation/colonie/{colonie_id}/tuer-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:tuer }
     requirements:
-        colonnie_id: \d+ 
+        colonie_id: \d+ 
         
 kg_beekeeping_management_add_emplacement:
     path:      /exploitation/rucher/{rucher_id}/creer-emplacement/
@@ -172,4 +172,4 @@ kg_beekeeping_management_update_emplacement:
     path:      /exploitation/rucher/emplacement/{emplacement_id}/modifier-emplacement
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:update }
     requirements:
-        colonnie_id: \d+              
+        colonie_id: \d+              
