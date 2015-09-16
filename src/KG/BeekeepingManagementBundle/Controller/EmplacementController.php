@@ -31,7 +31,7 @@ class EmplacementController extends Controller
             }
         }
         
-        if( $not_permitted || $emplacement->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -56,7 +56,7 @@ class EmplacementController extends Controller
             }
         }
         
-        if( $not_permitted || $emplacement->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
     
@@ -64,7 +64,7 @@ class EmplacementController extends Controller
             $this->get('session')->getFlashBag()->add('danger','Vous ne pouvez pas supprimer un emplacement occupé par une ruche'); 
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_emplacement', array('emplacement_id' => $emplacement->getId())));                        
         }else{
-            $emplacement->setSupprime(true);
+            //$emplacement->setSupprime(true);
             $em = $this->getDoctrine()->getManager();
             $em->persist($emplacement);
             $em->flush();
@@ -91,7 +91,7 @@ class EmplacementController extends Controller
             }
         }
         
-        if( $not_permitted || $rucher->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -133,7 +133,7 @@ class EmplacementController extends Controller
             }
         }
         
-        if( $not_permitted || $emplacement->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

@@ -46,23 +46,23 @@ class Ruche
     private $matiere;
     
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Cadre", mappedBy="ruche", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Cadre", mappedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $cadres;  
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true))
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $hausses; 
     
     /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     private $image;
 
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="ruche", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonnie", inversedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
@@ -72,12 +72,6 @@ class Ruche
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="ruche")
      */
     private $emplacement;
-
-    /**
-     * @var boolean
-     * @ORM\Column(name="supprime", type="boolean")
-     */
-    private $supprime = false;
     
     /**
      * Get id
@@ -179,30 +173,7 @@ class Ruche
     public function getColonnie()
     {
         return $this->colonnie;
-    }
-    
-    /**
-     * Set supprime
-     *
-     * @param string $supprime
-     * @return Ruche
-     */
-    public function setSupprime($supprime)
-    {
-        $this->supprime = $supprime;
-
-        return $this;
-    }
-
-    /**
-     * Get supprime
-     *
-     * @return boolean 
-     */
-    public function getSupprime()
-    {
-        return $this->supprime;
-    }      
+    }   
 
     /**
      * Set emplacement

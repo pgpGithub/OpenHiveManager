@@ -57,15 +57,9 @@ class Emplacement
     private $rucher;    
 
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="emplacement")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="emplacement", cascade={"remove"}, orphanRemoval=true)
      */
     private $ruche;
-
-    /**
-     * @var boolean
-     * @ORM\Column(name="supprime", type="boolean")
-     */
-    private $supprime = false;
     
     /**
      * Get id
@@ -167,29 +161,6 @@ class Emplacement
     public function getRuche()
     {
         return $this->ruche;
-    }
-
-    /**
-     * Set supprime
-     *
-     * @param boolean $supprime
-     * @return Emplacement
-     */
-    public function setSupprime($supprime)
-    {
-        $this->supprime = $supprime;
-
-        return $this;
-    }
-
-    /**
-     * Get supprime
-     *
-     * @return boolean 
-     */
-    public function getSupprime()
-    {
-        return $this->supprime;
     }
 
     /**

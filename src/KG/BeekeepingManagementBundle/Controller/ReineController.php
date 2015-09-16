@@ -28,7 +28,7 @@ class ReineController extends Controller
             }
         }
         
-        if( $not_permitted || $reine->getColonnie()->getSupprime() || $reine->getColonnie()->getMorte() ){
+        if( $not_permitted || $reine->getColonnie()->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

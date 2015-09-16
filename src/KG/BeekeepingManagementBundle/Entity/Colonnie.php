@@ -73,7 +73,7 @@ class Colonnie
     private $agressivite;
     
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="colonnie", cascade="persist")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="colonnie", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
@@ -93,24 +93,17 @@ class Colonnie
     private $colonniesFilles;
     
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonnie", cascade="persist")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonnie", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     private $ruche;
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Visite", mappedBy="colonnie")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Visite", mappedBy="colonnie", cascade={"remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     private $visites;
-    
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="supprime", type="boolean")
-     */
-    private $supprime = false;
-    
+        
     /**
      * @var boolean
      *
@@ -313,30 +306,7 @@ class Colonnie
     public function getAgressivite()
     {
         return $this->agressivite;
-    }
-    
-    /**
-     * Set supprime
-     *
-     * @param string $supprime
-     * @return Colonnie 
-     */
-    public function setSupprime($supprime)
-    {
-        $this->supprime = $supprime;
-
-        return $this;
-    }
-
-    /**
-     * Get supprime
-     *
-     * @return boolean 
-     */
-    public function getSupprime()
-    {
-        return $this->supprime;
-    }          
+    }       
 
     /**
      * Set ruche

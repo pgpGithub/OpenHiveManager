@@ -38,30 +38,22 @@ class Rucher
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", mappedBy="rucher")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", mappedBy="rucher", cascade={"remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     private $emplacements;    
     
     /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     private $image;
   
     /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Localisation", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Localisation", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     private $localisation;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="supprime", type="boolean")
-     */
-    private $supprime = false;
-
     
     /**
      * Constructor
@@ -194,30 +186,7 @@ class Rucher
     public function getExploitation()
     {
         return $this->exploitation;
-    }
-    
-    /**
-     * Set supprime
-     *
-     * @param string $supprime
-     * @return Rucher
-     */
-    public function setSupprime($supprime)
-    {
-        $this->supprime = $supprime;
-
-        return $this;
-    }
-
-    /**
-     * Get supprime
-     *
-     * @return boolean 
-     */
-    public function getSupprime()
-    {
-        return $this->supprime;
-    }      
+    }    
 
     /**
      * Add emplacements

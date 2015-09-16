@@ -89,9 +89,7 @@ class User extends BaseUser
         $exploitations = new \Doctrine\Common\Collections\ArrayCollection(); 
                 
         foreach ( $this->apiculteurExploitations as $apiculteurExploitation ){
-            if( !$apiculteurExploitation->getExploitation()->getSupprime()){
-                $exploitations->add($apiculteurExploitation->getExploitation());
-            }
+            $exploitations->add($apiculteurExploitation->getExploitation());
         }
         
         return $exploitations;

@@ -66,13 +66,6 @@ class Reine
     private $colonnie;
     
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="supprime", type="boolean")
-     */
-    private $supprime = false;
-      
-    /**
      * Constructor
      */
     public function __construct()
@@ -134,29 +127,6 @@ class Reine
     public function getClippage()
     {
         return $this->clippage;
-    }
-
-    /**
-     * Set supprime
-     *
-     * @param boolean $supprime
-     * @return Reine
-     */
-    public function setSupprime($supprime)
-    {
-        $this->supprime = $supprime;
-
-        return $this;
-    }
-
-    /**
-     * Get supprime
-     *
-     * @return boolean 
-     */
-    public function getSupprime()
-    {
-        return $this->supprime;
     }
 
     /**

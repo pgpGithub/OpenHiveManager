@@ -35,7 +35,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted || $ruche->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -70,7 +70,7 @@ class RucheController extends Controller
     */    
     public function updateAction(Ruche $ruche, Request $request)
     {
-        $apiculteurExploitations = $ruche->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $ruche->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -80,7 +80,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted || $ruche->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -120,7 +120,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted || $emplacement->getRucher()->getSupprime() || $emplacement->getRuche() ){
+        if( $not_permitted || $emplacement->getRuche() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -177,7 +177,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted || $ruche->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
 
@@ -232,7 +232,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted || $ruche->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -264,7 +264,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted || $ruche->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

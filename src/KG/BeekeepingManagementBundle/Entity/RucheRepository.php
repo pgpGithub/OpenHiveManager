@@ -18,8 +18,7 @@ class RucheRepository extends EntityRepository
         $q = $this->createQueryBuilder('ruche')
                   ->leftJoin('ruche.exploitation','exploitation')
                   ->addSelect('exploitation')
-                  ->where('exploitation.id = :id')
-                  ->andWhere('ruche.supprime = false')                    
+                  ->where('exploitation.id = :id')                 
                   ->setParameter('id',$exploitation);
         
         $q->setFirstResult(($page-1)*$maxperpage)
@@ -33,8 +32,7 @@ class RucheRepository extends EntityRepository
         return $this->createQueryBuilder('ruche')
                     ->select('COUNT(ruche)')
                     ->leftJoin('ruche.exploitation','exploitation')
-                    ->where('exploitation.id = :id')
-                    ->andWhere('ruche.supprime = false')                
+                    ->where('exploitation.id = :id')               
                     ->setParameter('id',$exploitation)
                     ->getQuery()
                     ->getSingleScalarResult();
@@ -48,7 +46,6 @@ class RucheRepository extends EntityRepository
                     ->leftJoin('ruche.exploitation', 'exploitation')
                     ->addSelect('exploitation')
                     ->where('type.id = :type')
-                    ->andWhere('ruche.supprime = false')
                     ->andWhere('exploitation.id = :exploitation')
                     ->setParameter('type',$type)
                     ->setParameter('exploitation', $exploitation);

@@ -30,7 +30,7 @@ class RucherController extends Controller
             }
         }
         
-        if( $not_permitted || $page < 1 || $rucher->getSupprime() ){
+        if( $not_permitted || $page < 1 ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -69,21 +69,12 @@ class RucherController extends Controller
             }
         }
         
-        if( $not_permitted || $rucher->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
-        }
-        
-        $rucher->setSupprime(true);
-        
-        foreach ( $rucher->getEmplacements() as $emplacement ){
-            $emplacement->setSupprime(true);
-            if( $emplacement->getRuche() ){
-                $emplacement->getRuche()->setSupprime(true);
-            }
         }
                 
         $em = $this->getDoctrine()->getManager();
-        $em->persist($rucher);
+        $em->remove($rucher);
         $em->flush();
 
         //$this->getSession()->getFlashBag()->add('success','Rucher supprimé avec succès');
@@ -105,7 +96,7 @@ class RucherController extends Controller
             }
         }
         
-        if( $not_permitted || $exploitation->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -145,7 +136,7 @@ class RucherController extends Controller
             }
         }
         
-        if( $not_permitted || $rucher->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

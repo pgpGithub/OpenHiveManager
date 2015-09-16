@@ -19,7 +19,6 @@ class EmplacementRepository extends EntityRepository
                   ->leftJoin('emplacement.rucher','rucher')               
                   ->addSelect('rucher')
                   ->where('rucher.id = :id')
-                  ->andWhere('emplacement.supprime = false')    
                   ->setParameter('id',$rucher);
         
         $q->setFirstResult(($page-1)*$maxperpage)
@@ -33,8 +32,7 @@ class EmplacementRepository extends EntityRepository
         return $this->createQueryBuilder('emplacement')
                     ->select('COUNT(emplacement)')
                     ->leftJoin('emplacement.rucher','rucher')
-                    ->where('rucher.id = :id')
-                    ->andWhere('emplacement.supprime = false')                
+                    ->where('rucher.id = :id')              
                     ->setParameter('id',$rucher)
                     ->getQuery()
                     ->getSingleScalarResult();
@@ -45,8 +43,7 @@ class EmplacementRepository extends EntityRepository
         return $this->createQueryBuilder('emplacement')
                     ->leftJoin('emplacement.rucher', 'rucher')
                     ->addSelect('rucher')
-                    ->where('rucher.id = :rucher')
-                    ->andWhere('emplacement.supprime = false')                   
+                    ->where('rucher.id = :rucher')                
                     ->setParameter('rucher',$rucher);
     }
 

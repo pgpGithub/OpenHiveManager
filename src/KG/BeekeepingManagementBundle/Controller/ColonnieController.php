@@ -34,7 +34,7 @@ class ColonnieController extends Controller
             }
         }
         
-        if( $not_permitted || $colonnie->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
        
@@ -48,7 +48,8 @@ class ColonnieController extends Controller
     */    
     public function deleteAction(Colonnie $colonnie)
     {
-        $exploitation = $colonnie->getExploitation();
+        $rucher = $colonnie->getRuche()->getEmplacement()->getRucher();
+        $exploitation = $rucher->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -59,7 +60,7 @@ class ColonnieController extends Controller
             }
         }
         
-        if( $not_permitted || $colonnie->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -67,21 +68,12 @@ class ColonnieController extends Controller
             $this->get('session')->getFlashBag()->add('danger','Vous ne pouvez pas supprimer une colonnie possédant des colonnies filles');            
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonnie', array('colonnie_id' => $colonnie->getId())));
         }else{
-            $colonnie->setSupprime(true);
-
-            if( $colonnie->getRuche() ){
-                if($colonnie->getRuche()->getEmplacement()){
-                    $colonnie->getRuche()->setEmplacement(null);
-                }
-                $colonnie->getRuche()->setColonnie(null);
-            }
-
             $em = $this->getDoctrine()->getManager();
-            $em->persist($colonnie);
+            $em->remove($colonnie);
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success','Colonnie supprimée avec succès');
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation_colonnie', array('exploitation_id' => $exploitation->getId())));            
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $rucher->getId())));            
         }
     }
     
@@ -93,14 +85,14 @@ class ColonnieController extends Controller
     {
         $not_permitted = true;
         
-        foreach ( $colonnie->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+        foreach ( $colonnie->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
             if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
                 $not_permitted = false;
                 break;
             }
         }
         
-        if( $not_permitted || $colonnie->getSupprime() || $colonnie->getMorte() ){
+        if( $not_permitted || $colonnie->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -145,7 +137,7 @@ class ColonnieController extends Controller
             }
         }
         
-        if( $not_permitted || $colonnieMere->getSupprime() || $colonnieMere->getMorte() ){
+        if( $not_permitted || $colonnieMere->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -197,7 +189,7 @@ class ColonnieController extends Controller
             }
         }
         
-        if( $not_permitted || $colonnie->getSupprime() || $colonnie->getMorte() ){
+        if( $not_permitted || $colonnie->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
 

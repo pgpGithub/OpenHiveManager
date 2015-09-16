@@ -30,20 +30,12 @@ class VisiteController extends Controller
             }
         }
         
-        if( $not_permitted || $visite->getColonnie()->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
        
         return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig', 
                 array(  'ruche' => $visite->getColonnie()->getRuche() ));
-    }
-
-    /**
-    * @Security("has_role('ROLE_USER')")
-    */    
-    public function deleteAction(Visite $visite)
-    {
-
     }
     
     /**
@@ -63,7 +55,7 @@ class VisiteController extends Controller
             }
         }
         
-        if( $not_permitted || $colonnie->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }       
         
@@ -82,7 +74,7 @@ class VisiteController extends Controller
         
             $request->getSession()->getFlashBag()->add('success','Visite créée avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_visite', array('visite_id' => $visite->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $visite->getColonnie()->getRuche()->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Visite:add.html.twig', 
@@ -108,7 +100,7 @@ class VisiteController extends Controller
             }
         }
         
-        if( $not_permitted || $visite->getColonnie()->getSupprime() ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

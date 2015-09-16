@@ -19,7 +19,6 @@ class ColonnieRepository extends EntityRepository
                   ->leftJoin('c.exploitation','e')
                   ->addSelect('e')
                   ->where('e.id = :id')
-                  ->andWhere('c.supprime = false')
                   ->setParameter('id',$exploitation);
         
         $q->setFirstResult(($page-1)*$maxperpage)
@@ -33,8 +32,7 @@ class ColonnieRepository extends EntityRepository
         return $this->createQueryBuilder('c')
                     ->select('COUNT(c)')
                     ->leftJoin('c.exploitation','e')
-                    ->where('e.id = :id')
-                    ->andWhere('c.supprime = false')                
+                    ->where('e.id = :id')              
                     ->setParameter('id',$exploitation)
                     ->getQuery()
                     ->getSingleScalarResult();
