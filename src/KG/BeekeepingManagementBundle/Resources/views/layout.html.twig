@@ -27,7 +27,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a title="Modifier" class="navbar-brand" href="{{ path('kg_beekeeping_management_update_exploitation', { 'exploitation_id' : app.user.exploitations|first.id }) }}">Exploitation {{ app.user.exploitations|first.nom }}</a>
+                            <a title="Résumé" class="navbar-brand" href="{{ path('kg_beekeeping_management_home') }}">Exploitation {{ app.user.exploitations|first.nom }}</a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,30 +50,34 @@
                     </div><!-- /.container-fluid -->
                 </nav>                
             </div>    
-            
-            {% if app.session.flashbag.get('success') or app.session.flashbag.get('danger') %}
-            <div class="row">
-                {% for flashMessage in app.session.flashbag.get('success') %}
-                    {% if loop.first %}
-                        <div class="alert alert-success" role="alert">
-                    {% endif %}
-                            <i><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</i>
-                    {% if loop.last %}        
+                       
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                {% if loop.first %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success" role="alert">
+                {% endif %}
+                                <i><span class="glyphicon glyphicon-ok-sign"></span> {{ flashMessage }}</i>
+                {% if loop.last %}        
+                            </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
 
-                {% for flashMessage in app.session.flashbag.get('danger') %}
-                    {% if loop.first %}
-                        <div class="alert alert-danger" role="alert">
-                    {% endif %}
-                            <i><span class="glyphicon glyphicon-remove-sign"></span> {{ flashMessage }}</i>
-                    {% if loop.last %}        
+            {% for flashMessage in app.session.flashbag.get('danger') %}
+                {% if loop.first %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger" role="alert">
+                {% endif %}
+                                <i><span class="glyphicon glyphicon-remove-sign"></span> {{ flashMessage }}</i>
+                {% if loop.last %}
+                            </div>
                         </div>
-                    {% endif %}
-                {% endfor %}                  
-            </div>
-            {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}                  
             
             {% block form_error %}{% endblock %}
                 
