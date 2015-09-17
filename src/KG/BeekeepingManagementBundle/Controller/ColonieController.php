@@ -148,6 +148,7 @@ class ColonieController extends Controller
         $colonieFille->setEtat($colonieMere->getEtat());
         $colonieFille->setAgressivite($colonieMere->getAgressivite());
         $colonieFille->setColonieMere($colonieMere);
+        $colonieFille->setExploitation($colonieMere->getExploitation());
         $colonieMere->addColoniesFilles($colonieFille);
         
         $form = $this->createForm(new DiviserType, $colonieFille);

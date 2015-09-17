@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EmplacementType extends AbstractType
+class ProprietaireType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,13 +16,9 @@ class EmplacementType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('soleil', 'integer', array('required' => false))
-            ->add('orientation', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Orientation',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
+            ->add('prenom')
+            ->add('adresse')
+            ->add('telephone')
         ;
     }
     
@@ -32,7 +28,7 @@ class EmplacementType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Emplacement'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Proprietaire'
         ));
     }
 
@@ -41,6 +37,6 @@ class EmplacementType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_emplacement';
+        return 'kg_beekeepingmanagementbundle_proprietaire';
     }
 }

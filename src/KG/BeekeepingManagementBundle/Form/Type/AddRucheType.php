@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RucheType extends AbstractType
+class AddRucheType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -29,7 +29,8 @@ class RucheType extends AbstractType
                         'empty_data'  => null
                     ))
             ->add('nbCadres', 'integer', array('mapped' => false))    
-            ->add('image', new ImageType(), array('required' => false));
+            ->add('image', new ImageType(), array('required' => false))
+            ->add('colonie', new ColonieType());
     }
     
     /**

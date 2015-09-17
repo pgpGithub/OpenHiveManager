@@ -4,19 +4,15 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite' 'css/bootstrap_switch/bootstrap-switch.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
-    {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
-                   '@KGBeekeepingManagementBundle/Resources/public/js/colonie/add.js'%}
+    {% javascripts '@KGBeekeepingManagementBundle/Resources/public/js/colonie/diviser.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
-    {% endjavascripts %}
-    {{ form_javascript(form) }}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    {% endjavascripts %}    
 {% endblock %}
 
 {% block title %}{{ parent() }} - Diviser une colonie{% endblock %}

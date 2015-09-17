@@ -50,7 +50,15 @@ class Rucher
     private $image;
   
     /**
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Proprietaire", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $proprietaire;
+    
+    /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Localisation", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
     private $localisation;
@@ -219,5 +227,28 @@ class Rucher
     public function getEmplacements()
     {
         return $this->emplacements;
+    }
+
+    /**
+     * Set proprietaire
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Proprietaire $proprietaire
+     * @return Rucher
+     */
+    public function setProprietaire(\KG\BeekeepingManagementBundle\Entity\Proprietaire $proprietaire = null)
+    {
+        $this->proprietaire = $proprietaire;
+
+        return $this;
+    }
+
+    /**
+     * Get proprietaire
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Proprietaire 
+     */
+    public function getProprietaire()
+    {
+        return $this->proprietaire;
     }
 }

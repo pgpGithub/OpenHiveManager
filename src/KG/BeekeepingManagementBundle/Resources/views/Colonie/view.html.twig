@@ -61,24 +61,24 @@
             <table class="table">    
                 <tbody>
                     <tr>
-                        <td><strong>Race :</strong></td>
+                        <td><strong>Race</strong></td>
                         <td>{{ colonie.reine.race.libelle }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Année :</strong></td>
+                        <td><strong>Année</strong></td>
                         <td>{{ colonie.anneeColonie|date("Y") }}</td>
                     </tr>
 
                     {% if colonie.colonieMere %}
                     <tr>
-                        <td><strong>Colonie mère :</strong></td>
+                        <td><strong>Colonie mère</strong></td>
                         <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.colonieMere.id }) }}">{{ colonie.colonieMere.nom }}</a></td>
                     </tr>                              
                     {% endif %}
 
                     {% if colonie.coloniesFilles is not empty %}
                     <tr>
-                        <td><strong>Colonie{% if colonie.coloniesFilles|length > 1 %}s{% endif %} fille{% if colonie.coloniesFilles|length > 1 %}s{% endif %} :</strong></td>
+                        <td><strong>Colonie{% if colonie.coloniesFilles|length > 1 %}s{% endif %} fille{% if colonie.coloniesFilles|length > 1 %}s{% endif %}</strong></td>
                         <td>
                             {% for colonieFille in colonie.coloniesFilles if not colonieFille.supprime %}
                                 {% if not loop.first %}
@@ -92,13 +92,13 @@
 
                     {% if colonie.ruche %}
                     <tr>
-                        <td><strong>Ruche :</strong></td>
+                        <td><strong>Ruche</strong></td>
                         <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': colonie.ruche.id }) }}">{{ colonie.ruche.nom }}</a></td>
                     </tr>
 
                     {% if colonie.ruche.emplacement %}
                     <tr>
-                        <td><strong>Rucher :</strong></td>
+                        <td><strong>Rucher</strong></td>
                         <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': colonie.ruche.emplacement.rucher.id }) }}">{{ colonie.ruche.emplacement.rucher.nom }}</a></td>
                     </tr>                              
                     {% endif %}                            
@@ -106,31 +106,31 @@
                     {% endif %}
 
                     <tr>
-                        <td><strong>Affectation :</strong></td>
+                        <td><strong>Affectation</strong></td>
                         <td>{{ colonie.affectation.libelle }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Provenance :</strong></td>
+                        <td><strong>Provenance</strong></td>
                         <td>{{ colonie.provenanceColonie.libelle }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Etat :</strong></td>
+                        <td><strong>Etat</strong></td>
                         <td>{{ colonie.etat.libelle }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Agressivité :</strong></td>
+                        <td><strong>Agressivité</strong></td>
                         <td>{{ colonie.agressivite.libelle }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Année de la reine :</strong></td>
+                        <td><strong>Année de la reine</strong></td>
                         <td>{% if colonie.reine.anneeReine %}{{ colonie.reine.anneeReine|date("Y") }}{% endif %}</td>
                     </tr>
                     <tr>
-                        <td><strong>Provenance de la reine :</strong></td>
+                        <td><strong>Provenance de la reine</strong></td>
                         <td>{% if colonie.reine.provenanceReine %}{{ colonie.reine.provenanceReine.libelle }}{% endif %}</td>
                     </tr>
                     <tr>
-                        <td><strong>Marquage :</strong></td>
+                        <td><strong>Marquage</strong></td>
                         <td>                                   
                             {% if colonie.reine.marquage %}
                                 {% set annee = colonie.reine.anneeReine|date("Y")|last %}
@@ -146,7 +146,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>Clippage :</strong></td>
+                        <td><strong>Clippage</strong></td>
                         <td>{% if colonie.reine.provenanceReine %}{% if colonie.reine.clippage %} Oui {% else %} Non {% endif %}{% endif %}</td>
                     </tr>
                 </tbody>

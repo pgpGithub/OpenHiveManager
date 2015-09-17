@@ -7,7 +7,7 @@ use KG\BeekeepingManagementBundle\Entity\Ruche;
 use KG\BeekeepingManagementBundle\Entity\Hausse;
 use KG\BeekeepingManagementBundle\Entity\Emplacement;
 use KG\BeekeepingManagementBundle\Form\Type\UpdateRucheType;
-use KG\BeekeepingManagementBundle\Form\Type\RucheType;
+use KG\BeekeepingManagementBundle\Form\Type\AddRucheType;
 use KG\BeekeepingManagementBundle\Form\Type\TranshumerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -125,7 +125,7 @@ class RucheController extends Controller
         }
         
         $ruche = new Ruche();
-        $form = $this->createForm(new RucheType, $ruche);
+        $form = $this->createForm(new AddRucheType, $ruche);
         
         if ($form->handleRequest($request)->isValid()){
 

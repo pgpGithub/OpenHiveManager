@@ -32,7 +32,7 @@ class Emplacement
     /**
      * @var integer
      *
-     * @ORM\Column(name="soleil", type="integer")
+     * @ORM\Column(name="soleil", type="integer", nullable=true)
      * @Assert\Range(
      *      min = 0,
      *      max = 100,
