@@ -76,9 +76,12 @@ class RucherController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         foreach ( $rucher->getEmplacements() as $emplacement){
-            $colonie = $emplacement->getRuche()->getColonie();
-            if( empty($colonie->getColoniesFilles()) ){
-                $em->remove($colonie);
+            $ruche = $emplacement->getRuche();
+            if ( $ruche ){
+                $colonie = $ruche->getColonie();
+                if( $colonie->getColoniesFilles()->isEmpty() ){
+                    $em->remove($colonie);
+                }
             }
         }
         
