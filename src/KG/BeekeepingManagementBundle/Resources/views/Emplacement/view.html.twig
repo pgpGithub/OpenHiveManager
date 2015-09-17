@@ -12,6 +12,8 @@
 
 {% block title %}{{ parent() }} - Emplacement{% endblock %}
 
+{% block ruchers %}{{ emplacement.rucher.nom }}{% endblock %}
+
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-6">

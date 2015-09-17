@@ -138,9 +138,9 @@ class Colonie
      */
     public function __construct()
     {
-        $this->causes           = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->causes          = new \Doctrine\Common\Collections\ArrayCollection();
         $this->coloniesFilles  = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->visites          = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->visites         = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -549,28 +549,5 @@ class Colonie
     public function getExploitation()
     {
         return $this->exploitation;
-    }
-
-    /**
-     * Add coloniesFilles
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
-     * @return Colonie
-     */
-    public function addColoniesFille(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
-    {
-        $this->coloniesFilles[] = $coloniesFilles;
-
-        return $this;
-    }
-
-    /**
-     * Remove coloniesFilles
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
-     */
-    public function removeColoniesFille(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
-    {
-        $this->coloniesFilles->removeElement($coloniesFilles);
     }
 }

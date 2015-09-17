@@ -19,6 +19,8 @@
     {{ form_javascript(form) }}
 {% endblock %}
 
+{% block ruchers %}{{ colonie.ruche.emplacement.rucher.nom }}{% endblock %}
+
 {% block title %}{{ parent() }} - Créer une colonie{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}

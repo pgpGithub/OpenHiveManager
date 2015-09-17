@@ -19,6 +19,8 @@
     {{ form_javascript(form) }}
 {% endblock %}
 
+{% block ruchers %}{{ emplacement.rucher.nom }}{% endblock %}
+
 {% block title %}{{ parent() }} - Créer une ruche{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}

@@ -20,6 +20,9 @@
 {% endblock %}
 
 {% block title %}{{ parent() }} - Rucher{% endblock %}
+
+{% block ruchers %}{{ rucher.nom }}{% endblock %}
+
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-6">
