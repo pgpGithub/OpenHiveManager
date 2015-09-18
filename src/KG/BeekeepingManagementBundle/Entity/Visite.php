@@ -46,16 +46,16 @@ class Visite
     /**
      * @var boolean
      *
-     * @ORM\Column(name="essaimage", type="boolean")
+     * @ORM\Column(name="pollenentrant", type="boolean")
      */
-    private $essaimage = false;    
+    private $pollenentrant = false;    
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="risqueessaimage", type="boolean")
+     * @ORM\Column(name="celroyales", type="boolean")
      */
-    private $risqueessaimage = false;    
+    private $celroyales = false;    
     
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Etat")
@@ -98,7 +98,7 @@ class Visite
      *      minMessage = "La quantité de miel récoltée ne peut pas être négative"
      * )
      */
-    private $miel;
+    private $miel = 0;
     
     /**
      * @var integer
@@ -109,7 +109,7 @@ class Visite
      *      minMessage = "La quantité de pollen récoltée ne peut pas être négative"
      * )
      */
-    private $pollen;
+    private $pollen = 0;
 
     /**
      * @var integer
@@ -120,7 +120,7 @@ class Visite
      *      minMessage = "La quantité de propolis récoltée ne peut pas être négative"
      * )
      */
-    private $propolis;    
+    private $propolis = 0;    
 
     /**
      * @var integer
@@ -131,7 +131,7 @@ class Visite
      *      minMessage = "La quantité de gelée récoltée ne peut pas être négative"
      * )
      */
-    private $gelee; 
+    private $gelee = 0; 
 
     /**
      * @var string
@@ -226,29 +226,6 @@ class Visite
     public function getReine()
     {
         return $this->reine;
-    }
-
-    /**
-     * Set essaimage
-     *
-     * @param boolean $essaimage
-     * @return Visite
-     */
-    public function setEssaimage($essaimage)
-    {
-        $this->essaimage = $essaimage;
-
-        return $this;
-    }
-
-    /**
-     * Get essaimage
-     *
-     * @return boolean 
-     */
-    public function getEssaimage()
-    {
-        return $this->essaimage;
     }
 
     /**
@@ -505,25 +482,48 @@ class Visite
     }
 
     /**
-     * Set risqueessaimage
+     * Set pollenentrant
      *
-     * @param boolean $risqueessaimage
+     * @param boolean $pollenentrant
      * @return Visite
      */
-    public function setRisqueessaimage($risqueessaimage)
+    public function setPollenentrant($pollenentrant)
     {
-        $this->risqueessaimage = $risqueessaimage;
+        $this->pollenentrant = $pollenentrant;
 
         return $this;
     }
 
     /**
-     * Get risqueessaimage
+     * Get pollenentrant
      *
      * @return boolean 
      */
-    public function getRisqueessaimage()
+    public function getPollenentrant()
     {
-        return $this->risqueessaimage;
+        return $this->pollenentrant;
+    }
+
+    /**
+     * Set celroyales
+     *
+     * @param boolean $celroyales
+     * @return Visite
+     */
+    public function setCelroyales($celroyales)
+    {
+        $this->celroyales = $celroyales;
+
+        return $this;
+    }
+
+    /**
+     * Get celroyales
+     *
+     * @return boolean 
+     */
+    public function getCelroyales()
+    {
+        return $this->celroyales;
     }
 }

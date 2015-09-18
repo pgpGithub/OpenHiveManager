@@ -44,10 +44,10 @@ class VisiteType extends AbstractType
                 ->add('reine', 'checkbox', array(
                             'required'  => false,
                         ))
-                ->add('essaimage', 'checkbox', array(
+                ->add('pollenentrant', 'checkbox', array(
                             'required'  => false,
                         ))
-                ->add('risqueessaimage', 'checkbox', array(
+                ->add('celroyales', 'checkbox', array(
                             'required'  => false,
                         ))
                 ->add('etat', 'entity', array(
