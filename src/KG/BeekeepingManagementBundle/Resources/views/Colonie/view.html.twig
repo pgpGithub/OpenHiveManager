@@ -65,8 +65,8 @@
                         <td>{{ colonie.reine.race.libelle }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Année</strong></td>
-                        <td>{{ colonie.anneeColonie|date("Y") }}</td>
+                        <td><strong>Date de naissance</strong></td>
+                        <td>{{ colonie.dateColonie|date("m/Y") }}</td>
                     </tr>
 
                     {% if colonie.colonieMere %}

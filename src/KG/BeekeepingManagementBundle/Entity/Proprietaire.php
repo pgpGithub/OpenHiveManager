@@ -3,6 +3,7 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Proprietaire
@@ -25,6 +26,10 @@ class Proprietaire
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=25)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-ZÀ-ÿ\s\’-]{1,29}$/",
+     *     message="Le nom est incorrect"
+     * )
      */
     private $nom;
 
@@ -32,6 +37,10 @@ class Proprietaire
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=25)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-ZÀ-ÿ\s\’-]{1,29}$/",
+     *     message="Le prénom est incorrect"
+     * )
      */
     private $prenom;
 
@@ -46,6 +55,10 @@ class Proprietaire
      * @var string
      *
      * @ORM\Column(name="telephone", type="string", length=10)
+     * @Assert\Regex(
+     *     pattern="/\d{10}/",
+     *     message="Le numéro de téléphone doit contenir 10 chiffres"
+     * )
      */
     private $telephone;
 

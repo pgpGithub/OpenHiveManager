@@ -40,11 +40,11 @@ class Colonie
      /**
      * @var \DateTime
      *
-     * @ORM\Column(name="anneeColonie", type="datetime")
-     * @Assert\NotBlank(message="Veuillez remplir l'année de naissance la colonie")
+     * @ORM\Column(name="dateColonie", type="datetime")
+     * @Assert\NotBlank(message="Veuillez remplir la date de naissance de la colonie")
      * @Assert\DateTime()
      */
-    private $anneeColonie;
+    private $dateColonie;
 
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Affectation")
@@ -251,21 +251,21 @@ class Colonie
      * @param \DateTime $anneeColonie
      * @return Colonie
      */
-    public function setAnneeColonie($anneeColonie)
+    public function setDateColonie($dateColonie)
     {
-        $this->anneeColonie = $anneeColonie;
+        $this->dateColonie = $dateColonie;
 
         return $this;
     }
 
     /**
-     * Get anneeColonie
+     * Get dateColonie
      *
      * @return \DateTime 
      */
-    public function getAnneeColonie()
+    public function getDateColonie()
     {
-        return $this->anneeColonie;
+        return $this->dateColonie;
     }
 
     /**

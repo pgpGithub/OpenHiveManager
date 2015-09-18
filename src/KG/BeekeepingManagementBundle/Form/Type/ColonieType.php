@@ -17,15 +17,15 @@ class ColonieType extends AbstractType
         $builder
             ->add('nom')
                                
-            ->add('anneeColonie', 'collot_datetime', 
+            ->add('dateColonie', 'collot_datetime', 
                     array( 
                             'pickerOptions' =>
-                                array('format' => 'yyyy',
+                                array('format' => 'mm/yyyy',
                                     'autoclose' => true,
                                     'startDate' => '1950',
-                                    'endDate' => date('Y'), 
+                                    'endDate' => date('Y-m-d'), 
                                     'startView' => 'decade',
-                                    'minView' => 'decade',
+                                    'minView' => 'year',
                                     'maxView' => 'decade',
                                     'todayBtn' => false,
                                     'todayHighlight' => false,
@@ -34,8 +34,8 @@ class ColonieType extends AbstractType
                                     'forceParse' => true,
                                     'pickerReferer ' => 'default', 
                                     'pickerPosition' => 'bottom-right',
-                                    'viewSelect' => 'decade',
-                                    'initialDate' => date('Y'), 
+                                    'viewSelect' => 'year',
+                                    'initialDate' => date('Y-m-d'), 
                                 ),
                             'read_only' => true
                 ))
