@@ -28,7 +28,11 @@ class TypeRuche
      */
     private $libelle;
 
-
+    /**
+     * @ORM\ManyToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\SousTypeRuche")
+     */
+    private $soustypes;
+    
     /**
      * Get id
      *
@@ -60,5 +64,46 @@ class TypeRuche
     public function getLibelle()
     {
         return $this->libelle;
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->soustypes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add soustypes
+     *
+     * @param \OC\PlatformBundle\Entity\SousTypeRuche $soustypes
+     * @return TypeRuche
+     */
+    public function addSoustype(\OC\PlatformBundle\Entity\SousTypeRuche $soustypes)
+    {
+        $this->soustypes[] = $soustypes;
+
+        return $this;
+    }
+
+    /**
+     * Remove soustypes
+     *
+     * @param \OC\PlatformBundle\Entity\SousTypeRuche $soustypes
+     */
+    public function removeSoustype(\OC\PlatformBundle\Entity\SousTypeRuche $soustypes)
+    {
+        $this->soustypes->removeElement($soustypes);
+    }
+
+    /**
+     * Get soustypes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSoustypes()
+    {
+        return $this->soustypes;
     }
 }
