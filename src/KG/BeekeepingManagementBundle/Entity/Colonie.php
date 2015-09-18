@@ -25,11 +25,11 @@ class Colonie
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=25)
-     * @Assert\NotBlank(message="Veuillez remplir le nom de la colonie")
-     * @Assert\Length(max=25, maxMessage="Le nom de la colonie ne peut dépasser {{ limit }} caractères") 
+     * @ORM\Column(name="provenance", type="string", length=25)
+     * @Assert\NotBlank(message="Veuillez remplir la provenance de la colonie")
+     * @Assert\Length(max=25, maxMessage="La provenance de la colonnie ne peut dépasser {{ limit }} caractères") 
      */
-    private $nom;
+    private $provenance;
 
      /**
       * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="colonies")
@@ -55,12 +55,12 @@ class Colonie
     private $affectation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Provenance")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Origine")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
-     * @Assert\NotBlank(message="Veuillez sélectionner la provenance de la colonie")
+     * @Assert\NotBlank(message="Veuillez sélectionner l'origine de la colonie")
      */
-    private $provenanceColonie;
+    private $origineColonie;
 
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Etat")
@@ -154,29 +154,6 @@ class Colonie
     }
 
     /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Colonie
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
      * Set affectation
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Affectation $affectation
@@ -197,29 +174,6 @@ class Colonie
     public function getAffectation()
     {
         return $this->affectation;
-    }
-
-    /**
-     * Set provenanceColonie
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Provenance $provenanceColonie
-     * @return Colonie
-     */
-    public function setProvenanceColonie(\KG\BeekeepingManagementBundle\Entity\Provenance $provenanceColonie)
-    {
-        $this->provenanceColonie = $provenanceColonie;
-
-        return $this;
-    }
-
-    /**
-     * Get provenanceColonie
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Provenance 
-     */
-    public function getProvenanceColonie()
-    {
-        return $this->provenanceColonie;
     }
 
     /**
@@ -549,5 +503,51 @@ class Colonie
     public function getExploitation()
     {
         return $this->exploitation;
+    }
+
+    /**
+     * Set origineColonie
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Origine $origineColonie
+     * @return Colonie
+     */
+    public function setOrigineColonie(\KG\BeekeepingManagementBundle\Entity\Origine $origineColonie)
+    {
+        $this->origineColonie = $origineColonie;
+
+        return $this;
+    }
+
+    /**
+     * Get origineColonie
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Origine 
+     */
+    public function getOrigineColonie()
+    {
+        return $this->origineColonie;
+    }
+
+    /**
+     * Set provenance
+     *
+     * @param string $provenance
+     * @return Colonie
+     */
+    public function setProvenance($provenance)
+    {
+        $this->provenance = $provenance;
+
+        return $this;
+    }
+
+    /**
+     * Get provenance
+     *
+     * @return string 
+     */
+    public function getProvenance()
+    {
+        return $this->provenance;
     }
 }

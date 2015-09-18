@@ -7,13 +7,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Provenance
+ * Origine
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ProvenanceRepository")
- * @UniqueEntity(fields="libelle", message="Une provenance existe déjà avec ce libellé")
+ * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\OrigineRepository")
+ * @UniqueEntity(fields="libelle", message="Une origine existe déjà avec ce libellé")
  */
-class Provenance
+class Origine
 {
     /**
      * @var integer
@@ -28,8 +28,8 @@ class Provenance
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=25, unique=true) 
-     * @Assert\NotBlank(message="Veuillez remplir le libellé de la provenance")
-     * @Assert\Length(max=25, maxMessage="Le libellé de la provenance ne peut dépasser {{ limit }} caractères")
+     * @Assert\NotBlank(message="Veuillez remplir le libellé de l'origine")
+     * @Assert\Length(max=25, maxMessage="Le libellé de l'origine ne peut dépasser {{ limit }} caractères")
      */
     private $libelle;
 
@@ -49,7 +49,7 @@ class Provenance
      * Set libelle
      *
      * @param string $libelle
-     * @return Provenance
+     * @return Origine
      */
     public function setLibelle($libelle)
     {

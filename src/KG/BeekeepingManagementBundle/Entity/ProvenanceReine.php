@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ProvenanceReine
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ProvenanceRepository")
+ * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ProvenanceReineRepository")
  * @UniqueEntity(fields="libelle", message="Une provenance existe déjà avec ce libellé")
  */
 class ProvenanceReine

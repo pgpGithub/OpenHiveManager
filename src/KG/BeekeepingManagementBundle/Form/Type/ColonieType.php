@@ -15,7 +15,7 @@ class ColonieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
+            ->add('provenance')
                                
             ->add('dateColonie', 'collot_datetime', 
                     array( 
@@ -47,8 +47,8 @@ class ColonieType extends AbstractType
                         'empty_data'  => null
                     ))
                 
-            ->add('provenanceColonie', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Provenance',
+            ->add('origineColonie', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Origine',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
