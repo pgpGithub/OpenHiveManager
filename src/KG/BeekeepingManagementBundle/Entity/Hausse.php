@@ -25,13 +25,9 @@ class Hausse
     /**
      * @var integer
      *
-     * @ORM\Column(name="contenu", type="integer")
-     * @Assert\Range(
-     *      min = 0,
-     *      minMessage = "Le taux de remplissage de la hausse ne peut pas être négatif"
-     * )
+     * @ORM\Column(name="nbplein", type="integer")
      */
-    private $contenu = 0;
+    private $nbplein = 0;    
 
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="hausses", cascade={"persist"})
@@ -47,29 +43,6 @@ class Hausse
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set contenu
-     *
-     * @param integer $contenu
-     * @return Hausse
-     */
-    public function setContenu($contenu)
-    {
-        $this->contenu = $contenu;
-
-        return $this;
-    }
-
-    /**
-     * Get contenu
-     *
-     * @return integer 
-     */
-    public function getContenu()
-    {
-        return $this->contenu;
     }
 
     /**
@@ -94,4 +67,27 @@ class Hausse
     {
         return $this->ruche;
     }   
+
+    /**
+     * Set nbplein
+     *
+     * @param integer $nbplein
+     * @return Hausse
+     */
+    public function setNbplein($nbplein)
+    {
+        $this->nbplein = $nbplein;
+
+        return $this;
+    }
+
+    /**
+     * Get nbplein
+     *
+     * @return integer 
+     */
+    public function getNbplein()
+    {
+        return $this->nbplein;
+    }
 }

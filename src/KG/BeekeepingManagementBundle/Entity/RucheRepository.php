@@ -3,7 +3,6 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * RucheRepository
@@ -13,50 +12,5 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class RucheRepository extends EntityRepository
 {    
-    public function getListByExploitation($page=1, $maxperpage=10, $exploitation)
-    {
-        $q = $this->createQueryBuilder('ruche')
-                  ->leftJoin('ruche.exploitation','exploitation')
-                  ->addSelect('exploitation')
-                  ->where('exploitation.id = :id')                 
-                  ->setParameter('id',$exploitation);
-        
-        $q->setFirstResult(($page-1)*$maxperpage)
-          ->setMaxResults($maxperpage);
-        
-        return new Paginator($q);
-    } 
-    
-    public function countByExploitation($exploitation)
-    {
-        return $this->createQueryBuilder('ruche')
-                    ->select('COUNT(ruche)')
-                    ->leftJoin('ruche.exploitation','exploitation')
-                    ->where('exploitation.id = :id')               
-                    ->setParameter('id',$exploitation)
-                    ->getQuery()
-                    ->getSingleScalarResult();
-    }  
-    
-    public function queryfindByTypeId($type, $exploitation)
-    {
-        return $this->createQueryBuilder('ruche')
-                    ->leftJoin('ruche.type', 'type')
-                    ->addSelect('type')
-                    ->leftJoin('ruche.exploitation', 'exploitation')
-                    ->addSelect('exploitation')
-                    ->where('type.id = :type')
-                    ->andWhere('exploitation.id = :exploitation')
-                    ->setParameter('type',$type)
-                    ->setParameter('exploitation', $exploitation);
-    }
-
-    public function findByTypeId($type, $exploitation)
-    {
-        return $this->queryfindByTypeId($type, $exploitation)
-                    ->andWhere('ruche.colonie is NULL')
-                    ->getQuery()
-                    ->getArrayResult();
-    }
-    
+     
 }

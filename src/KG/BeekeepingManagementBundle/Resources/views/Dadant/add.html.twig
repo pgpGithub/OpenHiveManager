@@ -1,4 +1,4 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Ruche/add.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Ruche/Dadant/add.html.twig #}
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
@@ -33,11 +33,10 @@
     </div>
 {% endblock %}
 
-{% block form_error %}
+{% block form_error %}   
     {{ form_errors(form.nom) }}
-    {{ form_errors(form.type) }}
     {{ form_errors(form.matiere) }}
-    {{ form_errors(form.nbCadres) }}
+    {{ form_errors(form.corps.nbmaxcadres) }}
     {{ form_errors(form.image.file) }}
     {{ form_errors(form) }}  
 {% endblock %}
@@ -45,7 +44,11 @@
 {% block panel_body %}
               
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
+    <div class="alert alert-warning alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      Dans cette version de l'application, seule les ruches de type Dadant peuvent être créées. Il faudra attendre les prochaines versions pour les autres types.
+    </div> 
+        
     <fieldset> 
 
         <legend>Ruche</legend>            
@@ -54,14 +57,7 @@
             <div class="col-sm-5 col-md-5">
                 {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
             </div>  
-        </div>
-
-        <div class="form-group">
-            {{ form_label(form.type, "Type de ruche :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>    
+        </div> 
 
         <div class="form-group">
             {{ form_label(form.matiere, "Matière :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
@@ -71,9 +67,9 @@
         </div> 
 
         <div class="form-group">
-            {{ form_label(form.nbCadres, "Nombre de cadres max :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.corps.nbmaxcadres, "Nombre de cadres :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.nbCadres, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.corps.nbmaxcadres, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>  
 

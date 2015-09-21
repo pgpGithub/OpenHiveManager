@@ -52,12 +52,12 @@
             <table class="table">  
                 <tbody>
                     <tr>
-                        <td><strong>Rucher :</strong></td>
+                        <td><strong>Rucher</strong></td>
                         <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.emplacement.rucher.id }) }}">{{ ruche.emplacement.rucher.nom }}</a></td>
                     </tr>                                  
                     <tr>
                         <td><strong>Type</strong></td>
-                        <td>{{ ruche.type.libelle }}</td>
+                        <td>Dadant {{ ruche.corps.nbmaxcadres }}</td>
                     </tr>
                     <tr>
                         <td><strong>Matière</strong></td>
@@ -70,13 +70,13 @@
                     <tr>
                         <td><strong>Orientation</strong></td>
                         <td>{{ ruche.emplacement.orientation.libelle }}</td>
-                    </tr>                              
+                    </tr>                   
                 </tbody>
             </table>
         </div>            
         <div class=" col-md-4 col-lg-4 ">            
             <h4>Colonnie 
-                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': ruche.colonie.id }) }}"> {{ ruche.colonie.nom }}</a>                               
+                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': ruche.colonie.id }) }}"> {{ ruche.colonie.provenance }}</a>                               
             </h4>                          
             <table class="table">
                 <tbody>
@@ -92,6 +92,14 @@
                         <td><strong>Etat</strong></td>
                         <td>{{ ruche.colonie.etat.libelle }}</td>
                     </tr>
+                    <tr>
+                        <td><strong>Cadres de miel</strong></td>
+                        <td>{{ ruche.corps.nbmiel }}</td>
+                    </tr>   
+                    <tr>
+                        <td><strong>Cadres de couvain</strong></td>
+                        <td>{{ ruche.corps.nbcouvain }}</td>
+                    </tr>                        
                 </tbody>
             </table>                                  
         </div> 
@@ -100,38 +108,13 @@
     <hr>
 
     <div class="row">    
-        <div class=" col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Cadres
-                </div>
-                <div class="panel-body">
-                    {% for cadre in ruche.cadres %}
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-warning" style="width: {{ cadre.miel }}%">
-                                <span class="sr-only">{{ cadre.miel }}% Miel</span>
-                            </div>
-                            <div class="progress-bar progress-bar-danger" style="width: {{ cadre.couvain }}%">
-                                <span class="sr-only">{{ cadre.couvain }}% Couvain</span>
-                            </div>
-                            <div class="progress-bar progress-bar-info" style="width: {{ cadre.pollen }}%">
-                                <span class="sr-only">{{ cadre.pollen }}% Pollen</span>
-                            </div>
-                        </div>                                         
-                    {% endfor %}                      
-                    <span class="label label-warning">Miel</span>
-                    <span class="label label-danger">Couvain</span>
-                    <span class="label label-info">Pollen</span>
-                </div> 
-            </div>      
-        </div>
-        <div class=" col-md-6">
+        <div class=" col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Hausses
                     <span class="pull-right">
                         <a title="Ajouter une hausse" href="{{ path('kg_beekeeping_management_add_hausse', { 'ruche_id' : ruche.id }) }}" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i></a>
-                        {% for hausse in ruche.hausses if hausse.contenu == 0 %}
+                        {% for hausse in ruche.hausses if hausse.nbplein == 0 %}
                             {% if loop.first %}
                                 <a title="Supprimer une hausse" href="{{ path('kg_beekeeping_management_delete_hausse', { 'ruche_id' : ruche.id }) }}" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></a>                                
                             {% endif %}
@@ -143,7 +126,8 @@
                     {% for hausse in ruche.hausses|reverse %}
                         <li class="list-group-item">
                             <div class="progress">
-                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ hausse.contenu }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ hausse.contenu }}%;">
+                              {% set pourcent = ( hausse.nbplein * 100 ) / ( ruche.corps.nbmaxcadres - 1 ) %}
+                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ pourcent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pourcent }}%;">
                                 <span class="sr-only">Miel</span>
                               </div>
                             </div>                                    
@@ -166,7 +150,7 @@
                         <th>Visite</th>
                         <th>Activité</th>
                         <th>Etat</th>
-                        <th>Risque Essaimage</th>
+                        <th>Cellules royales</th>
                         <th>Nourrissement</th>
                         <th>Traitement</th>
                         <th></th>
@@ -177,7 +161,7 @@
                                 <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
                                 <td>{{ visite.activite.libelle }}</td>
                                 <td>{{ visite.etat.libelle }}</td>
-                                <td>{% if visite.risqueessaimage %}Oui{% else %}Non{% endif %}</td>
+                                <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if loop.first %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>{% endif %}</td>

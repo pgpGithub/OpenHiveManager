@@ -46,10 +46,24 @@ class Visite
     /**
      * @var boolean
      *
-     * @ORM\Column(name="pollenentrant", type="boolean")
+     * @ORM\Column(name="pollen", type="boolean")
      */
-    private $pollenentrant = false;    
+    private $pollen = false;    
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbcouvain", type="integer")
+     */
+    private $nbcouvain;    
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbmiel", type="integer")
+     */
+    private $nbmiel;  
+    
     /**
      * @var boolean
      *
@@ -87,51 +101,7 @@ class Visite
      * @ORM\Column(name="traitement", type="string", length=50, nullable=true)  
      * @Assert\Length(max=50, maxMessage="Le type de traitement ne peut dépasser {{ limit }} caractères")
      */
-    private $traitement;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="miel", type="integer")
-     * @Assert\Range(
-     *      min = 0,
-     *      minMessage = "La quantité de miel récoltée ne peut pas être négative"
-     * )
-     */
-    private $miel = 0;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="pollen", type="integer")
-     * @Assert\Range(
-     *      min = 0,
-     *      minMessage = "La quantité de pollen récoltée ne peut pas être négative"
-     * )
-     */
-    private $pollen = 0;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="propolis", type="integer")
-     * @Assert\Range(
-     *      min = 0,
-     *      minMessage = "La quantité de propolis récoltée ne peut pas être négative"
-     * )
-     */
-    private $propolis = 0;    
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="gelee", type="integer")
-     * @Assert\Range(
-     *      min = 0,
-     *      minMessage = "La quantité de gelée récoltée ne peut pas être négative"
-     * )
-     */
-    private $gelee = 0; 
+    private $traitement; 
 
     /**
      * @var string
@@ -298,98 +268,6 @@ class Visite
     }
 
     /**
-     * Set miel
-     *
-     * @param integer $miel
-     * @return Visite
-     */
-    public function setMiel($miel)
-    {
-        $this->miel = $miel;
-
-        return $this;
-    }
-
-    /**
-     * Get miel
-     *
-     * @return integer 
-     */
-    public function getMiel()
-    {
-        return $this->miel;
-    }
-
-    /**
-     * Set pollen
-     *
-     * @param integer $pollen
-     * @return Visite
-     */
-    public function setPollen($pollen)
-    {
-        $this->pollen = $pollen;
-
-        return $this;
-    }
-
-    /**
-     * Get pollen
-     *
-     * @return integer 
-     */
-    public function getPollen()
-    {
-        return $this->pollen;
-    }
-
-    /**
-     * Set propolis
-     *
-     * @param integer $propolis
-     * @return Visite
-     */
-    public function setPropolis($propolis)
-    {
-        $this->propolis = $propolis;
-
-        return $this;
-    }
-
-    /**
-     * Get propolis
-     *
-     * @return integer 
-     */
-    public function getPropolis()
-    {
-        return $this->propolis;
-    }
-
-    /**
-     * Set gelee
-     *
-     * @param integer $gelee
-     * @return Visite
-     */
-    public function setGelee($gelee)
-    {
-        $this->gelee = $gelee;
-
-        return $this;
-    }
-
-    /**
-     * Get gelee
-     *
-     * @return integer 
-     */
-    public function getGelee()
-    {
-        return $this->gelee;
-    }
-
-    /**
      * Set observations
      *
      * @param string $observations
@@ -482,26 +360,26 @@ class Visite
     }
 
     /**
-     * Set pollenentrant
+     * Set pollen
      *
-     * @param boolean $pollenentrant
+     * @param boolean $pollen
      * @return Visite
      */
-    public function setPollenentrant($pollenentrant)
+    public function setPollen($pollen)
     {
-        $this->pollenentrant = $pollenentrant;
+        $this->pollen = $pollen;
 
         return $this;
     }
 
     /**
-     * Get pollenentrant
+     * Get pollen
      *
      * @return boolean 
      */
-    public function getPollenentrant()
+    public function getPollen()
     {
-        return $this->pollenentrant;
+        return $this->pollen;
     }
 
     /**
@@ -525,5 +403,51 @@ class Visite
     public function getCelroyales()
     {
         return $this->celroyales;
+    }
+
+    /**
+     * Set nbcouvain
+     *
+     * @param integer $nbcouvain
+     * @return Visite
+     */
+    public function setNbcouvain($nbcouvain)
+    {
+        $this->nbcouvain = $nbcouvain;
+
+        return $this;
+    }
+
+    /**
+     * Get nbcouvain
+     *
+     * @return integer 
+     */
+    public function getNbcouvain()
+    {
+        return $this->nbcouvain;
+    }
+
+    /**
+     * Set nbmiel
+     *
+     * @param integer $nbmiel
+     * @return Visite
+     */
+    public function setNbmiel($nbmiel)
+    {
+        $this->nbmiel = $nbmiel;
+
+        return $this;
+    }
+
+    /**
+     * Get nbmiel
+     *
+     * @return integer 
+     */
+    public function getNbmiel()
+    {
+        return $this->nbmiel;
     }
 }

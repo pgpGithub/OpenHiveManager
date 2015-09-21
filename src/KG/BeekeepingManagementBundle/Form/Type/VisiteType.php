@@ -44,9 +44,11 @@ class VisiteType extends AbstractType
                 ->add('reine', 'checkbox', array(
                             'required'  => false,
                         ))
-                ->add('pollenentrant', 'checkbox', array(
+                ->add('pollen', 'checkbox', array(
                             'required'  => false,
                         ))
+                ->add('nbcouvain')
+                ->add('nbmiel')
                 ->add('celroyales', 'checkbox', array(
                             'required'  => false,
                         ))
@@ -68,10 +70,6 @@ class VisiteType extends AbstractType
                 ->add('traitement', 'textarea', array(
                             'required'  => false,
                         ))
-                ->add('miel')
-                ->add('pollen')
-                ->add('propolis')
-                ->add('gelee')
                 ->add('observations', 'textarea', array(
                             'required'  => false,
                         ))

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AddRucheType extends AbstractType
+class DadantType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,21 +16,14 @@ class AddRucheType extends AbstractType
     {
         $builder
             ->add('nom',  'text')
-            ->add('type', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:TypeRuche',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
             ->add('matiere', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Matiere',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
                     ))
-            ->add('nbCadres', 'integer', array('mapped' => false))    
-            ->add('image', new ImageType(), array('required' => false))
-            ->add('colonie', new ColonieType());
+            ->add('corps', new CorpsType())
+            ->add('image', new ImageType(), array('required' => false));
     }
     
     /**

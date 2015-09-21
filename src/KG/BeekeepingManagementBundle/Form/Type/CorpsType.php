@@ -1,12 +1,12 @@
 <?php
 
-namespace KG\BeekeepingManagementBundle\Form\Type;
+namespace KG\BeekeepingManagementBundle\Form\Type;;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class HausseType extends AbstractType
+class CorpsType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,7 +14,10 @@ class HausseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nbplein');               
+        $builder
+            ->add('nbmaxcadres', 'choice', array(
+                    'choices' => array('10' => '10', '12' => '12')
+            ));
     }
     
     /**
@@ -23,7 +26,7 @@ class HausseType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Hausse'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Corps'
         ));
     }
 
@@ -32,6 +35,6 @@ class HausseType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_hausse';
+        return 'kg_beekeepingmanagementbundle_corps';
     }
 }

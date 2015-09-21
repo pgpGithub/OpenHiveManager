@@ -22,7 +22,7 @@ class DiviserType extends AbstractType
         $builder
             ->addEventSubscriber(new DeplacerRucherFieldSubscriber($propertyPathToEmplacement, $exploitation))
             ->addEventSubscriber(new DeplacerEmplacementFieldSubscriber($propertyPathToEmplacement))    
-            ->add('ruche', new RucheType())    
+            ->add('ruche', new DadantType())    
             ->add('nom')                              
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',

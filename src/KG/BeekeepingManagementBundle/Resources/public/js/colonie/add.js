@@ -1,2 +1,2 @@
-$("[name='kg_beekeepingmanagementbundle_ruche[colonie][reine][clippage]']").bootstrapSwitch();
-$("[name='kg_beekeepingmanagementbundle_ruche[colonie][reine][marquage]']").bootstrapSwitch();
+$("[name='kg_beekeepingmanagementbundle_dadant[colonie][reine][clippage]']").bootstrapSwitch();
+$("[name='kg_beekeepingmanagementbundle_dadant[colonie][reine][marquage]']").bootstrapSwitch();
