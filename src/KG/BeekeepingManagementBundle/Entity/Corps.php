@@ -27,6 +27,8 @@ class Corps
      * @var integer
      *
      * @ORM\Column(name="nbmaxcadres", type="integer")
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres")
      */
     private $nbmaxcadres;
     
@@ -34,6 +36,8 @@ class Corps
      * @var integer
      *
      * @ORM\Column(name="nbcouvain", type="integer")
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres de couvain présents dans la ruche")
      */
     private $nbcouvain;    
 
@@ -41,6 +45,8 @@ class Corps
      * @var integer
      *
      * @ORM\Column(name="nbmiel", type="integer")
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres de miel présents dans la ruche")
      */
     private $nbmiel;    
     

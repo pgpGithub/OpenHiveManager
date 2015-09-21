@@ -17,7 +17,9 @@ class CorpsType extends AbstractType
         $builder
             ->add('nbmaxcadres', 'choice', array(
                     'choices' => array('10' => '10', '12' => '12')
-            ));
+            ))
+            ->add('nbmiel')
+            ->add('nbcouvain');
     }
     
     /**
