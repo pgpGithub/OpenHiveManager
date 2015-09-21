@@ -62,6 +62,7 @@ class VisiteController extends Controller
         $visite->setNbmiel($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbMiel());
         $visite->setEtat($colonie->getEtat());
         $visite->setAgressivite($colonie->getAgressivite());
+        $visite->setDate(new \DateTime());
         
         $form = $this->createForm(new VisiteType, $visite);
         
