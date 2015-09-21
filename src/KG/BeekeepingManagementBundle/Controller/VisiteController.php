@@ -58,6 +58,10 @@ class VisiteController extends Controller
         
         $visite = new Visite();
         $visite->setColonie($colonie);
+        $visite->setNbcouvain($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbCouvain());
+        $visite->setNbmiel($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbMiel());
+        $visite->setEtat($colonie->getEtat());
+        $visite->setAgressivite($colonie->getAgressivite());
         
         $form = $this->createForm(new VisiteType, $visite);
         
@@ -77,7 +81,7 @@ class VisiteController extends Controller
         }
         return $this->render('KGBeekeepingManagementBundle:Visite:add.html.twig', 
                              array(
-                                    'form'     => $form->createView(),
+                                    'form'    => $form->createView(),
                                     'colonie' => $colonie
                 ));        
     }

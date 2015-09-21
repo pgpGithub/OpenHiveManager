@@ -94,6 +94,7 @@ class VisiteType extends AbstractType
                                     'pickerReferer ' => 'default', 
                                     'pickerPosition' => 'bottom-right',
                                     'viewSelect' => 'month',
+                                    'initialDate' => date('Y-m-d'), 
                                 ),
                             'read_only' => true
                 ));                
