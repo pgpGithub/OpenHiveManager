@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AddDadantType extends AbstractType
+class AddRucheType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -22,6 +22,12 @@ class AddDadantType extends AbstractType
                         'empty_value' => '',
                         'empty_data'  => null
                     ))
+            ->add('type', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:TypeRuche',
+                        'choice_label' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
+                    ))      
             ->add('corps', new CorpsType())
             ->add('image', new ImageType(), array('required' => false))
             ->add('colonie', new ColonieType());
@@ -33,7 +39,7 @@ class AddDadantType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Dadant'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Ruche'
         ));
     }
 
@@ -42,6 +48,6 @@ class AddDadantType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_dadant';
+        return 'kg_beekeepingmanagementbundle_ruche';
     }
 }

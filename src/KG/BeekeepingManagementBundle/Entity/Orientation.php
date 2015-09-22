@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Orientation
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\OrientationRepository")
+ * @ORM\Entity
  */
 class Orientation
 {

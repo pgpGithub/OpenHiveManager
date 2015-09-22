@@ -110,6 +110,12 @@ class Colonie
      */
     private $visites;
         
+    ///**
+    // * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Recolte" cascade={"remove"}, orphanRemoval=true)
+    // * @Assert\Valid()
+    // */
+    //private $recoltes;
+    
     /**
      * @var boolean
      *

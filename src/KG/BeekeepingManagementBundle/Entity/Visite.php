@@ -28,6 +28,7 @@ class Visite
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="visites")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
     private $colonie;    
     

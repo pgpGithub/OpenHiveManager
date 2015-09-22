@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Activite
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ActiviteRepository")
+ * @ORM\Entity
  * @UniqueEntity(fields="libelle", message="Une affectation existe déjà avec ce libellé")
  */
 class Activite

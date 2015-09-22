@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Matiere
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\MatiereRepository")
+ * @ORM\Entity
  */
 class Matiere
 {

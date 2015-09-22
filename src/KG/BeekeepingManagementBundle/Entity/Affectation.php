@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Affectation
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\AffectationRepository")
+ * @ORM\Entity
  * @UniqueEntity(fields="libelle", message="Une affectation existe déjà avec ce libellé") 
  */
 class Affectation

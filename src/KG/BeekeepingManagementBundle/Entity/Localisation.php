@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Localisation
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\LocalisationRepository")
+ * @ORM\Entity
  */
 class Localisation
 {

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Origine
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\OrigineRepository")
+ * @ORM\Entity
  * @UniqueEntity(fields="libelle", message="Une origine existe déjà avec ce libellé")
  */
 class Origine

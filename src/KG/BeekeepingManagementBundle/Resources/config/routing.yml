@@ -44,7 +44,7 @@ kg_beekeeping_management_view_rucher:
 
 kg_beekeeping_management_add_ruche:
     path:      /exploitation/rucher/emplacement/{emplacement_id}/ruche/creer-ruche/
-    defaults:  { _controller: KGBeekeepingManagementBundle:Dadant:add }
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:add }
     requirements:
         emplacement_id: \d+     
 
@@ -56,19 +56,19 @@ kg_beekeeping_management_update_ruche:
                 
 kg_beekeeping_management_view_ruche:
     path:      /exploitation/rucher/ruche/{ruche_id}/afficher-ruche/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Dadant:view, page: 1 }
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view, page: 1 }
     requirements:
         ruche_id: \d+
 
 kg_beekeeping_management_add_hausse:
     path:      /exploitation/rucher/ruche/{ruche_id}/ajouter-hausse
-    defaults:  { _controller: KGBeekeepingManagementBundle:Dadant:addHausse}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:addHausse}
     requirements:
         ruche_id: \d+
 
 kg_beekeeping_management_delete_hausse:
     path:      /exploitation/rucher/ruche/{ruche_id}/supprimer-hausse
-    defaults:  { _controller: KGBeekeepingManagementBundle:Dadant:deleteHausse}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:deleteHausse}
     requirements:
         ruche_id: \d+
         

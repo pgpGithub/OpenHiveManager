@@ -8,11 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Ruche
  *
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"dadant" = "Dadant"})
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\RucheRepository")
+ * @ORM\Entity
  */
 class Ruche
 {
@@ -50,6 +47,44 @@ class Ruche
      */
     private $emplacement;
     
+    /**
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Corps", mappedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $corps;
+
+    /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
+     */
+    private $hausses; 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\TypeRuche")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner le type de la ruche")
+     */
+    private $type; 
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Matiere")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner la matière de la ruche")
+     */
+    private $matiere;    
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->corps   = new Corps();
+    }
+
     /**
      * Get id
      *
@@ -150,5 +185,117 @@ class Ruche
     public function getEmplacement()
     {
         return $this->emplacement;
+    }
+    
+    /**
+     * Set corps
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Corps $corps
+     * @return Ruche
+     */
+    public function setCorps(\KG\BeekeepingManagementBundle\Entity\Corps $corps)
+    {
+        $this->corps = $corps;
+
+        return $this;
+    }
+
+    /**
+     * Get corps
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Corps 
+     */
+    public function getCorps()
+    {
+        return $this->corps;
+    }
+
+    /**
+     * Add hausses
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausse
+     * @return Ruche
+     */
+    public function addHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausse)
+    {       
+        // Si c'est une Langstroth
+        if( $this->getType()->getId() == 1 ){
+            $nbcadres = $this->getCorps()->getNbmaxcadres(); 
+        }
+        else{
+            $nbcadres = $this->getCorps()->getNbmaxcadres() - 1;            
+        }
+        
+        $new_hausse = $hausse;
+        $new_hausse->setNbcadres($nbcadres);
+        $this->hausses[] = $new_hausse;
+
+        return $this;
+    }
+
+    /**
+     * Remove hausses
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausses
+     */
+    public function removeHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausses)
+    {
+        $this->hausses->removeElement($hausses);
+    }
+
+    /**
+     * Get hausses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHausses()
+    {
+        return $this->hausses;
+    }
+
+    /**
+     * Set matiere
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Matiere $matiere
+     * @return Ruche
+     */
+    public function setMatiere(\KG\BeekeepingManagementBundle\Entity\Matiere $matiere)
+    {
+        $this->matiere = $matiere;
+
+        return $this;
+    }
+
+    /**
+     * Get matiere
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Matiere 
+     */
+    public function getMatiere()
+    {
+        return $this->matiere;
+    }    
+
+    /**
+     * Set type
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\TypeRuche $type
+     * @return Ruche
+     */
+    public function setType(\KG\BeekeepingManagementBundle\Entity\TypeRuche $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\TypeRuche 
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

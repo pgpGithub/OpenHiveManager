@@ -1,4 +1,4 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Ruche/Dadant/add.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Ruche/Ruche/add.html.twig #}
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
@@ -36,6 +36,7 @@
 {% block form_error %}   
     {{ form_errors(form.nom) }}
     {{ form_errors(form.matiere) }}
+    {{ form_errors(form.type) }}    
     {{ form_errors(form.corps.nbmaxcadres) }}
     {{ form_errors(form.image.file) }}
     {{ form_errors(form.colonie.origineColonie) }}
@@ -56,10 +57,6 @@
 {% block panel_body %}
               
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-    <div class="alert alert-warning alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      Dans cette version de l'application, seules les ruches de type Dadant peuvent être créées. Les autres types seront disponibles dans des versions futures.
-    </div> 
         
     <fieldset> 
 
@@ -78,6 +75,13 @@
             </div>
         </div> 
 
+        <div class="form-group">
+            {{ form_label(form.type, "Type :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            <div class="col-sm-5 col-md-5">
+                {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>  
+            
         <div class="form-group">
             {{ form_label(form.corps.nbmaxcadres, "Nombre de cadres :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">

@@ -19,7 +19,7 @@
     {{ form_javascript(form) }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Créer une visite{% endblock %}
+{% block title %}{{ parent() }} - Modifier une visite{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
@@ -36,16 +36,16 @@
 {% block form_error %}
     {{ form_errors(form.date) }}    
     {{ form_errors(form.activite) }}
+    {{ form_errors(form.pollen) }}    
     {{ form_errors(form.reine) }}
-    {{ form_errors(form.pollen) }}
-    {{ form_errors(form.nbmiel) }}
-    {{ form_errors(form.nbcouvain) }}
-    {{ form_errors(form.celroyales) }}
+    {{ form_errors(form.celroyales) }}    
     {{ form_errors(form.etat) }}
     {{ form_errors(form.agressivite) }}
     {{ form_errors(form.nourrissement) }}
     {{ form_errors(form.traitement) }}
     {{ form_errors(form.observations) }}
+    {{ form_errors(form.nbmiel) }}
+    {{ form_errors(form.nbcouvain) }}  
     {{ form_errors(form) }}    
 {% endblock %}
     
@@ -152,6 +152,7 @@
                     <ul class="list-group">
                         {% for hausse in form.colonie.ruche.hausses|reverse %}
                             <li class="list-group-item">
+                                {{ form_errors(hausse.nbplein) }}  
                                 <div class="form-group">
                                     {{ form_label(hausse.nbplein, "Cadres plein :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                                     <div class="col-sm-5 col-md-5">

@@ -57,7 +57,7 @@
                     </tr>                                  
                     <tr>
                         <td><strong>Type</strong></td>
-                        <td>Dadant {{ ruche.corps.nbmaxcadres }}</td>
+                        <td>{{ ruche.type }} {{ ruche.corps.nbmaxcadres }}</td>
                     </tr>
                     <tr>
                         <td><strong>Matière</strong></td>
@@ -126,7 +126,7 @@
                     {% for hausse in ruche.hausses|reverse %}
                         <li class="list-group-item">
                             <div class="progress">
-                              {% set pourcent = ( hausse.nbplein * 100 ) / ( ruche.corps.nbmaxcadres - 1 ) %}
+                              {% set pourcent = ( hausse.nbplein * 100 ) / ( hausse.nbcadres ) %}
                               <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ pourcent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pourcent }}%;">
                                 <span class="sr-only">Miel</span>
                               </div>

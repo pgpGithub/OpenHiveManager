@@ -4,12 +4,13 @@ namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Cadre
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\HausseRepository")
+ * @ORM\Entity
  */
 class Hausse
 {
@@ -27,7 +28,14 @@ class Hausse
      *
      * @ORM\Column(name="nbplein", type="integer")
      */
-    private $nbplein = 0;    
+    private $nbplein = 0;   
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbcadres", type="integer")
+     */
+    private $nbcadres;     
 
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="hausses", cascade={"persist"})
@@ -89,5 +97,41 @@ class Hausse
     public function getNbplein()
     {
         return $this->nbplein;
+    }
+    
+   /**
+   * @Assert\Callback
+   */
+    public function isContentValid(ExecutionContextInterface $context)
+    {
+        if ( $this->nbcadres  < $this->nbplein ) {
+            $context
+                   ->buildViolation('Le nombre de cadres plein est plus grand que le nombre de cadres présents dans la hausse') 
+                   ->atPath('nbplein')
+                   ->addViolation();
+        }
+    }       
+
+    /**
+     * Set nbcadres
+     *
+     * @param integer $nbcadres
+     * @return Hausse
+     */
+    public function setNbcadres($nbcadres)
+    {
+        $this->nbcadres = $nbcadres;
+
+        return $this;
+    }
+
+    /**
+     * Get nbcadres
+     *
+     * @return integer 
+     */
+    public function getNbcadres()
+    {
+        return $this->nbcadres;
     }
 }

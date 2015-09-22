@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Race
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\RaceRepository")
+ * @ORM\Entity
  * @UniqueEntity(fields="libelle", message="Une race existe déjà avec ce libellé")
  */
 class Race
