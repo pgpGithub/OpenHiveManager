@@ -120,7 +120,7 @@ class RucheController extends Controller
     {
         $rucher_id = $request->request->get('rucher_id');
         
-        $em     = $this->getDoctrine()->getManager();
+        $em           = $this->getDoctrine()->getManager();
         $emplacements = $em->getRepository('KGBeekeepingManagementBundle:Emplacement')->findByRucherId($rucher_id);
 
         return new JsonResponse($emplacements);
@@ -131,12 +131,12 @@ class RucheController extends Controller
     */      
     public function soustypesAction(Request $request)
     {
-        $type_id = $request->request->get('type_id');
+        $type_id  = $request->request->get('type_id');
         
-        $em     = $this->getDoctrine()->getManager();
-        $soustypes = $em->getRepository('KGBeekeepingManagementBundle:SousType')->findByTypeId($type_id);
+        $em       = $this->getDoctrine()->getManager();
+        $nbcadres = $em->getRepository('KGBeekeepingManagementBundle:SousTypeRuche')->findByTypeId($type_id);
 
-        return new JsonResponse($soustypes);
+        return new JsonResponse($nbcadres);
     }  
     
     /**

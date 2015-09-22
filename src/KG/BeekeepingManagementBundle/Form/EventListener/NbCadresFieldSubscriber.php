@@ -34,7 +34,7 @@ class NbCadresFieldSubscriber implements EventSubscriberInterface
             }
         );
  
-        $form->add('nbmaxcadres', 'entity', $formOptions);
+        $form->add('nbcadres', 'entity', $formOptions);
     }
  
     public function preSetData(FormEvent $event)

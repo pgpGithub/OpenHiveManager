@@ -8,12 +8,12 @@ $("#kg_beekeepingmanagementbundle_ruche_type").change(function(){
         url: Routing.generate('kg_beekeeping_management_select_soustypes_ruche'),
         data: data,
         success: function(data) {
-            var $nbcadres_selector = $('#kg_beekeepingmanagementbundle_ruche_corps_nbmaxcadres');
+            var $nbcadres_selector = $('#kg_beekeepingmanagementbundle_ruche_corps_nbcadres');
  
             $nbcadres_selector.html('<option></option>');
  
             for (var i=0, total = data.length; i < total; i++) {
-                $nbcadres_selector.append('<option value="' + data[i].id + '">' + data[i].nom + '</option>');
+                $nbcadres_selector.append('<option value="' + data[i].id + '">' + data[i].nbcadres + '</option>');
             }
         }
     });

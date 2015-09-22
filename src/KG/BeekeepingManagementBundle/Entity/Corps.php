@@ -27,10 +27,10 @@ class Corps
     /**
      * @var integer
      *
-     * @ORM\Column(name="nbmaxcadres", type="integer")
+     * @ORM\Column(name="nbcadres", type="integer")
      * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres")
      */
-    private $nbmaxcadres;
+    private $nbcadres;
     
     /**
      * @var integer
@@ -80,26 +80,26 @@ class Corps
     }
 
     /**
-     * Set nbmaxcadres
+     * Set nbcadres
      *
-     * @param integer $nbmaxcadres
+     * @param integer $nbcadres
      * @return Corps
      */
-    public function setNbmaxcadres($nbmaxcadres)
+    public function setNbcadres($nbcadres)
     {
-        $this->nbmaxcadres = $nbmaxcadres;
+        $this->nbcadres = $nbcadres;
 
         return $this;
     }
 
     /**
-     * Get nbmaxcadres
+     * Get nbcadres
      *
      * @return integer 
      */
-    public function getNbmaxcadres()
+    public function getNbcadres()
     {
-        return $this->nbmaxcadres;
+        return $this->nbcadres;
     }
 
     /**
@@ -177,7 +177,7 @@ class Corps
     public function isContentValid(ExecutionContextInterface $context)
     {
         $nbcadrestotal = $this->nbcouvain + $this->nbmiel;
-        if ( $nbcadrestotal  > $this->nbmaxcadres ) {
+        if ( $nbcadrestotal  > $this->nbcadres ) {
             $context
                    ->buildViolation('La somme de cadres de couvain et de cadres de miel est plus grande que le nombre de cadres') 
                    ->atPath('nbmiel')

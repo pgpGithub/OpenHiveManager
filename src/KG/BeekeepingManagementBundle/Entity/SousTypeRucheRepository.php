@@ -14,8 +14,8 @@ class SousTypeRucheRepository extends EntityRepository
 {
     public function queryfindByTypeId($type)
     {
-        return $this->createQueryBuilder('soustype')
-                    ->leftJoin('soustype.type', 'type')
+        return $this->createQueryBuilder('soustyperuche')
+                    ->leftJoin('soustyperuche.types', 'type')
                     ->addSelect('type')
                     ->where('type.id = :type')                 
                     ->setParameter('type',$type);
