@@ -125,6 +125,19 @@ class RucheController extends Controller
 
         return new JsonResponse($emplacements);
     }  
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */      
+    public function soustypesAction(Request $request)
+    {
+        $type_id = $request->request->get('type_id');
+        
+        $em     = $this->getDoctrine()->getManager();
+        $soustypes = $em->getRepository('KGBeekeepingManagementBundle:SousType')->findByTypeId($type_id);
+
+        return new JsonResponse($soustypes);
+    }  
     
     /**
     * @Security("has_role('ROLE_USER')")

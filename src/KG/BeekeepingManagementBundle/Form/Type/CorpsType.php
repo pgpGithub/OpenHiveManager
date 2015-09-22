@@ -5,6 +5,7 @@ namespace KG\BeekeepingManagementBundle\Form\Type;;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use KG\BeekeepingManagementBundle\Form\EventListener\NbCadresFieldSubscriber;
 
 class CorpsType extends AbstractType
 {
@@ -15,9 +16,7 @@ class CorpsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nbmaxcadres', 'choice', array(
-                    'choices' => array('10' => '10', '12' => '12')
-            ))
+            ->addEventSubscriber(new NbCadresFieldSubscriber())
             ->add('nbmiel')
             ->add('nbcouvain');
     }

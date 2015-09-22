@@ -8,17 +8,8 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\ORM\EntityRepository;
 
-class DeplacerRucherFieldSubscriber implements EventSubscriberInterface
+class NbCadresFieldSubscriber implements EventSubscriberInterface
 {
-    private $propertyPathToEmplacement;
-    private $exploitation;
-    
-    public function __construct($propertyPathToEmplacement, $exploitation)
-    {
-        $this->propertyPathToEmplacement = $propertyPathToEmplacement;
-        $this->exploitation = $exploitation;
-    }
- 
     public static function getSubscribedEvents()
     {
         return array(
@@ -27,37 +18,44 @@ class DeplacerRucherFieldSubscriber implements EventSubscriberInterface
         );
     }
  
-    private function addRucherForm($form)
-    {       
-        $exploitation = $this->exploitation;
-        
+    private function addNbCadresForm($form, $type)
+    {              
         $formOptions = array(
-            'class'         => 'KGBeekeepingManagementBundle:Rucher',
-            'choice_label'  => 'nom',
+            'class'         => 'KGBeekeepingManagementBundle:SousTypeRuche',
+            'choice_label'  => 'nbcadres',
             'empty_value'   => '',
             'mapped'        => false,
             'attr'          => array(
-                'class' => 'rucher_selector',
+                'class' => 'nbcadres_selector',
             ),
-            'query_builder' => function (EntityRepository $repository) use ($exploitation) {
-                $qb = $repository->queryfindByExploitationId($exploitation);
+            'query_builder' => function (EntityRepository $repository) use ($type) {
+                $qb = $repository->queryfindByTypeId($type);
                 return $qb;
             }
         );
  
-        $form->add('rucher', 'entity', $formOptions);
+        $form->add('nbmaxcadres', 'entity', $formOptions);
     }
  
     public function preSetData(FormEvent $event)
     {
+        $data = $event->getData();
         $form = $event->getForm();
-        $this->addRucherForm($form);
+ 
+        if (null === $data) {
+            return;
+        }
+ 
+        $accessor = PropertyAccess::createPropertyAccessor();
+ 
+        $ruche = $accessor->getValue($data, 'ruche');
+        $type = ($ruche) ? $ruche->getType()->getId() : null;
+        $this->addNbCadresForm($form, $type);
     }
  
     public function preSubmit(FormEvent $event)
     {
         $form = $event->getForm();
- 
-        $this->addRucherForm($form);
+        $this->addNbCadresForm($form);
     }
 }

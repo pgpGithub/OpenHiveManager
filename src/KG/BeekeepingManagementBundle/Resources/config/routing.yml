@@ -144,6 +144,12 @@ kg_beekeeping_management_select_emplacements_ruche:
     options:
         expose: true
         
+kg_beekeeping_management_select_soustypes_ruche:        
+    path:      /exploitation/ruche/select_soustypes-ruche
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:soustypes }
+    options:
+        expose: true    
+        
 kg_beekeeping_management_tuer_colonie:
     path:      /exploitation/colonie/{colonie_id}/tuer-colonie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:tuer }
