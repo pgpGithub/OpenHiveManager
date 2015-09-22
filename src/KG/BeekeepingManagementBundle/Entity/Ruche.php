@@ -8,10 +8,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Ruche
  *
- * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"ruche" = "Ruche", "dadant" = "Dadant"})
+ * @ORM\DiscriminatorMap({"dadant" = "Dadant"})
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\RucheRepository")
  */

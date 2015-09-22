@@ -4,6 +4,7 @@ namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Corps
@@ -27,7 +28,6 @@ class Corps
      * @var integer
      *
      * @ORM\Column(name="nbmaxcadres", type="integer")
-     * @Assert\Valid() 
      * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres")
      */
     private $nbmaxcadres;
@@ -36,7 +36,10 @@ class Corps
      * @var integer
      *
      * @ORM\Column(name="nbcouvain", type="integer")
-     * @Assert\Valid() 
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Le nombre de cadres de couvain ne peut pas être négatif"
+     * )
      * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres de couvain présents dans la ruche")
      */
     private $nbcouvain;    
@@ -45,10 +48,13 @@ class Corps
      * @var integer
      *
      * @ORM\Column(name="nbmiel", type="integer")
-     * @Assert\Valid() 
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Le nombre de cadres de miel ne peut pas être négatif"
+     * )
      * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres de miel présents dans la ruche")
      */
-    private $nbmiel;    
+    private $nbmiel;      
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="corps")
@@ -164,4 +170,18 @@ class Corps
     {
         return $this->nbmiel;
     }
+    
+   /**
+   * @Assert\Callback
+   */
+    public function isContentValid(ExecutionContextInterface $context)
+    {
+        $nbcadrestotal = $this->nbcouvain + $this->nbmiel;
+        if ( $nbcadrestotal  > $this->nbmaxcadres ) {
+            $context
+                   ->buildViolation('La somme de cadres de couvain et de cadres de miel est plus grande que le nombre de cadres') 
+                   ->atPath('nbmiel')
+                   ->addViolation();
+        }
+    }    
 }
