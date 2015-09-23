@@ -20,7 +20,8 @@ class ColonieFilleType extends AbstractType
             ->add('dateColonie', 'collot_datetime', 
                     array( 
                             'pickerOptions' =>
-                                array('format' => 'mm/yyyy',
+                                array(
+                                    'format' => 'mm/yyyy',
                                     'autoclose' => true,
                                     'startDate' => '1950',
                                     'endDate' => date('Y-m-d'), 

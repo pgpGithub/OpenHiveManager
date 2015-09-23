@@ -28,7 +28,7 @@ class Proprietaire
      * @ORM\Column(name="nom", type="string", length=25)
      * @Assert\Regex(
      *     pattern="/^[a-zA-ZÀ-ÿ\s\’-]{1,29}$/",
-     *     message="Le nom est incorrect"
+     *     message="Le nom du propriétaire est incorrect"
      * )
      */
     private $nom;
@@ -39,7 +39,7 @@ class Proprietaire
      * @ORM\Column(name="prenom", type="string", length=25)
      * @Assert\Regex(
      *     pattern="/^[a-zA-ZÀ-ÿ\s\’-]{1,29}$/",
-     *     message="Le prénom est incorrect"
+     *     message="Le prénom du propriétaire est incorrect"
      * )
      */
     private $prenom;

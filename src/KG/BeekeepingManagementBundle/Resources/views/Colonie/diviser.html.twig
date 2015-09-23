@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block javascripts %}
@@ -12,14 +13,14 @@
         <script src="{{ asset_url }}" type="text/javascript"></script>  
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-    {% endjavascripts %}    
+    {% endjavascripts %} 
+    {{ form_javascript(form) }}
 {% endblock %}
 
+{% block ruchers %}{{ colonieMere.ruche.emplacement.rucher.nom }}{% endblock %}
 {% block title %}{{ parent() }} - Diviser une colonie{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
-{% block ruchers %}{{ colonieMere.ruche.emplacement.rucher.nom }}{% endblock %}
 
 {% block panel_title %}
     <div class="row">
@@ -30,6 +31,18 @@
 {% endblock %}
 
 {% block form_error %}
+    {{ form_errors(form.rucher) }}
+    {{ form_errors(form.emplacement) }}
+    {{ form_errors(form.nom) }}
+    {{ form_errors(form.matiere) }}
+    {{ form_errors(form.corps.type) }}
+    {{ form_errors(form.corps.soustype) }}
+    {{ form_errors(form.image.file) }}
+    {{ form_errors(form.colonie.appellation) }}
+    {{ form_errors(form.colonie.dateColonie) }}
+    {{ form_errors(form.colonie.affectation) }}
+    {{ form_errors(form.corps.nbmiel) }}
+    {{ form_errors(form.corps.nbcouvain) }}
     {{ form_errors(form) }}  
 {% endblock %}
 
