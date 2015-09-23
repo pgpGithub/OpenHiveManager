@@ -10,6 +10,16 @@ use Doctrine\ORM\EntityRepository;
 
 class DiviserType extends AbstractType
 {
+    private $exploitation;
+    
+    /**
+     * Constructor
+     */
+    public function __construct($exploitation)
+    {
+        $this->exploitation = $exploitation;
+    }
+    
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -17,7 +27,7 @@ class DiviserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $propertyPathToEmplacement = 'emplacement';
-        $exploitation = $builder->getData()->getColonie()->getExploitation()->getId();
+        $exploitation = $this->exploitation;
         
         $builder
             ->add('rucher', 'entity', array(

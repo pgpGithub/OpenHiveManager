@@ -4,6 +4,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Colonie;
 use KG\BeekeepingManagementBundle\Entity\Reine;
+use KG\BeekeepingManagementBundle\Entity\Ruche;
 use KG\BeekeepingManagementBundle\Form\Type\ColonieType;
 use KG\BeekeepingManagementBundle\Form\Type\UpdateColonieType;
 use KG\BeekeepingManagementBundle\Form\Type\EnrucherType;
@@ -140,12 +141,12 @@ class ColonieController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $colonieFille = $colonieMere->diviser($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Division"));
-        
-        $form = $this->createForm(new DiviserType, $colonieFille->getRuche());
+        $ruche = new Ruche();
+        $form = $this->createForm(new DiviserType($colonieMere->getExploitation()->getId()), $ruche);
         
         if ($form->handleRequest($request)->isValid()){
             
+            $colonieFille = $colonieMere->diviser($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Division"), $ruche);
             $em = $this->getDoctrine()->getManager();
             $em->persist($colonieFille->getRuche()->getCorps());
             $em->persist($colonieFille);           
@@ -157,9 +158,8 @@ class ColonieController extends Controller
         }
 
         return $this->render('KGBeekeepingManagementBundle:Colonie:diviser.html.twig', 
-                             array('form'         => $form->createView(),
-                                   'colonieMere' => $colonieMere, 
-                                   'colonieFille'=> $colonieFille
+                             array('form'        => $form->createView(),
+                                   'colonieMere' => $colonieMere
                             ));        
     }
     
