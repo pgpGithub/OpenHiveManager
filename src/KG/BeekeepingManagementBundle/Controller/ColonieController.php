@@ -140,14 +140,11 @@ class ColonieController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $colonieFille = $colonieMere->diviser();
+        $colonieFille = $colonieMere->diviser($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Division"));
         
-        $form = $this->createForm(new DiviserType, $colonieFille);
+        $form = $this->createForm(new DiviserType, $colonieFille->getRuche());
         
         if ($form->handleRequest($request)->isValid()){
-            
-            $colonieFille->getRuche()->setEmplacement($form->get('emplacement')->getData());
-            $colonieFille->getRuche()->setColonie($colonieFille);
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($colonieFille->getRuche()->getCorps());

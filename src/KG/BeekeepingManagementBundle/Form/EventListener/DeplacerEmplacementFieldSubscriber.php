@@ -31,7 +31,6 @@ class DeplacerEmplacementFieldSubscriber implements EventSubscriberInterface
             'class'         => 'KGBeekeepingManagementBundle:Emplacement',
             'choice_label'  => 'nom',
             'empty_value'   => '',
-            'mapped'        => false,
             'attr'          => array(
                 'class' => 'emplacement_selector',
             ),

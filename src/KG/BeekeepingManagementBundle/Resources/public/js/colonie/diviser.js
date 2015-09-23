@@ -19,7 +19,7 @@ $("#kg_beekeepingmanagementbundle_diviser_rucher").change(function(){
     });
 });
 
-$("#kg_beekeepingmanagementbundle_diviser_ruche_corps_type").change(function(){
+$("#kg_beekeepingmanagementbundle_diviser_corps_type").change(function(){
     var data = {
         type_id: $(this).val()
     };
@@ -29,7 +29,7 @@ $("#kg_beekeepingmanagementbundle_diviser_ruche_corps_type").change(function(){
         url: Routing.generate('kg_beekeeping_management_select_soustypes_ruche'),
         data: data,
         success: function(data) {
-            var $soustype_selector = $('#kg_beekeepingmanagementbundle_diviser_ruche_corps_soustype');
+            var $soustype_selector = $('#kg_beekeepingmanagementbundle_diviser_corps_soustype');
  
             $soustype_selector.html('<option></option>');
  

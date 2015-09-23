@@ -17,7 +17,7 @@ class DiviserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $propertyPathToEmplacement = 'emplacement';
-        $exploitation = $builder->getData()->getExploitation()->getId();
+        $exploitation = $builder->getData()->getColonie()->getExploitation()->getId();
         
         $builder
             ->add('rucher', 'entity', array(
@@ -34,14 +34,16 @@ class DiviserType extends AbstractType
                         }
                     ))
             ->addEventSubscriber(new DeplacerEmplacementFieldSubscriber($propertyPathToEmplacement))    
-            ->add('ruche', new RucheType())    
-            ->add('appellation')                              
-            ->add('affectation', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Affectation',
+            ->add('nom',  'text')   
+            ->add('matiere', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Matiere',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
-                    ));
+                    ))     
+            ->add('corps', new CorpsType())
+            ->add('image', new ImageType(), array('required' => false))
+            ->add('colonie', new ColonieFilleType());
     }
     
     /**
@@ -50,7 +52,7 @@ class DiviserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonie'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Ruche'
         ));         
     }
 
