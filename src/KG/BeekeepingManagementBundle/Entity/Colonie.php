@@ -25,11 +25,11 @@ class Colonie
     /**
      * @var string
      *
-     * @ORM\Column(name="provenance", type="string", length=25)
-     * @Assert\NotBlank(message="Veuillez remplir la provenance de la colonie")
-     * @Assert\Length(max=25, maxMessage="La provenance de la colonnie ne peut dépasser {{ limit }} caractères") 
+     * @ORM\Column(name="appellation", type="string", length=25)
+     * @Assert\NotBlank(message="Veuillez remplir l'appellation de la colonie")
+     * @Assert\Length(max=25, maxMessage="L'appellation de la colonnie ne peut dépasser {{ limit }} caractères") 
      */
-    private $provenance;
+    private $appellation;
 
      /**
       * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="colonies")
@@ -534,26 +534,70 @@ class Colonie
         return $this->origineColonie;
     }
 
+
     /**
-     * Set provenance
+     * Set appellation
      *
-     * @param string $provenance
+     * @param string $appellation
      * @return Colonie
      */
-    public function setProvenance($provenance)
+    public function setAppellation($appellation)
     {
-        $this->provenance = $provenance;
+        $this->appellation = $appellation;
 
         return $this;
     }
 
     /**
-     * Get provenance
+     * Get appellation
      *
      * @return string 
      */
-    public function getProvenance()
+    public function getAppellation()
     {
-        return $this->provenance;
+        return $this->appellation;
     }
+
+    /**
+     * Add coloniesFilles
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
+     * @return Colonie
+     */
+    public function addColoniesFille(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
+    {
+        $this->coloniesFilles[] = $coloniesFilles;
+
+        return $this;
+    }
+
+    /**
+     * Remove coloniesFilles
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
+     */
+    public function removeColoniesFille(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
+    {
+        $this->coloniesFilles->removeElement($coloniesFilles);
+    }
+    
+    /**
+     * Diviser
+     *
+     * @return Colonie 
+     */
+    public function diviser()
+    {        
+        $colonieFille = new Colonie();
+        $colonieFille->setReine(new Reine());
+        $colonieFille->getReine()->setRace($this->getReine()->getRace());
+        //$colonieFille->setOrigineColonie($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Division"));
+        $colonieFille->setEtat($this->getEtat());
+        $colonieFille->setAgressivite($this->getAgressivite());
+        $colonieFille->setColonieMere($this);
+        $colonieFille->setExploitation($this->getExploitation());
+        $this->addColoniesFilles($colonieFille);
+        
+        return $colonieFille;
+    }    
 }

@@ -17,7 +17,7 @@
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-6">
-            <h4>Colonie {{ colonie.nom }}</h4>
+            <h4>Colonie {{ colonie.appellation }}</h4>
         </div>
         <div class="col-xs-6">
         {% if not colonie.morte %}
@@ -72,7 +72,7 @@
                     {% if colonie.colonieMere %}
                     <tr>
                         <td><strong>Colonie mère</strong></td>
-                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.colonieMere.id }) }}">{{ colonie.colonieMere.nom }}</a></td>
+                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.colonieMere.id }) }}">{{ colonie.colonieMere.appellation }}</a></td>
                     </tr>                              
                     {% endif %}
 
@@ -80,11 +80,11 @@
                     <tr>
                         <td><strong>Colonie{% if colonie.coloniesFilles|length > 1 %}s{% endif %} fille{% if colonie.coloniesFilles|length > 1 %}s{% endif %}</strong></td>
                         <td>
-                            {% for colonieFille in colonie.coloniesFilles if not colonieFille.supprime %}
+                            {% for colonieFille in colonie.coloniesFilles %}
                                 {% if not loop.first %}
                                     - 
                                 {% endif %}
-                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonieFille.id }) }}">{{ colonieFille.nom }}</a>
+                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonieFille.id }) }}">{{ colonieFille.appellation }}</a>
                             {% endfor %}
                         </td>
                     </tr>                              
@@ -110,8 +110,8 @@
                         <td>{{ colonie.affectation.libelle }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Provenance</strong></td>
-                        <td>{{ colonie.provenanceColonie.libelle }}</td>
+                        <td><strong>Origine</strong></td>
+                        <td>{{ colonie.origineColonie.libelle }}</td>
                     </tr>
                     <tr>
                         <td><strong>Etat</strong></td>

@@ -44,6 +44,7 @@ class Ruche
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="ruche")
+     * @Assert\Valid()
      */
     private $emplacement;
     

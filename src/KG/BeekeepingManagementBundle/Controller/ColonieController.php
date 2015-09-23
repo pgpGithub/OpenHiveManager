@@ -140,23 +140,18 @@ class ColonieController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $colonieFille = new Colonie();
-        $colonieFille->setReine(new Reine());
-        $colonieFille->getReine()->setRace($colonieMere->getReine()->getRace());
-        $colonieFille->setAnneeColonie(new \DateTime());
-        $colonieFille->setProvenanceColonie($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Provenance')->findOneByLibelle("Division"));
-        $colonieFille->setEtat($colonieMere->getEtat());
-        $colonieFille->setAgressivite($colonieMere->getAgressivite());
-        $colonieFille->setColonieMere($colonieMere);
-        $colonieFille->setExploitation($colonieMere->getExploitation());
-        $colonieMere->addColoniesFilles($colonieFille);
+        $colonieFille = $colonieMere->diviser();
         
         $form = $this->createForm(new DiviserType, $colonieFille);
         
         if ($form->handleRequest($request)->isValid()){
             
+            $colonieFille->getRuche()->setEmplacement($form->get('emplacement')->getData());
+            $colonieFille->getRuche()->setColonie($colonieFille);
+            
             $em = $this->getDoctrine()->getManager();
-            $em->persist($colonieFille);
+            $em->persist($colonieFille->getRuche()->getCorps());
+            $em->persist($colonieFille);           
             $em->flush();
         
             $request->getSession()->getFlashBag()->add('success','Colonie divisée avec succès');

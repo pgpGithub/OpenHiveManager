@@ -5,8 +5,8 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use KG\BeekeepingManagementBundle\Form\EventListener\DeplacerRucherFieldSubscriber;
 use KG\BeekeepingManagementBundle\Form\EventListener\DeplacerEmplacementFieldSubscriber;
+use Doctrine\ORM\EntityRepository;
 
 class DiviserType extends AbstractType
 {
@@ -33,10 +33,9 @@ class DiviserType extends AbstractType
                             return $qb;
                         }
                     ))
-            //->addEventSubscriber(new DeplacerRucherFieldSubscriber($propertyPathToEmplacement, $exploitation))
             ->addEventSubscriber(new DeplacerEmplacementFieldSubscriber($propertyPathToEmplacement))    
-            ->add('ruche', new DadantType())    
-            ->add('nom')                              
+            ->add('ruche', new RucheType())    
+            ->add('appellation')                              
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
                         'choice_label' => 'libelle',

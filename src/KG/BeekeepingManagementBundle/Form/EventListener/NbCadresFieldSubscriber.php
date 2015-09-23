@@ -42,19 +42,8 @@ class NbCadresFieldSubscriber implements EventSubscriberInterface
  
     public function preSetData(FormEvent $event)
     {
-        $data = $event->getData();
         $form = $event->getForm();
- 
-        if (null === $data) {
-            return;
-        }
- 
-        $accessor = PropertyAccess::createPropertyAccessor();
- 
-        $soustype = $accessor->getValue($data, 'soustype');
-        $type= ($soustype) ? $soustype->getType() : null;
- 
-        $this->addSousTypeForm($form, $type);
+        $this->addSousTypeForm($form);
     }
  
     public function preSubmit(FormEvent $event)

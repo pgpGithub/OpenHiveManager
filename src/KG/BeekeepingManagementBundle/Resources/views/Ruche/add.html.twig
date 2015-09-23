@@ -43,7 +43,7 @@
     {{ form_errors(form.corps.soustype) }}
     {{ form_errors(form.image.file) }}
     {{ form_errors(form.colonie.origineColonie) }}
-    {{ form_errors(form.colonie.provenance) }}
+    {{ form_errors(form.colonie.appellation) }}
     {{ form_errors(form.colonie.dateColonie) }}
     {{ form_errors(form.colonie.affectation) }}
     {{ form_errors(form.colonie.etat) }}
@@ -113,9 +113,9 @@
         </div>   
             
         <div class="form-group">
-            {{ form_label(form.colonie.provenance, "Provenance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.appellation, "Appellation :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonie.provenance, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.appellation, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>     
 
