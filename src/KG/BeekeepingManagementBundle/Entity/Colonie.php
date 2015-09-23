@@ -581,26 +581,4 @@ class Colonie
         $this->coloniesFilles->removeElement($coloniesFilles);
     }
     
-    /**
-     * Diviser
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Origine $origine
-     * @return Colonie 
-     */
-    public function diviser(Origine $origine)
-    {        
-        $colonieFille = new Colonie();
-        $colonieFille->setRuche(new Ruche());
-        $colonieFille->getRuche()->setColonie($colonieFille);
-        $colonieFille->setReine(new Reine());
-        $colonieFille->getReine()->setRace($this->getReine()->getRace());
-        $colonieFille->setOrigineColonie($origine);
-        $colonieFille->setEtat($this->getEtat());
-        $colonieFille->setAgressivite($this->getAgressivite());
-        $colonieFille->setColonieMere($this);
-        $colonieFille->setExploitation($this->getExploitation());
-        $this->addColoniesFilles($colonieFille);
-        
-        return $colonieFille;
-    }    
 }

@@ -2,22 +2,26 @@
 
 namespace KG\BeekeepingManagementBundle\Form\Type;
 
+use KG\BeekeepingManagementBundle\Entity\Reine;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use KG\BeekeepingManagementBundle\Form\EventListener\DeplacerEmplacementFieldSubscriber;
+use KG\BeekeepingManagementBundle\Form\EventListener\ColonieFilleFieldSubscriber;
 use Doctrine\ORM\EntityRepository;
 
 class DiviserType extends AbstractType
 {
-    private $exploitation;
+    private $colonieMere;
+    private $origine;
     
     /**
      * Constructor
      */
-    public function __construct($exploitation)
+    public function __construct(\KG\BeekeepingManagementBundle\Entity\Colonie $colonieMere, $origine)
     {
-        $this->exploitation = $exploitation;
+        $this->colonieMere = $colonieMere;
+        $this->origine = $origine;
     }
     
     /**
@@ -27,7 +31,16 @@ class DiviserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $propertyPathToEmplacement = 'emplacement';
-        $exploitation = $this->exploitation;
+        $exploitation = $this->colonieMere->getExploitation()->getId();
+        
+        $colonieFille = new \KG\BeekeepingManagementBundle\Entity\Colonie();
+        $colonieFille->setOrigineColonie($this->origine);
+        $colonieFille->setEtat($this->colonieMere->getEtat());
+        $colonieFille->setAgressivite($this->colonieMere->getAgressivite());
+        $colonieFille->setReine(new Reine());
+        $colonieFille->getReine()->setRace($this->colonieMere->getReine()->getRace());
+        $colonieFille->setColonieMere($this->colonieMere);
+        $colonieFille->setExploitation($this->colonieMere->getExploitation());
         
         $builder
             ->add('rucher', 'entity', array(
@@ -53,7 +66,9 @@ class DiviserType extends AbstractType
                     ))     
             ->add('corps', new CorpsType())
             ->add('image', new ImageType(), array('required' => false))
-            ->add('colonie', new ColonieFilleType());
+            ->add('colonie', new ColonieFilleType(), array(
+                        'data' => $colonieFille
+                    ));
     }
     
     /**

@@ -142,19 +142,18 @@ class ColonieController extends Controller
         }
         
         $ruche = new Ruche();
-        $form = $this->createForm(new DiviserType($colonieMere->getExploitation()->getId()), $ruche);
+        $form = $this->createForm(new DiviserType($colonieMere, $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Division")), $ruche);
         
         if ($form->handleRequest($request)->isValid()){
             
-            $colonieFille = $colonieMere->diviser($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Division"), $ruche);
             $em = $this->getDoctrine()->getManager();
-            $em->persist($colonieFille->getRuche()->getCorps());
-            $em->persist($colonieFille);           
+            $em->persist($ruche->getCorps());
+            $em->persist($ruche);           
             $em->flush();
         
             $request->getSession()->getFlashBag()->add('success','Colonie divisée avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonieFille->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $ruche->getColonie()->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Colonie:diviser.html.twig', 
