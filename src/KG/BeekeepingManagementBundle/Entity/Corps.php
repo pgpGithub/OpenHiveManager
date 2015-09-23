@@ -25,12 +25,20 @@ class Corps
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="nbcadres", type="integer")
-     * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\TypeRuche")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner le type de la ruche")
      */
-    private $nbcadres;
+    private $type; 
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\SousTypeRuche")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner le nombre de cadres de la ruche")
+     */
+    private $soustype; 
     
     /**
      * @var integer
@@ -77,29 +85,6 @@ class Corps
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set nbcadres
-     *
-     * @param integer $nbcadres
-     * @return Corps
-     */
-    public function setNbcadres($nbcadres)
-    {
-        $this->nbcadres = $nbcadres;
-
-        return $this;
-    }
-
-    /**
-     * Get nbcadres
-     *
-     * @return integer 
-     */
-    public function getNbcadres()
-    {
-        return $this->nbcadres;
     }
 
     /**
@@ -171,17 +156,63 @@ class Corps
         return $this->nbmiel;
     }
     
+    /**
+     * Set type
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\TypeRuche $type
+     * @return Corps
+     */
+    public function setType(\KG\BeekeepingManagementBundle\Entity\TypeRuche $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\TypeRuche 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }    
+    
    /**
    * @Assert\Callback
    */
     public function isContentValid(ExecutionContextInterface $context)
     {
         $nbcadrestotal = $this->nbcouvain + $this->nbmiel;
-        if ( $nbcadrestotal  > $this->nbcadres ) {
+        if ( $nbcadrestotal  > $this->soustype->getNbCadres() ) {
             $context
                    ->buildViolation('La somme de cadres de couvain et de cadres de miel est plus grande que le nombre de cadres') 
                    ->atPath('nbmiel')
                    ->addViolation();
         }
     }    
+
+    /**
+     * Set soustype
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\SousTypeRuche $soustype
+     * @return Corps
+     */
+    public function setSoustype(\KG\BeekeepingManagementBundle\Entity\SousTypeRuche $soustype)
+    {
+        $this->soustype = $soustype;
+
+        return $this;
+    }
+
+    /**
+     * Get soustype
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\SousTypeRuche 
+     */
+    public function getSoustype()
+    {
+        return $this->soustype;
+    }
 }

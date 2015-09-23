@@ -21,13 +21,7 @@ class AddRucheType extends AbstractType
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
-                    ))
-            ->add('type', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:TypeRuche',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))      
+                    ))     
             ->add('corps', new CorpsType())
             ->add('image', new ImageType(), array('required' => false))
             ->add('colonie', new ColonieType());

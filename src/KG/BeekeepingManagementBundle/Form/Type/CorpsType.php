@@ -16,6 +16,12 @@ class CorpsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('type', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:TypeRuche',
+                        'choice_label' => 'libelle',
+                        'empty_value' => '',
+                        'empty_data'  => null
+                    ))                 
             ->addEventSubscriber(new NbCadresFieldSubscriber())
             ->add('nbmiel')
             ->add('nbcouvain');

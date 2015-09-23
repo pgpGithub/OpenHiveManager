@@ -78,33 +78,16 @@ class RucheController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
 
-        $ancienEmplacement = $ruche->getEmplacement();
         $form = $this->createForm(new TranshumerType(), $ruche);
                 
         if ($form->handleRequest($request)->isValid()){
-            if(!$ruche->getEmplacement()){
-                $this->get('session')->getFlashBag()->add('danger','Veuillez choisir un emplacement sur lequel placer votre ruche');                 
-            }
-            elseif($ruche->getEmplacement()->getRuche()){
-                $this->get('session')->getFlashBag()->add('danger','Cet emplacement est déjà occupé par une ruche');
-            }
-            else{
                 $em = $this->getDoctrine()->getManager();
-                $ruche->getEmplacement()->setRuche($ruche);
-
                 $em->persist($ruche);
-
-                if($ancienEmplacement){
-                    $ancienEmplacement->setRuche(NULL);
-                    $em->persist($ancienEmplacement);
-                }
-
                 $em->flush();
 
                 $request->getSession()->getFlashBag()->add('success','Ruche transhumée avec succès');
 
-                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $ruche->getEmplacement()->getRucher()->getId())));
-            }  
+                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $ruche->getEmplacement()->getRucher()->getId()))); 
         }
 
         return $this->render('KGBeekeepingManagementBundle:Ruche:transhumer.html.twig', 
@@ -134,9 +117,9 @@ class RucheController extends Controller
         $type_id  = $request->request->get('type_id');
         
         $em       = $this->getDoctrine()->getManager();
-        $nbcadres = $em->getRepository('KGBeekeepingManagementBundle:SousTypeRuche')->findByTypeId($type_id);
+        $soustype = $em->getRepository('KGBeekeepingManagementBundle:SousTypeRuche')->findByTypeId($type_id);
 
-        return new JsonResponse($nbcadres);
+        return new JsonResponse($soustype);
     }  
     
     /**

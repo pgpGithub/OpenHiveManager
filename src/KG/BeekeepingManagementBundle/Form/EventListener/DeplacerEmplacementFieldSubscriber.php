@@ -56,7 +56,6 @@ class DeplacerEmplacementFieldSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
  
         $rucher = array_key_exists('rucher', $data) ? $data['rucher'] : null;
- 
         $this->addEmplacementForm($form, $rucher);
     }
 }

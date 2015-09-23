@@ -18,23 +18,26 @@ class NbCadresFieldSubscriber implements EventSubscriberInterface
         );
     }
  
-    private function addNbCadresForm($form, $type)
+    private function addSousTypeForm($form, $type = null)
     {              
         $formOptions = array(
             'class'         => 'KGBeekeepingManagementBundle:SousTypeRuche',
             'choice_label'  => 'nbcadres',
             'empty_value'   => '',
-            'mapped'        => false,
             'attr'          => array(
-                'class' => 'nbcadres_selector',
+                'class' => 'soustype_selector',
             ),
             'query_builder' => function (EntityRepository $repository) use ($type) {
                 $qb = $repository->queryfindByTypeId($type);
                 return $qb;
             }
         );
+        
+        if ($type) {
+            $formOptions['data'] = $type;
+        }        
  
-        $form->add('nbcadres', 'entity', $formOptions);
+        $form->add('soustype', 'entity', $formOptions);
     }
  
     public function preSetData(FormEvent $event)
@@ -48,14 +51,18 @@ class NbCadresFieldSubscriber implements EventSubscriberInterface
  
         $accessor = PropertyAccess::createPropertyAccessor();
  
-        $ruche = $accessor->getValue($data, 'ruche');
-        $type = ($ruche) ? $ruche->getType()->getId() : null;
-        $this->addNbCadresForm($form, $type);
+        $soustype = $accessor->getValue($data, 'soustype');
+        $type= ($soustype) ? $soustype->getType() : null;
+ 
+        $this->addSousTypeForm($form, $type);
     }
  
     public function preSubmit(FormEvent $event)
     {
+        $data = $event->getData();
         $form = $event->getForm();
-        $this->addNbCadresForm($form);
+ 
+        $type = array_key_exists('type', $data) ? $data['type'] : null;
+        $this->addSousTypeForm($form, $type);
     }
 }

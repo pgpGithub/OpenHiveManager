@@ -59,14 +59,6 @@ class Ruche
      * @Assert\Valid()
      */
     private $hausses; 
-
-    /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\TypeRuche")
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid() 
-     * @Assert\NotBlank(message="Veuillez sélectionner le type de la ruche")
-     */
-    private $type; 
     
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Matiere")
@@ -276,26 +268,4 @@ class Ruche
         return $this->matiere;
     }    
 
-    /**
-     * Set type
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\TypeRuche $type
-     * @return Ruche
-     */
-    public function setType(\KG\BeekeepingManagementBundle\Entity\TypeRuche $type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\TypeRuche 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
 }

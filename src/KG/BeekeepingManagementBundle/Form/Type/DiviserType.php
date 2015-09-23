@@ -20,7 +20,20 @@ class DiviserType extends AbstractType
         $exploitation = $builder->getData()->getExploitation()->getId();
         
         $builder
-            ->addEventSubscriber(new DeplacerRucherFieldSubscriber($propertyPathToEmplacement, $exploitation))
+            ->add('rucher', 'entity', array(
+                        'class'         => 'KGBeekeepingManagementBundle:Rucher',
+                        'choice_label'  => 'nom',
+                        'empty_value'   => '',
+                        'mapped'        => false,
+                        'attr'          => array(
+                            'class' => 'rucher_selector',
+                        ),
+                        'query_builder' => function (EntityRepository $repository) use ($exploitation) {
+                            $qb = $repository->queryfindByExploitationId($exploitation);
+                            return $qb;
+                        }
+                    ))
+            //->addEventSubscriber(new DeplacerRucherFieldSubscriber($propertyPathToEmplacement, $exploitation))
             ->addEventSubscriber(new DeplacerEmplacementFieldSubscriber($propertyPathToEmplacement))    
             ->add('ruche', new DadantType())    
             ->add('nom')                              

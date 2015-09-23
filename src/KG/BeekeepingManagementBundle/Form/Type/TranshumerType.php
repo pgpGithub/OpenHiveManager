@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use KG\BeekeepingManagementBundle\Form\EventListener\TranshumerRucherFieldSubscriber;
 use KG\BeekeepingManagementBundle\Form\EventListener\TranshumerEmplacementFieldSubscriber;
+use Doctrine\ORM\EntityRepository;
 
 class TranshumerType extends AbstractType
 {
@@ -20,7 +21,19 @@ class TranshumerType extends AbstractType
         $exploitation = $builder->getData()->getEmplacement()->getRucher()->getExploitation()->getId();
         
         $builder
-            ->addEventSubscriber(new TranshumerRucherFieldSubscriber($propertyPathToEmplacement, $exploitation))
+            ->add('rucher', 'entity', array(
+                    'class'         => 'KGBeekeepingManagementBundle:Rucher',
+                    'choice_label'  => 'nom',
+                    'empty_value'   => '',
+                    'mapped'        => false,
+                    'attr'          => array(
+                        'class' => 'rucher_selector',
+                    ),
+                    'query_builder' => function (EntityRepository $repository) use ($exploitation) {
+                        $qb = $repository->queryfindByExploitationId($exploitation);
+                        return $qb;
+                    }
+                ))
             ->addEventSubscriber(new TranshumerEmplacementFieldSubscriber($propertyPathToEmplacement));
     }
     

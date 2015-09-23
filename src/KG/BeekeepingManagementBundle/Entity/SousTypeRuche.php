@@ -44,25 +44,25 @@ class SousTypeRuche
     }
 
     /**
-     * Set nbCadres
+     * Set nbcadres
      *
-     * @param integer $nbCadres
+     * @param integer $nbcadres
      * @return SousTypeRuche
      */
-    public function setNbCadres($nbCadres)
+    public function setNbcadres($nbcadres)
     {
-        $this->nbCadres = $nbCadres;
+        $this->nbcadres = $nbcadres;
 
         return $this;
     }
 
     /**
-     * Get nbCadres
+     * Get nbcadres
      *
      * @return integer 
      */
-    public function getNbCadres()
+    public function getNbcadres()
     {
-        return $this->nbCadres;
+        return $this->nbcadres;
     }
 }
