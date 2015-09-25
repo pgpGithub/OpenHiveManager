@@ -47,7 +47,7 @@ class ColonieFilleType extends AbstractType
                                 'viewSelect' => 'year',
                                 'initialDate' => date('Y-m-d'), 
                             ),
-                        //'read_only' => true
+                        'read_only' => true
             ))                                  
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
