@@ -5,9 +5,21 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use KG\BeekeepingManagementBundle\Form\EventListener\DateColonieFilleFieldSubscriber;
 
 class ColonieFilleType extends AbstractType
 {
+    
+    private $datemin;
+    
+    /**
+     * Constructor
+     */
+    public function __construct($datemin)
+    {
+        $this->datemin = $datemin;
+    }
+    
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -16,31 +28,7 @@ class ColonieFilleType extends AbstractType
     {
         $builder
             ->add('appellation')
-                               
-            ->add('dateColonie', 'collot_datetime', 
-                    array( 
-                            'pickerOptions' =>
-                                array(
-                                    'format' => 'mm/yyyy',
-                                    'autoclose' => true,
-                                    'startDate' => '1950',
-                                    'endDate' => date('Y-m-d'), 
-                                    'startView' => 'decade',
-                                    'minView' => 'year',
-                                    'maxView' => 'decade',
-                                    'todayBtn' => false,
-                                    'todayHighlight' => false,
-                                    'keyboardNavigation' => true,
-                                    'language' => 'fr',
-                                    'forceParse' => true,
-                                    'pickerReferer ' => 'default', 
-                                    'pickerPosition' => 'bottom-right',
-                                    'viewSelect' => 'year',
-                                    'initialDate' => date('Y-m-d'), 
-                                ),
-                            'read_only' => true
-                ))
-                
+            ->addEventSubscriber(new DateColonieFilleFieldSubscriber($this->datemin))                                   
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
                         'choice_label' => 'libelle',

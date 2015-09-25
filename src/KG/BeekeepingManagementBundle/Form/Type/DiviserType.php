@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use KG\BeekeepingManagementBundle\Form\EventListener\DeplacerEmplacementFieldSubscriber;
-use KG\BeekeepingManagementBundle\Form\EventListener\ColonieFilleFieldSubscriber;
 use Doctrine\ORM\EntityRepository;
 
 class DiviserType extends AbstractType
@@ -65,8 +64,8 @@ class DiviserType extends AbstractType
                         'empty_data'  => null
                     ))     
             ->add('corps', new DiviserCorpsType($this->colonieMere))
-            ->add('image', new ImageType(), array('required' => false))
-            ->add('colonie', new ColonieFilleType(), array(
+            ->add('image', new ImageType(), array('required' => false))        
+            ->add('colonie', new ColonieFilleType($this->colonieMere->getDateColonie()), array(
                         'data' => $colonieFille
                     ));
     }
