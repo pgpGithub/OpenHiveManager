@@ -28,7 +28,6 @@ class Visite
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="visites")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid()
      */
     private $colonie;    
     
@@ -475,6 +474,24 @@ class Visite
                    ->buildViolation('La somme de cadres de couvain et de cadres de miel est plus grande que le nombre de cadres') 
                    ->atPath('nbmiel')
                    ->addViolation();
+        }
+        
+        foreach( $this->getColonie()->getVisites() as $lastVisite ){
+            if ( $this->date < $lastVisite->getDate()  && $lastVisite->getId() != $this->getId() ){                
+                $context
+                       ->buildViolation('La date ne peut pas être antérieur ou égale à celle d\'une ancienne visite') 
+                       ->atPath('date')
+                       ->addViolation();
+            }            
+        }
+        
+        $today = new \DateTime();
+        
+        if( $this->date > $today ){
+            $context
+                   ->buildViolation('La date ne peut pas être située dans le futur') 
+                   ->atPath('date')
+                   ->addViolation();            
         }
     }     
 }

@@ -5,7 +5,7 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use KG\BeekeepingManagementBundle\Form\EventListener\DateVisiteFieldSubscriber;
+
 
 class VisiteType extends AbstractType
 {
@@ -32,6 +32,8 @@ class VisiteType extends AbstractType
             }
         }
         
+        $startDateFormat = date_format($startDate,"Y-m-d"); 
+
         $builder
                 ->add('activite', 'entity', array(
                             'class' => 'KGBeekeepingManagementBundle:Activite',
@@ -74,7 +76,27 @@ class VisiteType extends AbstractType
                 ->add('colonie', new ProductionType(), array(
                             'label'  => false,
                         ))
-                ->addEventSubscriber(new DateVisiteFieldSubscriber($startDate));                
+                ->add('date', 'collot_datetime', array( 
+                        'pickerOptions' =>
+                            array('format' => 'dd/mm/yyyy',
+                                'autoclose' => true,
+                                'startDate' => (string)$startDateFormat,
+                                'endDate'   => date("Y-m-d"), 
+                                'startView' => 'month',
+                                'minView' => 'month',
+                                'maxView' => 'month',
+                                'todayBtn' => false,
+                                'todayHighlight' => true,
+                                'keyboardNavigation' => true,
+                                'language' => 'fr',
+                                'forceParse' => true,
+                                'pickerReferer ' => 'default', 
+                                'pickerPosition' => 'bottom-right',
+                                'viewSelect' => 'month',
+                                'initialDate' => date("Y-m-d"), 
+                            ),
+                        //'read_only' => true
+                ));               
     }
     
     /**
