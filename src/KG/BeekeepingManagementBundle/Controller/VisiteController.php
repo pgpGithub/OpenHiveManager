@@ -61,7 +61,7 @@ class VisiteController extends Controller
         
         $lastVisite = $colonie->getVisites()->last();
         if ( $lastVisite ){
-            if ( $lastVisite->getDate() <= $today ){
+            if ( $lastVisite->getDate() >= $today ){
                 throw new NotFoundHttpException('Page inexistante.');
             }
         }
@@ -113,7 +113,7 @@ class VisiteController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || $visite != $visite->getColonie()->getVisites()->last()){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

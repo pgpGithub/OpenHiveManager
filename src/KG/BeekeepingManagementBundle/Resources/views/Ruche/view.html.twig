@@ -150,6 +150,8 @@
                         <th>Visite</th>
                         <th>Activité</th>
                         <th>Etat</th>
+                        <th>Cadres miel</th>
+                        <th>Cadres couvain</th>
                         <th>Cellules royales</th>
                         <th>Nourrissement</th>
                         <th>Traitement</th>
@@ -161,6 +163,8 @@
                                 <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
                                 <td>{{ visite.activite.libelle }}</td>
                                 <td>{{ visite.etat.libelle }}</td>
+                                <td>{{ visite.nbmiel }}</td>
+                                <td>{{ visite.nbcouvain }}</td>
                                 <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
