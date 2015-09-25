@@ -5,8 +5,6 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use KG\BeekeepingManagementBundle\Form\EventListener\DateColonieFilleFieldSubscriber;
-
 class ColonieFilleType extends AbstractType
 {
     
@@ -28,7 +26,29 @@ class ColonieFilleType extends AbstractType
     {
         $builder
             ->add('appellation')
-            ->addEventSubscriber(new DateColonieFilleFieldSubscriber($this->datemin))                                   
+            ->add('dateColonie', 'collot_datetime', 
+                array( 
+                        'pickerOptions' =>
+                            array(
+                                'format' => 'mm/yyyy',
+                                'autoclose' => true,
+                                'startDate' => date_format($this->datemin,"Y-m-d"),
+                                'endDate' => date('Y-m-d'), 
+                                'startView' => 'decade',
+                                'minView' => 'year',
+                                'maxView' => 'decade',
+                                'todayBtn' => false,
+                                'todayHighlight' => false,
+                                'keyboardNavigation' => true,
+                                'language' => 'fr',
+                                'forceParse' => true,
+                                'pickerReferer ' => 'default', 
+                                'pickerPosition' => 'bottom-right',
+                                'viewSelect' => 'year',
+                                'initialDate' => date('Y-m-d'), 
+                            ),
+                        //'read_only' => true
+            ))                                  
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
                         'choice_label' => 'libelle',

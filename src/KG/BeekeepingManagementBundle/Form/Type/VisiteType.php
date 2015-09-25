@@ -95,7 +95,7 @@ class VisiteType extends AbstractType
                                 'viewSelect' => 'month',
                                 'initialDate' => date("Y-m-d"), 
                             ),
-                        //'read_only' => true
+                        'read_only' => true
                 ));               
     }
     

@@ -3,6 +3,7 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -88,13 +89,11 @@ class Colonie
      /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="coloniesFilles", cascade="persist")
      * @ORM\JoinColumn()
-     * @Assert\Valid()
      */
     private $colonieMere;
 
      /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="colonieMere", cascade="persist")
-     * @Assert\Valid()
      */
     private $coloniesFilles;
     
@@ -599,5 +598,29 @@ class Colonie
         $corps->setNbcouvain($nbcouvain_div);
         
         return $this;
-    }     
+    }
+    
+   /**
+   * @Assert\Callback
+   */
+    public function isContentValid(ExecutionContextInterface $context)
+    {
+        if( $this->colonieMere ){
+            if( $this->colonieMere->getDateColonie() > $this->dateColonie ){
+                 $context
+                   ->buildViolation('La date de division ne peut pas être antérieur à la date de naissance de la colonie mère') 
+                   ->atPath('date')
+                   ->addViolation();  
+            }
+        }
+        
+        $today = new \DateTime();
+        
+        if( $this->dateColonie > $today ){
+            $context
+                   ->buildViolation('La date ne peut pas être située dans le futur') 
+                   ->atPath('date')
+                   ->addViolation();            
+        }        
+    }    
 }
