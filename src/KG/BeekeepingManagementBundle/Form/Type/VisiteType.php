@@ -5,6 +5,7 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use KG\BeekeepingManagementBundle\Form\EventListener\DateVisiteFieldSubscriber;
 
 class VisiteType extends AbstractType
 {
@@ -16,23 +17,20 @@ class VisiteType extends AbstractType
     {
         $visites = $builder->getData()->getColonie()->getVisites();
         
-        $startDate = '2000-01-01';
+        $startDate = new \DateTime();
+        $startDate->setDate('2000', '01', '01');
         
         if($visites->last()){
             if($visites->last()->getId() == $builder->getData()->getId()){
                 $len = count($visites) - 2;
                 if($visites{$len}){
                     $startDate = date_add($visites{$len}->getDate(),date_interval_create_from_date_string("1 days"));
-                    $startDate = date_format($startDate,"Y-m-d");    
                 }
             }
             else{
                 $startDate = date_add($visites->last()->getDate(),date_interval_create_from_date_string("1 days"));
-                $startDate = date_format($startDate,"Y-m-d"); 
             }
         }
-        
-        $endDate   = date("Y-m-d");
         
         $builder
                 ->add('activite', 'entity', array(
@@ -76,28 +74,7 @@ class VisiteType extends AbstractType
                 ->add('colonie', new ProductionType(), array(
                             'label'  => false,
                         ))
-                ->add('date', 'collot_datetime', 
-                    array( 
-                            'pickerOptions' =>
-                                array('format' => 'dd/mm/yyyy',
-                                    'autoclose' => true,
-                                    'startDate' => (string)$startDate,
-                                    'endDate'   => (string)$endDate, 
-                                    'startView' => 'month',
-                                    'minView' => 'month',
-                                    'maxView' => 'month',
-                                    'todayBtn' => false,
-                                    'todayHighlight' => true,
-                                    'keyboardNavigation' => true,
-                                    'language' => 'fr',
-                                    'forceParse' => true,
-                                    'pickerReferer ' => 'default', 
-                                    'pickerPosition' => 'bottom-right',
-                                    'viewSelect' => 'month',
-                                    'initialDate' => date('Y-m-d'), 
-                                ),
-                            'read_only' => true
-                ));                
+                ->addEventSubscriber(new DateVisiteFieldSubscriber($startDate));                
     }
     
     /**

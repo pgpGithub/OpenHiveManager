@@ -51,11 +51,21 @@ class VisiteController extends Controller
                 break;
             }
         }
-        
+
         if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }       
         
+        $today = new \DateTime();
+        $today->setTime('00', '00', '00');
+        
+        $lastVisite = $colonie->getVisites()->last();
+        if ( $lastVisite ){
+            if ( $lastVisite->getDate() <= $today ){
+                throw new NotFoundHttpException('Page inexistante.');
+            }
+        }
+ 
         $visite = new Visite();
         $visite->setColonie($colonie);
         $visite->setNbcouvain($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbCouvain());

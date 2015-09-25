@@ -53,7 +53,7 @@ class DateColonieFilleFieldSubscriber implements EventSubscriberInterface
                                     'viewSelect' => 'year',
                                     'initialDate' => date('Y-m-d'), 
                                 ),
-                            //'read_only' => true
+                            'read_only' => true
                 ));
     }
  
@@ -70,8 +70,9 @@ class DateColonieFilleFieldSubscriber implements EventSubscriberInterface
  
         $dateColonieFille = array_key_exists('dateColonie', $data) ? $data['dateColonie'] : null;
         $date = new \DateTime();
-        $date->setDate(substr($dateColonieFille, 3, 7), substr($dateColonieFille, 0, 2), '01');
-
+        $date->setDate(substr($dateColonieFille, 3, 4), substr($dateColonieFille, 0, 2), '01');
+        $date->setTime('00', '00', '00');
+        
         if( $date < $this->datemin){
             $form->addError(new FormError('La date de division ne peut pas être antérieur à la date de naissance de la colonie mère'));
         }
