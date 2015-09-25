@@ -146,6 +146,7 @@ class ColonieController extends Controller
         
         if ($form->handleRequest($request)->isValid()){
             
+            $colonieMere->diviser($ruche->getCorps()->getNbmiel(), $ruche->getCorps()->getNbcouvain());
             $em = $this->getDoctrine()->getManager();
             $em->persist($ruche->getCorps());
             $em->persist($ruche);           

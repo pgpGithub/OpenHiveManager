@@ -579,6 +579,25 @@ class Colonie
     public function removeColoniesFille(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
     {
         $this->coloniesFilles->removeElement($coloniesFilles);
-    }
+    }  
     
+    /**
+     * diviser
+     *
+     * @param integer $nbmiel
+     * @param integer $nbcouvain
+     * @return Colonie
+     */
+    public function diviser($nbmiel, $nbcouvain)
+    {
+        $corps = $this->getRuche()->getCorps();
+        
+        $nbmiel_div = $corps->getNbmiel() - $nbmiel; 
+        $nbcouvain_div = $corps->getNbcouvain() - $nbcouvain;
+       
+        $corps->setNbmiel($nbmiel_div);
+        $corps->setNbcouvain($nbcouvain_div);
+        
+        return $this;
+    }     
 }

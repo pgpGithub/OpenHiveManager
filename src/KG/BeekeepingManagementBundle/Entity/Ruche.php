@@ -211,12 +211,11 @@ class Ruche
      */
     public function addHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausse)
     {       
-        // Si c'est une Langstroth
-        if( $this->getType()->getId() == 1 ){
-            $nbcadres = $this->getCorps()->getNbmaxcadres(); 
+        if( $this->getCorps()->getType()->getLibelle() == 'Langstroth' ){
+            $nbcadres = $this->getCorps()->getSoustype()->getNbcadres(); 
         }
         else{
-            $nbcadres = $this->getCorps()->getNbmaxcadres() - 1;            
+            $nbcadres = $this->getCorps()->getSoustype()->getNbcadres() - 1;            
         }
         
         $new_hausse = $hausse;
