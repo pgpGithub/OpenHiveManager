@@ -137,7 +137,7 @@ class ColonieController extends Controller
             }
         }
         
-        if( $not_permitted || $colonieMere->getMorte() ){
+        if( $not_permitted || $colonieMere->getMorte() || $colonieMere->getRuche()->getCorps()->getNbcouvain() < 2 ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

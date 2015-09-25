@@ -23,7 +23,7 @@
         {% if not colonie.morte %}
             <span class="pull-right">
                 <a title="Renouveler la reine" href="{{ path('kg_beekeeping_management_renouveler_reine', { 'reine_id': colonie.reine.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-refresh"></i> <strong>Renouveler reine</strong></a>
-                <a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-scissors"></i></a>
+                {% if colonie.ruche.corps.nbcouvain > 1 %}<a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-scissors"></i></a>{% endif %}
                 <a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
                 <a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-minus-sign"></i></a>
             </span>
