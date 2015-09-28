@@ -55,14 +55,14 @@ class Corps
     /**
      * @var integer
      *
-     * @ORM\Column(name="nbmiel", type="integer")
+     * @ORM\Column(name="nbnourriture", type="integer")
      * @Assert\Range(
      *      min = 0,
-     *      minMessage = "Le nombre de cadres de miel ne peut pas être négatif"
+     *      minMessage = "Le nombre de cadres de nourriture ne peut pas être négatif"
      * )
-     * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres de miel présents dans la ruche")
+     * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres de nourriture présents dans la ruche")
      */
-    private $nbmiel;      
+    private $nbnourriture;      
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="corps")
@@ -134,26 +134,26 @@ class Corps
     }
 
     /**
-     * Set nbmiel
+     * Set nbnourriture
      *
-     * @param integer $nbmiel
+     * @param integer $nbnourriture
      * @return Corps
      */
-    public function setNbmiel($nbmiel)
+    public function setNourriture($nbnourriture)
     {
-        $this->nbmiel = $nbmiel;
+        $this->nbnourriture = $nbnourriture;
 
         return $this;
     }
 
     /**
-     * Get nbmiel
+     * Get nbnourriture
      *
      * @return integer 
      */
-    public function getNbmiel()
+    public function getNbnourriture()
     {
-        return $this->nbmiel;
+        return $this->nbnourriture;
     }
     
     /**
@@ -184,11 +184,11 @@ class Corps
    */
     public function isContentValid(ExecutionContextInterface $context)
     {
-        $nbcadrestotal = $this->nbcouvain + $this->nbmiel;
+        $nbcadrestotal = $this->nbcouvain + $this->nbnourriture;
         if ( $nbcadrestotal  > $this->soustype->getNbCadres() ) {
             $context
-                   ->buildViolation('La somme de cadres de couvain et de cadres de miel est plus grande que le nombre de cadres') 
-                   ->atPath('nbmiel')
+                   ->buildViolation('La somme de cadres de couvain et de cadres de nourriture est plus grande que le nombre de cadres') 
+                   ->atPath('nbnourriture')
                    ->addViolation();
         }
     }    
