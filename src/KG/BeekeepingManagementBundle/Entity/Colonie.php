@@ -31,13 +31,7 @@ class Colonie
      * @Assert\Length(max=25, maxMessage="L'appellation de la colonnie ne peut dépasser {{ limit }} caractères") 
      */
     private $appellation;
-
-     /**
-      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Exploitation", inversedBy="colonies")
-      * @ORM\JoinColumn(nullable=false)
-      */
-    private $exploitation;   
-    
+   
      /**
       * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="colonies")
       * @ORM\JoinColumn(nullable=false)
@@ -115,11 +109,11 @@ class Colonie
      */
     private $visites;
         
-    ///**
-    // * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Recolte" cascade={"remove"}, orphanRemoval=true)
-    // * @Assert\Valid()
-    // */
-    //private $recoltes;
+    /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\RecolteRuche", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
+     * @Assert\Valid()
+     */
+    private $recoltesruche;
     
     /**
      * @var boolean
@@ -494,29 +488,6 @@ class Colonie
     }
 
     /**
-     * Set exploitation
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Exploitation $exploitation
-     * @return Colonie
-     */
-    public function setExploitation(\KG\BeekeepingManagementBundle\Entity\Exploitation $exploitation)
-    {
-        $this->exploitation = $exploitation;
-
-        return $this;
-    }
-
-    /**
-     * Get exploitation
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Exploitation 
-     */
-    public function getExploitation()
-    {
-        return $this->exploitation;
-    }
-
-    /**
      * Set origineColonie
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Origine $origineColonie
@@ -629,4 +600,37 @@ class Colonie
                    ->addViolation();            
         }        
     }    
+
+    /**
+     * Add recoltesruche
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\RecolteRuche $recoltesruche
+     * @return Colonie
+     */
+    public function addRecoltesruche(\KG\BeekeepingManagementBundle\Entity\RecolteRuche $recoltesruche)
+    {
+        $this->recoltesruche[] = $recoltesruche;
+
+        return $this;
+    }
+
+    /**
+     * Remove recoltesruche
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\RecolteRuche $recoltesruche
+     */
+    public function removeRecoltesruche(\KG\BeekeepingManagementBundle\Entity\RecolteRuche $recoltesruche)
+    {
+        $this->recoltesruche->removeElement($recoltesruche);
+    }
+
+    /**
+     * Get recoltesruche
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecoltesruche()
+    {
+        return $this->recoltesruche;
+    }
 }

@@ -60,21 +60,16 @@ class ColonieController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || !$colonie->getRecoltes()->isEmpty() || !$colonie->getColoniesFilles()->isEmpty() || !$colonie->getVisites()->isEmpty() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        if( !$colonie->getColoniesFilles()->isEmpty() ){
-            $this->get('session')->getFlashBag()->add('danger','Vous ne pouvez pas supprimer une colonie possédant des colonies filles');            
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));
-        }else{
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($colonie);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($colonie);
+        $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success','Colonie supprimée avec succès');
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $rucher->getId())));            
-        }
+        $this->get('session')->getFlashBag()->add('success','Colonie supprimée avec succès');
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRucher()->getId())));            
     }
     
     /**

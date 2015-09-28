@@ -18,8 +18,8 @@ class ContenuType extends AbstractType
                 ->add('hausses', 'collection', array(
                             'type'  => new HausseType(),
                             'label' => false,
-                            'allow_add'    => true,
-                            'allow_delete' => true
+                            //'allow_add'    => true,
+                            //'allow_delete' => true
                         )); 
     }
     

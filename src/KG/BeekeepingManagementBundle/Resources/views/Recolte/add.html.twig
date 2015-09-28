@@ -1,0 +1,80 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/Visite/add.html.twig #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite' 'css/bootstrap_switch/bootstrap-switch.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}  
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
+                    '@KGBeekeepingManagementBundle/Resources/public/js/visite/add.js'%}
+        <script src="{{ asset_url }}" type="text/javascript"></script>  
+    {% endjavascripts %}
+    {{ form_javascript(form) }}
+{% endblock %}
+
+{% block title %}{{ parent() }} - Créer une récolte{% endblock %}
+
+{% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
+
+{% block ruchers %}{{ rucher.nom }}{% endblock %}
+
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Création d'une récolte</h4>
+        </div>
+    </div>
+{% endblock %}
+
+{% block form_error %}
+    {{ form_errors(form) }}    
+{% endblock %}
+    
+{% block panel_body %}            
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+ 
+        <div class="form-group">
+            {{ form_label(form.date, "Date :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            <div class="col-sm-5 col-md-5">
+                {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>   
+
+
+        {% for ruche in form.ruches %}
+            <div class="form-group">
+                {#<label class="col-sm-5 col-md-4 control-label" for="checkboxes">{{ ruche.nom }}</label>#}
+                {{ form_label(ruche, {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}} ) }}
+                <div class="col-sm-5 col-md-5">
+                  {{ form_widget(ruche, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                </div>
+            </div>                             
+        {% endfor %}
+                
+    {{ form_rest(form) }}
+
+    <div class="form-group">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="pull-right">
+                <a href="{{ app.request.headers.get('referer') }}" class="btn btn-default">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    Annuler
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                    Sauvegarder
+                </button>
+            </div>
+        </div>        
+    </div>
+
+    {{ form_end(form) }}     
+{% endblock %}

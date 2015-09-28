@@ -68,11 +68,6 @@ class VisiteController extends Controller
  
         $visite = new Visite();
         $visite->setColonie($colonie);
-        $visite->setNbcouvain($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbCouvain());
-        $visite->setNbmiel($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbMiel());
-        $visite->setEtat($colonie->getEtat());
-        $visite->setAgressivite($colonie->getAgressivite());
-        $visite->setDate(new \DateTime());
         
         $form = $this->createForm(new VisiteType, $visite);
         
@@ -80,7 +75,7 @@ class VisiteController extends Controller
                    
             $visite->getColonie()->setEtat($visite->getEtat());
             $visite->getColonie()->setAgressivite($visite->getAgressivite());
-            $visite->getColonie()->getRuche()->getCorps()->setNbmiel($visite->getNbmiel());
+            $visite->getColonie()->getRuche()->getCorps()->setNbnourriture($visite->getNbnourriture());
             $visite->getColonie()->getRuche()->getCorps()->setNbcouvain($visite->getNbcouvain());
             $em = $this->getDoctrine()->getManager();
             $em->persist($visite);

@@ -192,7 +192,6 @@ class RucheController extends Controller
         
         if ($form->handleRequest($request)->isValid()){
                        
-            $ruche->getColonie()->setExploitation($emplacement->getRucher()->getExploitation());
             $ruche->getColonie()->setRucher($emplacement->getRucher());
             $ruche->setEmplacement($emplacement);
             $em = $this->getDoctrine()->getManager();

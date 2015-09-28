@@ -84,6 +84,12 @@ kg_beekeeping_management_add_visite:
     requirements:
         ruche_id: \d+
 
+kg_beekeeping_management_add_recolte:
+    path:      /exploitation/rucher/{rucher_id}/creer-recolte/
+    defaults:  { _controller: KGBeekeepingManagementBundle:RecolteRucher:add }
+    requirements:
+        ruche_id: \d+
+        
 kg_beekeeping_management_update_visite:
     path:      /exploitation/rucher/ruche/colonie/visite/{visite_id}/modifier-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:update }

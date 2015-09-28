@@ -44,6 +44,14 @@ class Hausse
     private $ruche;
     
     /**
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\TypeRuche")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
+     * @Assert\NotBlank(message="Veuillez sélectionner le type de la hausse")
+     */
+    private $type; 
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -62,7 +70,7 @@ class Hausse
     public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche = NULL)
     {
         $this->ruche = $ruche;
-
+        $this->type = $this->ruche->getCorps()->getType();
         return $this;
     }
 
@@ -133,5 +141,28 @@ class Hausse
     public function getNbcadres()
     {
         return $this->nbcadres;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\TypeRuche $type
+     * @return Hausse
+     */
+    public function setType(\KG\BeekeepingManagementBundle\Entity\TypeRuche $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\TypeRuche 
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

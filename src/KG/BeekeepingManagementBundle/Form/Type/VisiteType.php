@@ -14,8 +14,16 @@ class VisiteType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $visites = $builder->getData()->getColonie()->getVisites();
+    { 
+        $visite = $builder->getData();
+        $colonie = $visite->getColonie();
+        $visite->setNbcouvain($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbcouvain());
+        $visite->setNbnourriture($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbnourriture());
+        $visite->setEtat($colonie->getEtat());
+        $visite->setAgressivite($colonie->getAgressivite());
+        $visite->setDate(new \DateTime());
+        
+        $visites = $colonie->getVisites();
         
         $startDate = new \DateTime();
         $startDate->setDate('2000', '01', '01');

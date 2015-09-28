@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Ruche
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\RucheRepository")
  */
 class Ruche
 {
@@ -56,7 +56,7 @@ class Ruche
     private $corps;
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
     private $hausses; 

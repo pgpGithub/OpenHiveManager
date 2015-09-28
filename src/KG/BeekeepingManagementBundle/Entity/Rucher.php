@@ -68,6 +68,12 @@ class Rucher
      * @Assert\Valid()
      */
     private $colonies; 
+
+    /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\RecolteRucher", mappedBy="rucher", cascade={"remove"}, orphanRemoval=true)
+     * @Assert\Valid()
+     */
+    private $recoltesrucher;
     
     /**
      * Constructor
@@ -289,5 +295,38 @@ class Rucher
     public function getColonies()
     {
         return $this->colonies;
+    }
+
+    /**
+     * Add recoltesrucher
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\RecolteRucher $recoltesrucher
+     * @return Rucher
+     */
+    public function addRecoltesrucher(\KG\BeekeepingManagementBundle\Entity\RecolteRucher $recoltesrucher)
+    {
+        $this->recoltesrucher[] = $recoltesrucher;
+
+        return $this;
+    }
+
+    /**
+     * Remove recoltesrucher
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\RecolteRucher $recoltesrucher
+     */
+    public function removeRecoltesrucher(\KG\BeekeepingManagementBundle\Entity\RecolteRucher $recoltesrucher)
+    {
+        $this->recoltesrucher->removeElement($recoltesrucher);
+    }
+
+    /**
+     * Get recoltesrucher
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecoltesrucher()
+    {
+        return $this->recoltesrucher;
     }
 }
