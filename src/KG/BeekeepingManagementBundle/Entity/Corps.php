@@ -139,7 +139,7 @@ class Corps
      * @param integer $nbnourriture
      * @return Corps
      */
-    public function setNourriture($nbnourriture)
+    public function setNbnourriture($nbnourriture)
     {
         $this->nbnourriture = $nbnourriture;
 

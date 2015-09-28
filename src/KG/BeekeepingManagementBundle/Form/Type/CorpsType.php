@@ -23,7 +23,7 @@ class CorpsType extends AbstractType
                         'empty_data'  => null
                     ))                 
             ->addEventSubscriber(new NbCadresFieldSubscriber())
-            ->add('nbmiel')
+            ->add('nbnourriture')
             ->add('nbcouvain');
     }
     

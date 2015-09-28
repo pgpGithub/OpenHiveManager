@@ -47,7 +47,7 @@
     {{ form_errors(form.colonie.dateColonie) }}
     {{ form_errors(form.colonie.affectation) }}
     {{ form_errors(form.colonie.etat) }}
-    {{ form_errors(form.corps.nbmiel) }}
+    {{ form_errors(form.corps.nbnourriture) }}
     {{ form_errors(form.corps.nbcouvain) }}
     {{ form_errors(form.colonie.agressivite) }}
     {{ form_errors(form.colonie.reine.race) }}
@@ -141,9 +141,9 @@
         </div>                      
             
         <div class="form-group">
-            {{ form_label(form.corps.nbmiel, "Cadres de miel :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.corps.nbnourriture, "Cadres de nourriture :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.corps.nbmiel, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.corps.nbnourriture, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>  
 
