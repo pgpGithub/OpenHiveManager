@@ -65,7 +65,7 @@ class Corps
     private $nbmiel;      
     
     /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="corps")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="corps")
      */
     private $ruche;
     

@@ -39,6 +39,12 @@ class Colonie
     private $exploitation;   
     
      /**
+      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="colonies")
+      * @ORM\JoinColumn(nullable=false)
+      */
+    private $rucher;       
+    
+     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateColonie", type="datetime")
@@ -583,18 +589,18 @@ class Colonie
     /**
      * diviser
      *
-     * @param integer $nbmiel
+     * @param integer $nbnourriture
      * @param integer $nbcouvain
      * @return Colonie
      */
-    public function diviser($nbmiel, $nbcouvain)
+    public function diviser($nbnourriture, $nbcouvain)
     {
         $corps = $this->getRuche()->getCorps();
         
-        $nbmiel_div = $corps->getNbmiel() - $nbmiel; 
+        $nbnourriture_div = $corps->getNbnourriture() - $nbnourriture; 
         $nbcouvain_div = $corps->getNbcouvain() - $nbcouvain;
        
-        $corps->setNbmiel($nbmiel_div);
+        $corps->setNbmiel($nbnourriture_div);
         $corps->setNbcouvain($nbcouvain_div);
         
         return $this;

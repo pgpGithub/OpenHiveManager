@@ -49,7 +49,7 @@ class ColonieController extends Controller
     */    
     public function deleteAction(Colonie $colonie)
     {
-        $rucher = $colonie->getExploitation();
+        $exploitation = $colonie->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -203,7 +203,7 @@ class ColonieController extends Controller
         }
         
         return $this->render('KGBeekeepingManagementBundle:Colonie:tuer.html.twig', 
-                             array('form'     => $form->createView(),
+                             array('form'   => $form->createView(),
                                    'colonie' => $colonie, 
                             ));  
     }    

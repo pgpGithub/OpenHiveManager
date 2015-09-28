@@ -64,6 +64,12 @@ class Rucher
     private $localisation;
     
     /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="rucher")
+     * @Assert\Valid()
+     */
+    private $colonies; 
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -250,5 +256,38 @@ class Rucher
     public function getProprietaire()
     {
         return $this->proprietaire;
+    }
+
+    /**
+     * Add colonies
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonies
+     * @return Rucher
+     */
+    public function addColony(\KG\BeekeepingManagementBundle\Entity\Colonie $colonies)
+    {
+        $this->colonies[] = $colonies;
+
+        return $this;
+    }
+
+    /**
+     * Remove colonies
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonies
+     */
+    public function removeColony(\KG\BeekeepingManagementBundle\Entity\Colonie $colonies)
+    {
+        $this->colonies->removeElement($colonies);
+    }
+
+    /**
+     * Get colonies
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getColonies()
+    {
+        return $this->colonies;
     }
 }

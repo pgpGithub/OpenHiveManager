@@ -49,7 +49,7 @@ class Ruche
     private $emplacement;
     
     /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Corps", mappedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Corps", inversedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */

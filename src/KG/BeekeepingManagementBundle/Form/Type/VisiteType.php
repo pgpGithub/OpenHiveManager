@@ -48,7 +48,7 @@ class VisiteType extends AbstractType
                             'required'  => false,
                         ))
                 ->add('nbcouvain')
-                ->add('nbmiel')
+                ->add('nbnourriture')
                 ->add('celroyales', 'checkbox', array(
                             'required'  => false,
                         ))

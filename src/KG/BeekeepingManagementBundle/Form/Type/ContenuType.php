@@ -17,7 +17,9 @@ class ContenuType extends AbstractType
         $builder
                 ->add('hausses', 'collection', array(
                             'type'  => new HausseType(),
-                            'label' => false
+                            'label' => false,
+                            'allow_add'    => true,
+                            'allow_delete' => true
                         )); 
     }
     

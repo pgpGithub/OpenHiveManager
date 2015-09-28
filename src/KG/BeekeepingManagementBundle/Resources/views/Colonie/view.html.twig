@@ -12,7 +12,7 @@
 
 {% block title %}{{ parent() }} - Colonie{% endblock %}
 
-{% block ruchers %}{{ colonie.ruche.emplacement.rucher.nom }}{% endblock %}
+{% block ruchers %}{{ colonie.rucher.nom }}{% endblock %}
 
 {% block panel_title %}
     <div class="row">
@@ -117,14 +117,16 @@
                         <td><strong>Etat</strong></td>
                         <td>{{ colonie.etat.libelle }}</td>
                     </tr>
+                    {% if colonie.ruche %}
                     <tr>
                         <td><strong>Cadres miel</strong></td>
-                        <td>{{ colonie.ruche.corps.nbmiel }}</td>
+                        <td>{{ colonie.ruche.corps.nbnourriture }}</td>
                     </tr>                    
                     <tr>
                         <td><strong>Cadres couvain</strong></td>
                         <td>{{ colonie.ruche.corps.nbcouvain }}</td>
                     </tr>                
+                    {% endif %}
                     <tr>
                         <td><strong>Agressivité</strong></td>
                         <td>{{ colonie.agressivite.libelle }}</td>

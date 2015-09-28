@@ -31,7 +31,7 @@
                     <a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i><strong> Créer une visite</strong></a>
                     {% endif %}
                 {% endif %}
-                <a title="Modifier" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i><strong> Modifier</strong></a>
+                <a title="Modifier la ruche" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i><strong> Modifier la ruche</strong></a>
             </span>
         </div>
     </div>    
@@ -93,8 +93,8 @@
                         <td>{{ ruche.colonie.etat.libelle }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Cadres de miel</strong></td>
-                        <td>{{ ruche.corps.nbmiel }}</td>
+                        <td><strong>Cadres de nourriture</strong></td>
+                        <td>{{ ruche.corps.nbnourriture }}</td>
                     </tr>   
                     <tr>
                         <td><strong>Cadres de couvain</strong></td>
@@ -163,7 +163,7 @@
                                 <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
                                 <td>{{ visite.activite.libelle }}</td>
                                 <td>{{ visite.etat.libelle }}</td>
-                                <td>{{ visite.nbmiel }}</td>
+                                <td>{{ visite.nbnourriture }}</td>
                                 <td>{{ visite.nbcouvain }}</td>
                                 <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
