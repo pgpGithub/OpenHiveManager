@@ -17,6 +17,31 @@ class RecolteRucherController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
+    public function viewAllAction(Rucher $rucher)
+    {
+        $exploitation = $rucher->getExploitation();
+        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
+        $not_permitted = true;
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+       
+        return $this->render('KGBeekeepingManagementBundle:RecolteRucher:view.html.twig', 
+                array(  'rucher' => $rucher ));
+    }
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
+    */    
     public function addAction(Rucher $rucher, Request $request)
     {
         $exploitation = $rucher->getExploitation();
@@ -55,7 +80,16 @@ class RecolteRucherController extends Controller
             
             foreach( $form->get('ruches')->getData() as $ruche){
                 $recolteruche = new RecolteRuche( $ruche, $recolterucher);
-                $recolterucher->addRecoltesruche($recolteruche);
+                
+                if( !$recolteruche->getHausses()->isEmpty() ){
+                    $recolterucher->addRecoltesruche($recolteruche);
+                }
+                
+                foreach ( $ruche->getHausses() as $hausse ){
+                    if( $hausse->getNbPlein() <= 0 ){
+                        $em->remove($hausse);
+                    }
+                }
             }
 
             $em->persist($recolterucher);
@@ -65,7 +99,7 @@ class RecolteRucherController extends Controller
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $rucher->getId())));
         }
-        return $this->render('KGBeekeepingManagementBundle:Recolte:add.html.twig', 
+        return $this->render('KGBeekeepingManagementBundle:RecolteRucher:add.html.twig', 
                              array(
                                     'form'    => $form->createView(),
                                     'rucher' => $rucher

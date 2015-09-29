@@ -55,7 +55,9 @@ class RecolteRuche
         $this->recolterucher = $recolterucher;
         
         foreach( $ruche->getHausses() as $hausse ){
-            $this->addHauss($hausse);
+            if( $hausse->getNbplein() > 0 ){
+                $this->addHauss($hausse);
+            }
         }
     }
 
