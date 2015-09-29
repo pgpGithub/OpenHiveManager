@@ -104,10 +104,12 @@
                         <th>Transhumer</th>
                     </thead>
                     <tbody>
+                        {% set rucheExist = false %}
                         {% for emplacement in emplacements %}
                             <tr>
                                 <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
                                 {% if emplacement.ruche %}
+                                    {% set rucheExist = true %}
                                     <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>
                                     {% if emplacement.ruche.colonie %}
                                         <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': emplacement.ruche.colonie.id }) }}">{{ emplacement.ruche.colonie.appellation }}</a></td>
@@ -132,6 +134,7 @@
         </div>
     </div>             
 
-    <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>                            
-                            
+    {% if rucher.recoltesrucher is empty and not rucheExist %}            
+        <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>                            
+    {% endif %}                        
 {% endblock %}

@@ -64,25 +64,25 @@ class RucherController extends Controller
             }
         }
         
-        if( $not_permitted ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-        
-        $em = $this->getDoctrine()->getManager();
-        
-        foreach ( $rucher->getEmplacements() as $emplacement){
-            $ruche = $emplacement->getRuche();
-            if ( $ruche ){
-                $colonie = $ruche->getColonie();
-                if( $colonie->getColoniesFilles()->isEmpty() ){
-                    $em->remove($colonie);
+        if( !$not_permitted ){
+            foreach ( $rucher->getEmplacements() as $emplacement){
+                if( $emplacement->getRuche() ){
+                    $not_permitted = true;
+                    break;                
                 }
             }
         }
         
+        if( $not_permitted || !$rucher->getRecoltesrucher()->isEmpty() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+        
+        $em = $this->getDoctrine()->getManager();
         $em->remove($rucher);
         $em->flush();
-        //$this->getSession()->getFlashBag()->add('success','Rucher supprimé avec succès');
+        
+        $this->getSession()->getFlashBag()->add('success','Rucher supprimé avec succès');
+        
         return $this->redirect($this->generateUrl('kg_beekeeping_management_home'));
     }
     
