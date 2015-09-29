@@ -226,13 +226,13 @@ class Ruche
     }
 
     /**
-     * Remove hausses
+     * Remove hausse
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausses
+     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausse
      */
-    public function removeHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausses)
+    public function removeHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausse)
     {
-        $this->hausses->removeElement($hausses);
+        $this->hausses->removeElement($hausse);
     }
 
     /**

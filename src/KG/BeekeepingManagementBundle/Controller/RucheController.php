@@ -234,6 +234,7 @@ class RucheController extends Controller
         $hausse = new Hausse();
         $ruche->addHauss($hausse);
         $hausse->setRuche($ruche);
+        $hausse->setType($ruche->getCorps()->getType());
         $em = $this->getDoctrine()->getManager();
         $em->persist($ruche);
         $em->flush();

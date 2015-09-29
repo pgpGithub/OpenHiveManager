@@ -39,9 +39,13 @@ class Hausse
 
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="hausses", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $ruche;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\RecolteRuche", inversedBy="hausses")
+     */
+    private $recolteruche;
     
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\TypeRuche")
@@ -70,7 +74,6 @@ class Hausse
     public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche = NULL)
     {
         $this->ruche = $ruche;
-        $this->type = $this->ruche->getCorps()->getType();
         return $this;
     }
 
@@ -164,5 +167,28 @@ class Hausse
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set recolteruche
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\RecolteRuche $recolteruche
+     * @return Hausse
+     */
+    public function setRecolteruche(\KG\BeekeepingManagementBundle\Entity\RecolteRuche $recolteruche = null)
+    {
+        $this->recolteruche = $recolteruche;
+
+        return $this;
+    }
+
+    /**
+     * Get recolteruche
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\RecolteRuche 
+     */
+    public function getRecolteruche()
+    {
+        return $this->recolteruche;
     }
 }

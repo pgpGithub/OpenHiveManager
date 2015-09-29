@@ -40,7 +40,7 @@ class RecolteRucher
     private $date;   
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\RecolteRuche", mappedBy="ruche")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\RecolteRuche", mappedBy="ruche", cascade="persist")
      * @Assert\Valid()
      */
     private $recoltesruche;
@@ -50,7 +50,7 @@ class RecolteRucher
    */
     public function isContentValid(ExecutionContextInterface $context)
     {       
-        foreach( $this->getColonie()->getRecoltes() as $lastRecolte ){
+        foreach( $this->getRucher()->getRecoltesrucher() as $lastRecolte ){
             if ( $this->date < $lastRecolte->getDate()  && $lastRecolte->getId() != $this->getId() ){                
                 $context
                        ->buildViolation('La date ne peut pas être antérieur ou égale à celle d\'une ancienne récolte') 
@@ -107,62 +107,6 @@ class RecolteRucher
     public function getDate()
     {
         return $this->date;
-    }
-
-    /**
-     * Set colonie
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonie
-     * @return Recolte
-     */
-    public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie)
-    {
-        $this->colonie = $colonie;
-
-        return $this;
-    }
-
-    /**
-     * Get colonie
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Colonie 
-     */
-    public function getColonie()
-    {
-        return $this->colonie;
-    }
-
-    /**
-     * Add hausses
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausses
-     * @return Recolte
-     */
-    public function addHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausses)
-    {
-        $this->hausses[] = $hausses;
-
-        return $this;
-    }
-
-    /**
-     * Remove hausses
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausses
-     */
-    public function removeHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausses)
-    {
-        $this->hausses->removeElement($hausses);
-    }
-
-    /**
-     * Get hausses
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getHausses()
-    {
-        return $this->hausses;
     }
 
     /**

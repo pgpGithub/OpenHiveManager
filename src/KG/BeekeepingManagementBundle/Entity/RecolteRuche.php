@@ -40,7 +40,7 @@ class RecolteRuche
     private $recolterucher;  
     
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="recolteruche", cascade="persist")
      * @Assert\Valid()
      */
     private $hausses; 
@@ -48,9 +48,15 @@ class RecolteRuche
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Ruche $ruche, \KG\BeekeepingManagementBundle\Entity\RecolteRucher $recolterucher)
     {
         $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->colonie = $ruche->getColonie();
+        $this->recolterucher = $recolterucher;
+        
+        foreach( $ruche->getHausses() as $hausse ){
+            $this->addHauss($hausse);
+        }
     }
 
     /**
@@ -92,10 +98,11 @@ class RecolteRuche
      * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausses
      * @return RecolteRuche
      */
-    public function addHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausses)
+    public function addHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausse)
     {
-        $this->hausses[] = $hausses;
-
+        $this->hausses[] = $hausse;
+        $hausse->setRuche();
+        $hausse->setRecolteruche($this);
         return $this;
     }
 

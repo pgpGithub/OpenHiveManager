@@ -1,6 +1,7 @@
 <?php
 namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\RecolteRucher;
+use KG\BeekeepingManagementBundle\Entity\RecolteRuche;
 use KG\BeekeepingManagementBundle\Entity\Rucher;
 use KG\BeekeepingManagementBundle\Form\Type\RecolteRucherType;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,25 +39,27 @@ class RecolteRucherController extends Controller
         
         $lastRecolte = $rucher->getRecoltesrucher()->last();
         if ( $lastRecolte ){
-            if ( $lastRecolte->getDate() >= $today ){
+            if ( $lastRecolte->getDate() > $today ){
                 throw new NotFoundHttpException('Page inexistante.');
             }
         }
  
-        $recolte = new RecolteRucher();
-        $recolte->setRucher($rucher);
+        $recolterucher = new RecolteRucher();
+        $recolterucher->setRucher($rucher);
         
-        $form = $this->createForm(new RecolteRucherType( $this->getDoctrine()->getManager() ), $recolte);
+        $form = $this->createForm(new RecolteRucherType( $this->getDoctrine()->getManager() ), $recolterucher);
         
         if ($form->handleRequest($request)->isValid()){
-                   
-            /*$visite->getColonie()->setEtat($visite->getEtat());
-            $visite->getColonie()->setAgressivite($visite->getAgressivite());
-            $visite->getColonie()->getRuche()->getCorps()->setNbnourriture($visite->getNbnourriture());
-            $visite->getColonie()->getRuche()->getCorps()->setNbcouvain($visite->getNbcouvain());*/
-            /*$em = $this->getDoctrine()->getManager();
-            $em->persist($recolte);
-            $em->flush();*/
+                
+            $em = $this->getDoctrine()->getManager();
+            
+            foreach( $form->get('ruches')->getData() as $ruche){
+                $recolteruche = new RecolteRuche( $ruche, $recolterucher);
+                $recolterucher->addRecoltesruche($recolteruche);
+            }
+
+            $em->persist($recolterucher);
+            $em->flush();
         
             $request->getSession()->getFlashBag()->add('success','Récolte créée avec succès');
         
