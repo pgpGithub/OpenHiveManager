@@ -98,7 +98,7 @@ class VisiteController extends Controller
     */    
     public function updateAction(Visite $visite, Request $request)
     {
-        $apiculteurExploitations = $visite->getColonie()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $visite->getColonie()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -118,7 +118,7 @@ class VisiteController extends Controller
              
             $visite->getColonie()->setEtat($visite->getEtat());
             $visite->getColonie()->setAgressivite($visite->getAgressivite());
-            $visite->getColonie()->getRuche()->getCorps()->setNbmiel($visite->getNbmiel());
+            $visite->getColonie()->getRuche()->getCorps()->setNbnourriture($visite->getNbnourriture());
             $visite->getColonie()->getRuche()->getCorps()->setNbcouvain($visite->getNbcouvain());
             $em = $this->getDoctrine()->getManager();
             $em->persist($visite);

@@ -44,7 +44,7 @@
     {{ form_errors(form.nourrissement) }}
     {{ form_errors(form.traitement) }}
     {{ form_errors(form.observations) }}
-    {{ form_errors(form.nbmiel) }}
+    {{ form_errors(form.nbnourriture) }}
     {{ form_errors(form.nbcouvain) }}  
     {{ form_errors(form) }}    
 {% endblock %}
@@ -129,9 +129,9 @@
 
             <legend>Corps :</legend>
                 <div class="form-group">
-                    {{ form_label(form.nbmiel, "Cadres de miel :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+                    {{ form_label(form.nbnourriture, "Cadres de nourriture :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
                     <div class="col-sm-5 col-md-5">
-                        {{ form_widget(form.nbmiel, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(form.nbnourriture, {'attr': {'class': 'form-control'}}) }}
                     </div>
                 </div>
  
