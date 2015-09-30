@@ -28,71 +28,89 @@
         <div class="col-xs-6">
             <h4>Rucher {{ rucher.nom }}</h4>
         </div>
+        
+        {% set break = false %}
+        {% set rucheExist = false %}
+        {% for emplacement in rucher.emplacements if not break and emplacement.ruche is not null %}
+            {% set rucheExist = true %}
+            {% for hausse in emplacement.ruche.hausses if not break %}
+                {% set break = true %}
+            {% endfor %}
+        {% endfor %}
+                    
         <div class="col-xs-6">
             <span class="pull-right">
-                {% if rucher.recoltesrucher is not empty %}
-                    <a title="Historique des récoltes" href="{{ path('kg_beekeeping_management_view_recoltes', { 'rucher_id' : rucher.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i><strong> Historique des récoltes</strong></a>
-                {% endif %}
-                <a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id' : rucher.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i><strong> Créer un emplacement</strong></a>
-                {% set break = false %}
-                {% for emplacement in rucher.emplacements if not break and emplacement.ruche is not null %}
-                    {% for hausse in emplacement.ruche.hausses if not break %}
-                        {% set break = true %}
-                    {% endfor %}
-                {% endfor %}
-                {% if break %}
-                    <a title="Récolter" href="{{ path('kg_beekeeping_management_add_recolte', { 'rucher_id' : rucher.id }) }}" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-export"></i><strong> Récolter</strong></a>
-                {% endif %}
-                <a title="Modifier le rucher" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id' : rucher.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i><strong> Modifier le rucher</strong></a>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  Menu
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
+                    <li><a title="Modifier le rucher" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-pencil"></i> Modifier le rucher</a></li>
+                    <li><a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-plus"></i> Créer un emplacement</a></li>                    
+                    {% if rucher.recoltesrucher is not empty %}
+                        <li><a title="Historique des récoltes" href="{{ path('kg_beekeeping_management_view_recoltes', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-list"></i> Historique des récoltes</a></li>
+                    {% endif %}
+                    {% if break %}
+                        <li><a title="Récolter" href="{{ path('kg_beekeeping_management_add_recolte', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-export"></i> Récolter</a></li>
+                    {% endif %}        
+                    {% if rucher.recoltesrucher is empty and not rucheExist %}
+                        <li role="separator" class="divider"></li>                
+                        <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-trash"></i> Supprimer</a></li>                                   
+                    {% endif %}
+                </ul>
+            </div>
             </span>
         </div>
     </div>    
 {% endblock %}
 
 
-{% block panel_body %}                                  
+{% block panel_body %}     
     <div class="row">
-        <div class="col-sm-3" align="center"> 
-            {% if rucher.image is not null %}
-                <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}" class="img-thumbnail img-responsive">
-            {% else %}
-                <img src="../../../../no_picture.png" alt="logo" class="img-thumbnail img-responsive">
-            {% endif %}           
+        <div class=" col-md-12">
+            <div class="row">
+                <div class="col-sm-3" align="center"> 
+                    {% if rucher.image is not null %}
+                        <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}" class="img-thumbnail img-responsive">
+                    {% else %}
+                        <img src="../../../../no_picture.png" alt="logo" class="img-thumbnail img-responsive">
+                    {% endif %}           
+                </div>
+                <div class="col-sm-4">
+                    <h4>Propriétaire du terrain</h4>
+                    <table class="table">  
+                        <tbody>                                 
+                            <tr>
+                                <td><strong>Nom</strong></td>
+                                <td>{{ rucher.proprietaire.nom|capitalize }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prénom</strong></td>
+                                <td>{{ rucher.proprietaire.prenom|capitalize }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Adresse</strong></td>
+                                <td>{{ rucher.proprietaire.adresse }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Téléphone</strong></td>
+                                <td>{{ rucher.proprietaire.telephone }}</td>
+                            </tr>                              
+                        </tbody>
+                    </table>            
+                </div>  
+                <div class="col-sm-5">
+                    <h4>Prévisions météo</h4>
+                    <div id="weather"
+                         data-latitude="{{ rucher.localisation.latitude }}"
+                         data-longitude="{{ rucher.localisation.longitude }}">                   
+                    </div>
+                </div> 
+            </div>     
         </div>
-        <div class="col-sm-4">
-            <h4>Propriétaire du terrain</h4>
-            <table class="table">  
-                <tbody>                                 
-                    <tr>
-                        <td><strong>Nom</strong></td>
-                        <td>{{ rucher.proprietaire.nom|capitalize }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Prénom</strong></td>
-                        <td>{{ rucher.proprietaire.prenom|capitalize }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Adresse</strong></td>
-                        <td>{{ rucher.proprietaire.adresse }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Téléphone</strong></td>
-                        <td>{{ rucher.proprietaire.telephone }}</td>
-                    </tr>                              
-                </tbody>
-            </table>            
-        </div>  
-        <div class="col-sm-5">
-            <h4>Prévisions météo</h4>
-            <div id="weather"
-                 data-latitude="{{ rucher.localisation.latitude }}"
-                 data-longitude="{{ rucher.localisation.longitude }}">                   
-            </div>
-        </div> 
-    </div>
-
-    <hr>
-
+    </div> 
+    
     <div class="row">
         <div class=" col-md-12"> 
             <div class="table-responsive">
@@ -100,22 +118,16 @@
                     <thead>
                         <th>Emplacement</th>
                         <th>Ruche</th>
-                        <th>Colonie</th>
                         <th>Race</th>
-                        <th>Transhumer</th>
                     </thead>
                     <tbody>
-                        {% set rucheExist = false %}
                         {% for emplacement in emplacements %}
                             <tr>
                                 <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
                                 {% if emplacement.ruche %}
-                                    {% set rucheExist = true %}
                                     <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>
                                     {% if emplacement.ruche.colonie %}
-                                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': emplacement.ruche.colonie.id }) }}">{{ emplacement.ruche.colonie.appellation }}</a></td>
                                         <td>{{ emplacement.ruche.colonie.reine.race.libelle }}</td>
-                                        <td><a title="Transhumer la ruche" href="{{ path('kg_beekeeping_management_transhumer_ruche', { 'ruche_id': emplacement.ruche.id }) }}" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-transfer"></span></a></td>
                                     {% endif %}
                                 {% else %}
                                     <td colspan="4">
@@ -133,9 +145,5 @@
                 </div>
             </div>                            
         </div>
-    </div>             
-
-    {% if rucher.recoltesrucher is empty and not rucheExist %}            
-        <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>                            
-    {% endif %}                        
+    </div>                                    
 {% endblock %}
