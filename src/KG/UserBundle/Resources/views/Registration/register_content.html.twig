@@ -1,0 +1,77 @@
+{% extends 'KGUserBundle::layout.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite' 
+        '@KGUserBundle/Resources/public/css/register/register_panel.css'%}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@KGUserBundle/Resources/public/js/register/register_panel.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>  
+    {% endjavascripts %}
+{% endblock %}
+
+{% block fos_user_content %}
+
+    <div class="row" style="margin-top:80px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+                
+                <h2>Enregistrez vous</h2>
+                
+                <hr class="colorgraph">
+                
+                <div class="form-group">
+                    <input type="text" name="username" id="display_name" class="form-control input-lg" placeholder="{{ 'form.username'|trans }}" tabindex="3">
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control input-lg" placeholder="{{ 'form.email'|trans }}" tabindex="4">
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-control input-lg" placeholder="{{ 'form.password'|trans }}" tabindex="5">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="{{ 'form.password_confirmation'|trans }}" tabindex="6">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3">
+                        <span class="button-checkbox">
+                            <button type="button" class="btn" data-color="info" tabindex="7">Je suis d'accord</button>
+                            <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
+                        </span>
+                    </div>
+                    <div class="col-xs-8 col-sm-9 col-md-9">
+                        En cliquant sur <strong class="label label-primary">{{ 'registration.submit'|trans }}</strong>, vous acceptez <a href="#" data-toggle="modal" data-target="#t_and_c_m">les conditions générales d'utilisation</a>.
+                    </div>
+                </div>
+
+                <hr class="colorgraph">
+                
+                <div class="row">
+                    <div class="col-xs-12 col-md-6"><input type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+                    <div class="col-xs-12 col-md-6"><a href="{{ path('fos_user_security_login') }}" class="btn btn-success btn-block btn-lg">{{ 'security.login.submit'|trans }}</a></div>
+                </div>
+            </form>
+        </div>
+    </div>            
+{% endblock fos_user_content %}
+                                                    
+
+                                                        
+
+
+  
