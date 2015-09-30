@@ -28,24 +28,23 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-                <li><a href="{{ path('kg_site_home') }}">Accueil</a></li>
-                <li><a href="#">CGU</a></li>
-                <li><a href="#">Contact</a></li>  
-                <li><a href="#">Faire un don</a></li>  
+                <li><a href="#"><strong><i class="glyphicon glyphicon-piggy-bank"></i> Faire un don</strong></a></li>      
+                <li><a href="{{ path('kg_beekeeping_management_home') }}"><i class="glyphicon glyphicon-home"></i> Manager</a></li>                            
+                <li><a href="#"><i class="glyphicon glyphicon-book"></i> CGU</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Contact</a></li>  
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <li><a href="{{ path('kg_beekeeping_management_home') }}">Manager</a></li>
                 <li class="dropdown">
                   <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
-                    <strong>{{ app.user.username }}</strong> <span class="caret"></span></a>
+                    <strong><i class="glyphicon glyphicon-user"></i> {{ app.user.username }}</strong> <span class="caret"></span></a>
                   <ul id="g-account-menu" class="dropdown-menu" role="menu">
                     <li><a href="{{ path('fos_user_profile_show') }}">Mon Profil</a></li> 
                     {% block menu_user %}
                     {% endblock %}
                   </ul>
                 </li>
-                <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                <li><a href="{{ path('fos_user_security_logout') }}"><i class="glyphicon glyphicon-log-out"></i> Déconnexion</a></li>
                 {% else %}
-                <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+                <li><a href="{{ path('fos_user_security_login') }}"><i class="glyphicon glyphicon-log-in"></i> Connexion</a></li>
                 {% endif %}    
             </ul>
           </div>
