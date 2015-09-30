@@ -21,17 +21,25 @@
         </div>
         <div class="col-xs-6">
             <span class="pull-right">
-                {%if ruche.colonie and ruche.emplacement %}
-                    {% if visites is not empty %}
-                        {% set lastVisite = visites|last %}
-                        {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
-                            <a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i><strong> Créer une visite</strong></a>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      Menu
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
+                        <li><a title="Modifier la ruche" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}"><i class="glyphicon glyphicon-pencil"></i> Modifier la ruche</a></li>
+                        {%if ruche.colonie and ruche.emplacement %}
+                            {% if visites is not empty %}
+                                {% set lastVisite = visites|last %}
+                                {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
+                                    <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}"><i class="glyphicon glyphicon-plus"></i> Créer une visite</a></li>
+                                {% endif %}
+                            {% else %}
+                            <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}"><i class="glyphicon glyphicon-plus"></i> Créer une visite</a></li>
+                            {% endif %}
                         {% endif %}
-                    {% else %}
-                    <a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i><strong> Créer une visite</strong></a>
-                    {% endif %}
-                {% endif %}
-                <a title="Modifier la ruche" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i><strong> Modifier la ruche</strong></a>
+                    </ul>
+                </div> 
             </span>
         </div>
     </div>    
