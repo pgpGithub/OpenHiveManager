@@ -71,25 +71,22 @@ class RecolteRucherController extends Controller
         if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }       
-        
-        $today = new \DateTime();
-        $today->setTime('00', '00', '00');
-        
-        $lastRecolte = $rucher->getRecoltesrucher()->last();
-        if ( $lastRecolte ){
-            if ( $lastRecolte->getDate() > $today ){
-                throw new NotFoundHttpException('Page inexistante.');
-            }
-        }
- 
+               
         $recolterucher = new RecolteRucher();
         $recolterucher->setRucher($rucher);
-        
+
         $form = $this->createForm(new RecolteRucherType( $this->getDoctrine()->getManager() ), $recolterucher);
         
         if ($form->handleRequest($request)->isValid()){
                 
             $em = $this->getDoctrine()->getManager();
+            
+            $lastRecolte   = $rucher->getRecoltesrucher()->last();      
+            if ( $lastRecolte ){
+                if ( $lastRecolte->getDate() == $recolterucher->getDate() ){
+                    $recolterucher = $lastRecolte;
+                }
+            } 
             
             foreach( $form->get('ruches')->getData() as $ruche){
                 $recolteruche = new RecolteRuche( $ruche, $recolterucher);

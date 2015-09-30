@@ -34,7 +34,8 @@
 {% endblock %}
 
 {% block form_error %}
-    {{ form_errors(form) }}    
+    {{ form_errors(form.date) }}
+    {{ form_errors(form) }}
 {% endblock %}
     
 {% block panel_body %}            

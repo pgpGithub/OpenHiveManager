@@ -38,15 +38,7 @@ class RecolteRucherType extends AbstractType
         $startDate->setDate('2000', '01', '01');
         
         if($recoltes->last()){
-            if($recoltes->last()->getId() == $builder->getData()->getId()){
-                $len = count($recoltes) - 2;
-                if($recoltes{$len}){
-                    $startDate = date_add($recoltes{$len}->getDate(),date_interval_create_from_date_string("1 days"));
-                }
-            }
-            else{
-                $startDate = date_add($recoltes->last()->getDate(),date_interval_create_from_date_string("1 days"));
-            }
+            $startDate = $recoltes->last()->getDate();
         }
         
         $startDateFormat = date_format($startDate,"Y-m-d"); 
