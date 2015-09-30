@@ -25,7 +25,7 @@ class ColonieController extends Controller
     */    
     public function viewAction(Colonie $colonie)
     {
-        $apiculteurExploitations = $colonie->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $colonie->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){

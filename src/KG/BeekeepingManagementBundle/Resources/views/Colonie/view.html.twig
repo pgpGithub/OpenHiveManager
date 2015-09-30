@@ -16,16 +16,28 @@
 
 {% block panel_title %}
     <div class="row">
-        <div class="col-xs-5">
+        <div class="col-xs-6">
             <h4>Colonie {{ colonie.appellation }}</h4>
         </div>
-        <div class="col-xs-7">
+        <div class="col-xs-6">
         {% if not colonie.morte %}
             <span class="pull-right">
-                <a title="Renouveler la reine" href="{{ path('kg_beekeeping_management_renouveler_reine', { 'reine_id': colonie.reine.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-refresh"></i> <strong>Remérage</strong></a>
-                {% if colonie.ruche.corps.nbcouvain > 1 %}<a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-scissors"></i> <strong>Dvisier</strong></a>{% endif %}
-                <a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i> <strong>Modifier la colonie</strong></a>
-                <a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-minus-sign"></i> <strong>Déclarer morte</strong></a>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      Menu
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
+                        <li><a title="Renouveler la reine" href="{{ path('kg_beekeeping_management_renouveler_reine', { 'reine_id': colonie.reine.id }) }}"><i class="glyphicon glyphicon-refresh"></i> Remérage</a></li>
+                        {% if colonie.ruche.corps.nbcouvain > 1 %}<li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}"><i class="glyphicon glyphicon-scissors"></i> Dvisier</a></li>{% endif %}
+                        <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}"><i class="glyphicon glyphicon-pencil"></i> Modifier la colonie</a></li>
+                        <li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}"><i class="glyphicon glyphicon-minus-sign"></i> Déclarer morte</a></li>
+                        {% if colonie.visites is empty and colonie.recoltesruche is empty and colonie.coloniesFilles is empty %}
+                            <li role="separator" class="divider"></li>
+                            <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}"><i class="glyphicon glyphicon-trash"></i> Supprimer</a></li>                     
+                        {% endif %}
+                    </ul>
+                </div>                 
             </span>
         {% endif %}
         </div>
@@ -163,8 +175,4 @@
           </table>
     </div>
   </div>
-
-  {% if colonie.visites is empty and colonie.recoltes is empty and colonie.coloniesFilles is empty %}
-    <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>                     
-  {% endif %}
 {% endblock %}
