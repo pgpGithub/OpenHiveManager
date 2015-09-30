@@ -25,8 +25,7 @@ class VisiteType extends AbstractType
         
         $visites = $colonie->getVisites();
         
-        $startDate = new \DateTime();
-        $startDate->setDate('2000', '01', '01');
+        $startDate = $colonie->getDateColonie();
         
         if($visites->last()){
             if($visites->last()->getId() == $builder->getData()->getId()){

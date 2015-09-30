@@ -485,6 +485,13 @@ class Visite
             }            
         }
         
+        if( $this->date < $this->getColonie()->getDateColonie() ){
+            $context
+                   ->buildViolation('La date ne peut pas être antérieur à celle de la naissance de la colonie') 
+                   ->atPath('date')
+                   ->addViolation();            
+        }
+        
         $today = new \DateTime();
         
         if( $this->date > $today ){
