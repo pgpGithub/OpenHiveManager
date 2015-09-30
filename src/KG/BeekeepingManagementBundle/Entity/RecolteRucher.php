@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * RecolteRucher
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\RecolteRucherRepository")
  */
 class RecolteRucher
 {
@@ -40,7 +40,7 @@ class RecolteRucher
     private $date;   
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\RecolteRuche", mappedBy="ruche", cascade="persist")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\RecolteRuche", mappedBy="recolterucher", cascade="persist")
      * @Assert\Valid()
      */
     private $recoltesruche;
@@ -68,13 +68,6 @@ class RecolteRucher
                    ->addViolation();            
         }
     }     
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
