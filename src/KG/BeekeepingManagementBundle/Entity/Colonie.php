@@ -22,16 +22,7 @@ class Colonie
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="appellation", type="string", length=25)
-     * @Assert\NotBlank(message="Veuillez remplir l'appellation de la colonie")
-     * @Assert\Length(max=25, maxMessage="L'appellation de la colonnie ne peut dépasser {{ limit }} caractères") 
-     */
-    private $appellation;
-   
+      
      /**
       * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="colonies")
       * @ORM\JoinColumn(nullable=false)
@@ -510,30 +501,6 @@ class Colonie
         return $this->origineColonie;
     }
 
-
-    /**
-     * Set appellation
-     *
-     * @param string $appellation
-     * @return Colonie
-     */
-    public function setAppellation($appellation)
-    {
-        $this->appellation = $appellation;
-
-        return $this;
-    }
-
-    /**
-     * Get appellation
-     *
-     * @return string 
-     */
-    public function getAppellation()
-    {
-        return $this->appellation;
-    }
-
     /**
      * Add coloniesFilles
      *
@@ -571,7 +538,7 @@ class Colonie
         $nbnourriture_div = $corps->getNbnourriture() - $nbnourriture; 
         $nbcouvain_div = $corps->getNbcouvain() - $nbcouvain;
        
-        $corps->setNbmiel($nbnourriture_div);
+        $corps->setNbnourriture($nbnourriture_div);
         $corps->setNbcouvain($nbcouvain_div);
         
         return $this;

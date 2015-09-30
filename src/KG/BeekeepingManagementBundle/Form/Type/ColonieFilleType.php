@@ -25,7 +25,6 @@ class ColonieFilleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('appellation')
             ->add('dateColonie', 'collot_datetime', 
                 array( 
                         'pickerOptions' =>

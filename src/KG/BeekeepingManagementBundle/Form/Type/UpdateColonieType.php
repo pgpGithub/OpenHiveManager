@@ -14,9 +14,7 @@ class UpdateColonieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('nom')
-                                               
+        $builder                                               
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
                         'choice_label' => 'libelle',

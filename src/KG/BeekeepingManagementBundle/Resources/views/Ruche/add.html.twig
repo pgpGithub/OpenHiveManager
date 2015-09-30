@@ -43,7 +43,6 @@
     {{ form_errors(form.corps.soustype) }}
     {{ form_errors(form.image.file) }}
     {{ form_errors(form.colonie.origineColonie) }}
-    {{ form_errors(form.colonie.appellation) }}
     {{ form_errors(form.colonie.dateColonie) }}
     {{ form_errors(form.colonie.affectation) }}
     {{ form_errors(form.colonie.etat) }}
@@ -110,14 +109,7 @@
             <div class="col-sm-5 col-md-5">
                 {{ form_widget(form.colonie.origineColonie, {'attr': {'class': 'form-control'}}) }}
             </div>
-        </div>   
-            
-        <div class="form-group">
-            {{ form_label(form.colonie.appellation, "Appellation :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonie.appellation, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>     
+        </div>      
 
         <div class="form-group">
             {{ form_label(form.colonie.dateColonie, "Date de naissance :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}

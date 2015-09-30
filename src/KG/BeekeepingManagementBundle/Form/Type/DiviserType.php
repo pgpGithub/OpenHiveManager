@@ -30,7 +30,7 @@ class DiviserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $propertyPathToEmplacement = 'emplacement';
-        $exploitation = $this->colonieMere->getExploitation()->getId();
+        $exploitation = $this->colonieMere->getRucher()->getExploitation()->getId();
         
         $colonieFille = new \KG\BeekeepingManagementBundle\Entity\Colonie();
         $colonieFille->setOrigineColonie($this->origine);
@@ -39,7 +39,6 @@ class DiviserType extends AbstractType
         $colonieFille->setReine(new Reine());
         $colonieFille->getReine()->setRace($this->colonieMere->getReine()->getRace());
         $colonieFille->setColonieMere($this->colonieMere);
-        $colonieFille->setExploitation($this->colonieMere->getExploitation());
         
         $builder
             ->add('rucher', 'entity', array(

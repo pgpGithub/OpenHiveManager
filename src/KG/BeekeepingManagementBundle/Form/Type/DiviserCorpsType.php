@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use KG\BeekeepingManagementBundle\Form\EventListener\NbCadresFieldSubscriber;
-use KG\BeekeepingManagementBundle\Form\EventListener\DiviserMielFieldSubscriber;
+use KG\BeekeepingManagementBundle\Form\EventListener\DiviserNourritureFieldSubscriber;
 use KG\BeekeepingManagementBundle\Form\EventListener\DiviserCouvainFieldSubscriber;
 
 class DiviserCorpsType extends AbstractType
@@ -35,7 +35,7 @@ class DiviserCorpsType extends AbstractType
                         'empty_data'  => null
                     ))   
             ->addEventSubscriber(new NbCadresFieldSubscriber())    
-            ->addEventSubscriber(new DiviserMielFieldSubscriber($this->colonieMere->getRuche()->getCorps()->getNbmiel()))
+            ->addEventSubscriber(new DiviserNourritureFieldSubscriber($this->colonieMere->getRuche()->getCorps()->getNbnourriture()))
             ->addEventSubscriber(new DiviserCouvainFieldSubscriber($this->colonieMere->getRuche()->getCorps()->getNbcouvain()));
     }
     

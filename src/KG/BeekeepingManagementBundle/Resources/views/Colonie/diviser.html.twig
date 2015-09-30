@@ -25,7 +25,7 @@
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Division de la colonie {{ colonieMere.appellation }}</h4>
+            <h4>Division de la colonie de la ruche {{ colonieMere.ruche.nom }}</h4>
         </div>
     </div>
 {% endblock %}
@@ -38,10 +38,9 @@
     {{ form_errors(form.corps.type) }}
     {{ form_errors(form.corps.soustype) }}
     {{ form_errors(form.image.file) }}
-    {{ form_errors(form.colonie.appellation) }}
     {{ form_errors(form.colonie.dateColonie) }}
     {{ form_errors(form.colonie.affectation) }}
-    {{ form_errors(form.corps.nbmiel) }}
+    {{ form_errors(form.corps.nbnourriture) }}
     {{ form_errors(form.corps.nbcouvain) }}
     {{ form_errors(form) }}  
 {% endblock %}
@@ -111,14 +110,7 @@
     
     <fieldset>
 
-        <legend>Colonie</legend>
-                    
-        <div class="form-group">
-            {{ form_label(form.colonie.appellation, "Appellation :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.colonie.appellation, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>     
+        <legend>Colonie</legend>                
 
         <div class="form-group">
             {{ form_label(form.colonie.dateColonie, "Date de la division :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
@@ -135,9 +127,9 @@
         </div>                            
         
         <div class="form-group">
-            {{ form_label(form.corps.nbmiel, "Cadres de miel :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.corps.nbnourriture, "Cadres de nourriture :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.corps.nbmiel, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.corps.nbnourriture, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>  
 

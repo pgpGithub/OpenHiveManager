@@ -13,7 +13,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
-                    '@KGBeekeepingManagementBundle/Resources/public/js/colonie/add.js'%}
+                    '@KGBeekeepingManagementBundle/Resources/public/js/colonie/update.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
     {{ form_javascript(form) }}
@@ -28,16 +28,13 @@
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Modification de la colonie {{ colonie.nom }}</h4>
+            <h4>Modification de la colonie de la ruche {{ colonie.ruche.nom }}</h4>
         </div>
     </div>
 {% endblock %}
 
 {% block form_error %}
-    {{ form_errors(form.nom) }}
     {{ form_errors(form.affectation) }}
-    {{ form_errors(form.etat) }} 
-    {{ form_errors(form.agressivite) }}
     {{ form_errors(form) }}
 {% endblock %}
 
@@ -47,13 +44,6 @@
 
     <fieldset>
         <legend>Colonnie</legend>
-
-        <div class="form-group">
-            {{ form_label(form.nom, "Nom :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>    
 
         <div class="form-group">
             {{ form_label(form.affectation, "Affectation :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
