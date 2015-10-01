@@ -1,38 +1,44 @@
 {# src/KG/UserBundle/Resources/views/layout.html.twig #}
 
-{# On étend notre layout #}
 {% extends "KGSiteBundle::layout.html.twig" %}
 
-{# Dans notre layout, il faut définir le block body #}
-{% block body %}
+{% block stylesheets %}
+    {{ parent() }}  
+    {% stylesheets filter='cssrewrite' 
+        '@KGUserBundle/Resources/public/css/layout.css'%}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}        
+{% endblock %}
 
-  {# On affiche les messages flash que définissent les contrôleurs du bundle #}
-    {% for key, messages in app.session.flashbag.all %}
-        {% for message in messages %}
-            {% if loop.first %}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert alert-{{ key }}" role="alert">
-            {% endif %}
-                        {% if key == 'success' %}
-                            <i><span class="glyphicon glyphicon-ok-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                        {% elseif key == 'danger' %}
-                            <i><span class="glyphicon glyphicon-remove-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                        {% elseif key == 'info' %}
-                            <i><span class="glyphicon glyphicon-info-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                        {% elseif key == 'warning' %}
-                            <i><span class="glyphicon glyphicon-exclamation-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                        {% endif %}    
-            {% if loop.last %}        
+{% block body %}
+    <div class="col-xs-12" id="body">
+        {# On affiche les messages flash que définissent les contrôleurs du bundle #}
+        {% for key, messages in app.session.flashbag.all %}
+            {% for message in messages %}
+                {% if loop.first %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-{{ key }}" role="alert">
+                {% endif %}
+                            {% if key == 'success' %}
+                                <i><span class="glyphicon glyphicon-ok-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
+                            {% elseif key == 'danger' %}
+                                <i><span class="glyphicon glyphicon-remove-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
+                            {% elseif key == 'info' %}
+                                <i><span class="glyphicon glyphicon-info-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
+                            {% elseif key == 'warning' %}
+                                <i><span class="glyphicon glyphicon-exclamation-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
+                            {% endif %}    
+                {% if loop.last %}        
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endif %}
-        {% endfor %}    
-  {% endfor %}
-            
-  {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
-  {% block fos_user_content %}
-  {% endblock fos_user_content %}
-
+                {% endif %}
+            {% endfor %}    
+        {% endfor %}
+     
+        {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
+    </div>  
 {% endblock %}

@@ -46,7 +46,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ KGBeekeepingManagementBundle, KGSiteBundle, FOSUserBundle ]
+    bundles:        [ KGBeekeepingManagementBundle, KGSiteBundle, FOSUserBundle, KGUserBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -92,3 +92,22 @@ fos_user:
     db_driver:     orm                       
     firewall_name: main                      
     user_class:    KG\UserBundle\Entity\User   
+    registration:
+        confirmation:
+            enabled: true
+            from_email:
+                address:        registration@example.com
+                sender_name:    Demo Registration            
+    from_email:
+        address:        noreply@example.com
+        sender_name:    Demo App 
+    resetting:
+        email:
+            from_email:
+                address:        resetting@example.com
+                sender_name:    Demo Resetting    
+    service:
+        mailer: fos_user.mailer.twig_swift
+    resetting:
+        email:
+            template: email/password_resetting.email.twig            

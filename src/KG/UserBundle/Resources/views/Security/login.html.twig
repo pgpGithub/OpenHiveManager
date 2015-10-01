@@ -18,7 +18,9 @@
 
 {% block fos_user_content %}
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-danger">
+            <i><span class="glyphicon glyphicon-remove-sign"></span> {{ error.messageKey|trans(error.messageData, 'security') }}</i>
+        </div>
     {% endif %}
 
     <div class="row" style="margin-top:80px">
@@ -40,7 +42,7 @@
                     <span class="button-checkbox">
                         <button type="button" class="btn" data-color="info">{{ 'security.login.remember_me'|trans }}</button>
                         <input type="checkbox" name="_remember_me" id="remember_me" checked="checked" class="hidden">
-                        <a href="" class="btn btn-link pull-right">Mot de passe oublié?</a>
+                        <a href="{{ path('fos_user_resetting_request') }}" class="btn btn-link pull-right">Mot de passe oublié?</a>
                     </span>
 
                     <hr class="colorgraph">
