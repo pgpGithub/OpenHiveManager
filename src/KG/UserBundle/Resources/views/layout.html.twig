@@ -37,6 +37,8 @@
             {% endfor %}    
         {% endfor %}
      
+        {% block form_error %}{% endblock %}
+        
         {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
         {% block fos_user_content %}
         {% endblock fos_user_content %}

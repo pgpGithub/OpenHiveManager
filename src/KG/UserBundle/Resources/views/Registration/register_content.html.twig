@@ -16,6 +16,8 @@
     {% endjavascripts %}
 {% endblock %}
 
+{% form_theme form "KGUserBundle::form_layout.html.twig" %}
+
 {% block form_error %}   
     {{ form_errors(form.username) }}
     {{ form_errors(form.email) }}
