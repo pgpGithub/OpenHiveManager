@@ -94,7 +94,7 @@ fos_user:
     user_class:    KG\UserBundle\Entity\User   
     registration:
         confirmation:
-            enabled: true
+            enabled: false
             from_email:
                 address:        registration@example.com
                 sender_name:    Demo Registration            

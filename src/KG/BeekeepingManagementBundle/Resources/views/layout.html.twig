@@ -15,7 +15,9 @@
 {% block body %}
     {% if is_granted('ROLE_USER') %}
         {{ parent() }}
-        <div class="col-xs-12" id="navbar_exploitation">
+        <div class="col-xs-12" id="body">
+            
+            {% if app.user.exploitations is not empty %}
             <div class="row">
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
@@ -50,7 +52,8 @@
                     </div><!-- /.container-fluid -->
                 </nav>                
             </div>    
-                       
+            {% endif %}
+            
             {% for key, messages in app.session.flashbag.all %}
                 {% for message in messages %}
                     {% if loop.first %}

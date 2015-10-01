@@ -12,7 +12,12 @@ class AccueilController extends Controller
     * @Security("has_role('ROLE_USER')")
     */
     public function indexAction()
-    {     
-        return $this->render('KGBeekeepingManagementBundle::index.html.twig');
+    {   
+        if( !$this->getUser()->getApiculteurExploitations()->isEmpty() ){
+            return $this->render('KGBeekeepingManagementBundle::index.html.twig');
+        }
+        else{
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_add_exploitation'));
+        }        
     }
 }
