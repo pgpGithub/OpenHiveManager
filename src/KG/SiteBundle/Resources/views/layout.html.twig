@@ -34,13 +34,15 @@
                 <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Contact</a></li>  
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <li class="dropdown">
-                  <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
-                    <strong><i class="glyphicon glyphicon-user"></i> {{ app.user.username }}</strong> <span class="caret"></span></a>
-                  <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                    <li><a href="{{ path('fos_user_profile_show') }}">Mon Profil</a></li> 
-                    {% block menu_user %}
-                    {% endblock %}
-                  </ul>
+                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="{{ path('fos_user_profile_show') }}">
+                        <strong><i class="glyphicon glyphicon-user"></i> {{ app.user.username }}</strong> <span class="caret"></span></a>
+                        <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                            {% for exploitation in app.user.exploitations %}
+                                <li><a href="{{ path('kg_beekeeping_management_update_exploitation', { 'exploitation_id': exploitation.id }) }}"><i class="glyphicon glyphicon-pencil"></i> {{ exploitation.nom }}</a></li> 
+                            {% endfor %}
+                        {% block menu_user %}
+                        {% endblock %}
+                    </ul>
                 </li>
                 <li><a href="{{ path('fos_user_security_logout') }}"><i class="glyphicon glyphicon-log-out"></i> Déconnexion</a></li>
                 {% else %}
