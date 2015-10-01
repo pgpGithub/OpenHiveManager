@@ -10,4 +10,9 @@ class AccueilController extends Controller
     {      
         return $this->render('KGSiteBundle:Accueil:index.html.twig'); 
     }
+    
+    public function cguAction()
+    {      
+        return $this->render('KGSiteBundle:Accueil:cgu.html.twig'); 
+    }
 }

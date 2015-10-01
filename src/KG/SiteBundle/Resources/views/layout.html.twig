@@ -29,7 +29,7 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">    
                 <li><a href="{{ path('kg_beekeeping_management_home') }}"><i class="glyphicon glyphicon-home"></i> Manager</a></li>                            
-                <li><a href="#"><i class="glyphicon glyphicon-book"></i> CGU</a></li>
+                <li><a href="{{ path('kg_site_cgu') }}"><i class="glyphicon glyphicon-book"></i> CGU</a></li>
                 <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Contact</a></li>  
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <li class="dropdown">
@@ -58,11 +58,23 @@
         <div class="container">
             <div class="row">
                 {% block body %}
+                    {% block footer %}
+                        <hr>
+
+                        <!-- Footer -->
+                        <footer>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p>Copyright &copy; Your Website 2014</p>
+                                </div>
+                            </div>
+                        </footer>            
+                    {% endblock %}
                 {% endblock %}
             </div>
         </div>
         <!-- /Main -->                
-
+        
     {% block javascripts %}
         {% javascripts 'js/jquery/jquery-2.1.1.min.js' 
                        'js/bootstrap/bootstrap.js' %}

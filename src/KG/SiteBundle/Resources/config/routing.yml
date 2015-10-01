@@ -2,6 +2,9 @@ kg_site_home:
     path:      /
     defaults:  { _controller: KGSiteBundle:Accueil:index }
 
+kg_site_cgu:
+    path:      /cgu
+    defaults:  { _controller: KGSiteBundle:Accueil:cgu }
         
 
     
