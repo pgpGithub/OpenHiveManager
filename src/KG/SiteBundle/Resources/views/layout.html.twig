@@ -27,27 +27,26 @@
                 <a class="navbar-brand" href="{{ path('kg_site_home') }}">OpenHiveManager</a>
           </div>
           <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav pull-right">
-                <li><a href="#"><strong><i class="glyphicon glyphicon-piggy-bank"></i> Faire un don</strong></a></li>      
+            <ul class="nav navbar-nav pull-right">    
                 <li><a href="{{ path('kg_beekeeping_management_home') }}"><i class="glyphicon glyphicon-home"></i> Manager</a></li>                            
                 <li><a href="#"><i class="glyphicon glyphicon-book"></i> CGU</a></li>
                 <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Contact</a></li>  
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <li class="dropdown">
-                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="{{ path('fos_user_profile_show') }}">
-                        <strong><i class="glyphicon glyphicon-user"></i> {{ app.user.username }}</strong> <span class="caret"></span></a>
-                        <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                            {% for exploitation in app.user.exploitations %}
-                                <li><a href="{{ path('kg_beekeeping_management_update_exploitation', { 'exploitation_id': exploitation.id }) }}"><i class="glyphicon glyphicon-pencil"></i> {{ exploitation.nom }}</a></li> 
-                            {% endfor %}
+                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+                    <strong><i class="glyphicon glyphicon-user"></i> {{ app.user.username }}</strong> <span class="caret"></span></a>
+                    <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                        <li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
                         {% block menu_user %}
                         {% endblock %}
+                        <li role="separator" class="divider"></li>     
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="glyphicon glyphicon-log-out"></i> Déconnexion</a></li>
                     </ul>
                 </li>
-                <li><a href="{{ path('fos_user_security_logout') }}"><i class="glyphicon glyphicon-log-out"></i> Déconnexion</a></li>
                 {% else %}
                 <li><a href="{{ path('fos_user_security_login') }}"><i class="glyphicon glyphicon-log-in"></i> Connexion</a></li>
-                {% endif %}    
+                {% endif %}
+                                <li><a href="#"><strong><i class="glyphicon glyphicon-piggy-bank"></i> Faire un don</strong></a></li>  
             </ul>
           </div>
         </div>
