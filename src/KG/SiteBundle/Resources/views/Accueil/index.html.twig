@@ -23,103 +23,91 @@
 {% endblock %}    
 
 {% block body %}
-   
-    <!-- Page Content -->
-    <div class="container">
-
-        <!-- Marketing Icons Section -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    OpenHiveManager <span class="label label-info">v1.8.15 bêta</span><br/>
-                    <small>La première application participative de gestion apicole</small>
-               </h1>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4><i class="glyphicon glyphicon-globe"></i> Libre &amp; Open Source</h4>
-                    </div>
-                    <div class="panel-body">
-                        <p>Parce que nous souhaitons que tout le monde soit libre d'utiliser OpenHiveManager ou de la faire évoluer à sa guise, l'application est développée sous licence GNU et le code source est disponible sur Github.</p>
-                        <a href="https://www.gnu.org/philosophy/free-sw.fr.html" class="btn btn-warning pull-right">Licence GNU</a>
-                    </div>
+    <!-- Marketing Icons Section -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                OpenHiveManager <span class="label label-info">v1.8.15 bêta</span><br/>
+                <small>La première application participative de gestion apicole</small>
+           </h1>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4><i class="glyphicon glyphicon-globe"></i> Libre &amp; Open Source</h4>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4><i class="glyphicon glyphicon-wrench"></i> Développement collaboratif</h4>
-                    </div>
-                    <div class="panel-body">
-                        <p>Parce que nous souhaitons que tout le monde puisse apporter sa pierre à l'édifice, nous serons toujours à l'écoute des évolutions que vous souhaiterez voir apparaître dans OpenHiveManager.</p>
-                        <a href="#" class="btn btn-warning pull-right">Contactez-nous</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4><i class="glyphicon glyphicon-piggy-bank"></i> Financement participatif</h4>
-                    </div>
-                    <div class="panel-body">
-                        <p>Parce que nous avons besoin d'argent pour assurer la pérennité et l'évolutivité d'OpenHiveManager et que nous nous refusons à tout autre mode de financement, comme la publicité, par exemple. </p>
-                        <a href="#" class="btn btn-warning pull-right">Faites un don</a>
-                    </div>
+                <div class="panel-body">
+                    <p>Parce que nous souhaitons que tout le monde soit libre d'utiliser OpenHiveManager ou de la faire évoluer à sa guise, l'application est développée sous licence GNU et le code source est disponible sur Github.</p>
+                    <a href="https://www.gnu.org/philosophy/free-sw.fr.html" class="btn btn-warning pull-right">Licence GNU</a>
                 </div>
             </div>
         </div>
-        <!-- /.row -->
-
-        <!-- Features Section -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="page-header">Fonctionnalités</h2>
-            </div>
-            <div class="col-md-6">
-                <p><strong>OpenHiveManager intègre les fonctionnalités suivantes :</strong></p>
-                <ul>
-                    <li>Gestion multi exploitations</li>
-                    <li>Archivage des visites de vos ruches</li>
-                    <li>Suivi des conditions météorologique de vos ruchers</li>
-                    <li>Transhumance de vos ruches</li>
-                    <li>Suivi de la ligné de vos colonnies</li>       
-                </ul>
-                <p><strong>D'autres fonctionnalités sont en phase de développement :</strong></p>
-                <ul>
-                    <li>Traduction du site dans plusieurs langues</li>
-                    <li>Mode collaboratif pour travailler à plusieurs sur une exploitation</li>
-                    <li>Editabilité des fiches de visites</li>
-                    <li>Statistiques par colonnies, ruches, ruchers, exploitation ...</li>
-                    <li>Inventaire du matériel</li>
-                    <li><strong>Et plein d'autres encore...</strong></li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <img class="img-responsive" src="http://placehold.it/700x450" alt="">
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Call to Action Section -->
-        <div class="well">
-            <div class="row">
-                <div class="col-md-8">
-                    <p>OpenHiveManager est une application conçue par les apiculteurs, pour les apiculteurs. Vous souhaitez utiliser un outil répondant à vos besoins et fondé sur le partage et la collaboration? Alors n'hésitez plus!</p>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4><i class="glyphicon glyphicon-wrench"></i> Développement collaboratif</h4>
                 </div>
-                <div class="col-md-4">
-                    <a class="btn btn-lg btn-success btn-block" href="{{ path('fos_user_registration_register') }}">Inscrivez-vous!</a>
+                <div class="panel-body">
+                    <p>Parce que nous souhaitons que tout le monde puisse apporter sa pierre à l'édifice, nous serons toujours à l'écoute des évolutions que vous souhaiterez voir apparaître dans OpenHiveManager.</p>
+                    <a href="#" class="btn btn-warning pull-right">Contactez-nous</a>
                 </div>
             </div>
         </div>
-
-        {% block footer %}
-            {{ parent() }}
-        {% endblock %}
-
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4><i class="glyphicon glyphicon-piggy-bank"></i> Financement participatif</h4>
+                </div>
+                <div class="panel-body">
+                    <p>Parce que nous avons besoin d'argent pour assurer la pérennité et l'évolutivité d'OpenHiveManager et que nous nous refusons à tout autre mode de financement, comme la publicité, par exemple. </p>
+                    <a href="#" class="btn btn-warning pull-right">Faites un don</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.container -->
+    <!-- /.row -->
 
+    <!-- Features Section -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">Fonctionnalités</h2>
+        </div>
+        <div class="col-md-6">
+            <p><strong>OpenHiveManager intègre les fonctionnalités suivantes :</strong></p>
+            <ul>
+                <li>Gestion multi exploitations</li>
+                <li>Archivage des visites de vos ruches</li>
+                <li>Suivi des conditions météorologique de vos ruchers</li>
+                <li>Transhumance de vos ruches</li>
+                <li>Suivi de la ligné de vos colonnies</li>       
+            </ul>
+            <p><strong>D'autres fonctionnalités sont en phase de développement :</strong></p>
+            <ul>
+                <li>Traduction du site dans plusieurs langues</li>
+                <li>Mode collaboratif pour travailler à plusieurs sur une exploitation</li>
+                <li>Editabilité des fiches de visites</li>
+                <li>Statistiques par colonnies, ruches, ruchers, exploitation ...</li>
+                <li>Inventaire du matériel</li>
+                <li><strong>Et plein d'autres encore...</strong></li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <img class="img-responsive" src="http://placehold.it/700x450" alt="">
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+    <!-- Call to Action Section -->
+    <div class="well">
+        <div class="row">
+            <div class="col-md-8">
+                <p>OpenHiveManager est une application conçue par les apiculteurs, pour les apiculteurs. Vous souhaitez utiliser un outil répondant à vos besoins et fondé sur le partage et la collaboration? Alors n'hésitez plus!</p>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-lg btn-success btn-block" href="{{ path('fos_user_registration_register') }}">Inscrivez-vous!</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

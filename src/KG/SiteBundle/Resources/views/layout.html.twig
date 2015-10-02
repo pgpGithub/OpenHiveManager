@@ -56,25 +56,22 @@
         
         <!-- Main -->
         <div class="container">
-            <div class="row">
-                {% block body %}
-                    {% block footer %}
-                        <hr>
+            {% block body %}
 
-                        <!-- Footer -->
-                        <footer>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <p>Copyright &copy; Your Website 2014</p>
-                                </div>
-                            </div>
-                        </footer>            
-                    {% endblock %}
-                {% endblock %}
-            </div>
+            {% endblock %}            
+            {% block footer %}
+                <footer>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>Copyright &copy; Your Website 2014</p>
+                        </div>
+                    </div>
+                </footer>            
+            {% endblock %}             
         </div>
         <!-- /Main -->                
-        
+            
     {% block javascripts %}
         {% javascripts 'js/jquery/jquery-2.1.1.min.js' 
                        'js/bootstrap/bootstrap.js' %}

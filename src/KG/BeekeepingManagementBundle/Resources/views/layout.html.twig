@@ -14,85 +14,87 @@
     
 {% block body %}
     {% if is_granted('ROLE_USER') %}
-        {{ parent() }}
-        <div class="col-xs-12" id="body">
-            
-            {% if app.user.exploitations is not empty %}
-            <div class="row">
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <!-- Brand and toggle get grouped for better mobile display -->
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a title="Modifier l'exploitation" class="navbar-brand" href="{{ path('kg_beekeeping_management_update_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}">Exploitation {{ app.user.exploitations|first.nom }}</a>
-                        </div>
-     
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% block ruchers %}Ruchers{% endblock %}<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        {% for rucher in app.user.exploitations|first.ruchers %}
-                                            <li><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}"><i class="glyphicon glyphicon-eye-open"></i> {{ rucher.nom }}</a></li>
-                                            {% if loop.last %}
-                                                <li role="separator" class="divider"></li>                                            
-                                            {% endif %}
-                                        {% endfor %}
-                                        <li><a title="Créer un rucher" href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="glyphicon glyphicon-plus"></i> Créer un rucher</a></li>                              
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div><!-- /.navbar-collapse -->
-                    </div><!-- /.container-fluid -->
-                </nav>                
-            </div>    
-            {% endif %}
-            
-            {% for key, messages in app.session.flashbag.all %}
-                {% for message in messages %}
-                    {% if loop.first %}
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="alert alert-{{ key }}" role="alert">
-                    {% endif %}
-                                {% if key == 'success' %}
-                                    <i><span class="glyphicon glyphicon-ok-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                                {% elseif key == 'danger' %}
-                                    <i><span class="glyphicon glyphicon-remove-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                                {% elseif key == 'info' %}
-                                    <i><span class="glyphicon glyphicon-info-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                                {% elseif key == 'warning' %}
-                                    <i><span class="glyphicon glyphicon-exclamation-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                                {% endif %}
-                                          
-                    {% if loop.last %}        
+        <div class="row">
+            {{ parent() }}
+            <div class="col-xs-12" id="body">
+
+                {% if app.user.exploitations is not empty %}
+                <div class="row">
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a title="Modifier l'exploitation" class="navbar-brand" href="{{ path('kg_beekeeping_management_update_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}">Exploitation {{ app.user.exploitations|first.nom }}</a>
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% block ruchers %}Ruchers{% endblock %}<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            {% for rucher in app.user.exploitations|first.ruchers %}
+                                                <li><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}"><i class="glyphicon glyphicon-eye-open"></i> {{ rucher.nom }}</a></li>
+                                                {% if loop.last %}
+                                                    <li role="separator" class="divider"></li>                                            
+                                                {% endif %}
+                                            {% endfor %}
+                                            <li><a title="Créer un rucher" href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="glyphicon glyphicon-plus"></i> Créer un rucher</a></li>                              
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                        </div><!-- /.container-fluid -->
+                    </nav>                
+                </div>    
+                {% endif %}
+
+                {% for key, messages in app.session.flashbag.all %}
+                    {% for message in messages %}
+                        {% if loop.first %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-{{ key }}" role="alert">
+                        {% endif %}
+                                    {% if key == 'success' %}
+                                        <i><span class="glyphicon glyphicon-ok-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
+                                    {% elseif key == 'danger' %}
+                                        <i><span class="glyphicon glyphicon-remove-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
+                                    {% elseif key == 'info' %}
+                                        <i><span class="glyphicon glyphicon-info-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
+                                    {% elseif key == 'warning' %}
+                                        <i><span class="glyphicon glyphicon-exclamation-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
+                                    {% endif %}
+
+                        {% if loop.last %}        
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}    
-          {% endfor %}                  
-            
-            {% block form_error %}{% endblock %}
-                
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            {% block panel_title %}{% endblock %} 
-                        </div>                
-                        <div class="panel-body">
-                            {% block panel_body %}{% endblock %}
-                        </div>                    
-                    </div>    
-                </div>       
+                        {% endif %}
+                    {% endfor %}    
+              {% endfor %}                  
+
+                {% block form_error %}{% endblock %}
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {% block panel_title %}{% endblock %} 
+                            </div>                
+                            <div class="panel-body">
+                                {% block panel_body %}{% endblock %}
+                            </div>                    
+                        </div>    
+                    </div>       
+                </div>
             </div>
         </div>
     {% endif %}     
-{% endblock %}                
+{% endblock %}   
