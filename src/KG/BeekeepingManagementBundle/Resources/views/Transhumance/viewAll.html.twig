@@ -1,0 +1,46 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/RecoltesRucher/viewAll.html.twig #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Transhumances de la ruche{% endblock %}
+
+{% block ruchers %}{{ colonie.rucher.nom }}{% endblock %}
+
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Transhumances de la ruche {{ colonie.ruche.nom }}</h4>
+        </div>
+    </div>    
+{% endblock %}
+
+{% block panel_body %}       
+    <div class="row">
+        <div class=" col-md-12"> 
+            <div class="table-responsive">
+                <table id="mytable" class="table table-bordred table-striped">
+                    <thead>
+                        <th>Date</th>
+                        <th>Rucher de départ</th>
+                        <th>Rucher de destination</th>
+                    </thead>
+                    <tbody>
+                        {% for transhumance in transhumances %}
+                            <tr>
+                                <td>{{ transhumance.date|date('d/m/Y') }}</td>
+                                <td>{{ transhumance.rucherfrom.nom }}</td>
+                                <td>{{ transhumance.rucherto.nom }}</td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
+                </div>
+            </div>                            
+        </div>
+    </div>                                    
+{% endblock %}

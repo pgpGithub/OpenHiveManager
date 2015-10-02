@@ -14,11 +14,12 @@ class TranshumanceController extends Controller
 {
     /**
     * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("transhumance", options={"mapping": {"transhumance_id" : "id"}}) 
+    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    public function viewAction(Transhumance $transhumance)
+    public function viewAllAction(Colonie $colonie, $page)
     {
-        $apiculteurExploitations = $transhumance->getColonie()->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
+        $exploitation = $colonie->getRucher()->getExploitation();
+        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -28,12 +29,25 @@ class TranshumanceController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || $page < 1  || $colonie->getTranshumances()->isEmpty()){
             throw new NotFoundHttpException('Page inexistante.');
         }
-       
-        return $this->render('KGBeekeepingManagementBundle:Transhumance:view.html.twig', 
-                array(  'transhumance' => $transhumance ));
+ 
+        $maxTranshumances    = $this->container->getParameter('max_transhumances_per_page');
+        $transhumances       = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Transhumance')->getListByColonie($page, $maxTranshumances, $colonie->getId());
+        $transhumances_count = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Transhumance')->countByColonie($colonie->getId()); 
+        $pagination = array(
+            'page'         => $page,
+            'route'        => 'kg_beekeeping_management_view_transhumances',
+            'pages_count'  => max ( ceil($transhumances_count / $maxTranshumances), 1),
+            'route_params' => array('colonie_id' => $colonie->getId())
+        );
+        
+        return $this->render('KGBeekeepingManagementBundle:Transhumance:viewAll.html.twig', 
+                array(  'colonie'          => $colonie,
+                        'transhumances'   => $transhumances,
+                        'nbTranshumances' => $transhumances_count,
+                        'pagination' => $pagination));
     }
     
     /**

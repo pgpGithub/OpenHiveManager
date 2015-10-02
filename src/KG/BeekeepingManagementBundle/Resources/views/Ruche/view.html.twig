@@ -39,6 +39,9 @@
                             {% endif %}
                         {% endif %}
                         <li><a title="Transhumer" href="{{ path('kg_beekeeping_management_add_transhumance', { 'colonie_id' : ruche.colonie.id }) }}"><i class="glyphicon glyphicon-plane"></i> Transhumer</a></li>
+                        {% if ruche.colonie.transhumances is not empty %}
+                            <li><a title="Historique des transhumances" href="{{ path('kg_beekeeping_management_view_transhumances', { 'colonie_id' : ruche.colonie.id }) }}"><i class="glyphicon glyphicon-list"></i> Historique des transhumances</a></li>
+                        {% endif %}
                     </ul>
                 </div> 
             </span>
