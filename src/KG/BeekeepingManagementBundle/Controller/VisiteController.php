@@ -66,8 +66,7 @@ class VisiteController extends Controller
             }
         }
  
-        $visite = new Visite();
-        $visite->setColonie($colonie);
+        $visite = new Visite($colonie);
         
         $form = $this->createForm(new VisiteType, $visite);
         

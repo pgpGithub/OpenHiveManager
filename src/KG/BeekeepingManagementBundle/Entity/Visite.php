@@ -129,7 +129,15 @@ class Visite
      * @Assert\DateTime()
      */
     private $date;
-    
+
+    /**
+     * Constructor
+     */
+    public function __construct(Colonie $colonie)
+    {
+        $this->colonie = $colonie;
+    }
+
     /**
      * Get id
      *

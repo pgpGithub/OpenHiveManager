@@ -54,7 +54,7 @@
                     {% if break %}
                         <li><a title="Récolter" href="{{ path('kg_beekeeping_management_add_recolte', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-export"></i> Récolter</a></li>
                     {% endif %}        
-                    {% if rucher.recoltesrucher is empty and not rucheExist %}
+                    {% if rucher.recoltesrucher is empty and not rucheExist and rucher.transhumancesfrom is empty and rucher.transhumancesto is empty %}
                         <li role="separator" class="divider"></li>                
                         <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-trash"></i> Supprimer</a></li>                                   
                     {% endif %}

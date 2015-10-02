@@ -4,34 +4,37 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@KGBeekeepingManagementBundle/Resources/public/js/ruche/transhumer.js'%}
+    {% javascripts '@KGBeekeepingManagementBundle/Resources/public/js/transhumance/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     {% endjavascripts %}    
+    {{ form_javascript(form) }}
 {% endblock %}
 
 {% block title %}{{ parent() }} - Transhumer une ruche{% endblock %}
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
-{% block ruchers %}{{ ruche.emplacement.rucher.nom }}{% endblock %}
+{% block ruchers %}{{ colonie.ruche.emplacement.rucher.nom }}{% endblock %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Transhumance de la ruche {{ ruche.nom }}</h4>
+            <h4>Transhumance de la ruche {{ colonie.ruche.nom }}</h4>
         </div>
     </div>
 {% endblock %}
 
 {% block form_error %}
-    {{ form_errors(form.rucher) }}
-    {{ form_errors(form.emplacement) }}
+    {{ form_errors(form.date) }}
+    {{ form_errors(form.rucherto) }}
+    {{ form_errors(form.colonie.ruche.emplacement) }}
     {{ form_errors(form) }}
 {% endblock %}
     
@@ -40,16 +43,23 @@
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
         <div class="form-group">
-            {{ form_label(form.rucher, "Rucher :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.date, "Date :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.rucher, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>  
+                
+        <div class="form-group">
+            {{ form_label(form.rucherto, "Rucher :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            <div class="col-sm-5 col-md-5">
+                {{ form_widget(form.rucherto, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>    
 
         <div class="form-group">
-            {{ form_label(form.emplacement, "Emplacement :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
+            {{ form_label(form.colonie.ruche.emplacement, "Emplacement :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
             <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.emplacement, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.colonie.ruche.emplacement, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>              
 

@@ -95,19 +95,6 @@ class RucheController extends Controller
                                    'ruche' => $ruche
                             ));      
     }
-    
-    /**
-    * @Security("has_role('ROLE_USER')")
-    */      
-    public function emplacementsAction(Request $request)
-    {
-        $rucher_id = $request->request->get('rucher_id');
-        
-        $em           = $this->getDoctrine()->getManager();
-        $emplacements = $em->getRepository('KGBeekeepingManagementBundle:Emplacement')->findByRucherId($rucher_id);
-
-        return new JsonResponse($emplacements);
-    }  
 
     /**
     * @Security("has_role('ROLE_USER')")

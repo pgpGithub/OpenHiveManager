@@ -41,7 +41,6 @@ class Colonie
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Affectation")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid() 
      * @Assert\NotBlank(message="Veuillez sélectionner l'affectation de la colonie")
      */
     private $affectation;
@@ -49,7 +48,6 @@ class Colonie
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Origine")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid()
      * @Assert\NotBlank(message="Veuillez sélectionner l'origine de la colonie")
      */
     private $origineColonie;
@@ -57,7 +55,6 @@ class Colonie
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Etat")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid() 
      * @Assert\NotBlank(message="Veuillez sélectionner l'état de la colonie")
      */
     private $etat;
@@ -65,7 +62,6 @@ class Colonie
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Agressivite")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid() 
      * @Assert\NotBlank(message="Veuillez sélectionner l'agressivité de la colonie")
      */
     private $agressivite;
@@ -96,13 +92,16 @@ class Colonie
 
     /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Visite", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
-     * @Assert\Valid()
      */
     private $visites;
-        
+
+    /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Transhumance", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
+     */
+    private $transhumances;
+    
     /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\RecolteRuche", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
-     * @Assert\Valid()
      */
     private $recoltesruche;
     
@@ -117,7 +116,6 @@ class Colonie
      * @var Cause
      * 
      * @ORM\ManyToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Cause")
-     * @Assert\Valid()
      */
     private $causes;    
 
@@ -599,5 +597,38 @@ class Colonie
     public function getRecoltesruche()
     {
         return $this->recoltesruche;
+    }
+
+    /**
+     * Add transhumances
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Transhumance $transhumances
+     * @return Colonie
+     */
+    public function addTranshumance(\KG\BeekeepingManagementBundle\Entity\Transhumance $transhumances)
+    {
+        $this->transhumances[] = $transhumances;
+
+        return $this;
+    }
+
+    /**
+     * Remove transhumances
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Transhumance $transhumances
+     */
+    public function removeTranshumance(\KG\BeekeepingManagementBundle\Entity\Transhumance $transhumances)
+    {
+        $this->transhumances->removeElement($transhumances);
+    }
+
+    /**
+     * Get transhumances
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTranshumances()
+    {
+        return $this->transhumances;
     }
 }

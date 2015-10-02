@@ -31,6 +31,7 @@ class TranshumerEmplacementFieldSubscriber implements EventSubscriberInterface
             'class'         => 'KGBeekeepingManagementBundle:Emplacement',
             'choice_label'  => 'nom',
             'empty_value'   => '',
+            'mapped'        => false,
             'attr'          => array(
                 'class' => 'emplacement_selector',
             ),
@@ -39,27 +40,20 @@ class TranshumerEmplacementFieldSubscriber implements EventSubscriberInterface
                 return $qb;
             }
         );
-
-        if ($rucher) {
-            $formOptions['data'] = $rucher;
-        }
         
         $form->add($this->propertyPathToEmplacement, 'entity', $formOptions);
     }
  
     public function preSetData(FormEvent $event)
-    {;
+    {
         $form = $event->getForm();
         $this->addEmplacementForm($form);
     }
  
     public function preSubmit(FormEvent $event)
     {
-        $data = $event->getData();
         $form = $event->getForm();
- 
-        $rucher = array_key_exists('rucher', $data) ? $data['rucher'] : null;
- 
+        $rucher = $form->getParent()->getParent()->get('rucherto')->getData();
         $this->addEmplacementForm($form, $rucher);
     }
 }

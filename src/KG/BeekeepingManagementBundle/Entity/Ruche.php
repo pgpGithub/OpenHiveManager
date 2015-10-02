@@ -44,7 +44,6 @@ class Ruche
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="ruche")
-     * @Assert\Valid()
      */
     private $emplacement;
     
@@ -64,7 +63,6 @@ class Ruche
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Matiere")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid() 
      * @Assert\NotBlank(message="Veuillez sélectionner la matière de la ruche")
      */
     private $matiere;    

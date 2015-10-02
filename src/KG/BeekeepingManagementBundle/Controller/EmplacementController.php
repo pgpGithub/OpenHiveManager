@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EmplacementController extends Controller
 {
@@ -155,5 +156,18 @@ class EmplacementController extends Controller
                                     'form'  => $form->createView(),
                                     'emplacement' => $emplacement
                 ));
-    }         
+    }  
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */      
+    public function emplacementsAction(Request $request)
+    {
+        $rucher_id = $request->request->get('rucher_id');
+        
+        $em           = $this->getDoctrine()->getManager();
+        $emplacements = $em->getRepository('KGBeekeepingManagementBundle:Emplacement')->findByRucherId($rucher_id);
+
+        return new JsonResponse($emplacements);
+    }      
 }

@@ -74,7 +74,7 @@ class RucherController extends Controller
             }
         }
         
-        if( $not_permitted || !$rucher->getRecoltesrucher()->isEmpty() ){
+        if( $not_permitted || !$rucher->getRecoltesrucher()->isEmpty() || !$rucher->getTranshumancesfrom()->isEmpty() || !$rucher->getTranshumancesto()->isEmpty()){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
