@@ -1,5 +1,5 @@
 var overlay = new ol.Overlay({
-    element: $('<img src="../../../../../web/location.png">')
+    element: $('<img src="../../../../../../web/location.png">')
     .css({marginTop: '-275%', marginLeft: '-50%'})
 });
 
