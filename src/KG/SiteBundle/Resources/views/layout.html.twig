@@ -30,7 +30,7 @@
             <ul class="nav navbar-nav pull-right">    
                 <li><a href="{{ path('kg_beekeeping_management_home') }}"><i class="glyphicon glyphicon-home"></i> Manager</a></li>                            
                 <li><a href="{{ path('kg_site_cgu') }}"><i class="glyphicon glyphicon-book"></i> CGU</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Contact</a></li>  
+                <li><a href="{{ path('kg_site_contact') }}"><i class="glyphicon glyphicon-envelope"></i> Contact</a></li>  
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <li class="dropdown">
                     <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">

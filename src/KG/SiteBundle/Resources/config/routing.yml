@@ -6,5 +6,8 @@ kg_site_cgu:
     path:      /cgu
     defaults:  { _controller: KGSiteBundle:Accueil:cgu }
         
-
+kg_site_contact:
+    path:      /contact
+    defaults:  { _controller: KGSiteBundle:Accueil:contact }
+        
     

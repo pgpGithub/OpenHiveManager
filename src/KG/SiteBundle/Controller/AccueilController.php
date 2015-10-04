@@ -15,4 +15,9 @@ class AccueilController extends Controller
     {      
         return $this->render('KGSiteBundle:Accueil:cgu.html.twig'); 
     }
+    
+    public function contactAction()
+    {      
+        return $this->render('KGSiteBundle:Accueil:contact.html.twig'); 
+    }    
 }
