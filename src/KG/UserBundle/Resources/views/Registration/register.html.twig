@@ -1,0 +1,20 @@
+{% extends 'KGUserBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite' 
+        '@KGUserBundle/Resources/public/css/register/register_panel.css'%}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@KGUserBundle/Resources/public/js/register/register_panel.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>  
+    {% endjavascripts %}
+{% endblock %}
+
+{% block fos_user_content %}
+{% include "KGUserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}

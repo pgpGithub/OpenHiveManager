@@ -1,20 +1,4 @@
-{% extends 'KGUserBundle::layout.html.twig' %}
 {% trans_default_domain 'FOSUserBundle' %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets filter='cssrewrite' 
-        '@KGUserBundle/Resources/public/css/register/register_panel.css'%}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts '@KGUserBundle/Resources/public/js/register/register_panel.js' %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>  
-    {% endjavascripts %}
-{% endblock %}
 
 {% form_theme form "KGUserBundle::form_layout.html.twig" %}
 
