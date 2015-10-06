@@ -34,7 +34,7 @@ class Transhumance
     /**
      * @var Rucher
      * 
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="transhumancesfrom")
      * @ORM\JoinColumn(nullable=false)
      */
     private $rucherfrom;  
@@ -42,7 +42,7 @@ class Transhumance
     /**
      * @var Rucher
      * 
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="transhumancesto")
      * @ORM\JoinColumn(nullable=false)
      */
     private $rucherto;      

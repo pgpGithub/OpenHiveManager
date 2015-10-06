@@ -97,7 +97,12 @@ class VisiteType extends AbstractType
                     'type' => new HausseType($builder->getData()),
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'label' => false
+                    'label' => false,
+                    'prototype' => true,
+                    'prototype_name' => 'hausse__name__',
+                    'options' => array(
+                        // options on the rendered TagTypes
+                    ),
                 ));               
     }
     
