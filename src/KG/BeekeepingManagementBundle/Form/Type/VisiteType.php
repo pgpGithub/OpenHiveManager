@@ -99,10 +99,6 @@ class VisiteType extends AbstractType
                     'allow_delete' => true,
                     'label' => false,
                     'prototype' => true,
-                    'prototype_name' => 'hausse__name__',
-                    'options' => array(
-                        // options on the rendered TagTypes
-                    ),
                 ));               
     }
     
