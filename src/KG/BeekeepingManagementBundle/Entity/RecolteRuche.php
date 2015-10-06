@@ -40,7 +40,7 @@ class RecolteRuche
     private $recolterucher;  
     
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="recolteruche", cascade="persist")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\HausseRecolte", mappedBy="recolteruche", cascade="persist", orphanRemoval=true)
      * @Assert\Valid()
      */
     private $hausses; 
@@ -54,10 +54,13 @@ class RecolteRuche
         $this->colonie = $ruche->getColonie();
         $this->recolterucher = $recolterucher;
         
+        //Pour chaque hausse de la ruche on créé une hausse dans la récolte, si il y a des cadres pleins
         foreach( $ruche->getHausses() as $hausse ){
             if( $hausse->getNbplein() > 0 ){
-                $this->addHauss($hausse);
+                $this->addHauss(new HausseRecolte($hausse, $this));
             }
+            //On supprime la hausses présente dans la ruche car elle est récoltée
+            $ruche->removeHauss($hausse);
         }
     }
 
@@ -97,23 +100,21 @@ class RecolteRuche
     /**
      * Add hausses
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausses
+     * @param \KG\BeekeepingManagementBundle\Entity\HausseRecolte $hausses
      * @return RecolteRuche
      */
-    public function addHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausse)
+    public function addHauss(\KG\BeekeepingManagementBundle\Entity\HausseRecolte $hausse)
     {
         $this->hausses[] = $hausse;
-        $hausse->setRuche();
-        $hausse->setRecolteruche($this);
         return $this;
     }
 
     /**
      * Remove hausses
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausses
+     * @param \KG\BeekeepingManagementBundle\Entity\HausseRecolte $hausses
      */
-    public function removeHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausses)
+    public function removeHauss(\KG\BeekeepingManagementBundle\Entity\HausseRecolte $hausses)
     {
         $this->hausses->removeElement($hausses);
     }

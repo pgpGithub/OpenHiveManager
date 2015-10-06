@@ -7,12 +7,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * Cadre
- *
- * @ORM\Table()
- * @ORM\Entity
+ * Hausse
+/* @ORM\MappedSuperclass 
  */
-class Hausse
+abstract class Hausse
 {
     /**
      * @var integer
@@ -36,16 +34,6 @@ class Hausse
      * @ORM\Column(name="nbcadres", type="integer")
      */
     private $nbcadres;     
-
-    /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="hausses", cascade={"persist"})
-     */
-    private $ruche;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\RecolteRuche", inversedBy="hausses")
-     */
-    private $recolteruche;
     
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\TypeRuche")
@@ -64,28 +52,6 @@ class Hausse
     {
         return $this->id;
     }
-
-    /**
-     * Set ruche
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Ruche $ruche
-     * @return Hausse
-     */
-    public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche = NULL)
-    {
-        $this->ruche = $ruche;
-        return $this;
-    }
-
-    /**
-     * Get ruche
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Ruche 
-     */
-    public function getRuche()
-    {
-        return $this->ruche;
-    }   
 
     /**
      * Set nbplein
@@ -167,28 +133,5 @@ class Hausse
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set recolteruche
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\RecolteRuche $recolteruche
-     * @return Hausse
-     */
-    public function setRecolteruche(\KG\BeekeepingManagementBundle\Entity\RecolteRuche $recolteruche = null)
-    {
-        $this->recolteruche = $recolteruche;
-
-        return $this;
-    }
-
-    /**
-     * Get recolteruche
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\RecolteRuche 
-     */
-    public function getRecolteruche()
-    {
-        return $this->recolteruche;
-    }
+    }    
 }

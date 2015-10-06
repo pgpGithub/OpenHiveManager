@@ -131,11 +131,22 @@ class Visite
     private $date;
 
     /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\HausseVisite", mappedBy="visite", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
+     */
+    private $hausses; 
+    
+    /**
      * Constructor
      */
     public function __construct(Colonie $colonie)
     {
         $this->colonie = $colonie;
+        $this->setNbcouvain($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbcouvain());
+        $this->setNbnourriture($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbnourriture());
+        $this->setEtat($colonie->getEtat());
+        $this->setAgressivite($colonie->getAgressivite());
+        $this->setDate(new \DateTime());        
     }
 
     /**
@@ -509,4 +520,37 @@ class Visite
                    ->addViolation();            
         }
     }     
+
+    /**
+     * Add hausses
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\HausseVisite $hausse
+     * @return Visite
+     */
+    public function addHauss(\KG\BeekeepingManagementBundle\Entity\HausseVisite $hausse)
+    {
+        $this->hausses[] = $hausse;
+
+        return $this;
+    }
+
+    /**
+     * Remove hausses
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\HausseVisite $hausses
+     */
+    public function removeHauss(\KG\BeekeepingManagementBundle\Entity\HausseVisite $hausses)
+    {
+        $this->hausses->removeElement($hausses);
+    }
+
+    /**
+     * Get hausses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHausses()
+    {
+        return $this->hausses;
+    }
 }

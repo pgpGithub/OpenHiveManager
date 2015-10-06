@@ -81,6 +81,7 @@ class RecolteRucherController extends Controller
                 
             $em = $this->getDoctrine()->getManager();
             
+            //Si il y a déjà une récolte aujourd'hui, on la complète
             $lastRecolte   = $rucher->getRecoltesrucher()->last();      
             if ( $lastRecolte ){
                 if ( $lastRecolte->getDate() == $recolterucher->getDate() ){
@@ -88,18 +89,17 @@ class RecolteRucherController extends Controller
                 }
             } 
             
+            //Pour chaque ruche récoltée on créé une recolte de ruche
             foreach( $form->get('ruches')->getData() as $ruche){
                 $recolteruche = new RecolteRuche( $ruche, $recolterucher);
                 
+                //On vérifie quand même qu'il y ait des hausses
                 if( !$recolteruche->getHausses()->isEmpty() ){
                     $recolterucher->addRecoltesruche($recolteruche);
                 }
                 
-                foreach ( $ruche->getHausses() as $hausse ){
-                    if( $hausse->getNbPlein() <= 0 ){
-                        $em->remove($hausse);
-                    }
-                }
+                //On sauvegarde la ruche car elle n'a plus de hausse
+                $em->persist($ruche);
             }
 
             $em->persist($recolterucher);

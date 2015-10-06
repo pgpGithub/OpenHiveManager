@@ -55,7 +55,7 @@ class Ruche
     private $corps;
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Hausse", mappedBy="ruche", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\HausseRuche", mappedBy="ruche", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     private $hausses; 
@@ -204,21 +204,12 @@ class Ruche
     /**
      * Add hausses
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausse
+     * @param \KG\BeekeepingManagementBundle\Entity\HausseRuche $hausse
      * @return Ruche
      */
-    public function addHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausse)
+    public function addHauss(\KG\BeekeepingManagementBundle\Entity\HausseRuche $hausse)
     {       
-        if( $this->getCorps()->getType()->getLibelle() == 'Langstroth' ){
-            $nbcadres = $this->getCorps()->getSoustype()->getNbcadres(); 
-        }
-        else{
-            $nbcadres = $this->getCorps()->getSoustype()->getNbcadres() - 1;            
-        }
-        
-        $new_hausse = $hausse;
-        $new_hausse->setNbcadres($nbcadres);
-        $this->hausses[] = $new_hausse;
+        $this->hausses[] = $hausse;
 
         return $this;
     }
@@ -226,9 +217,9 @@ class Ruche
     /**
      * Remove hausse
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Hausse $hausse
+     * @param \KG\BeekeepingManagementBundle\Entity\HausseRuche $hausse
      */
-    public function removeHauss(\KG\BeekeepingManagementBundle\Entity\Hausse $hausse)
+    public function removeHauss(\KG\BeekeepingManagementBundle\Entity\HausseRuche $hausse)
     {
         $this->hausses->removeElement($hausse);
     }

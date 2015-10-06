@@ -1,6 +1,7 @@
 <?php
 namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\Visite;
+use KG\BeekeepingManagementBundle\Entity\HausseRuche;
 use KG\BeekeepingManagementBundle\Entity\Colonie;
 use KG\BeekeepingManagementBundle\Form\Type\VisiteType;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,7 +77,18 @@ class VisiteController extends Controller
             $visite->getColonie()->setAgressivite($visite->getAgressivite());
             $visite->getColonie()->getRuche()->getCorps()->setNbnourriture($visite->getNbnourriture());
             $visite->getColonie()->getRuche()->getCorps()->setNbcouvain($visite->getNbcouvain());
+
             $em = $this->getDoctrine()->getManager();
+            
+            foreach ( $visite->getColonie()->getRuche()->getHausses() as $hausse ){
+                $em->remove($hausse);
+                $visite->getColonie()->getRuche()->removeHauss($hausse);
+            }
+                                
+            foreach ( $visite->getHausses() as $hausse ){
+                $visite->getColonie()->getRuche()->addHauss(new HausseRuche($hausse));
+            }
+            
             $em->persist($visite);
             $em->flush();
         
@@ -115,11 +127,23 @@ class VisiteController extends Controller
         
         if ($form->handleRequest($request)->isValid()){
              
+            $em = $this->getDoctrine()->getManager();
+                        
             $visite->getColonie()->setEtat($visite->getEtat());
             $visite->getColonie()->setAgressivite($visite->getAgressivite());
             $visite->getColonie()->getRuche()->getCorps()->setNbnourriture($visite->getNbnourriture());
             $visite->getColonie()->getRuche()->getCorps()->setNbcouvain($visite->getNbcouvain());
-            $em = $this->getDoctrine()->getManager();
+
+            foreach ( $visite->getColonie()->getRuche()->getHausses() as $hausse ){
+                $em->remove($hausse);
+                $visite->getColonie()->getRuche()->removeHauss($hausse);
+            }
+            
+            
+            foreach ( $visite->getHausses() as $hausse ){
+                $visite->getColonie()->getRuche()->addHauss(new HausseRuche($hausse));
+            }
+            
             $em->persist($visite);
             $em->flush();
         

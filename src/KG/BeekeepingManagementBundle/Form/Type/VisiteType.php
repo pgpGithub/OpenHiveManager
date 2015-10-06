@@ -14,17 +14,9 @@ class VisiteType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    { 
-        $visite = $builder->getData();
-        $colonie = $visite->getColonie();
-        $visite->setNbcouvain($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbcouvain());
-        $visite->setNbnourriture($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbnourriture());
-        $visite->setEtat($colonie->getEtat());
-        $visite->setAgressivite($colonie->getAgressivite());
-        $visite->setDate(new \DateTime());
-        
+    {         
+        $colonie = $builder->getData()->getColonie();
         $visites = $colonie->getVisites();
-        
         $startDate = $colonie->getDateColonie();
         
         if($visites->last()){
@@ -80,9 +72,6 @@ class VisiteType extends AbstractType
                 ->add('observations', 'textarea', array(
                             'required'  => false,
                         ))
-                ->add('colonie', new ProductionType(), array(
-                            'label'  => false,
-                        ))
                 ->add('date', 'collot_datetime', array( 
                         'pickerOptions' =>
                             array('format' => 'dd/mm/yyyy',
@@ -103,6 +92,12 @@ class VisiteType extends AbstractType
                                 'initialDate' => date("Y-m-d"), 
                             ),
                         'read_only' => true
+                        ))
+                ->add('hausses', 'collection', array(
+                    'type' => new HausseType($builder->getData()),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'label' => false
                 ));               
     }
     

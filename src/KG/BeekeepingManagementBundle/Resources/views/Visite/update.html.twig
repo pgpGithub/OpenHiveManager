@@ -143,14 +143,14 @@
                 </div>
         </fieldset>  
 
-        {% if form.colonie.ruche.hausses is not empty %}     
+        {% if form.hausses is not empty %}     
         <fieldset>
 
             <legend>Hausses :</legend>
             <div class="row">
                 <div class="col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6">
                     <ul class="list-group">
-                        {% for hausse in form.colonie.ruche.hausses|reverse %}
+                        {% for hausse in form.hausses|reverse %}
                             <li class="list-group-item">
                                 {{ form_errors(hausse.nbplein) }}  
                                 <div class="form-group">

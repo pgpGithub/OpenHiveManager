@@ -2,10 +2,10 @@ $("[name='kg_beekeepingmanagementbundle_visite[reine]']").bootstrapSwitch();
 $("[name='kg_beekeepingmanagementbundle_visite[celroyales]']").bootstrapSwitch();
 $("[name='kg_beekeepingmanagementbundle_visite[pollen]']").bootstrapSwitch();
 
-/*
+
 $(document).ready(function() {
     // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-    var $container = $('div#kg_beekeepingmanagementbundle_visite_colonie_ruche_hausses');
+    var $container = $('div#kg_beekeepingmanagementbundle_visite_hausses');
 
     // On ajoute un lien pour ajouter une nouvelle catégorie
     var $addLink = $('<a href="#" id="add_hausse" class="btn btn-default">Ajouter une hausse</a>');
@@ -62,4 +62,3 @@ $(document).ready(function() {
       });
     }
 });
-*/
