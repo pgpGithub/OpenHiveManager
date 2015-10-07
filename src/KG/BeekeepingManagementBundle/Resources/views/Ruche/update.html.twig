@@ -12,7 +12,6 @@
 
 {% block title %}{{ parent() }} - Créer une ruche{% endblock %}
 
-{% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
 {% block ruchers %}{{ ruche.emplacement.rucher.nom }}{% endblock %}
 
@@ -24,29 +23,12 @@
     </div>
 {% endblock %}
 
-{% block form_error %}
-    {{ form_errors(form.nom) }}
-    {{ form_errors(form.image.file) }}
-    {{ form_errors(form) }}    
-{% endblock %}
-
 {% block panel_body %}
                           
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_start(form, { 'style': 'horizontal' }) }}
 
-    <div class="form-group">
-        {{ form_label(form.nom, "Nom de la ruche :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-        <div class="col-sm-5 col-md-5">
-            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-        </div>  
-    </div>              
-
-    <div class="form-group">
-        {{ form_label(form.image.file, "Photo :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-        <div class="col-sm-2 col-md-2">
-            {{ form_widget(form.image.file) }}
-        </div>
-    </div>
+    {{ form_row(form.nom, {'label': 'Nom de la ruche :'})  }}
+    {{ form_row(form.image.file, {'label': 'Photo :'})  }}
 
     {{ form_rest(form) }}
 

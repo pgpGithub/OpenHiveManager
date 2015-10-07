@@ -35,35 +35,40 @@ class ColonieType extends AbstractType
                                     'viewSelect' => 'year',
                                     'initialDate' => date('Y-m-d'), 
                                 ),
-                            'read_only' => true
+                            'read_only' => true,
+                            'attr' => array('label_col' => 4, 'widget_col' => 5)
                 ))
                 
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null
+                        'empty_data'  => null,
+                        'attr' => array('label_col' => 4, 'widget_col' => 5)
                     ))
                 
             ->add('origineColonie', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Origine',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null
+                        'empty_data'  => null,
+                        'attr' => array('label_col' => 4, 'widget_col' => 5)
                     ))
                 
             ->add('etat', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Etat',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null
+                        'empty_data'  => null,
+                        'attr' => array('label_col' => 4, 'widget_col' => 5)
                     ))
                 
             ->add('agressivite', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Agressivite',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null
+                        'empty_data'  => null,
+                        'attr' => array('label_col' => 4, 'widget_col' => 5)
                     ))
                 
             ->add('reine', new ReineType());       

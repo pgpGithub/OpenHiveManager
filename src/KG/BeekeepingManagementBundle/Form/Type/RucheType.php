@@ -15,12 +15,13 @@ class RucheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',  'text')
+            ->add('nom',  'text', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
             ->add('matiere', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Matiere',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null
+                        'empty_data'  => null,
+                        'attr' => array('label_col' => 4, 'widget_col' => 5)
                     ))
             ->add('corps', new CorpsType())
             ->add('image', new ImageType(), array('required' => false));
