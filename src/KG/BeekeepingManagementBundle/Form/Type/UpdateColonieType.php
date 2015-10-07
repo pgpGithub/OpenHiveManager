@@ -19,7 +19,8 @@ class UpdateColonieType extends AbstractType
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null
+                        'empty_data'  => null,
+                        'attr' => array('label_col' => 4, 'widget_col' => 5)
                     ))
                                              
             ->add('reine', new UpdateReineType());             

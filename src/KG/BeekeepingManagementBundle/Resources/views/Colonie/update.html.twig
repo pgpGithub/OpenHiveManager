@@ -21,8 +21,6 @@
 
 {% block title %}{{ parent() }} - Modifier une colonie{% endblock %}
 
-{% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
 {% block ruchers %}{{ colonie.ruche.emplacement.rucher.nom }}{% endblock %}
 
 {% block panel_title %}
@@ -33,47 +31,27 @@
     </div>
 {% endblock %}
 
-{% block form_error %}
-    {{ form_errors(form.affectation) }}
-    {{ form_errors(form) }}
-{% endblock %}
-
 {% block panel_body %}
              
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_start(form, { 'style': 'horizontal' }) }}
 
     <fieldset>
         <legend>Colonnie</legend>
-
-        <div class="form-group">
-            {{ form_label(form.affectation, "Affectation :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.affectation, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>      
-
+        {{ form_row(form.affectation, {'label': 'Affectation :'})  }}
     </fieldset>
 
     <fieldset> 
         <legend>Reine</legend>
-
-        <div class="form-group">
-            <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Marquage :</label>
-            <div class="col-sm-5 col-md-5">
-              {{ form_widget(form.reine.marquage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+        <div class="row">
+            <div class="col-md-offset-4 col-md-6"> 
+                {{ form_row(form.reine.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                {% if colonie.reine.clippage %}
+                    {{ form_row(form.reine.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}, 'disabled': 'true'}) }}
+                {% else %}    
+                    {{ form_row(form.reine.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                {% endif %}   
             </div>
-        </div>     
-
-        <div class="form-group">
-            <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Clippage :</label>
-            <div class="col-sm-5 col-md-5">
-              {% if colonie.reine.clippage %}
-                  {{ form_widget(form.reine.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}, 'disabled': 'true'}) }}
-              {% else %}    
-                  {{ form_widget(form.reine.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-              {% endif %}
-            </div>
-        </div>                 
+        </div>             
     </fieldset>                
     {{ form_rest(form) }}
 

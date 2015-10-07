@@ -21,8 +21,6 @@
 
 {% block title %}{{ parent() }} - Déclarer la mort d'une colonie{% endblock %}
 
-{% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
 {% block ruchers %}{{ colonie.ruche.emplacement.rucher.nom }}{% endblock %}
 
 {% block panel_title %}
@@ -33,29 +31,12 @@
     </div>
 {% endblock %}
 
-{% block form_error %}
-    {{ form_errors(form.causes) }}
-    {{ form_errors(form.autreCause) }}
-    {{ form_errors(form) }}
-{% endblock %}
-
 {% block panel_body %}
          
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_start(form, { 'style': 'horizontal' }) }}
 
-    <div class="form-group">
-        {{ form_label(form.causes, "Causes :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-        <div class="col-sm-5 col-md-5">
-            {{ form_widget(form.causes, {'attr': {'class': 'form-control'}}) }}
-        </div>
-    </div>      
-
-    <div class="form-group">
-         {{ form_label(form.autreCause, "Autre cause :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-         <div class="col-sm-5 col-md-5">
-             {{ form_widget(form.autreCause, {'attr': {'class': 'form-control'}}) }}
-         </div>
-     </div>
+    {{ form_row(form.causes, {'label': 'Causes :'})  }}
+    {{ form_row(form.autreCause, {'label': 'Autre cause :'})  }}
 
     {{ form_rest(form) }}
 

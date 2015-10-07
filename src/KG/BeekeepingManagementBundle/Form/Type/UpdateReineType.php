@@ -17,10 +17,12 @@ class UpdateReineType extends AbstractType
         $builder
             ->add('clippage', 'checkbox', array(
                 'required'  => false,
+                'label'     => false                
             ))
         
             ->add('marquage', 'checkbox', array(
                 'required'  => false,
+                'label'     => false
             ));       
     }
     
