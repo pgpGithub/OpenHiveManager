@@ -25,7 +25,9 @@ class HausseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nbplein');               
+        $builder->add('nbplein', 'number', array(
+                    'label' => false,
+            ));               
     }
     
     /**
