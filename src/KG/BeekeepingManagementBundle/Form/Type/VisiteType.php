@@ -107,10 +107,10 @@ class VisiteType extends AbstractType
                     'type' => new HausseType($builder->getData()), 
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'add_button_text'    => 'Ajouter hausse',
-                    'delete_button_text' => 'Supprimer hausse',
-                    'sub_widget_col'     => 8,
-                    'button_col'         => 2,
+                    'add_button_text'    => '.icon-plus Ajouter hausse',
+                    'delete_button_text' => '.icon-trash',
+                    'sub_widget_col'     => 10,
+                    'button_col'         => 1,
                     'attr' => array('label_col' => 4, 'widget_col' => 5),
                 ));               
     }
