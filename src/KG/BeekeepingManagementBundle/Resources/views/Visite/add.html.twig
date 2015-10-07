@@ -41,10 +41,11 @@
             {{ form_row(form.activite, {'label': 'Activité :'}) }}   
             <div class="row">
                 <div class="col-md-offset-4 col-md-6">            
-            {{ form_row(form.pollen, {'attr': {'data-label-text' : "Pollen entrant", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-            {{ form_row(form.reine, {'attr': {'data-label-text' : "Reine vue", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-            {{ form_row(form.celroyales, {'attr': {'data-label-text' : "Cellules royales", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                </div></div>
+                {{ form_row(form.pollen, {'attr': {'data-label-text' : "Pollen entrant", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                {{ form_row(form.reine, {'attr': {'data-label-text' : "Reine vue", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                {{ form_row(form.celroyales, {'attr': {'data-label-text' : "Cellules royales", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                </div>
+            </div>
             {{ form_row(form.etat, {'label': 'Etat :'})  }}
             {{ form_row(form.agressivite, {'label': 'Agressivité :'})  }}
             {{ form_row(form.nourrissement, {'label': 'Nourrissement :'})  }}
