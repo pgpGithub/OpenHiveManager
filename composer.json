@@ -8,6 +8,19 @@
             "SymfonyStandard\\": "app/"
         }
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "1.11.1",
+                "dist": {
+                    "url": "http://code.jquery.com/jquery-1.11.1.js",
+                    "type": "file"
+                }
+            }
+        }
+    ],    
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.7@beta",
@@ -22,7 +35,10 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "stephanecollot/datetimepicker-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "dev-master",
-        "friendsofsymfony/jsrouting-bundle": "dev-master"
+        "friendsofsymfony/jsrouting-bundle": "dev-master",
+        "twbs/bootstrap": "3.0.*",
+        "jquery/jquery":  "1.11.*",
+        "braincrafted/bootstrap-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
