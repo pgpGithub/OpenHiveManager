@@ -15,10 +15,10 @@ class ProprietaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('adresse')
-            ->add('telephone')
+            ->add('nom', 'text', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
+            ->add('prenom', 'text', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
+            ->add('adresse', 'text', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
+            ->add('telephone', 'text', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
         ;
     }
     

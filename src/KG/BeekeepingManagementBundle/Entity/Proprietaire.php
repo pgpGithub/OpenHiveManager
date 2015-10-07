@@ -56,12 +56,11 @@ class Proprietaire
      *
      * @ORM\Column(name="telephone", type="string", length=10)
      * @Assert\Regex(
-     *     pattern="/\d{10}/",
-     *     message="Le numéro de téléphone doit contenir 10 chiffres"
+     *     pattern="/^0[1-68][0-9]{8}$/",
+     *     message="Le numéro de téléphone doit contenir 10 chiffres et commencer par 0"
      * )
      */
     private $telephone;
-
 
     /**
      * Get id

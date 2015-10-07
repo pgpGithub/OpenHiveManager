@@ -21,8 +21,6 @@
 
 {% block title %}{{ parent() }} - Créer un rucher{% endblock %}
 
-{% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
@@ -30,68 +28,27 @@
         </div>
     </div>
 {% endblock %}
-
-{% block form_error %}
-    {{ form_errors(form.nom) }}
-    {{ form_errors(form.image.file) }}
-    {{ form_errors(form) }}    
-{% endblock %}
     
 {% block panel_body %}
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
+    {{ form_start(form, { 'style': 'horizontal' }) }}
     <fieldset>
         <legend>Propriétaire du terrain</legend>
-        <div class="form-group">
-            {{ form_label(form.proprietaire.nom, "Nom :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.proprietaire.nom, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>  
-            
-        <div class="form-group">
-            {{ form_label(form.proprietaire.prenom, "Prénom :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.proprietaire.prenom, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>      
-
-        <div class="form-group">
-            {{ form_label(form.proprietaire.telephone, "Téléphone :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.proprietaire.telephone, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>  
-            
-        <div class="form-group">
-            {{ form_label(form.proprietaire.adresse, "Adresse :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.proprietaire.adresse, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>             
+        {{ form_row(form.proprietaire.nom, {'label': 'Nom :'})  }}
+        {{ form_row(form.proprietaire.prenom, {'label': 'Prénom :'})  }}
+        {{ form_row(form.proprietaire.telephone, {'label': 'Téléphone :'})  }}
+        {{ form_row(form.proprietaire.adresse, {'label': 'Adresse :'})  }}        
     </fieldset>   
     
     <fieldset> 
         <legend>Rucher</legend>     
-        <div class="form-group">
-            {{ form_label(form.nom, "Nom du rucher :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>    
-
-        <div class="form-group">
-            {{ form_label(form.image.file, "Photo :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-2 col-md-2">
-                {{ form_widget(form.image.file) }}
-            </div>
-        </div>
-
-        {{ form_widget(form.localisation.latitude) }}
-        {{ form_widget(form.localisation.longitude) }}
+        {{ form_row(form.nom, {'label': 'Nom :'})  }}
+        {{ form_row(form.image.file, {'label': 'Photo :'})  }}
+        {{ form_row(form.localisation.latitude) }}
+        {{ form_row(form.localisation.longitude) }}
 
         <div class="col-md-offset-2 col-md-8">
-            <h4><center>Localisez le rucher sur la carte</center></h4>            
+            <h4><center>Localisez le rucher sur la carte</center></h4>     
+            {{ form_errors(form) }}
             <div id="map" 
                  class="map thumbnail" 
                  data-latitude="kg_beekeepingmanagementbundle_rucher_localisation_latitude"
