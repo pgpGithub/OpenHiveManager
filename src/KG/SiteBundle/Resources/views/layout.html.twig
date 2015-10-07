@@ -78,10 +78,10 @@
         <!-- /Main -->                
             
     {% block javascripts %}
-        {% javascripts 'js/jquery/jquery-2.1.1.min.js' 
-                       'js/bootstrap/bootstrap.js' %}
-            <script src="{{ asset_url }}" type="text/javascript"></script>  
-        {% endjavascripts %}
+        <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+        <script src="{{ asset('js/jquery.js') }}"></script>
+        <!-- Include all JavaScripts, compiled by Assetic -->
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
     {% endblock %}    
     </body>
 </html>
