@@ -48,6 +48,8 @@ class DiviserType extends AbstractType
                         'mapped'        => false,
                         'attr'          => array(
                             'class' => 'rucher_selector',
+                            'label_col' => 4, 
+                            'widget_col' => 5
                         ),
                         'query_builder' => function (EntityRepository $repository) use ($exploitation) {
                             $qb = $repository->queryfindByExploitationId($exploitation);
@@ -55,12 +57,13 @@ class DiviserType extends AbstractType
                         }
                     ))
             ->addEventSubscriber(new DeplacerEmplacementFieldSubscriber($propertyPathToEmplacement))    
-            ->add('nom',  'text')   
+            ->add('nom',  'text', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
             ->add('matiere', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Matiere',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null
+                        'empty_data'  => null,
+                        'attr' => array('label_col' => 4, 'widget_col' => 5)
                     ))     
             ->add('corps', new DiviserCorpsType($this->colonieMere))
             ->add('image', new ImageType(), array('required' => false))        
