@@ -23,27 +23,6 @@
 
 {% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
 
-{% macro widget_prototype(widget, remove_text) %}
-    {% if widget.vars.prototype is defined %}
-        {% set form = widget.vars.prototype %}
-        {% set name = widget.vars.prototype.vars.name %}
-    {% else %}
-        {% set form = widget %}
-        {% set name = widget.vars.full_name %}
-    {% endif %}
-
-    <li class="list-group-item" data-content="{{ name }}">
-        {{ form_errors(form) }}  
-        <div class="form-group">
-            {{ form_label(form, "Cadres plein :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form) }}
-                <a class="btn-remove" data-related="{{ name }}">{{ remove_text }}</a>                
-            </div>
-        </div> 
-    </li>          
-{% endmacro %}
-
 {% block ruchers %}{{ colonie.ruche.emplacement.rucher.nom }}{% endblock %}
 
 {% block panel_title %}
@@ -167,18 +146,7 @@
         <fieldset>
             <legend>Hausses :</legend>
 
-            <div class="row">
-                <div class="col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6">
-                    <ul class="list-group">                
-                        <div id="post_hausses" data-prototype="{{ _self.widget_prototype(form.hausses, 'Supprimer hausse')|escape }}">
-                            {% for widget in form.hausses.children %}
-                                {{ _self.widget_prototype(widget, 'Supprimer hausse') }}
-                            {% endfor %}
-                        </div>
-                    </ul>
-                    <a class="btn btn-add btn-default" data-target="post_hausses">Ajouter hausse</a>
-                </div>
-            </div>
+            {{ form_row(form.hausses) }}
         </fieldset>                    
          
     {{ form_rest(form) }}

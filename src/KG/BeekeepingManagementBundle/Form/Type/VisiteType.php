@@ -93,16 +93,15 @@ class VisiteType extends AbstractType
                             ),
                         'read_only' => true
                         ))
-                ->add('hausses', 'collection', array(
-                    'type' => new HausseType($builder->getData()),
+                ->add('hausses', 'bootstrap_collection', array(
+                    'type' => new HausseType($builder->getData()), 
+                    'label' => false,
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'label' => false,
-                    'prototype' => true,
-                    'prototype_name' => '__name__',
-                    'options' => array(
-                        // options on the rendered HausseTypes
-                    ),
+                    'add_button_text'    => 'Ajouter hausse',
+                    'delete_button_text' => 'Supprimer hausse',
+                    'sub_widget_col'     => 4,
+                    'button_col'         => 3       
                 ));               
     }
     
