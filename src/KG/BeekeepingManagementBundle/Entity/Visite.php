@@ -493,7 +493,13 @@ class Visite
                    ->buildViolation('La somme de cadres de couvain et de cadres de nourriture est plus grande que le nombre de cadres') 
                    ->atPath('nbnourriture')
                    ->addViolation();
+
+            $context
+                   ->buildViolation('La somme de cadres de couvain et de cadres de nourriture est plus grande que le nombre de cadres') 
+                   ->atPath('nbcouvain')
+                   ->addViolation();            
         }
+
         
         foreach( $this->getColonie()->getVisites() as $lastVisite ){
             if ( $this->date < $lastVisite->getDate()  && $lastVisite->getId() != $this->getId() ){                

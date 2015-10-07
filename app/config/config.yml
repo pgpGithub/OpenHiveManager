@@ -31,26 +31,36 @@ framework:
     fragments:       ~
     http_method_override: true
 
+braincrafted_bootstrap:
+    output_dir:
+    assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
+    jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.11.1.js
+    less_filter: less # "less", "lessphp", "sass" or "none"
+    fonts_dir: %kernel.root_dir%/../web/fonts
+    auto_configure:
+        assetic: true
+        twig: true
+        knp_menu: true
+        knp_paginator: true
+    customize:
+        variables_file: ~
+        bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
+        bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig  
+        
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form_themes:
-    #Default:
-        - form_div_layout.html.twig
-        #Bootstrap:
-        - bootstrap_3_layout.html.twig
-        - bootstrap_3_horizontal_layout.html.twig    
 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ KGBeekeepingManagementBundle, KGSiteBundle, FOSUserBundle, KGUserBundle ]
+    bundles:        [ KGBeekeepingManagementBundle, KGSiteBundle, FOSUserBundle, KGUserBundle, BraincraftedBootstrapBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
-        less: # Nous importons ici nos variables
+        less: 
             node: %node_bin%
             node_paths: [%node_modules%]
         yui_css:
@@ -117,20 +127,4 @@ fos_user:
         mailer: fos_user.mailer.twig_swift
     resetting:
         email:
-            template: email/password_resetting.email.twig
-
-braincrafted_bootstrap:
-    output_dir:
-    assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
-    jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.11.1.js
-    less_filter: less # "less", "lessphp", "sass" or "none"
-    fonts_dir: %kernel.root_dir%/../web/fonts
-    auto_configure:
-        assetic: true
-        twig: true
-        knp_menu: true
-        knp_paginator: true
-    customize:
-        variables_file: ~
-        bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
-        bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig            
+            template: email/password_resetting.email.twig          
