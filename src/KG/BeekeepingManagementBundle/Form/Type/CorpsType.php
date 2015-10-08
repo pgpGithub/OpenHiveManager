@@ -20,12 +20,11 @@ class CorpsType extends AbstractType
                         'class' => 'KGBeekeepingManagementBundle:TypeRuche',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null,
-                        'attr' => array('label_col' => 4, 'widget_col' => 5)
+                        'empty_data'  => null
                     ))                 
             ->addEventSubscriber(new NbCadresFieldSubscriber())
-            ->add('nbnourriture', 'integer', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
-            ->add('nbcouvain', 'integer', array('attr' => array('label_col' => 4, 'widget_col' => 5)));
+            ->add('nbnourriture', 'integer')
+            ->add('nbcouvain', 'integer');
     }
     
     /**

@@ -21,8 +21,6 @@
 
 {% block title %}{{ parent() }} - Créer une récolte{% endblock %}
 
-{% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
 {% block ruchers %}{{ rucher.nom }}{% endblock %}
 
 {% block panel_title %}
@@ -32,30 +30,17 @@
         </div>
     </div>
 {% endblock %}
-
-{% block form_error %}
-    {{ form_errors(form.date) }}
-    {{ form_errors(form) }}
-{% endblock %}
     
 {% block panel_body %}            
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
- 
-        <div class="form-group">
-            {{ form_label(form.date, "Date :", {'label_attr': {'class': 'col-sm-5 col-md-4 control-label'}}) }}
-            <div class="col-sm-5 col-md-5">
-                {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>   
-
-
-        {% for ruche in form.ruches %}
+    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
+        {{ form_label(form.date, {'label': 'Date :', 'label_col': 4, 'widget_col': 5})  }}
+        {% for ruche in form.ruches %}           
             <div class="form-group">
                 {% set index = ruche.vars.value %}{# get array index #}
                 {% set entity = form.ruches.vars.choices[index].data %}{# get entity object #}
                 <label class="col-sm-5 col-md-4 control-label" for="checkboxes">{{ entity.nom }} :</label>
                 <div class="col-sm-5 col-md-5">
-                  {{ form_widget(ruche, {'attr': {'class': 'form-control', 'checked' : "true",'data-label-text' : "Récolter", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                  {{ form_widget(ruche, {'attr': {'checked' : "true",'data-label-text' : "Récolter", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
                 </div>
             </div>                             
         {% endfor %}
@@ -65,8 +50,7 @@
     <div class="form-group">
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary pull-right">
-                <i class="glyphicon glyphicon-floppy-disk"></i>
-                Sauvegarder
+                {{ icon('floppy-disk') }} Sauvegarder
             </button>
         </div>        
     </div>

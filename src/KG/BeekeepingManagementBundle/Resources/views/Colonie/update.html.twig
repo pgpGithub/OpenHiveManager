@@ -33,11 +33,11 @@
 
 {% block panel_body %}
              
-    {{ form_start(form, { 'style': 'horizontal' }) }}
+    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
 
     <fieldset>
         <legend>Colonnie</legend>
-        {{ form_row(form.affectation, {'label': 'Affectation :'})  }}
+        {{ form_row(form.affectation, {'label': 'Affectation :', 'label_col': 4, 'widget_col': 5})  }}
     </fieldset>
 
     <fieldset> 
@@ -58,8 +58,7 @@
     <div class="form-group">
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary pull-right">
-                <i class="glyphicon glyphicon-floppy-disk"></i>
-                Sauvegarder
+                {{ icon('floppy-disk') }} Sauvegarder
             </button>
         </div>        
     </div>

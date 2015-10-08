@@ -25,9 +25,7 @@ class NbCadresFieldSubscriber implements EventSubscriberInterface
             'choice_label'  => 'nbcadres',
             'empty_value'   => '',
             'attr'          => array(
-                'class' => 'soustype_selector',
-                'label_col' => 4, 
-                'widget_col' => 5
+                'class' => 'soustype_selector'
             ),
             'query_builder' => function (EntityRepository $repository) use ($type) {
                 $qb = $repository->queryfindByTypeId($type);

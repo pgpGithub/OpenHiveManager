@@ -23,8 +23,6 @@
 
 {% block title %}{{ parent() }} - Créer une colonie{% endblock %}
 
-{% form_theme form "KGBeekeepingManagementBundle::form_layout.html.twig" %}
-
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
@@ -33,27 +31,14 @@
     </div>
 {% endblock %}
 
-{% block form_error %}
-    {{ form_errors(form) }}
-{% endblock %}
-
 {% block panel_body %}         
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}          
-
-    <div class="form-group">
-      <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Marquage :</label>
-      <div class="col-sm-5 col-md-5">
-          {{ form_widget(form.marquage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-      </div>
-    </div>    
-
-    <div class="form-group">
-      <label class="col-sm-5 col-md-4 control-label" for="checkboxes">Clippage :</label>
-      <div class="col-sm-5 col-md-5">
-          {{ form_widget(form.clippage, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-      </div>
-    </div>
-
+        <div class="row">
+            <div class="col-md-offset-4 col-md-6">            
+                {{ form_row(form.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                {{ form_row(form.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+            </div>
+        </div>           
     {{ form_rest(form) }}
 
     <div class="form-group">

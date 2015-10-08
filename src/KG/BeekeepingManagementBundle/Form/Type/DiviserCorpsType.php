@@ -32,8 +32,7 @@ class DiviserCorpsType extends AbstractType
                         'class' => 'KGBeekeepingManagementBundle:TypeRuche',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null,
-                        'attr' => array('label_col' => 4, 'widget_col' => 5)
+                        'empty_data'  => null
                     ))   
             ->addEventSubscriber(new NbCadresFieldSubscriber())    
             ->addEventSubscriber(new DiviserNourritureFieldSubscriber($this->colonieMere->getRuche()->getCorps()->getNbnourriture()))

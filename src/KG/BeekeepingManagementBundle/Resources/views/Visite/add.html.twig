@@ -30,49 +30,33 @@
         </div>
     </div>
 {% endblock %}
-
     
 {% block panel_body %}            
-    {{ form_start(form, { 'style': 'horizontal' }) }}
-
-        <fieldset>
-            <legend>Généralités :</legend>  
-            {{ form_row(form.date, {'label': 'Date :'})  }}
-            {{ form_row(form.activite, {'label': 'Activité :'}) }}   
-            <div class="row">
-                <div class="col-md-offset-4 col-md-6">            
-                {{ form_row(form.pollen, {'attr': {'data-label-text' : "Pollen entrant", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                {{ form_row(form.reine, {'attr': {'data-label-text' : "Reine vue", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                {{ form_row(form.celroyales, {'attr': {'data-label-text' : "Cellules royales", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                </div>
+    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
+        {{ form_row(form.date, {'label': 'Date :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.activite, {'label': 'Activité :', 'label_col': 4, 'widget_col': 5}) }}   
+        <div class="row">
+            <div class="col-md-offset-4 col-md-6">            
+            {{ form_row(form.pollen, {'attr': {'data-label-text' : "Pollen entrant", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+            {{ form_row(form.reine, {'attr': {'data-label-text' : "Reine vue", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+            {{ form_row(form.celroyales, {'attr': {'data-label-text' : "Cellules royales", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
             </div>
-            {{ form_row(form.etat, {'label': 'Etat :'})  }}
-            {{ form_row(form.agressivite, {'label': 'Agressivité :'})  }}
-            {{ form_row(form.nourrissement, {'label': 'Nourrissement :'})  }}
-            {{ form_row(form.traitement, {'label': 'Traitement :'})  }}
-            {{ form_row(form.observations, {'label': 'Observations :'})  }}                         
-        </fieldset>    
+        </div>
+        {{ form_row(form.etat, {'label': 'Etat :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.agressivite, {'label': 'Agressivité :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.nourrissement, {'label': 'Nourrissement :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.traitement, {'label': 'Traitement :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.observations, {'label': 'Observations :', 'label_col': 4, 'widget_col': 5})  }}                         
 
-        <fieldset>
-
-            <legend>Corps :</legend>
-            {{ form_row(form.nbnourriture, {'label': 'Cadres de nourriture :'})  }}
-            {{ form_row(form.nbcouvain, {'label': 'Cadres de couvain :'})  }}
-
-        </fieldset>       
-
-        <fieldset>
-            <legend>Hausses :</legend>
-            {{ form_row(form.hausses, {'label': 'Cadres plein :'})  }} 
-        </fieldset>                    
-         
+        {{ form_row(form.nbnourriture, {'label': 'Cadres de nourriture :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.nbcouvain, {'label': 'Cadres de couvain :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.hausses, {'label': 'Hausses :', 'label_col': 4, 'widget_col': 5})  }} 
     {{ form_rest(form) }}
 
     <div class="form-group">
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary pull-right">
-                <i class="glyphicon glyphicon-floppy-disk"></i>
-                Sauvegarder
+                {{ icon('floppy-disk') }} Sauvegarder
             </button>
         </div>        
     </div>

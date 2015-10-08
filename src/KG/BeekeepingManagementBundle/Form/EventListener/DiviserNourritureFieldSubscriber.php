@@ -32,7 +32,7 @@ class DiviserNourritureFieldSubscriber implements EventSubscriberInterface
  
     private function addNbMielForm($form)
     {       
-        $form->add('nbnourriture', 'integer', array('attr' => array('label_col' => 4, 'widget_col' => 5)));
+        $form->add('nbnourriture', 'integer');
     }
  
     public function preSetData(FormEvent $event)

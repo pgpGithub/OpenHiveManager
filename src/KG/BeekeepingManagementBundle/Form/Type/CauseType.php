@@ -19,10 +19,9 @@ class CauseType extends AbstractType
                         'class'        => 'KGBeekeepingManagementBundle:Cause',
                         'choice_label' => 'libelle',
                         'multiple'     => true,
-                        'required'     => false,
-                        'attr' => array('label_col' => 4, 'widget_col' => 5)
+                        'required'     => false
                     ))
-            ->add('autreCause', 'text', array('required' => false, 'attr' => array('label_col' => 4, 'widget_col' => 5)));
+            ->add('autreCause', 'text', array('required' => false));
     }   
     
     /**

@@ -21,16 +21,14 @@ class ReineType extends AbstractType
                         'class' => 'KGBeekeepingManagementBundle:Race',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null,
-                        'attr' => array('label_col' => 4, 'widget_col' => 5)
+                        'empty_data'  => null
                     ))
                                 
             ->add('provenanceReine', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:ProvenanceReine',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null,
-                        'attr' => array('label_col' => 4, 'widget_col' => 5)
+                        'empty_data'  => null
                     ))     
                 
             ->add('anneeReine', 'collot_datetime', 
@@ -53,8 +51,7 @@ class ReineType extends AbstractType
                                     'viewSelect' => 'decade',
                                     'initialDate' => date('Y'), 
                                 ),
-                            'read_only' => true,
-                            'attr' => array('label_col' => 4, 'widget_col' => 5)
+                            'read_only' => true
                 ))
                 
             ->add('clippage', 'checkbox', array(

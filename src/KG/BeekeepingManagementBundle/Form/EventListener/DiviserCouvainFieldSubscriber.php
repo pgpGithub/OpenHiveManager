@@ -32,7 +32,7 @@ class DiviserCouvainFieldSubscriber implements EventSubscriberInterface
  
     private function addNbCouvainForm($form)
     {       
-        $form->add('nbcouvain', 'integer', array('attr' => array('label_col' => 4, 'widget_col' => 5)));
+        $form->add('nbcouvain', 'integer');
     }
  
     public function preSetData(FormEvent $event)

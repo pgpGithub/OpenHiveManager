@@ -30,19 +30,19 @@
 {% endblock %}
     
 {% block panel_body %}
-    {{ form_start(form, { 'style': 'horizontal' }) }}
+    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
     <fieldset>
         <legend>Propriétaire du terrain</legend>
-        {{ form_row(form.proprietaire.nom, {'label': 'Nom :'})  }}
-        {{ form_row(form.proprietaire.prenom, {'label': 'Prénom :'})  }}
-        {{ form_row(form.proprietaire.telephone, {'label': 'Téléphone :'})  }}
-        {{ form_row(form.proprietaire.adresse, {'label': 'Adresse :'})  }}        
+        {{ form_row(form.proprietaire.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.proprietaire.prenom, {'label': 'Prénom :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.proprietaire.telephone, {'label': 'Téléphone :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.proprietaire.adresse, {'label': 'Adresse :', 'label_col': 4, 'widget_col': 5})  }}        
     </fieldset>   
     
     <fieldset> 
         <legend>Rucher</legend>     
-        {{ form_row(form.nom, {'label': 'Nom :'})  }}
-        {{ form_row(form.image.file, {'label': 'Photo :'})  }}
+        {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.localisation.latitude) }}
         {{ form_row(form.localisation.longitude) }}
 
@@ -62,8 +62,7 @@
     <div class="form-group">
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary pull-right">
-                <i class="glyphicon glyphicon-floppy-disk"></i>
-                Sauvegarder
+                {{ icon('floppy-disk') }} Sauvegarder
             </button>
         </div>        
     </div>

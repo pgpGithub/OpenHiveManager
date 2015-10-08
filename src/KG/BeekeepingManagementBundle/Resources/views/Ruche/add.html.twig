@@ -36,30 +36,30 @@
     
 {% block panel_body %}
               
-    {{ form_start(form, { 'style': 'horizontal' }) }}
+    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
         
     <fieldset> 
         <legend>Ruche</legend>
-        {{ form_row(form.nom, {'label': 'Nom de la ruche :'})  }}
-        {{ form_row(form.matiere, {'label': 'Matière :'})  }}
-        {{ form_row(form.corps.type, {'label': 'Type :'})  }}
-        {{ form_row(form.corps.soustype, {'label': 'Nombre de cadres :'})  }}
-        {{ form_row(form.image.file, {'label': 'Photo :'})  }}
+        {{ form_row(form.nom, {'label': 'Nom de la ruche :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.matiere, {'label': 'Matière :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.corps.type, {'label': 'Type :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.corps.soustype, {'label': 'Nombre de cadres :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
     </fieldset>
 
     <fieldset>
 
         <legend>Colonie</legend>
-        {{ form_row(form.colonie.origineColonie, {'label': 'Origine :'})  }}
-        {{ form_row(form.colonie.dateColonie, {'label': 'Date de naissance :'})  }}
-        {{ form_row(form.colonie.affectation, {'label': 'Affectation :'})  }}
-        {{ form_row(form.colonie.etat, {'label': 'Etat :'})  }}
-        {{ form_row(form.corps.nbnourriture, {'label': 'Cadres de nourriture :'})  }}
-        {{ form_row(form.corps.nbcouvain, {'label': 'Cadres de couvain :'})  }}
-        {{ form_row(form.colonie.agressivite, {'label': 'Agressivité :'})  }}
-        {{ form_row(form.colonie.reine.race, {'label': 'Race :'})  }}
-        {{ form_row(form.colonie.reine.anneeReine, {'label': 'Année :'})  }}
-        {{ form_row(form.colonie.reine.provenanceReine, {'label': 'Provenance :'})  }}
+        {{ form_row(form.colonie.origineColonie, {'label': 'Origine :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.colonie.dateColonie, {'label': 'Date de naissance :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.colonie.affectation, {'label': 'Affectation :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.colonie.etat, {'label': 'Etat :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.corps.nbnourriture, {'label': 'Cadres de nourriture :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.corps.nbcouvain, {'label': 'Cadres de couvain :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.colonie.agressivite, {'label': 'Agressivité :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.colonie.reine.race, {'label': 'Race :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.colonie.reine.anneeReine, {'label': 'Année :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.colonie.reine.provenanceReine, {'label': 'Provenance :', 'label_col': 4, 'widget_col': 5})  }}
         <div class="row">
             <div class="col-md-offset-4 col-md-6">            
                 {{ form_row(form.colonie.reine.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
@@ -73,8 +73,7 @@
     <div class="form-group">
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary pull-right">
-                <i class="glyphicon glyphicon-floppy-disk"></i>
-                Sauvegarder
+                {{ icon('floppy-disk') }} Sauvegarder
             </button>
         </div>        
     </div>

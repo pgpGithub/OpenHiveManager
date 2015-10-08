@@ -32,9 +32,7 @@ class DeplacerEmplacementFieldSubscriber implements EventSubscriberInterface
             'choice_label'  => 'nom',
             'empty_value'   => '',
             'attr'          => array(
-                'class' => 'emplacement_selector',
-                'label_col' => 4, 
-                'widget_col' => 5
+                'class' => 'emplacement_selector'
             ),
             'query_builder' => function (EntityRepository $repository) use ($rucher) {
                 $qb = $repository->queryfindByRucherId($rucher);

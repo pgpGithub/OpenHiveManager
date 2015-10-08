@@ -30,28 +30,28 @@
 
 {% block panel_body %}
                   
-    {{ form_start(form, { 'style': 'horizontal' }) }}
+    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
 
     <fieldset> 
         <legend>Emplacement</legend>        
-        {{ form_row(form.rucher, {'label': 'Rucher :'})  }}
-        {{ form_row(form.emplacement, {'label': 'Emplacement :'})  }}            
+        {{ form_row(form.rucher, {'label': 'Rucher :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.emplacement, {'label': 'Emplacement :', 'label_col': 4, 'widget_col': 5})  }}            
     </fieldset> 
             
     <fieldset> 
-        {{ form_row(form.nom, {'label': 'Nom de la ruche :'})  }}
-        {{ form_row(form.matiere, {'label': 'Matière :'})  }}
-        {{ form_row(form.corps.type, {'label': 'Type :'})  }}
-        {{ form_row(form.corps.soustype, {'label': 'Nombre de cadres :'})  }}
-        {{ form_row(form.image.file, {'label': 'Photo :'})  }}
+        {{ form_row(form.nom, {'label': 'Nom de la ruche :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.matiere, {'label': 'Matière :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.corps.type, {'label': 'Type :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.corps.soustype, {'label': 'Nombre de cadres :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
     </fieldset>
     
     <fieldset>
         <legend>Colonie</legend>                
-        {{ form_row(form.colonie.dateColonie, {'label': 'Date de la division :'})  }}
-        {{ form_row(form.colonie.affectation, {'label': 'Affectation :'})  }}
-        {{ form_row(form.corps.nbnourriture, {'label': 'Cadres de nourriture :'})  }}
-        {{ form_row(form.corps.nbcouvain, {'label': 'Cadres de couvain :'})  }}                                
+        {{ form_row(form.colonie.dateColonie, {'label': 'Date de la division :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.colonie.affectation, {'label': 'Affectation :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.corps.nbnourriture, {'label': 'Cadres de nourriture :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.corps.nbcouvain, {'label': 'Cadres de couvain :', 'label_col': 4, 'widget_col': 5})  }}                                
     </fieldset>                
 
     {{ form_rest(form) }}
@@ -59,8 +59,7 @@
     <div class="form-group">
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary pull-right">
-                <i class="glyphicon glyphicon-floppy-disk"></i>
-                Sauvegarder
+                {{ icon('floppy-disk') }} Sauvegarder
             </button>
         </div>        
     </div>

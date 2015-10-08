@@ -15,7 +15,7 @@ class UpdateRucheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',  'text', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
+            ->add('nom',  'text')
             ->add('image', new ImageType(), array('required' => false));
     }
     

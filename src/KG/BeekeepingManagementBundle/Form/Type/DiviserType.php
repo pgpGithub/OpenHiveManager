@@ -47,9 +47,7 @@ class DiviserType extends AbstractType
                         'empty_value'   => '',
                         'mapped'        => false,
                         'attr'          => array(
-                            'class' => 'rucher_selector',
-                            'label_col' => 4, 
-                            'widget_col' => 5
+                            'class' => 'rucher_selector'
                         ),
                         'query_builder' => function (EntityRepository $repository) use ($exploitation) {
                             $qb = $repository->queryfindByExploitationId($exploitation);

@@ -38,8 +38,7 @@ class VisiteType extends AbstractType
                             'class' => 'KGBeekeepingManagementBundle:Activite',
                             'choice_label' => 'libelle',
                             'empty_value' => '',
-                            'empty_data'  => null,
-                            'attr' => array('label_col' => 4, 'widget_col' => 5)
+                            'empty_data'  => null
                         ))                
                 ->add('reine', 'checkbox', array(
                             'label' => false,
@@ -49,8 +48,8 @@ class VisiteType extends AbstractType
                             'label' => false,
                             'required'  => false
                         ))
-                ->add('nbcouvain', 'integer', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
-                ->add('nbnourriture', 'integer', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
+                ->add('nbcouvain', 'integer')
+                ->add('nbnourriture', 'integer')
                 ->add('celroyales', 'checkbox', array(
                             'label' => false,
                             'required'  => false
@@ -59,27 +58,22 @@ class VisiteType extends AbstractType
                             'class' => 'KGBeekeepingManagementBundle:Etat',
                             'choice_label' => 'libelle',
                             'empty_value' => '',
-                            'empty_data'  => null,
-                            'attr' => array('label_col' => 4, 'widget_col' => 5)
+                            'empty_data'  => null
                         ))
                 ->add('agressivite', 'entity', array(
                             'class' => 'KGBeekeepingManagementBundle:Agressivite',
                             'choice_label' => 'libelle',
                             'empty_value' => '',
-                            'empty_data'  => null,
-                            'attr' => array('label_col' => 4, 'widget_col' => 5)
+                            'empty_data'  => null
                         ))
                 ->add('nourrissement', 'textarea', array(
                             'required'  => false,
-                            'attr' => array('label_col' => 4, 'widget_col' => 5)
                         ))
                 ->add('traitement', 'textarea', array(
-                            'required'  => false,
-                            'attr' => array('label_col' => 4, 'widget_col' => 5)
+                            'required'  => false
                         ))
                 ->add('observations', 'textarea', array(
-                            'required'  => false,
-                            'attr' => array('label_col' => 4, 'widget_col' => 5)
+                            'required'  => false
                         ))
                 ->add('date', 'collot_datetime', array( 
                         'pickerOptions' =>
@@ -100,7 +94,6 @@ class VisiteType extends AbstractType
                                 'viewSelect' => 'month',
                                 'initialDate' => date("Y-m-d"), 
                             ),
-                        'attr' => array('label_col' => 4, 'widget_col' => 5),
                         'read_only' => true
                         ))
                 ->add('hausses', 'bootstrap_collection', array(
@@ -110,8 +103,7 @@ class VisiteType extends AbstractType
                     'add_button_text'    => '.icon-plus Ajouter hausse',
                     'delete_button_text' => '.icon-trash',
                     'sub_widget_col'     => 10,
-                    'button_col'         => 1,
-                    'attr' => array('label_col' => 4, 'widget_col' => 5),
+                    'button_col'         => 1
                 ));               
     }
     
