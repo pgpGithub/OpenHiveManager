@@ -35,7 +35,7 @@ braincrafted_bootstrap:
     output_dir:
     assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
     jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.11.1.js
-    less_filter: less # "less", "lessphp", "sass" or "none"
+    less_filter: lessphp # "less", "lessphp", "sass" or "none"
     fonts_dir: %kernel.root_dir%/../web/fonts
     auto_configure:
         assetic: true
@@ -51,7 +51,7 @@ braincrafted_bootstrap:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-
+ 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
@@ -60,9 +60,9 @@ assetic:
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
-        less: 
-            node: %node_bin%
-            node_paths: [%node_modules%]
+        lessphp:
+            file: %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
+            apply_to: "\.less$"            
         yui_css:
             jar: %kernel.root_dir%/Resources/java/yuicompressor.jar
         yui_js:

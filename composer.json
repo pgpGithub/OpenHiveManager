@@ -36,9 +36,10 @@
         "stephanecollot/datetimepicker-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "dev-master",
-        "twbs/bootstrap": "3.0.*",
+        "twbs/bootstrap": "v3.0.0",
         "jquery/jquery":  "1.11.*",
-        "braincrafted/bootstrap-bundle": "dev-master"
+        "braincrafted/bootstrap-bundle": "dev-master",
+        "leafo/lessphp": "v0.4.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
