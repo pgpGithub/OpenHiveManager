@@ -68,7 +68,9 @@ class ColonieController extends Controller
         $em->remove($colonie);
         $em->flush();
 
-        $this->get('session')->getFlashBag()->add('success','Colonie supprimée avec succès');
+        $flash = $this->get('braincrafted_bootstrap.flash');
+        $flash->success('Colonie supprimée avec succès');
+        
         return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRucher()->getId())));            
     }
     
@@ -98,14 +100,16 @@ class ColonieController extends Controller
         if ($form->handleRequest($request)->isValid()){
             
             if($ancienClippage && !$colonie->getReine()->getClippage()){
-                $this->get('session')->getFlashBag()->add('danger','Le clippage ne peut pas être annulé');
+                $flash = $this->get('braincrafted_bootstrap.flash');
+                $flash->danger('Le clippage ne peut pas être annulé');
             }else{
                 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($colonie);
                 $em->flush();
 
-                $request->getSession()->getFlashBag()->add('success','Colonie mise à jour avec succès');
+                $flash = $this->get('braincrafted_bootstrap.flash');
+                $flash->success('Colonie mise à jour avec succès');
 
                 return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));
             }
@@ -148,7 +152,8 @@ class ColonieController extends Controller
             $em->persist($ruche);           
             $em->flush();
         
-            $request->getSession()->getFlashBag()->add('success','Colonie divisée avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Colonie divisée avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $ruche->getColonie()->getId())));
         }
@@ -190,7 +195,9 @@ class ColonieController extends Controller
                 $em->remove($colonie->getRuche());
                 $em->flush();
 
-                $this->get('session')->getFlashBag()->add('success','Colonie déclarée morte avec succès');
+                $flash = $this->get('braincrafted_bootstrap.flash');
+                $flash->success('Colonie déclarée morte avec succès');
+                
                 return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));                          
             }
             else{

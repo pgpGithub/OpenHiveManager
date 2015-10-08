@@ -70,7 +70,9 @@ class EmplacementController extends Controller
             $em->persist($emplacement);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success','Emplacement supprimé avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Emplacement supprimé avec succès');
+            
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $emplacement->getRucher()->getId())));            
         }
     }
@@ -106,7 +108,8 @@ class EmplacementController extends Controller
             $em->persist($emplacement);
             $em->flush();
         
-            $request->getSession()->getFlashBag()->add('success','Emplacement créé avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Emplacement créé avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $emplacement->getRucher()->getId())));
         }
@@ -146,7 +149,8 @@ class EmplacementController extends Controller
             $em->persist($emplacement);
             $em->flush();
         
-            $request->getSession()->getFlashBag()->add('success','Emplacement mis à jour avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Emplacement mis à jour avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_emplacement', array('emplacement_id' => $emplacement->getId())));
         }

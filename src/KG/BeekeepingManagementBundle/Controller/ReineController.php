@@ -40,7 +40,10 @@ class ReineController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($reine);
             $em->flush();
-            $request->getSession()->getFlashBag()->add('success','Reine renouvelée avec succès');
+            
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Reine renouvelée avec succès');
+            
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $reine->getColonnie()->getId())));                
         }
 

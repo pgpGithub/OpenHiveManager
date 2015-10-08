@@ -105,7 +105,8 @@ class RecolteRucherController extends Controller
             $em->persist($recolterucher);
             $em->flush();
         
-            $request->getSession()->getFlashBag()->add('success','Récolte créée avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Récolte créée avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $rucher->getId())));
         }

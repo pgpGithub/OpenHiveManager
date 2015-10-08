@@ -82,7 +82,8 @@ class RucherController extends Controller
         $em->remove($rucher);
         $em->flush();
         
-        $this->getSession()->getFlashBag()->add('success','Rucher supprimé avec succès');
+        $flash = $this->get('braincrafted_bootstrap.flash');
+        $flash->success('Rucher supprimé avec succès');
         
         return $this->redirect($this->generateUrl('kg_beekeeping_management_home'));
     }
@@ -116,7 +117,8 @@ class RucherController extends Controller
             $em->persist($rucher);
             $em->flush();
         
-            $request->getSession()->getFlashBag()->add('success','Rucher créé avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Rucher créé avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $rucher->getId())));
         }
@@ -153,7 +155,8 @@ class RucherController extends Controller
             $em->persist($rucher);
             $em->flush();
         
-            $request->getSession()->getFlashBag()->add('success','Rucher mis à jour avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Rucher mis à jour avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $rucher->getId())));
         }

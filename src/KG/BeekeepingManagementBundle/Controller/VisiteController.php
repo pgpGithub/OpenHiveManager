@@ -92,7 +92,8 @@ class VisiteController extends Controller
             $em->persist($visite);
             $em->flush();
         
-            $request->getSession()->getFlashBag()->add('success','Visite créée avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Visite créée avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $visite->getColonie()->getRuche()->getId())));
         }
@@ -147,7 +148,8 @@ class VisiteController extends Controller
             $em->persist($visite);
             $em->flush();
         
-            $request->getSession()->getFlashBag()->add('success','Visite créée avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Visite créée avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $visite->getColonie()->getRuche()->getId())));
         }

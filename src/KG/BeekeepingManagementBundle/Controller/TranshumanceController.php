@@ -82,7 +82,8 @@ class TranshumanceController extends Controller
             $em->persist($transhumance);
             $em->flush();
         
-            $request->getSession()->getFlashBag()->add('success','Transhumance créée avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Transhumance créée avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $transhumance->getColonie()->getRuche()->getId())));
         }
