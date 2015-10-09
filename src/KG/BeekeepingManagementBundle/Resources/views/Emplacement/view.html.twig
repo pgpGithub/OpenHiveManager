@@ -21,7 +21,7 @@
         </div>
         <div class="col-xs-6">
             <span class="pull-right">
-                <a title="Modifier" href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id' : emplacement.id }) }}" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-pencil"></i><strong> Modifier</strong></a>
+                <a title="Modifier" href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id' : emplacement.id }) }}" class="btn btn-sm btn-warning">{{ icon('pencil') }}<strong> Modifier</strong></a>
             </span>
         </div>
     </div>    
@@ -30,6 +30,6 @@
 
 {% block panel_body %}  
     <div class="row">
-        <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id' : emplacement.id }) }}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>                                            
+        <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id' : emplacement.id }) }}" class="btn btn-sm btn-danger">{{ icon('trash') }}</a>                                            
     </div>
 {% endblock %}

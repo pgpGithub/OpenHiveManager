@@ -32,13 +32,13 @@
                       <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
-                        <li><a title="Renouveler la reine" href="{{ path('kg_beekeeping_management_renouveler_reine', { 'reine_id': colonie.reine.id }) }}"><i class="glyphicon glyphicon-refresh"></i> Remérage</a></li>
-                        {% if colonie.ruche.corps.nbcouvain > 1 %}<li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}"><i class="glyphicon glyphicon-scissors"></i> Diviser</a></li>{% endif %}
-                        <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}"><i class="glyphicon glyphicon-pencil"></i> Modifier la colonie</a></li>
-                        <li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}"><i class="glyphicon glyphicon-minus-sign"></i> Déclarer morte</a></li>
+                        <li><a title="Renouveler la reine" href="{{ path('kg_beekeeping_management_renouveler_reine', { 'reine_id': colonie.reine.id }) }}">{{ icon('refresh') }} Remérage</a></li>
+                        {% if colonie.ruche.corps.nbcouvain > 1 %}<li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('scissors') }} Diviser</a></li>{% endif %}
+                        <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('pencil') }} Modifier la colonie</a></li>
+                        <li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('minus-sign') }} Déclarer morte</a></li>
                         {% if colonie.visites is empty and colonie.recoltesruche is empty and colonie.coloniesFilles is empty %}
                             <li role="separator" class="divider"></li>
-                            <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}"><i class="glyphicon glyphicon-trash"></i> Supprimer</a></li>                     
+                            <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('trash') }} Supprimer</a></li>                     
                         {% endif %}
                     </ul>
                 </div>                 
@@ -58,7 +58,7 @@
         <div class=" col-md-9 col-lg-9 ">
             {% if colonie.morte %}
             <div class="alert alert-danger" role="alert">
-                <h4><i class="glyphicon glyphicon-alert"></i> Cette colonie est morte</h4>
+                <h4>{{ icon('alert') }} Cette colonie est morte</h4>
                 <strong>Causes de la mort :</strong></td>
                 {% for cause in colonie.causes %}
                     {% if not loop.first %}
@@ -88,7 +88,7 @@
                     {% if colonie.colonieMere %}
                     <tr>
                         <td><strong>Colonie mère</strong></td>
-                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.colonieMere.id }) }}"><i class="glyphicon glyphicon-user"></i></a></td>
+                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.colonieMere.id }) }}">{{ icon('user') }}</a></td>
                     </tr>                              
                     {% endif %}
 
@@ -100,7 +100,7 @@
                                 {% if not loop.first %}
                                     - 
                                 {% endif %}
-                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonieFille.id }) }}"><i class="glyphicon glyphicon-user"></i></a>
+                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonieFille.id }) }}">{{ icon('user') }}</a>
                             {% endfor %}
                         </td>
                     </tr>                              

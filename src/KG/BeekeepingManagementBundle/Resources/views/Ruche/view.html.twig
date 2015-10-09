@@ -27,20 +27,20 @@
                       <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
-                        <li><a title="Modifier la ruche" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}"><i class="glyphicon glyphicon-pencil"></i> Modifier la ruche</a></li>
+                        <li><a title="Modifier la ruche" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}">{{ icon('pencil') }} Modifier la ruche</a></li>
                         {%if ruche.colonie and ruche.emplacement %}
                             {% if pagination is not empty %}
                                 {% set lastVisite = pagination|last %}
                                 {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
-                                    <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}"><i class="glyphicon glyphicon-plus"></i> Créer une visite</a></li>
+                                    <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plus') }} Créer une visite</a></li>
                                 {% endif %}
                             {% else %}
-                            <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}"><i class="glyphicon glyphicon-plus"></i> Créer une visite</a></li>
+                            <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plus') }} Créer une visite</a></li>
                             {% endif %}
                         {% endif %}
-                        <li><a title="Transhumer" href="{{ path('kg_beekeeping_management_add_transhumance', { 'colonie_id' : ruche.colonie.id }) }}"><i class="glyphicon glyphicon-plane"></i> Transhumer</a></li>
+                        <li><a title="Transhumer" href="{{ path('kg_beekeeping_management_add_transhumance', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plane') }} Transhumer</a></li>
                         {% if ruche.colonie.transhumances is not empty %}
-                            <li><a title="Historique des transhumances" href="{{ path('kg_beekeeping_management_view_transhumances', { 'colonie_id' : ruche.colonie.id }) }}"><i class="glyphicon glyphicon-list"></i> Historique des transhumances</a></li>
+                            <li><a title="Historique des transhumances" href="{{ path('kg_beekeeping_management_view_transhumances', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('list') }} Historique des transhumances</a></li>
                         {% endif %}
                     </ul>
                 </div> 
@@ -170,7 +170,7 @@
                                 <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if loop.first and pagination.getCurrentPageNumber == 1 %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>{% endif %}</td>
+                                <td>{% if loop.first and pagination.getCurrentPageNumber == 1 %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning">{{ icon('pencil') }}</a>{% endif %}</td>
                             </tr>    
                         {% endfor %}
                     </tbody>

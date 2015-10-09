@@ -46,17 +46,17 @@
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
-                    <li><a title="Modifier le rucher" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-pencil"></i> Modifier le rucher</a></li>
-                    <li><a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-plus"></i> Créer un emplacement</a></li>                    
+                    <li><a title="Modifier le rucher" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id' : rucher.id }) }}">{{ icon('pencil') }} Modifier le rucher</a></li>
+                    <li><a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id' : rucher.id }) }}">{{ icon('plus') }} Créer un emplacement</a></li>                    
                     {% if rucher.recoltesrucher is not empty %}
-                        <li><a title="Historique des récoltes" href="{{ path('kg_beekeeping_management_view_recoltes', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-list"></i> Historique des récoltes</a></li>
+                        <li><a title="Historique des récoltes" href="{{ path('kg_beekeeping_management_view_recoltes', { 'rucher_id' : rucher.id }) }}">{{ icon('list') }} Historique des récoltes</a></li>
                     {% endif %}
                     {% if break %}
-                        <li><a title="Récolter" href="{{ path('kg_beekeeping_management_add_recolte', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-export"></i> Récolter</a></li>
+                        <li><a title="Récolter" href="{{ path('kg_beekeeping_management_add_recolte', { 'rucher_id' : rucher.id }) }}">{{ icon('export') }} Récolter</a></li>
                     {% endif %}        
                     {% if rucher.recoltesrucher is empty and not rucheExist and rucher.transhumancesfrom is empty and rucher.transhumancesto is empty %}
                         <li role="separator" class="divider"></li>                
-                        <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}"><i class="glyphicon glyphicon-trash"></i> Supprimer</a></li>                                   
+                        <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}">{{ icon('trash') }} Supprimer</a></li>                                   
                     {% endif %}
                 </ul>
             </div>
@@ -135,7 +135,7 @@
                                     <td>{{ emplacement.ruche.hausses|length }}</td>
                                 {% else %}
                                     <td colspan="4">
-                                        <a title="Créer une colonie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i> Créer une colonie</a>                                                
+                                        <a title="Créer une colonie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs">{{ icon('plus') }} Créer une colonie</a>                                                
                                     </td> 
                                 {% endif %}                                     
                             </tr>

@@ -40,12 +40,12 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% block ruchers %}Ruchers{% endblock %}<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             {% for rucher in app.user.exploitations|first.ruchers %}
-                                                <li><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}"><i class="glyphicon glyphicon-eye-open"></i> {{ rucher.nom }}</a></li>
+                                                <li><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ icon('eye-open') }} {{ rucher.nom }}</a></li>
                                                 {% if loop.last %}
                                                     <li role="separator" class="divider"></li>                                            
                                                 {% endif %}
                                             {% endfor %}
-                                            <li><a title="Créer un rucher" href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="glyphicon glyphicon-plus"></i> Créer un rucher</a></li>                              
+                                            <li><a title="Créer un rucher" href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.exploitations|first.id }) }}">{{ icon('plus') }} Créer un rucher</a></li>                              
                                         </ul>
                                     </li>
                                 </ul>
