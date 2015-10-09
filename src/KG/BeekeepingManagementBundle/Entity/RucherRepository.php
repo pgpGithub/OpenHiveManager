@@ -13,31 +13,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class RucherRepository extends EntityRepository
 {
-    public function getListByExploitation($page=1, $maxperpage=10, $exploitation)
-    {
-        $q = $this->createQueryBuilder('r')
-                  ->leftJoin('r.exploitation','e')
-                  ->addSelect('e')
-                  ->where('e.id = :id')
-                  ->setParameter('id',$exploitation);
-        
-        $q->setFirstResult(($page-1)*$maxperpage)
-          ->setMaxResults($maxperpage);
-        
-        return new Paginator($q);
-    }
-
-    public function countByExploitation($exploitation)
-    {
-        return $this->createQueryBuilder('r')
-                    ->select('COUNT(r)')
-                    ->leftJoin('r.exploitation','e')
-                    ->where('e.id = :id')               
-                    ->setParameter('id',$exploitation)
-                    ->getQuery()
-                    ->getSingleScalarResult();
-    }  
-    
     public function getRucherByExploitation($id, $exploitation)
     {
         return $this->createQueryBuilder('r')

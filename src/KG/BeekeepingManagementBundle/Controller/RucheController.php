@@ -132,14 +132,18 @@ class RucheController extends Controller
         }
         
         if($ruche->getColonie()){    
-            $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->findByColonie($ruche->getColonie());    
+            $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByColonie($ruche->getColonie());    
         }
         
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', $page),
-            10/*limit per page*/
+            10,
+            array(
+                'defaultSortFieldName' => 'visite.date',
+                'defaultSortDirection' => 'desc'
+            )                
         );
         
         return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig',

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "376535183aa7c02bc2d344788e9e378d",
+    "hash": "14118e65e5126ef9bbe8204e1571c4d9",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -1069,7 +1069,7 @@
         },
         {
             "name": "knplabs/knp-paginator-bundle",
-            "version": "dev-master",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
@@ -2123,8 +2123,7 @@
         "stephanecollot/datetimepicker-bundle": 20,
         "friendsofsymfony/user-bundle": 20,
         "friendsofsymfony/jsrouting-bundle": 20,
-        "braincrafted/bootstrap-bundle": 20,
-        "knplabs/knp-paginator-bundle": 20
+        "braincrafted/bootstrap-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

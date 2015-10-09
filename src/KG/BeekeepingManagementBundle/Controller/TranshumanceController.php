@@ -33,16 +33,20 @@ class TranshumanceController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
  
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Transhumance')->findByColonie($colonie);    
+        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Transhumance')->getListByColonie($colonie);    
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', $page),
-            30/*limit per page*/
+            30,
+            array(
+                'defaultSortFieldName' => 't.date',
+                'defaultSortDirection' => 'desc'
+            )  
         );
         
         return $this->render('KGBeekeepingManagementBundle:Transhumance:viewAll.html.twig', 
-                array(  'colonie'          => $colonie,
+                array(  'colonie'    => $colonie,
                         'pagination' => $pagination));
     }
     

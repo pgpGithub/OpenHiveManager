@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Transhumance
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\TranshumanceRepository")
  */
 class Transhumance
 {

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Colonie
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ColonieRepository")
+ * @ORM\Entity
  */
 class Colonie
 {

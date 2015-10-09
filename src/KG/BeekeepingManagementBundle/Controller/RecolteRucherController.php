@@ -34,12 +34,16 @@ class RecolteRucherController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
  
-        $query      = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:RecolteRucher')->findByRucher($rucher);  
+        $query      = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:RecolteRucher')->getListByRucher($rucher);  
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', $page),
-            30/*limit per page*/
+            30,
+            array(
+                'defaultSortFieldName' => 'recolte.date',
+                'defaultSortDirection' => 'desc'
+            )  
         );
         
         return $this->render('KGBeekeepingManagementBundle:RecolteRucher:viewAll.html.twig', 
