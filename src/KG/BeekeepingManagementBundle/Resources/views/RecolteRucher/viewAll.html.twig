@@ -20,11 +20,11 @@
             <div class="table-responsive">
                 <table id="mytable" class="table table-bordred table-striped">
                     <thead>
-                        <th>Date</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Date', 'recolte.date') }}</th>
                         <th>Hausses</th>
                     </thead>
-                    <tbody>
-                        {% for recolte in recoltes %}
+                    <tbody>                   
+                        {% for recolte in pagination %}
                             {% set nbhausses = 0 %}
                             {% for recolteruche in recolte.recoltesruche %}
                                 {% set nbhausses = nbhausses + recolteruche.hausses|length %}
@@ -39,9 +39,9 @@
                 </table>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
-                </div>
+                <div class="col-md-12 navigation" align="right">
+                    {{ knp_pagination_render(pagination) }}
+                </div>  
             </div>                            
         </div>
     </div>                                    

@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * RecolteRucher
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\RecolteRucherRepository")
+ * @ORM\Entity
  */
 class RecolteRucher
 {

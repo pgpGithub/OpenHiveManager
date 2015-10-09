@@ -3,7 +3,6 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * EmplacementRepository
@@ -13,31 +12,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class EmplacementRepository extends EntityRepository
 {
-    public function getListByRucher($page=1, $maxperpage=10, $rucher)
-    {
-        $q = $this->createQueryBuilder('emplacement')
-                  ->leftJoin('emplacement.rucher','rucher')               
-                  ->addSelect('rucher')
-                  ->where('rucher.id = :id')
-                  ->setParameter('id',$rucher);
-        
-        $q->setFirstResult(($page-1)*$maxperpage)
-          ->setMaxResults($maxperpage);
-        
-        return new Paginator($q);
-    }
-    
-    public function countByRucher($rucher)
-    {
-        return $this->createQueryBuilder('emplacement')
-                    ->select('COUNT(emplacement)')
-                    ->leftJoin('emplacement.rucher','rucher')
-                    ->where('rucher.id = :id')              
-                    ->setParameter('id',$rucher)
-                    ->getQuery()
-                    ->getSingleScalarResult();
-    }   
-
     public function queryfindByRucherId($rucher)
     {
         return $this->createQueryBuilder('emplacement')

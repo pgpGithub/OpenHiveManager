@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Visite
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\VisiteRepository")
+ * @ORM\Entity
  */
 class Visite
 {
@@ -146,7 +146,8 @@ class Visite
         $this->setNbnourriture($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbnourriture());
         $this->setEtat($colonie->getEtat());
         $this->setAgressivite($colonie->getAgressivite());
-        $this->setDate(new \DateTime());        
+        $this->setDate(new \DateTime());    
+        $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

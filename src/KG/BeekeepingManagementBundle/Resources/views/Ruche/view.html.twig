@@ -29,8 +29,8 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
                         <li><a title="Modifier la ruche" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}"><i class="glyphicon glyphicon-pencil"></i> Modifier la ruche</a></li>
                         {%if ruche.colonie and ruche.emplacement %}
-                            {% if visites is not empty %}
-                                {% set lastVisite = visites|last %}
+                            {% if pagination is not empty %}
+                                {% set lastVisite = pagination|last %}
                                 {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
                                     <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}"><i class="glyphicon glyphicon-plus"></i> Créer une visite</a></li>
                                 {% endif %}
@@ -157,10 +157,9 @@
                         <th>Cellules royales</th>
                         <th>Nourrissement</th>
                         <th>Traitement</th>
-                        <th></th>
                     </thead>
                     <tbody>
-                        {% for visite in visites|reverse %}
+                        {% for visite in pagination %}
                             <tr>
                                 <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
                                 <td>{{ visite.activite.libelle }}</td>
@@ -170,16 +169,15 @@
                                 <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if loop.first %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>{% endif %}</td>
                             </tr>    
                         {% endfor %}
                     </tbody>
                 </table>                
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
-                </div>
+                <div class="col-md-12 navigation" align="right">
+                    {{ knp_pagination_render(pagination) }}
+                </div>  
             </div>                         
         </div>
     </div>            

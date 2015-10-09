@@ -17,7 +17,7 @@ class RecolteRucherController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
-    public function viewAllAction(Rucher $rucher, $page)
+    public function viewAllAction(Request $request, Rucher $rucher, $page)
     {
         $exploitation = $rucher->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
@@ -34,20 +34,16 @@ class RecolteRucherController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
  
-        $maxRecoltes    = $this->container->getParameter('max_recoltes_per_page');
-        $recoltes       = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:RecolteRucher')->getListByRucher($page, $maxRecoltes, $rucher->getId());
-        $recoltes_count = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:RecolteRucher')->countByRucher($rucher->getId()); 
-        $pagination = array(
-            'page'         => $page,
-            'route'        => 'kg_beekeeping_management_view_recoltes',
-            'pages_count'  => max ( ceil($recoltes_count / $maxRecoltes), 1),
-            'route_params' => array('rucher_id' => $rucher->getId())
+        $query      = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:RecolteRucher')->findByRucher($rucher);  
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', $page),
+            30/*limit per page*/
         );
         
         return $this->render('KGBeekeepingManagementBundle:RecolteRucher:viewAll.html.twig', 
                 array(  'rucher'     => $rucher,
-                        'recoltes'   => $recoltes,
-                        'nbRecoltes' => $recoltes_count,
                         'pagination' => $pagination));
     }
     

@@ -39,7 +39,8 @@
         "twbs/bootstrap": "v3.0.0",
         "jquery/jquery":  "1.11.*",
         "braincrafted/bootstrap-bundle": "dev-master",
-        "leafo/lessphp": "v0.4.0"
+        "leafo/lessphp": "v0.4.0",
+        "knplabs/knp-paginator-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

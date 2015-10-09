@@ -16,7 +16,7 @@ class TranshumanceController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    public function viewAllAction(Colonie $colonie, $page)
+    public function viewAllAction(Request $request, Colonie $colonie, $page)
     {
         $exploitation = $colonie->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
@@ -33,20 +33,16 @@ class TranshumanceController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
  
-        $maxTranshumances    = $this->container->getParameter('max_transhumances_per_page');
-        $transhumances       = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Transhumance')->getListByColonie($page, $maxTranshumances, $colonie->getId());
-        $transhumances_count = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Transhumance')->countByColonie($colonie->getId()); 
-        $pagination = array(
-            'page'         => $page,
-            'route'        => 'kg_beekeeping_management_view_transhumances',
-            'pages_count'  => max ( ceil($transhumances_count / $maxTranshumances), 1),
-            'route_params' => array('colonie_id' => $colonie->getId())
+        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Transhumance')->findByColonie($colonie);    
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', $page),
+            30/*limit per page*/
         );
         
         return $this->render('KGBeekeepingManagementBundle:Transhumance:viewAll.html.twig', 
                 array(  'colonie'          => $colonie,
-                        'transhumances'   => $transhumances,
-                        'nbTranshumances' => $transhumances_count,
                         'pagination' => $pagination));
     }
     

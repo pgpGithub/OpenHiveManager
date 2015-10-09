@@ -115,7 +115,7 @@ class RucheController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}}) 
     */    
-    public function viewAction(Ruche $ruche, $page)
+    public function viewAction(Request $request, Ruche $ruche, $page)
     {
         $apiculteurExploitations = $ruche->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
@@ -131,27 +131,19 @@ class RucheController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $maxVisites     = $this->container->getParameter('max_visites_per_page');
-        
-        if($ruche->getColonie()){
-            $visites        = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByColonie($page, $maxVisites, $ruche->getColonie()->getId());
-            $visites_count  = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->countByColonie($ruche->getColonie()->getId()); 
-        }else{
-            $visites        = 0;
-            $visites_count  = 0;           
+        if($ruche->getColonie()){    
+            $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->findByColonie($ruche->getColonie());    
         }
         
-        $pagination = array(
-            'page'         => $page,
-            'route'        => 'kg_beekeeping_management_view_ruche',
-            'pages_count'  => max ( ceil($visites_count / $maxVisites), 1),
-            'route_params' => array('ruche_id' => $ruche->getId())
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', $page),
+            10/*limit per page*/
         );
         
         return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig',
                 array(  'ruche'       => $ruche,
-                        'visites'     => $visites,
-                        'nbVisites'   => $visites_count,
                         'pagination'  => $pagination
                 ));        
     }  

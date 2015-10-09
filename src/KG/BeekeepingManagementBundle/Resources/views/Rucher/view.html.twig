@@ -123,7 +123,7 @@
                         <th>Hausses</th>
                     </thead>
                     <tbody>
-                        {% for emplacement in emplacements %}
+                        {% for emplacement in pagination %}
                             <tr>
                                 <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
                                 {% if emplacement.ruche %}
@@ -144,9 +144,9 @@
                 </table>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    {% include "KGBeekeepingManagementBundle::pagination.html.twig" %}
-                </div>
+                <div class="col-md-12 navigation" align="right">
+                    {{ knp_pagination_render(pagination) }}
+                </div>                
             </div>                            
         </div>
     </div>                                    
