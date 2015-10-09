@@ -157,8 +157,9 @@
                         <th>Cellules royales</th>
                         <th>Nourrissement</th>
                         <th>Traitement</th>
+                        <th></th>
                     </thead>
-                    <tbody>
+                    <tbody> 
                         {% for visite in pagination %}
                             <tr>
                                 <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
@@ -169,6 +170,7 @@
                                 <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
+                                <td>{% if loop.first and pagination.getCurrentPageNumber == 1 %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>{% endif %}</td>
                             </tr>    
                         {% endfor %}
                     </tbody>
