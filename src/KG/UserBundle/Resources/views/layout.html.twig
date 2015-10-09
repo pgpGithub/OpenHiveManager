@@ -20,15 +20,7 @@
                         <div class="col-md-12">
                             <div class="alert alert-{{ key }}" role="alert">
                 {% endif %}
-                            {% if key == 'success' %}
-                                <i><span class="glyphicon glyphicon-ok-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                            {% elseif key == 'danger' %}
-                                <i><span class="glyphicon glyphicon-remove-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                            {% elseif key == 'info' %}
-                                <i><span class="glyphicon glyphicon-info-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                            {% elseif key == 'warning' %}
-                                <i><span class="glyphicon glyphicon-exclamation-sign"></span> {{ message|trans({}, 'FOSUserBundle') }}</i>
-                            {% endif %}    
+                                {{ message|trans({}, 'FOSUserBundle') }}
                 {% if loop.last %}        
                             </div>
                         </div>

@@ -19,7 +19,7 @@
 {% block fos_user_content %}
     {% if error %}
         <div class="alert alert-danger">
-            <i><span class="glyphicon glyphicon-remove-sign"></span> {{ error.messageKey|trans(error.messageData, 'security') }}</i>
+            {{ error.messageKey|trans(error.messageData, 'security') }}
         </div>
     {% endif %}
 
