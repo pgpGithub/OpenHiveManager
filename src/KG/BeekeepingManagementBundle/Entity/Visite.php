@@ -101,16 +101,16 @@ class Visite
     /**
      * @var string
      *
-     * @ORM\Column(name="nourrissement", type="string", length=50, nullable=true)  
-     * @Assert\Length(max=50, maxMessage="Le type de nourrissement ne peut dépasser {{ limit }} caractères")
+     * @ORM\Column(name="nourrissement", type="text", length=100, nullable=true)  
+     * @Assert\Length(max=100, maxMessage="Le type de nourrissement ne peut dépasser {{ limit }} caractères")
      */
     private $nourrissement;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="traitement", type="string", length=50, nullable=true)  
-     * @Assert\Length(max=50, maxMessage="Le type de traitement ne peut dépasser {{ limit }} caractères")
+     * @ORM\Column(name="traitement", type="text", length=100, nullable=true)  
+     * @Assert\Length(max=100, maxMessage="Le type de traitement ne peut dépasser {{ limit }} caractères")
      */
     private $traitement; 
 

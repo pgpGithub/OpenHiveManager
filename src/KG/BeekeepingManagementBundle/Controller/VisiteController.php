@@ -32,8 +32,8 @@ class VisiteController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
        
-        return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig', 
-                array(  'ruche' => $visite->getColonie()->getRuche() ));
+        return $this->render('KGBeekeepingManagementBundle:Visite:view.html.twig', 
+                array(  'visite' => $visite ));
     }
     
     /**
