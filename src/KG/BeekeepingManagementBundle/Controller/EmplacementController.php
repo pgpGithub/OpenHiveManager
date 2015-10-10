@@ -57,24 +57,18 @@ class EmplacementController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || !$emplacement->getTranshumancesfrom()->isEmpty() || !$emplacement->getTranshumancesto()->isEmpty() || $emplacement->getRuche()){
             throw new NotFoundHttpException('Page inexistante.');
         }
     
-        if( $emplacement->getRuche() ){
-            $this->get('session')->getFlashBag()->add('danger','Vous ne pouvez pas supprimer un emplacement occupé par une ruche'); 
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_emplacement', array('emplacement_id' => $emplacement->getId())));                        
-        }else{
-            //$emplacement->setSupprime(true);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($emplacement);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($emplacement);
+        $em->flush();
 
-            $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Emplacement supprimé avec succès');
-            
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $emplacement->getRucher()->getId())));            
-        }
+        $flash = $this->get('braincrafted_bootstrap.flash');
+        $flash->success('Emplacement supprimé avec succès');
+
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $emplacement->getRucher()->getId())));            
     }
     
     /**
@@ -141,7 +135,7 @@ class EmplacementController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $form = $this->createForm(new RucheType, $emplacement);
+        $form = $this->createForm(new EmplacementType, $emplacement);
         
         if ($form->handleRequest($request)->isValid()){
                         

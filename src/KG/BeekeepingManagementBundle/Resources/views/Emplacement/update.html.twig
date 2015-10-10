@@ -1,15 +1,15 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Emplacement/add.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Emplacement/update.html.twig #}
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Créer un emplacement{% endblock %}
+{% block title %}{{ parent() }} - Modifier un emplacement{% endblock %}
 
-{% block ruchers %}{{ rucher.nom }}{% endblock %}
+{% block ruchers %}{{ emplacement.rucher.nom }}{% endblock %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Création d'un emplacement</h4>
+            <h4>Modification d'un emplacement</h4>
         </div>
     </div>
 {% endblock %}

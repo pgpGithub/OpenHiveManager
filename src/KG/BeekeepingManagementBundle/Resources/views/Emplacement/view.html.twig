@@ -21,7 +21,19 @@
         </div>
         <div class="col-xs-6">
             <span class="pull-right">
-                <a title="Modifier" href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id' : emplacement.id }) }}" class="btn btn-sm btn-warning">{{ icon('pencil') }}<strong> Modifier</strong></a>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      Menu
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
+                        <li><a title="Modifier l'emplacement" href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id' : emplacement.id }) }}">{{ icon('pencil') }} Modifier l'emplacement</a></li>
+                        {% if emplacement.transhumancesto is empty and emplacement.transhumancesfrom is empty and not emplacement.ruche %}
+                            <li role="separator" class="divider"></li>                
+                            <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id' : emplacement.id }) }}">{{ icon('trash') }} Supprimer</a></li>                                   
+                        {% endif %}
+                    </ul>
+                </div> 
             </span>
         </div>
     </div>    
@@ -29,7 +41,24 @@
 
 
 {% block panel_body %}  
-    <div class="row">
-        <a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id' : emplacement.id }) }}" class="btn btn-sm btn-danger">{{ icon('trash') }}</a>                                            
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">    
+            <tbody>
+                <tr>
+                    <td><strong>Nom</strong></td>
+                    <td>{{ emplacement.nom }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Taux d'exposition au soleil</strong></td>
+                    <td>{{ emplacement.soleil }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Orientation</strong></td>
+                    <td>{{ emplacement.orientation.libelle }}</td>
+                </tr>
+            </tbody>
+      </table>
     </div>
+</div>
 {% endblock %}

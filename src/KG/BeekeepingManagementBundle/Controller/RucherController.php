@@ -63,14 +63,14 @@ class RucherController extends Controller
         
         if( !$not_permitted ){
             foreach ( $rucher->getEmplacements() as $emplacement){
-                if( $emplacement->getRuche() ){
+                if( $emplacement->getRuche() || !$emplacement->getTranshumancesfrom()->isEmpty() || !$emplacement->getTranshumancesto()->isEmpty() ){
                     $not_permitted = true;
                     break;                
                 }
             }
         }
         
-        if( $not_permitted || !$rucher->getRecoltesrucher()->isEmpty() || !$rucher->getTranshumancesfrom()->isEmpty() || !$rucher->getTranshumancesto()->isEmpty()){
+        if( $not_permitted || !$rucher->getRecoltesrucher()->isEmpty()){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
