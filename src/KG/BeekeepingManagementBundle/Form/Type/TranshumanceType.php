@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use KG\BeekeepingManagementBundle\Form\EventListener\DeplacerEmplacementFieldSubscriber;
 
 class TranshumanceType extends AbstractType
 {
@@ -15,12 +16,12 @@ class TranshumanceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $propertyPathToEmplacement = 'emplacement';
+        $propertyPathToEmplacement = 'emplacementto';
         
         $transhumance = $builder->getData();
         $colonie      = $transhumance->getColonie();
         $exploitation = $colonie->getRucher()->getExploitation()->getId();
-        $rucherfrom   = $transhumance->getRucherfrom()->getId();
+        $rucherfrom = $transhumance->getEmplacementfrom()->getRucher()->getId();
         
         $transhumance->setDate(new \DateTime());
         
@@ -33,7 +34,6 @@ class TranshumanceType extends AbstractType
         }
         
         $startDateFormat = date_format($startDate,"Y-m-d"); 
-        
         
         $builder
             ->add('date', 'collot_datetime', array( 
@@ -57,10 +57,11 @@ class TranshumanceType extends AbstractType
                         ),
                     'read_only' => true
             ))    
-            ->add('rucherto', 'entity', array(
+            ->add('rucher', 'entity', array(
                     'class'         => 'KGBeekeepingManagementBundle:Rucher',
                     'choice_label'  => 'nom',
                     'empty_value'   => '',
+                    'mapped'        => false,
                     'attr'          => array(
                         'class' => 'rucher_selector',
                     ),
@@ -69,9 +70,7 @@ class TranshumanceType extends AbstractType
                         return $qb;
                     }
                 ))
-            ->add('colonie', new TranshumanceColonieType(), array(
-                            'label'  => false,
-                        ));          
+            ->addEventSubscriber(new DeplacerEmplacementFieldSubscriber($propertyPathToEmplacement))  ;  
     }
     
     /**

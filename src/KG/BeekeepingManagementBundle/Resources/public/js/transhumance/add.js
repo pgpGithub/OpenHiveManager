@@ -1,4 +1,4 @@
-$("#kg_beekeepingmanagementbundle_transhumance_rucherto").change(function(){
+$("#kg_beekeepingmanagementbundle_transhumance_rucher").change(function(){
     var data = {
         rucher_id: $(this).val()
     };
@@ -8,7 +8,7 @@ $("#kg_beekeepingmanagementbundle_transhumance_rucherto").change(function(){
         url: Routing.generate('kg_beekeeping_management_select_emplacements_ruche'),
         data: data,
         success: function(data) {
-            var $emplacement_selector = $('#kg_beekeepingmanagementbundle_transhumance_colonie_ruche_emplacement');
+            var $emplacement_selector = $('#kg_beekeepingmanagementbundle_transhumance_emplacementto');
  
             $emplacement_selector.html('<option></option>');
  

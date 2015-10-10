@@ -22,14 +22,18 @@
                     <thead>
                         <th>Date</th>
                         <th>Rucher de départ</th>
+                        <th>Emplacement de départ</th>
                         <th>Rucher de destination</th>
+                        <th>Emplacement de destination</th>
                     </thead>
                     <tbody>
                         {% for transhumance in pagination %}
                             <tr>
                                 <td>{{ transhumance.date|date('d/m/Y') }}</td>
-                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.rucherfrom.id }) }}">{{ transhumance.rucherfrom.nom }}</a></td>
-                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.rucherto.id }) }}">{{ transhumance.rucherto.nom }}</a></td>
+                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.emplacementfrom.rucher.id }) }}">{{ transhumance.emplacementfrom.rucher.nom }}</a></td>
+                                <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': transhumance.emplacementfrom.id }) }}">{{ transhumance.emplacementfrom.nom }}</a></td>
+                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.emplacementto.rucher.id }) }}">{{ transhumance.emplacementto.rucher.nom }}</a></td>
+                                <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': transhumance.emplacementto.id }) }}">{{ transhumance.emplacementto.nom }}</a></td>
                             </tr>
 
                         {% endfor %}

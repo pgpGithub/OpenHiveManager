@@ -76,7 +76,8 @@ class TranshumanceController extends Controller
         $form = $this->createForm(new TranshumanceType, $transhumance);
         
         if ($form->handleRequest($request)->isValid()){
-            //$transhumance->getColonie()->setRucher($transhumance->getRucherto());
+            $transhumance->getColonie()->setRucher($transhumance->getEmplacementto()->getRucher());
+            $transhumance->getColonie()->getRuche()->setEmplacement($transhumance->getEmplacementto());
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($transhumance);

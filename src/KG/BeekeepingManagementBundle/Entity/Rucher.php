@@ -76,16 +76,6 @@ class Rucher
     private $recoltesrucher;
     
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Transhumance", mappedBy="rucherfrom", cascade={"remove"}, orphanRemoval=true)
-     */
-    private $transhumancesfrom;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Transhumance", mappedBy="rucherto", cascade={"remove"}, orphanRemoval=true)
-     */
-    private $transhumancesto;
-    
-    /**
      * Constructor
      */
     public function __construct()
@@ -338,71 +328,5 @@ class Rucher
     public function getRecoltesrucher()
     {
         return $this->recoltesrucher;
-    }
-
-    /**
-     * Add transhumancesfrom
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Transhumance $transhumancesfrom
-     * @return Rucher
-     */
-    public function addTranshumancesfrom(\KG\BeekeepingManagementBundle\Entity\Transhumance $transhumancesfrom)
-    {
-        $this->transhumancesfrom[] = $transhumancesfrom;
-
-        return $this;
-    }
-
-    /**
-     * Remove transhumancesfrom
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Transhumance $transhumancesfrom
-     */
-    public function removeTranshumancesfrom(\KG\BeekeepingManagementBundle\Entity\Transhumance $transhumancesfrom)
-    {
-        $this->transhumancesfrom->removeElement($transhumancesfrom);
-    }
-
-    /**
-     * Get transhumancesfrom
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTranshumancesfrom()
-    {
-        return $this->transhumancesfrom;
-    }
-
-    /**
-     * Add transhumancesto
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Transhumance $transhumancesto
-     * @return Rucher
-     */
-    public function addTranshumancesto(\KG\BeekeepingManagementBundle\Entity\Transhumance $transhumancesto)
-    {
-        $this->transhumancesto[] = $transhumancesto;
-
-        return $this;
-    }
-
-    /**
-     * Remove transhumancesto
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Transhumance $transhumancesto
-     */
-    public function removeTranshumancesto(\KG\BeekeepingManagementBundle\Entity\Transhumance $transhumancesto)
-    {
-        $this->transhumancesto->removeElement($transhumancesto);
-    }
-
-    /**
-     * Get transhumancesto
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTranshumancesto()
-    {
-        return $this->transhumancesto;
     }
 }

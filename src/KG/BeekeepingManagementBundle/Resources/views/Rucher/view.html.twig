@@ -31,11 +31,20 @@
         
         {% set break = false %}
         {% set rucheExist = false %}
-        {% for emplacement in rucher.emplacements if not break and emplacement.ruche is not null %}
-            {% set rucheExist = true %}
-            {% for hausse in emplacement.ruche.hausses if not break %}
-                {% set break = true %}
+        {% set transhumanceExist = false %}
+        {% for emplacement in rucher.emplacements %}
+            {% if emplacement.ruche and not break %}
+                {% set rucheExist = true %}
+                {% for hausse in emplacement.ruche.hausses if not break %}
+                    {% set break = true %}
+                {% endfor %}
+            {% endif %}
+            {% for transhumance in emplacement.transhumancesfrom if not transhumanceExist %}
+                {% set transhumanceExist = true %}
             {% endfor %}
+            {% for transhumance in emplacement.transhumancesto if not transhumanceExist %}
+                {% set transhumanceExist = true %}
+            {% endfor %}             
         {% endfor %}
                     
         <div class="col-xs-6">
@@ -54,7 +63,7 @@
                     {% if break %}
                         <li><a title="Récolter" href="{{ path('kg_beekeeping_management_add_recolte', { 'rucher_id' : rucher.id }) }}">{{ icon('export') }} Récolter</a></li>
                     {% endif %}        
-                    {% if rucher.recoltesrucher is empty and not rucheExist and rucher.transhumancesfrom is empty and rucher.transhumancesto is empty %}
+                    {% if rucher.recoltesrucher is empty and not rucheExist and not transhumanceExist %}
                         <li role="separator" class="divider"></li>                
                         <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}">{{ icon('trash') }} Supprimer</a></li>                                   
                     {% endif %}
@@ -109,14 +118,17 @@
                 </div> 
             </div>     
         </div>
-    </div> 
-    
+    </div>
+                    
+    {%if pagination is not empty %}
     <div class="row">
         <div class=" col-md-12"> 
+            <hr>
+            <h4>Emplacements</h4>            
             <div class="table-responsive">
                 <table id="mytable" class="table table-bordred table-striped">
                     <thead>
-                        <th>Emplacement</th>
+                        <th>Nom</th>
                         <th>Ruche</th>
                         <th>Type</th>
                         <th>Race</th>
@@ -149,5 +161,6 @@
                 </div>                
             </div>                            
         </div>
-    </div>                                    
+    </div>
+    {% endif %}
 {% endblock %}

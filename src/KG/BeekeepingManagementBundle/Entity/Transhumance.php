@@ -32,20 +32,20 @@ class Transhumance
     private $colonie;    
 
     /**
-     * @var Rucher
+     * @var Emplacement
      * 
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="transhumancesfrom")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="transhumancesfrom")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $rucherfrom;  
+    private $emplacementfrom;  
 
     /**
-     * @var Rucher
+     * @var Emplacement
      * 
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="transhumancesto")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="transhumancesto")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $rucherto;      
+    private $emplacementto;      
     
      /**
      * @var \DateTime
@@ -61,7 +61,7 @@ class Transhumance
     public function __construct(Colonie $colonie)
     {
         $this->colonie = $colonie;
-        $this->rucherfrom = $colonie->getRucher();
+        $this->emplacementfrom = $colonie->getRuche()->getEmplacement();
     }
     
    /**
@@ -95,7 +95,7 @@ class Transhumance
                    ->addViolation();            
         }
     
-        if( $this->rucherfrom == $this->rucherto ){
+        if( $this->emplacementfrom->getRucher() == $this->emplacementto->getRucher() ){
             $context
                    ->buildViolation('La transhumance ne peut pas se faire dans le même rucher') 
                    ->atPath('rucherto')
@@ -160,48 +160,48 @@ class Transhumance
     }
 
     /**
-     * Set rucherfrom
+     * Set emplacementfrom
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Rucher $rucherfrom
+     * @param \KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementfrom
      * @return Transhumance
      */
-    public function setRucherfrom(\KG\BeekeepingManagementBundle\Entity\Rucher $rucherfrom)
+    public function setEmplacementfrom(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementfrom)
     {
-        $this->rucherfrom = $rucherfrom;
+        $this->emplacementfrom = $emplacementfrom;
 
         return $this;
     }
 
     /**
-     * Get rucherfrom
+     * Get emplacementfrom
      *
-     * @return \KG\BeekeepingManagementBundle\Entity\Rucher 
+     * @return \KG\BeekeepingManagementBundle\Entity\Emplacement 
      */
-    public function getRucherfrom()
+    public function getEmplacementfrom()
     {
-        return $this->rucherfrom;
+        return $this->emplacementfrom;
     }
 
     /**
-     * Set rucherto
+     * Set emplacementto
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Rucher $rucherto
+     * @param \KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementto
      * @return Transhumance
      */
-    public function setRucherto(\KG\BeekeepingManagementBundle\Entity\Rucher $rucherto)
+    public function setEmplacementto(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementto)
     {
-        $this->rucherto = $rucherto;
+        $this->emplacementto = $emplacementto;
 
         return $this;
     }
 
     /**
-     * Get rucherto
+     * Get emplacementto
      *
-     * @return \KG\BeekeepingManagementBundle\Entity\Rucher 
+     * @return \KG\BeekeepingManagementBundle\Entity\Emplacement 
      */
-    public function getRucherto()
+    public function getEmplacementto()
     {
-        return $this->rucherto;
+        return $this->emplacementto;
     }
 }
