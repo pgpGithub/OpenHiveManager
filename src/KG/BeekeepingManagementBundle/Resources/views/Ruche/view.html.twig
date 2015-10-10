@@ -14,6 +14,8 @@
 
 {% block ruchers %}{{ ruche.emplacement.rucher.nom }}{% endblock %}
 
+{% set lastVisite = ruche.colonie.visites|last %}
+                                
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-6">
@@ -30,7 +32,6 @@
                         <li><a title="Modifier la ruche" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}">{{ icon('pencil') }} Modifier la ruche</a></li>
                         {%if ruche.colonie and ruche.emplacement %}
                             {% if pagination is not empty %}
-                                {% set lastVisite = pagination|last %}
                                 {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
                                     <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plus') }} Créer une visite</a></li>
                                 {% endif %}
@@ -166,7 +167,7 @@
                                 <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if loop.first and pagination.getCurrentPageNumber == 1 %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning">{{ icon('pencil') }}</a>{% endif %}</td>
+                                <td>{% if lastVisite.date|date('Y-m-d') >= "now"|date('Y-m-d') and lastVisite == visite %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning">{{ icon('pencil') }}</a>{% endif %}</td>
                             </tr>    
                         {% endfor %}
                     </tbody>
