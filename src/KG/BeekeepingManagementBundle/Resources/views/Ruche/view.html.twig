@@ -88,7 +88,7 @@
             </table>
         </div>            
         <div class=" col-md-4 col-lg-4 ">            
-            <h4><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': ruche.colonie.id }) }}">Colonnie</a></h4>                          
+            <h4><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': ruche.colonie.id }) }}">Colonie</a></h4>                          
             <table class="table">
                 <tbody>
                     <tr>
@@ -117,10 +117,9 @@
     </div> 
 
     {% if ruche.hausses is not empty %}                
-    <hr>
-
     <div class="row">    
         <div class=" col-md-12">
+            <hr>            
             <h4>Hausses</h4>
             <ul class="list-group">
             {% for hausse in ruche.hausses %}
@@ -138,15 +137,16 @@
         </div>    
     </div> 
     {% endif %}
-            
-    <hr>
 
+    {% if pagination is not empty %}
     <div class="row">    
-        <div class=" col-md-12">         
+        <div class=" col-md-12"> 
+            <hr>            
+            <h4>Visites</h4> 
             <div class="table-responsive">
                 <table id="mytable" class="table table-bordred table-striped">
                     <thead>
-                        <th>Visite</th>
+                        <th>Date</th>
                         <th>Activite</th>
                         <th>Etat</th>
                         <th>Cadres nourriture</th>
@@ -179,5 +179,6 @@
                 </div>  
             </div>                         
         </div>
-    </div>            
+    </div>  
+    {% endif %}                
 {% endblock %}
