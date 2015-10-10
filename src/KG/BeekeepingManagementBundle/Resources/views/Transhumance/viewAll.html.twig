@@ -28,8 +28,8 @@
                         {% for transhumance in pagination %}
                             <tr>
                                 <td>{{ transhumance.date|date('d/m/Y') }}</td>
-                                <td>{{ transhumance.rucherfrom.nom }}</td>
-                                <td>{{ transhumance.rucherto.nom }}</td>
+                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.rucherfrom.id }) }}">{{ transhumance.rucherfrom.nom }}</a></td>
+                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.rucherto.id }) }}">{{ transhumance.rucherto.nom }}</a></td>
                             </tr>
 
                         {% endfor %}
