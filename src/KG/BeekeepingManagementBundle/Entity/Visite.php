@@ -54,6 +54,17 @@ class Visite
     /**
      * @var integer
      *
+     * @ORM\Column(name="poids", type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Le poids de la ruche ne peut pas être négatif"
+     * )
+     */
+    private $poids = 0;      
+    
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="nbcouvain", type="integer")
      * @Assert\Range(
      *      min = 0,
@@ -563,5 +574,28 @@ class Visite
     public function getHausses()
     {
         return $this->hausses;
+    }
+
+    /**
+     * Set poids
+     *
+     * @param integer $poids
+     * @return Visite
+     */
+    public function setPoids($poids)
+    {
+        $this->poids = $poids;
+
+        return $this;
+    }
+
+    /**
+     * Get poids
+     *
+     * @return integer 
+     */
+    public function getPoids()
+    {
+        return $this->poids;
     }
 }
