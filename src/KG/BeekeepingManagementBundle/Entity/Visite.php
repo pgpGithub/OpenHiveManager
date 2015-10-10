@@ -146,8 +146,12 @@ class Visite
         $this->setNbnourriture($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbnourriture());
         $this->setEtat($colonie->getEtat());
         $this->setAgressivite($colonie->getAgressivite());
-        $this->setDate(new \DateTime());    
+        $this->setDate(new \DateTime()); 
         $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        foreach ($colonie->getRuche()->getHausses() as $hausse) {
+            $this->addHauss(new HausseVisite($this, $hausse->getNbplein()));
+        }
     }
 
     /**
