@@ -4,6 +4,7 @@ namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Ruche
@@ -70,10 +71,11 @@ class Ruche
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Emplacement $emplacement)
     {
         $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
         $this->corps   = new Corps();
+        $this->emplacement = $emplacement;
     }
 
     /**
@@ -257,4 +259,29 @@ class Ruche
         return $this->matiere;
     }    
 
+   /**
+   * @Assert\Callback
+   */
+    public function isContentValid(ExecutionContextInterface $context)
+    {
+        $break = false;
+        
+        foreach( $this->getEmplacement()->getRucher()->getExploitation()->getRuchers() as $rucher ){
+            foreach( $rucher->getEmplacements() as $emplacement ){
+                if( $emplacement->getRuche() != $this && $emplacement->getRuche() ){
+                    if( $emplacement->getRuche()->getNom() == $this->nom ){
+                        $context
+                            ->buildViolation('Une autre ruche porte déjà ce nom dans le rucher '.$rucher->getNom()) 
+                            ->atPath('nom')
+                            ->addViolation();
+                        $break = true;
+                        break;
+                    }
+                }
+            }
+            if( $break ){
+                break;
+            }
+        }
+    }     
 }

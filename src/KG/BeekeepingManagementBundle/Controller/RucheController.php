@@ -172,13 +172,12 @@ class RucheController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $ruche = new Ruche();
+        $ruche = new Ruche($emplacement);
         $form = $this->createForm(new AddRucheType, $ruche);
         
         if ($form->handleRequest($request)->isValid()){
                        
             $ruche->getColonie()->setRucher($emplacement->getRucher());
-            $ruche->setEmplacement($emplacement);
             $em = $this->getDoctrine()->getManager();
             $em->persist($ruche->getCorps());
             $em->persist($ruche);
