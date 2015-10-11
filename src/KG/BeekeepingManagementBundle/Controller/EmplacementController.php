@@ -92,12 +92,11 @@ class EmplacementController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $emplacement = new Emplacement();
+        $emplacement = new Emplacement($rucher);
         $form = $this->createForm(new EmplacementType, $emplacement);
         
         if ($form->handleRequest($request)->isValid()){
                         
-            $emplacement->setRucher($rucher);
             $em = $this->getDoctrine()->getManager();
             $em->persist($emplacement);
             $em->flush();
