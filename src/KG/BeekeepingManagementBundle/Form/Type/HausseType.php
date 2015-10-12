@@ -25,7 +25,8 @@ class HausseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nbplein', 'integer', array('label' => 'Cadres plein :', 'attr' => array('label_col' => 5, 'widget_col' => 7)));  
+        $builder->add('nbcadres', 'integer', array('label' => 'Nombre de cadres', 'attr' => array('label_col' => 5, 'widget_col' => 7)))
+                ->add('nbplein', 'integer', array('label' => 'Nombre de cadres plein', 'attr' => array('label_col' => 5, 'widget_col' => 7)));  
     }
     
     /**

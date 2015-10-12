@@ -60,6 +60,12 @@ kg_beekeeping_management_view_ruche:
     requirements:
         ruche_id: \d+
        
+kg_beekeeping_management_add_recolte:
+    path:      /manager/exploitation/ruche/colonie/{colonie_id}/ajouter-recolte
+    defaults:  { _controller: KGBeekeepingManagementBundle:Recolte:add }
+    requirements:
+        colonie_id: \d+
+
 kg_beekeeping_management_add_transhumance:
     path:      /manager/exploitation/ruche/colonie/{colonie_id}/ajouter-transhumance
     defaults:  { _controller: KGBeekeepingManagementBundle:Transhumance:add }
@@ -71,18 +77,6 @@ kg_beekeeping_management_add_visite:
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:add }
     requirements:
         colonie_id: \d+
-
-kg_beekeeping_management_add_recolte:
-    path:      /manager/exploitation/rucher/{rucher_id}/creer-recolte/
-    defaults:  { _controller: KGBeekeepingManagementBundle:RecolteRucher:add }
-    requirements:
-        rucher_id: \d+
-
-kg_beekeeping_management_view_recoltes:
-    path:      /manager/exploitation/rucher/{rucher_id}/afficher-recoltes/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:RecolteRucher:viewAll, page: 1 }
-    requirements:
-        rucher_id: \d+
 
 kg_beekeeping_management_view_transhumances:
     path:      /manager/exploitation/rucher/ruche/colonie/{colonie_id}/afficher-transhumances/{page}
@@ -132,9 +126,15 @@ kg_beekeeping_management_diviser_colonie:
     requirements:
         colonie_id: \d+
 
-kg_beekeeping_management_renouveler_reine:
-    path:      /manager/exploitation/colonie/reine/{reine_id}/renouveler-reine
-    defaults:  { _controller: KGBeekeepingManagementBundle:Reine:renouveler }
+kg_beekeeping_management_remerage_naturel:
+    path:      /manager/exploitation/colonie/{colonie_id}/remerage-naturel
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:remerageNat }
+    requirements:
+        reine_id: \d+
+
+kg_beekeeping_management_remerage_artificiel:
+    path:      /manager/exploitation/colonie/{colonie_id}/remerage-artificiel
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:remerageArt }
     requirements:
         reine_id: \d+
         
@@ -148,13 +148,7 @@ kg_beekeeping_management_select_emplacements_ruche:
     path:      /manager/exploitation/ruche/select_emplacements-ruche
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:emplacements }
     options:
-        expose: true
-        
-kg_beekeeping_management_select_soustypes_ruche:        
-    path:      /manager/exploitation/ruche/select_soustypes-ruche
-    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:soustypes }
-    options:
-        expose: true    
+        expose: true 
         
 kg_beekeeping_management_tuer_colonie:
     path:      /manager/exploitation/colonie/{colonie_id}/tuer-colonie

@@ -1,0 +1,43 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/Recolte/add.html.twig #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block ruchers %}{{ colonie.rucher.nom }}{% endblock %}
+
+{% block title %}{{ parent() }} - Créer une récolte{% endblock %}
+
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Création d'une récolte</h4>
+        </div>
+    </div>
+{% endblock %}
+    
+{% block panel_body %}
+              
+    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
+        
+
+    {{ form_rest(form) }}
+
+    <div class="form-group">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary pull-right">
+                {{ icon('floppy-disk') }} Sauvegarder
+            </button>
+        </div>        
+    </div>
+
+    {{ form_end(form) }}         
+
+{% endblock %}

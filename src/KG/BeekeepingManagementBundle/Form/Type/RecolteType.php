@@ -6,52 +6,28 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RecolteRucherType extends AbstractType
+class RecolteType extends AbstractType
 {
-    /** @var \Doctrine\ORM\EntityManager */
-    private $em;
-
-    /**
-     * Constructor
-     * 
-     * @param Doctrine $doctrine
-     */
-    public function __construct($manager)
-    {
-        $this->em = $manager;
-    }    
-    
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {     
-        $recolte = $builder->getData();
-        $recolte->setDate(new \DateTime());
-        
-        $rucher  = $recolte->getRucher();
-        
-        $recoltes = $rucher->getRecoltesrucher();
-        
+    {              
         $startDate = new \DateTime();
-        $startDate->setDate('2000', '01', '01');
         
+        $colonie = $builder->getData()->getColonie();
+        
+        $recoltes  = $colonie->getRecoltes();
         if($recoltes->last()){
             $startDate = $recoltes->last()->getDate();
+        }else{
+            $startDate = $colonie->getVisites()->last()->getDate();
         }
         
         $startDateFormat = date_format($startDate,"Y-m-d"); 
         
         $builder
-            ->add('ruches', 'entity', array(
-                        'class'    => 'KGBeekeepingManagementBundle:Ruche',
-                        'choice_label' => 'nom',
-                        'choices'  => $this->getArrayOfEntities($rucher),
-                        'mapped'   => false,
-                        'expanded' => true,
-                        'multiple' => true,
-             ))
             ->add('date', 'collot_datetime', array( 
                     'pickerOptions' =>
                         array('format' => 'dd/mm/yyyy',
@@ -72,29 +48,17 @@ class RecolteRucherType extends AbstractType
                             'initialDate' => date("Y-m-d"), 
                         ),
                     'read_only' => true
-            ));                
+            ))
+            ->add('typemiel');
     }
-
-    private function getArrayOfEntities(\KG\BeekeepingManagementBundle\Entity\Rucher $rucher){
-        $repo = $this->em->getRepository('KGBeekeepingManagementBundle:Ruche');
-        $ruches = $repo->getRucheByRucher($rucher->getId());
-        $ruches_with_hausse = new \Doctrine\Common\Collections\ArrayCollection();
-                
-        foreach( $ruches as $ruche ){
-            if( !$ruche->getHausses()->isEmpty() ){
-                $ruches_with_hausse->add($ruche); 
-            }
-        }
-        return $ruches_with_hausse;
-    } 
-
+    
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\RecolteRucher'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Recolte'
         ));
     }
 
@@ -103,6 +67,6 @@ class RecolteRucherType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_recolterucher';
+        return 'kg_beekeepingmanagementbundle_recolte';
     }
 }

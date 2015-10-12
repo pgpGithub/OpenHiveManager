@@ -29,16 +29,9 @@
             <h4>Rucher {{ rucher.nom }}</h4>
         </div>
         
-        {% set break = false %}
         {% set rucheExist = false %}
         {% set transhumanceExist = false %}
         {% for emplacement in rucher.emplacements %}
-            {% if emplacement.ruche and not break %}
-                {% set rucheExist = true %}
-                {% for hausse in emplacement.ruche.hausses if not break %}
-                    {% set break = true %}
-                {% endfor %}
-            {% endif %}
             {% for transhumance in emplacement.transhumancesfrom if not transhumanceExist %}
                 {% set transhumanceExist = true %}
             {% endfor %}
@@ -56,14 +49,8 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
                     <li><a title="Modifier le rucher" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id' : rucher.id }) }}">{{ icon('pencil') }} Modifier le rucher</a></li>
-                    <li><a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id' : rucher.id }) }}">{{ icon('plus') }} Créer un emplacement</a></li>                    
-                    {% if rucher.recoltesrucher is not empty %}
-                        <li><a title="Historique des récoltes" href="{{ path('kg_beekeeping_management_view_recoltes', { 'rucher_id' : rucher.id }) }}">{{ icon('list') }} Historique des récoltes</a></li>
-                    {% endif %}
-                    {% if break %}
-                        <li><a title="Récolter" href="{{ path('kg_beekeeping_management_add_recolte', { 'rucher_id' : rucher.id }) }}">{{ icon('export') }} Récolter</a></li>
-                    {% endif %}        
-                    {% if rucher.recoltesrucher is empty and not rucheExist and not transhumanceExist %}
+                    <li><a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id' : rucher.id }) }}">{{ icon('plus') }} Créer un emplacement</a></li>                          
+                    {% if not rucheExist and not transhumanceExist %}
                         <li role="separator" class="divider"></li>                
                         <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}">{{ icon('trash') }} Supprimer</a></li>                                   
                     {% endif %}
@@ -140,9 +127,9 @@
                                 <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
                                 {% if emplacement.ruche %}
                                     <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>
-                                    <td>{{ emplacement.ruche.corps.type.libelle }} {{ emplacement.ruche.corps.soustype.nbcadres }}</td>
+                                    <td>{{ emplacement.ruche.corps.type.libelle }} {{ emplacement.ruche.corps.nbcadres }}</td>
                                     {% if emplacement.ruche.colonie %}
-                                        <td>{{ emplacement.ruche.colonie.reine.race.libelle }}</td>
+                                        <td>{{ emplacement.ruche.colonie.reines|last.race.libelle }}</td>
                                     {% endif %}
                                     <td>{{ emplacement.ruche.hausses|length }}</td>
                                 {% else %}

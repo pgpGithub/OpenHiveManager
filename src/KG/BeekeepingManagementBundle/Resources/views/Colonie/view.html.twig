@@ -14,6 +14,8 @@
 
 {% block ruchers %}{{ colonie.rucher.nom }}{% endblock %}
 
+{% set reine = colonie.reines|last %}
+
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-6">
@@ -32,11 +34,12 @@
                       <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
-                        <li><a title="Renouveler la reine" href="{{ path('kg_beekeeping_management_renouveler_reine', { 'reine_id': colonie.reine.id }) }}">{{ icon('refresh') }} Remérage</a></li>
-                        {% if colonie.ruche.corps.nbcouvain > 1 %}<li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('scissors') }} Diviser</a></li>{% endif %}
+                        <li><a title="Remérage naturel" href="{{ path('kg_beekeeping_management_remerage_naturel', { 'colonie_id': colonie.id }) }}">{{ icon('refresh') }} Remérage naturel</a></li>
+                        <li><a title="Remérage artificiel" href="{{ path('kg_beekeeping_management_remerage_artificiel', { 'colonie_id': colonie.id }) }}">{{ icon('import') }} Remérage artificiel</a></li>
+                        {% if colonie.ruche.corps.nbcouvain > 1 %}<li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('resize-full') }} Diviser</a></li>{% endif %}
                         <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('pencil') }} Modifier la colonie</a></li>
                         <li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('minus-sign') }} Déclarer morte</a></li>
-                        {% if colonie.visites is empty and colonie.recoltesruche is empty and colonie.coloniesFilles is empty %}
+                        {% if colonie.visites is empty and colonie.recoltes is empty and colonie.coloniesFilles is empty %}
                             <li role="separator" class="divider"></li>
                             <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('trash') }} Supprimer</a></li>                     
                         {% endif %}
@@ -52,7 +55,7 @@
 {% block panel_body %}
     <div class="row">
         <div class="col-md-3 col-lg-3 " align="center"> 
-            <img src="../../../../../img/abeille/{{ colonie.reine.race.libelle }}.jpg" alt="{{ colonie.reine.race.libelle }}" class="img-thumbnail img-responsive">             
+            <img src="../../../../../img/abeille/{{ reine.race.libelle }}.jpg" alt="{{ reine.race.libelle }}" class="img-thumbnail img-responsive">
         </div>
 
         <div class=" col-md-9 col-lg-9 ">
@@ -78,7 +81,7 @@
                 <tbody>
                     <tr>
                         <td><strong>Race</strong></td>
-                        <td>{{ colonie.reine.race.libelle }}</td>
+                        <td>{{ reine.race.libelle }}</td>
                     </tr>
                     <tr>
                         <td><strong>Date de naissance</strong></td>
@@ -149,17 +152,13 @@
                     </tr>
                     <tr>
                         <td><strong>Année de la reine</strong></td>
-                        <td>{% if colonie.reine.anneeReine %}{{ colonie.reine.anneeReine|date("Y") }}{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Provenance de la reine</strong></td>
-                        <td>{% if colonie.reine.provenanceReine %}{{ colonie.reine.provenanceReine.libelle }}{% endif %}</td>
+                        <td>{% if reine.anneeReine %}{{ reine.anneeReine|date("Y") }}{% endif %}</td>
                     </tr>
                     <tr>
                         <td><strong>Marquage</strong></td>
                         <td>                                   
-                            {% if colonie.reine.marquage %}
-                                {% set annee = colonie.reine.anneeReine|date("Y")|last %}
+                            {% if reine.marquage %}
+                                {% set annee = reine.anneeReine|date("Y")|last %}
                                 {% if annee == 0 or annee == 5 %}{% set marquage = 'Bleu' %}{% endif %}
                                 {% if annee == 1 or annee == 6 %}{% set marquage = 'Blanc' %}{% endif %}
                                 {% if annee == 2 or annee == 7 %}{% set marquage = 'Jaune' %}{% endif %}
@@ -168,12 +167,12 @@
                             {% else %}    
                                 {% set marquage = 'Aucun' %}
                             {% endif %}
-                            {% if colonie.reine.provenanceReine %}{{ marquage }}{% endif %}
+                            {{ marquage }}
                         </td>
                     </tr>
                     <tr>
                         <td><strong>Clippage</strong></td>
-                        <td>{% if colonie.reine.provenanceReine %}{% if colonie.reine.clippage %} Oui {% else %} Non {% endif %}{% endif %}</td>
+                        <td>{% if reine.clippage %} Oui {% else %} Non {% endif %}</td>
                     </tr>
                 </tbody>
           </table>

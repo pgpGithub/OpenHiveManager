@@ -97,19 +97,6 @@ class RucheController extends Controller
                                    'ruche' => $ruche
                             ));      
     }
-
-    /**
-    * @Security("has_role('ROLE_USER')")
-    */      
-    public function soustypesAction(Request $request)
-    {
-        $type_id  = $request->request->get('type_id');
-        
-        $em       = $this->getDoctrine()->getManager();
-        $soustype = $em->getRepository('KGBeekeepingManagementBundle:SousTypeRuche')->findByTypeId($type_id);
-
-        return new JsonResponse($soustype);
-    }  
     
     /**
     * @Security("has_role('ROLE_USER')")
@@ -176,8 +163,11 @@ class RucheController extends Controller
         $form = $this->createForm(new AddRucheType, $ruche);
         
         if ($form->handleRequest($request)->isValid()){
-                       
-            $ruche->getColonie()->setRucher($emplacement->getRucher());
+            
+            $reine = $form->get('colonie')->get('reine')->getData();
+            $colonie = $ruche->getColonie();
+            $reine->setColonie($colonie);
+            $colonie->setRucher($emplacement->getRucher());
             $em = $this->getDoctrine()->getManager();
             $em->persist($ruche->getCorps());
             $em->persist($ruche);

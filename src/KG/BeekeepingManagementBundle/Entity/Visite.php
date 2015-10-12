@@ -504,7 +504,7 @@ class Visite
     public function isContentValid(ExecutionContextInterface $context)
     {
         $nbcadrestotal = $this->nbcouvain + $this->nbnourriture;
-        if ( $nbcadrestotal  > $this->getColonie()->getRuche()->getCorps()->getSoustype()->getNbCadres()) {
+        if ( $nbcadrestotal  > $this->getColonie()->getRuche()->getCorps()->getNbCadres()) {
             $context
                    ->buildViolation('La somme de cadres de couvain et de cadres de nourriture est plus grande que le nombre de cadres') 
                    ->atPath('nbnourriture')

@@ -67,11 +67,11 @@ class Colonie
     private $agressivite;
     
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", mappedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
-    private $reine;
+    private $reines;
     
      /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="coloniesFilles", cascade="persist")
@@ -101,9 +101,9 @@ class Colonie
     private $transhumances;
     
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\RecolteRuche", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Recolte", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
      */
-    private $recoltesruche;
+    private $recoltes;
     
     /**
      * @var boolean
@@ -135,6 +135,7 @@ class Colonie
         $this->causes          = new \Doctrine\Common\Collections\ArrayCollection();
         $this->coloniesFilles  = new \Doctrine\Common\Collections\ArrayCollection();
         $this->visites         = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reines          = new \Doctrine\Common\Collections\ArrayCollection();  
     }
 
     /**
@@ -398,29 +399,6 @@ class Colonie
     }
 
     /**
-     * Set reine
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Reine $reine
-     * @return Colonie
-     */
-    public function setReine(\KG\BeekeepingManagementBundle\Entity\Reine $reine = null)
-    {
-        $this->reine = $reine;
-
-        return $this;
-    }
-
-    /**
-     * Get reine
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Reine 
-     */
-    public function getReine()
-    {
-        return $this->reine;
-    }
-
-    /**
      * Add visites
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Visite $visites
@@ -567,36 +545,36 @@ class Colonie
     }    
 
     /**
-     * Add recoltesruche
+     * Add recolte
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\RecolteRuche $recoltesruche
+     * @param \KG\BeekeepingManagementBundle\Entity\Recolte $recolte
      * @return Colonie
      */
-    public function addRecoltesruche(\KG\BeekeepingManagementBundle\Entity\RecolteRuche $recoltesruche)
+    public function addRecoltes(\KG\BeekeepingManagementBundle\Entity\Recolte $recolte)
     {
-        $this->recoltesruche[] = $recoltesruche;
+        $this->recoltesruche[] = $recolte;
 
         return $this;
     }
 
     /**
-     * Remove recoltesruche
+     * Remove recolte
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\RecolteRuche $recoltesruche
+     * @param \KG\BeekeepingManagementBundle\Entity\Recolte $recolte
      */
-    public function removeRecoltesruche(\KG\BeekeepingManagementBundle\Entity\RecolteRuche $recoltesruche)
+    public function removeRecoltes(\KG\BeekeepingManagementBundle\Entity\Recolte $recolte)
     {
-        $this->recoltesruche->removeElement($recoltesruche);
+        $this->recoltes->removeElement($recolte);
     }
 
     /**
-     * Get recoltesruche
+     * Get recoltes
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getRecoltesruche()
+    public function getRecoltes()
     {
-        return $this->recoltesruche;
+        return $this->recoltes;
     }
 
     /**
@@ -631,4 +609,37 @@ class Colonie
     {
         return $this->transhumances;
     } 
+
+    /**
+     * Add reine
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Reine $reine
+     * @return Colonie
+     */
+    public function addReine(\KG\BeekeepingManagementBundle\Entity\Reine $reine)
+    {
+        $this->reines[] = $reine;
+        
+        return $this;
+    }
+
+    /**
+     * Remove reine
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Reine $reine
+     */
+    public function removeReine(\KG\BeekeepingManagementBundle\Entity\Reine $reine)
+    {
+        $this->reines->removeElement($reine);
+    }
+
+    /**
+     * Get reines
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReines()
+    {
+        return $this->reines;
+    }
 }

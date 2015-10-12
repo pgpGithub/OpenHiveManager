@@ -5,7 +5,6 @@ namespace KG\BeekeepingManagementBundle\Form\Type;;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use KG\BeekeepingManagementBundle\Form\EventListener\NbCadresFieldSubscriber;
 
 class CorpsType extends AbstractType
 {
@@ -22,7 +21,7 @@ class CorpsType extends AbstractType
                         'empty_value' => '',
                         'empty_data'  => null
                     ))                 
-            ->addEventSubscriber(new NbCadresFieldSubscriber())
+            ->add('nbcadres', 'integer')
             ->add('nbnourriture', 'integer')
             ->add('nbcouvain', 'integer');
     }

@@ -1,4 +1,4 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Ruche/Ruche/add.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Ruche/add.html.twig #}
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
@@ -13,8 +13,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
-                   '@KGBeekeepingManagementBundle/Resources/public/js/colonie/add.js'
-                   '@KGBeekeepingManagementBundle/Resources/public/js/ruche/soustype.js' %}
+                   '@KGBeekeepingManagementBundle/Resources/public/js/colonie/add.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>                   
@@ -43,7 +42,7 @@
         {{ form_row(form.nom, {'label': 'Nom de la ruche :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.matiere, {'label': 'Matière :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.corps.type, {'label': 'Type :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.corps.soustype, {'label': 'Nombre de cadres :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.corps.nbcadres, {'label': 'Nombre de cadres :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
     </fieldset>
 
@@ -62,7 +61,6 @@
     <fieldset>
         <legend>Reine</legend>
         {{ form_row(form.colonie.reine.anneeReine, {'label': 'Année :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.colonie.reine.provenanceReine, {'label': 'Provenance :', 'label_col': 4, 'widget_col': 5})  }}
         <div class="row">
             <div class="col-md-offset-4 col-md-6">            
                 {{ form_row(form.colonie.reine.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}

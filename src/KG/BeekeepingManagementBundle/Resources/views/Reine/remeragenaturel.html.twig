@@ -1,4 +1,4 @@
-{# src/KG/BeekeepingManagementBundle/Resources/views/Reine/renouveler.html.twig #}
+{# src/KG/BeekeepingManagementBundle/Resources/views/Reine/remeragenaturel.html.twig #}
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
@@ -13,7 +13,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
-                    '@KGBeekeepingManagementBundle/Resources/public/js/reine/renouveler.js'%}
+                    '@KGBeekeepingManagementBundle/Resources/public/js/reine/remerage.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
     {{ form_javascript(form) }}
@@ -21,18 +21,19 @@
 
 {% block ruchers %}{{ colonie.ruche.emplacement.rucher.nom }}{% endblock %}
 
-{% block title %}{{ parent() }} - Créer une colonie{% endblock %}
+{% block title %}{{ parent() }} - Remérage naturel{% endblock %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Renouvelement de la Reine de la colonie {{ colonie.nom }}</h4>
+            <h4>Remérage naturel de la ruche {{ colonie.ruche.nom }}</h4>
         </div>
     </div>
 {% endblock %}
 
 {% block panel_body %}         
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}          
+    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
+        {{ form_row(form.anneeReine, {'label': 'Date :', 'label_col': 4, 'widget_col': 5})  }}
         <div class="row">
             <div class="col-md-offset-4 col-md-6">            
                 {{ form_row(form.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}

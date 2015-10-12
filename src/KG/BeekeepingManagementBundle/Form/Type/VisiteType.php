@@ -103,8 +103,11 @@ class VisiteType extends AbstractType
                     'allow_delete' => true,
                     'add_button_text'    => '.icon-plus Ajouter hausse',
                     'delete_button_text' => '.icon-trash',
-                    'sub_widget_col'     => 10,
-                    'button_col'         => 1
+                    'sub_widget_col'     => 8,
+                    'button_col'         => 4,
+                    'options'            => array(
+                        'attr' => array('style' => 'inline')
+                    )                    
                 ));               
     }
     

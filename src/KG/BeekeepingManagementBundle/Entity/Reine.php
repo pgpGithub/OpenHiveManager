@@ -4,6 +4,7 @@ namespace KG\BeekeepingManagementBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Reine
@@ -52,27 +53,22 @@ class Reine
      */
     private $marquage;    
 
-    /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\ProvenanceReine")
-     * @ORM\JoinColumn(nullable=true)
-     * @Assert\Valid()
-     */
-    private $provenanceReine;
-        
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="reine", cascade="persist")
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="reines", cascade="persist")
      * @Assert\Valid()
      */
     private $colonie;
-    
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
-
+    public function __construct(Colonie $colonie = null, \DateTime $date = null, Race $race = null)
+    {          
+        $this->race       = $race;
+        $this->anneeReine = $date;
+        $this->setColonie($colonie); 
     }
-
+    
     /**
      * Get id
      *
@@ -176,29 +172,6 @@ class Reine
     }
 
     /**
-     * Set provenanceReine
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\ProvenanceReine $provenanceReine
-     * @return Reine
-     */
-    public function setProvenanceReine(\KG\BeekeepingManagementBundle\Entity\ProvenanceReine $provenanceReine = null)
-    {
-        $this->provenanceReine = $provenanceReine;
-
-        return $this;
-    }
-
-    /**
-     * Get provenanceReine
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\ProvenanceReine 
-     */
-    public function getProvenanceReine()
-    {
-        return $this->provenanceReine;
-    }
-
-    /**
      * Set 
      *
      * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonie
@@ -207,7 +180,11 @@ class Reine
     public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie = null)
     {
         $this->colonie = $colonie;
-
+        
+        if($colonie){
+            $this->colonie->addReine($this);
+        }
+        
         return $this;
     }
 
@@ -243,5 +220,29 @@ class Reine
     {
         return $this->marquage;
     }
+
     
+   /**
+   * @Assert\Callback
+   */
+    public function isContentValid(ExecutionContextInterface $context)
+    {       
+        foreach( $this->getColonie()->getReines() as $lastReine ){
+            if ( $this->anneeReine < $lastReine->getAnneeReine()  && $lastReine->getId() != $this->getId() ){                
+                $context
+                       ->buildViolation('L\'année de la reine ne peut pas être antérieur à celle d\'une ancienne reine') 
+                       ->atPath('anneeReine')
+                       ->addViolation();
+            }            
+        }
+        
+        $today = new \DateTime();
+        
+        if( $this->anneeReine > $today ){
+            $context
+                   ->buildViolation('La date ne peut pas être située dans le futur') 
+                   ->atPath('anneeReine')
+                   ->addViolation();            
+        }
+    }        
 }

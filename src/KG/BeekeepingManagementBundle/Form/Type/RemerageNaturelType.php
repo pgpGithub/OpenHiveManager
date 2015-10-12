@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ReineType extends AbstractType
+class RemerageNaturelType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,22 +14,15 @@ class ReineType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $startDate = date("Y")-5;
-
-        $builder              
-            ->add('race', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Race',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))    
-                
+        $startDateFormat = date_format($builder->getData()->getAnneeReine(),"Y-m-d"); 
+        
+        $builder   
             ->add('anneeReine', 'collot_datetime', 
                     array( 
                             'pickerOptions' =>
                                 array('format' => 'yyyy',
                                     'autoclose' => true,
-                                    'startDate' => (string)$startDate,
+                                    'startDate' => (string)$startDateFormat,
                                     'endDate'   => date('Y'), 
                                     'startView' => 'decade',
                                     'minView' => 'decade',
@@ -45,16 +38,13 @@ class ReineType extends AbstractType
                                     'initialDate' => date('Y'), 
                                 ),
                             'read_only' => true
-                ))
-                
+            ))                
             ->add('clippage', 'checkbox', array(
                 'required'  => false,
-                'label'     => false
             ))
         
             ->add('marquage', 'checkbox', array(
                 'required'  => false,
-                'label'     => false
             ));       
     }
     

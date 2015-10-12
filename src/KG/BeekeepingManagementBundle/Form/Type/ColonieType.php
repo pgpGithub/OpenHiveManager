@@ -66,7 +66,9 @@ class ColonieType extends AbstractType
                         'empty_data'  => null
                     ))
                 
-            ->add('reine', new ReineType());       
+            ->add('reine', new ReineType(), array(
+                        'mapped' => false
+                    ));       
     }
     
     /**

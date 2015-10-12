@@ -39,6 +39,12 @@
                             <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plus') }} Créer une visite</a></li>
                             {% endif %}
                         {% endif %}
+                        {% if ruche.hausses is not empty %}
+                            <li><a title="Créer une récolte" href="{{ path('kg_beekeeping_management_add_recolte', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('open') }} Créer une récolte</a></li>
+                        {% endif %}
+                        {% if ruche.colonie.recoltes is not empty %}
+                            <li><a title="Historique des récoltes" href="#">{{ icon('list') }} Historique des récoltes</a></li>
+                        {% endif %}                        
                         <li><a title="Transhumer" href="{{ path('kg_beekeeping_management_add_transhumance', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plane') }} Transhumer</a></li>
                         {% if ruche.colonie.transhumances is not empty %}
                             <li><a title="Historique des transhumances" href="{{ path('kg_beekeeping_management_view_transhumances', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('list') }} Historique des transhumances</a></li>
@@ -57,7 +63,7 @@
             {% if ruche.image is not null %}
                 <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-thumbnail img-responsive">
             {% else %}
-                <img src="../../../../../../no_picture.png" alt="logo" class="img-thumbnail img-responsive">
+                <img src="../../../../../../no_picture.png" alt="image de ruche par défaut" class="img-thumbnail img-responsive">
             {% endif %}           
         </div>
         <div class=" col-md-5 col-lg-5 ">
@@ -70,7 +76,7 @@
                     </tr>                                  
                     <tr>
                         <td><strong>Type</strong></td>
-                        <td>{{ ruche.corps.type.libelle }} {{ ruche.corps.soustype.nbcadres }}</td>
+                        <td>{{ ruche.corps.type.libelle }} {{ ruche.corps.nbcadres }}</td>
                     </tr>
                     <tr>
                         <td><strong>Matière</strong></td>
@@ -93,7 +99,7 @@
                 <tbody>
                     <tr>
                         <td><strong>Race</strong></td>
-                        <td>{{ ruche.colonie.reine.race.libelle }}</td>
+                        <td>{{ ruche.colonie.reines|last.race.libelle }}</td>
                     </tr>
                     <tr>
                         <td><strong>Affectation</strong></td>
@@ -167,7 +173,7 @@
                                 <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if lastVisite.date|date('Y-m-d') >= "now"|date('Y-m-d') and lastVisite == visite %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning">{{ icon('pencil') }}</a>{% endif %}</td>
+                                <td>{% if lastVisite == visite %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning">{{ icon('pencil') }}</a>{% endif %}</td>
                             </tr>    
                         {% endfor %}
                     </tbody>

@@ -27,7 +27,6 @@ class HausseRuche extends Hausse
     {
         parent::setNbcadres($hausse->getNbcadres());
         parent::setNbplein($hausse->getNbplein());
-        parent::setType($hausse->getType());
         $this->ruche = $hausse->getVisite()->getColonie()->getRuche();
     }
 
