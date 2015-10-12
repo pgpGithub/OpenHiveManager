@@ -51,7 +51,7 @@ class ColonieController extends Controller
     */    
     public function deleteAction(Colonie $colonie)
     {
-        $exploitation = $colonie->getExploitation();
+        $exploitation = $colonie->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
