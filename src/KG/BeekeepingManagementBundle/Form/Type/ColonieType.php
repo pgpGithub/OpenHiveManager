@@ -66,9 +66,11 @@ class ColonieType extends AbstractType
                         'empty_data'  => null
                     ))
                 
-            ->add('reine', new ReineType(), array(
-                        'mapped' => false
-                    ));       
+            ->add('remerages', 'collection', array(
+                'type'  => new FirstRemerageType(),
+                'label' => false
+            ));                       
+   
     }
     
     /**

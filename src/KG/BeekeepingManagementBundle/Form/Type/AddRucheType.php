@@ -24,7 +24,7 @@ class AddRucheType extends AbstractType
                     ))     
             ->add('corps', new CorpsType())
             ->add('image', new ImageType(), array('required' => false))
-            ->add('colonie', new ColonieType());
+            ->add('colonie', new ColonieType(), array('label' => false));
     }
     
     /**

@@ -48,7 +48,9 @@
 
     <fieldset>
         <legend>Colonie</legend>
-        {{ form_row(form.colonie.reine.race, {'label': 'Race :', 'label_col': 4, 'widget_col': 5})  }}        
+        {% for remerage in form.colonie.remerages %}
+            {{ form_row(remerage.reine.race, {'label': 'Race :', 'label_col': 4, 'widget_col': 5})  }}      
+        {% endfor %}
         {{ form_row(form.colonie.origineColonie, {'label': 'Origine :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.colonie.dateColonie, {'label': 'Année :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.colonie.affectation, {'label': 'Affectation :', 'label_col': 4, 'widget_col': 5})  }}
@@ -60,13 +62,15 @@
         
     <fieldset>
         <legend>Reine</legend>
-        {{ form_row(form.colonie.reine.anneeReine, {'label': 'Année :', 'label_col': 4, 'widget_col': 5})  }}
-        <div class="row">
-            <div class="col-md-offset-4 col-md-6">            
-                {{ form_row(form.colonie.reine.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                {{ form_row(form.colonie.reine.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-            </div>
-        </div>             
+        {% for remerage in form.colonie.remerages %}
+            {{ form_row(remerage.reine.anneeReine, {'label': 'Année :', 'label_col': 4, 'widget_col': 5})  }}
+            <div class="row">
+                <div class="col-md-offset-4 col-md-6">            
+                    {{ form_row(remerage.reine.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                    {{ form_row(remerage.reine.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                </div>
+            </div>  
+        {% endfor %}        
     </fieldset>
 
     {{ form_rest(form) }}

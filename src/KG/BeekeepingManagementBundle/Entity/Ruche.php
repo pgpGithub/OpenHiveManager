@@ -76,6 +76,7 @@ class Ruche
         $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
         $this->corps   = new Corps();
         $this->emplacement = $emplacement;
+        $this->colonie = new Colonie();
     }
 
     /**
