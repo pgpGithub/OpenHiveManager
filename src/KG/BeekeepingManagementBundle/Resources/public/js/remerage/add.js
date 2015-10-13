@@ -2,14 +2,13 @@ $("[name='kg_beekeepingmanagementbundle_remerage[reine][clippage]']").bootstrapS
 $("[name='kg_beekeepingmanagementbundle_remerage[reine][marquage]']").bootstrapSwitch();
 $("[name='kg_beekeepingmanagementbundle_remerage[naturel]']").bootstrapSwitch();
 
-$("#kg_beekeepingmanagementbundle_remerage_naturel").change(function() {
-
-    if($("#kg_beekeepingmanagementbundle_remerage_naturel").attr("checked")) {
-        $("#kg_beekeepingmanagementbundle_remerage_reine_race").show();
-        $("#kg_beekeepingmanagementbundle_remerage_reine_anneeReine").show();
+document.getElementById('kg_beekeepingmanagementbundle_remerage_naturel').addEventListener('click',function (event){
+    if(event.target.checked){
+        document.getElementById('kg_beekeepingmanagementbundle_remerage_reine_race').style.display = "inline-block";
+        document.getElementById('kg_beekeepingmanagementbundle_remerage_reine_anneeReine').style.display = "inline-block";
     }else{
-        $("#kg_beekeepingmanagementbundle_remerage_reine_race").hide();
-        $("#kg_beekeepingmanagementbundle_remerage_reine_anneeReine").hide();
+        document.getElementById('kg_beekeepingmanagementbundle_remerage_reine_race').style.display = "none";
+        document.getElementById('kg_beekeepingmanagementbundle_remerage_reine_anneeReine').style.display = "none";
     }
 });
 

@@ -3,7 +3,11 @@
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
 {% block stylesheets %}
-    {{ parent() }}
+    {{ parent() }}  
+    {% stylesheets filter='cssrewrite' 
+        '@KGBeekeepingManagementBundle/Resources/public/css/index.css'%}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}    
 {% endblock %}
 
 {% block javascripts %}
@@ -23,6 +27,26 @@
 
 {% block panel_body %}
     <div class="row">
-
+        <div class="col-xs-12">
+            {% for rucher in app.user.exploitations|first.ruchers %}
+                 <div class="col-md-10 blogShort">
+                    <h1>{{ rucher.nom }}<</h1>
+                    {% if rucher.image %}
+                        <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}" class="pull-left img-responsive thumb margin10 img-thumbnail">
+                    {% else %}
+                        <img src="{{ asset("img/rucher.jpg") }}" alt="Photo par défaut" class="pull-left img-responsive thumb margin10 img-thumbnail">
+                    {% endif %}                      
+                         <em>This snippet use <a href="http://bootsnipp.com/snippets/featured/sexy-sidebar-navigation" target="_blank">Sexy Sidebar Navigation</a></em>
+                     <article><p>
+                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                         ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only 
+                         five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release
+                         of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
+                         Lorem Ipsum.    
+                         </p></article>
+                     <a class="btn btn-blog pull-right marginBottom10" href="http://bootsnipp.com/user/snippets/2RoQ">READ MORE</a> 
+                 </div>                      
+            {% endfor %}
+        </div>
     </div>             
 {% endblock %}
