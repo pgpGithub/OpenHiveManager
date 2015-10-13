@@ -72,8 +72,7 @@ class RemerageController extends Controller
         }
         
         $lastRemerage = $colonie->getRemerages()->last();
-        // On initialise l'année à celle de la dernière reine : remérage naturel donc l'année ne peut pas être plus ancienne
-        $reine = new Reine($lastRemerage->getReine()->getAnneeReine(), $lastRemerage->getReine()->getRace());
+        $reine = new Reine(null, $lastRemerage->getReine()->getRace());
         $remerage = new Remerage($reine);
         $remerage->setColonie($colonie);
         
@@ -81,6 +80,10 @@ class RemerageController extends Controller
                 
         if ($form->handleRequest($request)->isValid()){
             
+            // L'année de la reine est identique à celle de la date de remérage quand le remérage est naturel
+            if($remerage->getNaturel()){
+                $remerage->getReine()->setAnneeReine($remerage->getDate());
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($remerage);
             $em->flush();
