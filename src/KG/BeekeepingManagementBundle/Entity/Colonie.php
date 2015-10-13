@@ -67,11 +67,11 @@ class Colonie
     private $agressivite;
     
      /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", mappedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Remerage", mappedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
-    private $reines;
+    private $remerages;
     
      /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="coloniesFilles", cascade="persist")
@@ -135,7 +135,8 @@ class Colonie
         $this->causes          = new \Doctrine\Common\Collections\ArrayCollection();
         $this->coloniesFilles  = new \Doctrine\Common\Collections\ArrayCollection();
         $this->visites         = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->reines          = new \Doctrine\Common\Collections\ArrayCollection();  
+        $this->remerages       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addRemerage(new Remerage(new Reine(), true));
     }
 
     /**
@@ -529,7 +530,7 @@ class Colonie
             if( $this->colonieMere->getDateColonie() > $this->dateColonie ){
                  $context
                    ->buildViolation('La date de division ne peut pas être antérieur à la date de naissance de la colonie mère') 
-                   ->atPath('date')
+                   ->atPath('dateColonie')
                    ->addViolation();  
             }
         }
@@ -539,8 +540,19 @@ class Colonie
         if( $this->dateColonie > $today ){
             $context
                    ->buildViolation('La date ne peut pas être située dans le futur') 
-                   ->atPath('date')
+                   ->atPath('dateColonie')
                    ->addViolation();            
+        }
+        
+        // Si c'est le premier remérage (cas de la création d'une colonie)
+        // l'écart entre la date de la colonie et l'année de la reine doit être < 5 ans
+        if( $this->getRemerages()->count() == 1){
+            if(  $this->getRemerages()[0]->getReine()->getAnneeReine()->diff($this->dateColonie)->format('%r%y') > 5 ){
+                $context
+                       ->buildViolation('L\'année de la colonie est trop éloignée de l\'année de la reine') 
+                       ->atPath('dateColonie')
+                       ->addViolation();                      
+            }            
         }        
     }    
 
@@ -611,35 +623,35 @@ class Colonie
     } 
 
     /**
-     * Add reine
+     * Add remerages
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Reine $reine
+     * @param \KG\BeekeepingManagementBundle\Entity\Remerage $remerages
      * @return Colonie
      */
-    public function addReine(\KG\BeekeepingManagementBundle\Entity\Reine $reine)
+    public function addRemerage(\KG\BeekeepingManagementBundle\Entity\Remerage $remerages)
     {
-        $this->reines[] = $reine;
-        
+        $this->remerages[] = $remerages;
+        $remerages->setColonie($this);
         return $this;
     }
 
     /**
-     * Remove reine
+     * Remove remerages
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Reine $reine
+     * @param \KG\BeekeepingManagementBundle\Entity\Remerage $remerages
      */
-    public function removeReine(\KG\BeekeepingManagementBundle\Entity\Reine $reine)
+    public function removeRemerage(\KG\BeekeepingManagementBundle\Entity\Remerage $remerages)
     {
-        $this->reines->removeElement($reine);
+        $this->remerages->removeElement($remerages);
     }
 
     /**
-     * Get reines
+     * Get remerages
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getReines()
+    public function getRemerages()
     {
-        return $this->reines;
+        return $this->remerages;
     }
 }

@@ -14,8 +14,6 @@ class ReineType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $startDate = date("Y")-5;
-
         $builder              
             ->add('race', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Race',
@@ -29,7 +27,6 @@ class ReineType extends AbstractType
                             'pickerOptions' =>
                                 array('format' => 'yyyy',
                                     'autoclose' => true,
-                                    'startDate' => (string)$startDate,
                                     'endDate'   => date('Y'), 
                                     'startView' => 'decade',
                                     'minView' => 'decade',

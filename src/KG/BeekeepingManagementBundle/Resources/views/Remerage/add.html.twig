@@ -13,7 +13,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
-                    '@KGBeekeepingManagementBundle/Resources/public/js/reine/remerage.js'%}
+                    '@KGBeekeepingManagementBundle/Resources/public/js/remerage/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
     {{ form_javascript(form) }}
@@ -26,18 +26,28 @@
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Remérage naturel de la ruche {{ colonie.ruche.nom }}</h4>
+            <h4>Remérage de la ruche {{ colonie.ruche.nom }}</h4>
         </div>
     </div>
 {% endblock %}
 
 {% block panel_body %}         
     {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-        {{ form_row(form.anneeReine, {'label': 'Date :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.date, {'label': 'Date du remérage :', 'label_col': 4, 'widget_col': 5})  }}
+       
+        <div class="row">
+            <div class="col-md-offset-4 col-md-6">         
+                {{ form_row(form.naturel, {'attr': {'data-label-text' : "Type de remérage", 'data-off-color' : 'primary', 'data-on-text': "Naturel", 'data-off-text': 'Artificiel'}}) }}
+            </div>
+        </div> 
+
+        {{ form_row(form.reine.anneeReine, {'label': 'Année de la reine :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.reine.race, {'label': 'Race :', 'label_col': 4, 'widget_col': 5})  }}        
+        
         <div class="row">
             <div class="col-md-offset-4 col-md-6">            
-                {{ form_row(form.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                {{ form_row(form.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                {{ form_row(form.reine.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                {{ form_row(form.reine.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
             </div>
         </div>           
     {{ form_rest(form) }}

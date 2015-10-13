@@ -5,6 +5,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\Hausse;
 use KG\BeekeepingManagementBundle\Entity\Emplacement;
 use KG\BeekeepingManagementBundle\Entity\Ruche;
+use KG\BeekeepingManagementBundle\Entity\Remerage;
 use KG\BeekeepingManagementBundle\Form\Type\UpdateRucheType;
 use KG\BeekeepingManagementBundle\Form\Type\TranshumerType;
 use KG\BeekeepingManagementBundle\Form\Type\AddRucheType;
@@ -163,11 +164,13 @@ class RucheController extends Controller
         $form = $this->createForm(new AddRucheType, $ruche);
         
         if ($form->handleRequest($request)->isValid()){
+        
+            // On relie la colonie au rucher
+            $ruche->getColonie()->setRucher($emplacement->getRucher());
             
-            $reine = $form->get('colonie')->get('reine')->getData();
-            $colonie = $ruche->getColonie();
-            $reine->setColonie($colonie);
-            $colonie->setRucher($emplacement->getRucher());
+            // La date du remérage est la même que celle de la création de la colonie
+            $ruche->getColonie()->getRemerages()[0]->setDate($ruche->getColonie()->getDateColonie());
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($ruche->getCorps());
             $em->persist($ruche);

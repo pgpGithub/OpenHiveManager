@@ -1,0 +1,48 @@
+{# src/KG/BeekeepingManagementBundle/Resources/views/Remerages/viewAll.html.twig #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Remérages de la ruche{% endblock %}
+
+{% block ruchers %}{{ colonie.rucher.nom }}{% endblock %}
+
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Remérages de la ruche {{ colonie.ruche.nom }}</h4>
+        </div>
+    </div>    
+{% endblock %}
+
+{% block panel_body %}       
+    <div class="row">
+        <div class=" col-md-12"> 
+            <div class="table-responsive">
+                <table id="mytable" class="table table-bordred table-striped">
+                    <thead>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Race</th>
+                        <th>Année</th>
+                    </thead>
+                    <tbody>
+                        {% for remerage in pagination %}
+                            <tr>
+                                <td>{{ remerage.date|date('d/m/Y') }}</td>
+                                <td>{% if remerage.naturel %}Naturel{% else %}Artificiel{% endif %}</td>
+                                <td>{{ remerage.reine.race.libelle }}</td>
+                                <td>{{ remerage.reine.anneeReine|date("Y") }}</td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12 navigation" align="right">
+                    {{ knp_pagination_render(pagination) }}
+                </div> 
+            </div>                            
+        </div>
+    </div>                                    
+{% endblock %}

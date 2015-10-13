@@ -83,6 +83,12 @@ kg_beekeeping_management_view_transhumances:
     defaults:  { _controller: KGBeekeepingManagementBundle:Transhumance:viewAll, page: 1 }
     requirements:
         colonie_id: \d+
+
+kg_beekeeping_management_view_remerages:
+    path:      /manager/exploitation/rucher/ruche/colonie/{colonie_id}/afficher-remerages/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:viewAll, page: 1 }
+    requirements:
+        colonie_id: \d+
         
 kg_beekeeping_management_update_visite:
     path:      /manager/exploitation/rucher/ruche/colonie/visite/{visite_id}/modifier-visite
@@ -126,17 +132,11 @@ kg_beekeeping_management_diviser_colonie:
     requirements:
         colonie_id: \d+
 
-kg_beekeeping_management_remerage_naturel:
-    path:      /manager/exploitation/colonie/{colonie_id}/remerage-naturel
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:remerageNat }
+kg_beekeeping_management_remerage:
+    path:      /manager/exploitation/colonie/{colonie_id}/ajouter-remerage
+    defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:add }
     requirements:
-        reine_id: \d+
-
-kg_beekeeping_management_remerage_artificiel:
-    path:      /manager/exploitation/colonie/{colonie_id}/remerage-artificiel
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:remerageArt }
-    requirements:
-        reine_id: \d+
+        colonie_id: \d+
         
 kg_beekeeping_management_enrucher_colonie:
     path:      /manager/exploitation/colonie/{colonie_id}/enrucher-colonie

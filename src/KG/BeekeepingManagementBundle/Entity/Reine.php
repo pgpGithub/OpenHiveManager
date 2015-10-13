@@ -27,7 +27,7 @@ class Reine
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Race")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
-     * @Assert\NotBlank(message="Veuillez sélectionner la race de la colonie")
+     * @Assert\NotBlank(message="Veuillez sélectionner la race")
      */
     private $race;
    
@@ -54,19 +54,18 @@ class Reine
     private $marquage;    
 
      /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="reines", cascade="persist")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Remerage", mappedBy="reine", cascade="persist")
      * @Assert\Valid()
      */
-    private $colonie;
+    private $remerage;
 
     /**
      * Constructor
      */
-    public function __construct(Colonie $colonie = null, \DateTime $date = null, Race $race = null)
+    public function __construct( \DateTime $date = null, Race $race = null)
     {          
         $this->race       = $race;
         $this->anneeReine = $date;
-        $this->setColonie($colonie); 
     }
     
     /**
@@ -172,33 +171,6 @@ class Reine
     }
 
     /**
-     * Set 
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonie
-     * @return Reine
-     */
-    public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie = null)
-    {
-        $this->colonie = $colonie;
-        
-        if($colonie){
-            $this->colonie->addReine($this);
-        }
-        
-        return $this;
-    }
-
-    /**
-     * Get colonie
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Colonie 
-     */
-    public function getColonie()
-    {
-        return $this->colonie;
-    }
-
-    /**
      * Set marquage
      *
      * @param boolean $marquage
@@ -226,16 +198,7 @@ class Reine
    * @Assert\Callback
    */
     public function isContentValid(ExecutionContextInterface $context)
-    {       
-        foreach( $this->getColonie()->getReines() as $lastReine ){
-            if ( $this->anneeReine < $lastReine->getAnneeReine()  && $lastReine->getId() != $this->getId() ){                
-                $context
-                       ->buildViolation('L\'année de la reine ne peut pas être antérieur à celle d\'une ancienne reine') 
-                       ->atPath('anneeReine')
-                       ->addViolation();
-            }            
-        }
-        
+    {              
         $today = new \DateTime();
         
         if( $this->anneeReine > $today ){
@@ -244,5 +207,29 @@ class Reine
                    ->atPath('anneeReine')
                    ->addViolation();            
         }
+       
     }        
+
+    /**
+     * Set remerage
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Remerage $remerage
+     * @return Reine
+     */
+    public function setRemerage(\KG\BeekeepingManagementBundle\Entity\Remerage $remerage = null)
+    {
+        $this->remerage = $remerage;
+
+        return $this;
+    }
+
+    /**
+     * Get remerage
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Remerage 
+     */
+    public function getRemerage()
+    {
+        return $this->remerage;
+    }
 }
