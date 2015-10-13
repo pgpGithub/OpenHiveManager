@@ -70,7 +70,7 @@
                     {% if rucher.image is not null %}
                         <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}" class="img-thumbnail img-responsive">
                     {% else %}
-                        <img src="../../../../../no_picture.png" alt="logo" class="img-thumbnail img-responsive">
+                        <img src="{{ asset("img/rucher.jpg") }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
                     {% endif %}           
                 </div>
                 <div class="col-sm-4">

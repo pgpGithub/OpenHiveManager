@@ -56,15 +56,15 @@
     </div>    
 {% endblock %}
 
-
+                   
 {% block panel_body %} 
     <div class="row">
         <div class="col-md-3 col-lg-3 " align="center"> 
             {% if ruche.image is not null %}
                 <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-thumbnail img-responsive">
             {% else %}
-                <img src="../../../../../../no_picture.png" alt="image de ruche par défaut" class="img-thumbnail img-responsive">
-            {% endif %}           
+                <img src="{{ asset('img/ruche/' ~ ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
+            {% endif %}       
         </div>
         <div class=" col-md-5 col-lg-5 ">
             <h4>Descriptif</h4>
