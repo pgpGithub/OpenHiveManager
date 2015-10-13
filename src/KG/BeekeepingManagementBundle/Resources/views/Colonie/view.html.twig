@@ -35,6 +35,9 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
                         <li><a title="Remérage" href="{{ path('kg_beekeeping_management_remerage', { 'colonie_id': colonie.id }) }}">{{ icon('refresh') }} Remérage</a></li>
+                        {% if colonie.remerages is not empty %}
+                            <li><a title="Historique des remérages" href="{{ path('kg_beekeeping_management_view_remerages', { 'colonie_id' : colonie.id }) }}">{{ icon('list') }} Historique des remérages</a></li>
+                        {% endif %}                        
                         {% if colonie.ruche.corps.nbcouvain > 1 %}<li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('resize-full') }} Diviser</a></li>{% endif %}
                         <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('pencil') }} Modifier la colonie</a></li>
                         <li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('minus-sign') }} Déclarer morte</a></li>
