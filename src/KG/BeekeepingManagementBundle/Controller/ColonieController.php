@@ -5,8 +5,6 @@ namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\Colonie;
 use KG\BeekeepingManagementBundle\Entity\Reine;
 use KG\BeekeepingManagementBundle\Entity\Ruche;
-use KG\BeekeepingManagementBundle\Form\Type\RemerageNaturelType;
-use KG\BeekeepingManagementBundle\Form\Type\RemerageArtificielType;
 use KG\BeekeepingManagementBundle\Form\Type\ColonieType;
 use KG\BeekeepingManagementBundle\Form\Type\UpdateColonieType;
 use KG\BeekeepingManagementBundle\Form\Type\EnrucherType;
@@ -212,85 +210,4 @@ class ColonieController extends Controller
                                    'colonie' => $colonie, 
                             ));  
     }    
-    
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}}) 
-    */    
-    public function remerageNatAction(Colonie $colonie, Request $request)
-    {
-        $not_permitted = true;
-        
-        foreach ( $colonie->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $colonie->getMorte() ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-        
-        $lastReine = $colonie->getReines()->last();
-        $reine = new Reine($colonie, $lastReine->getAnneeReine(), $lastReine->getRace());
-        $form = $this->createForm(new RemerageNaturelType(), $reine);
-                
-        if ($form->handleRequest($request)->isValid()){
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($reine);
-            $em->flush();
-            
-            $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Remérage naturel créé avec succès');
-            
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $reine->getColonie()->getId())));                
-        }
-
-        return $this->render('KGBeekeepingManagementBundle:Reine:remeragenaturel.html.twig', 
-                             array('form'    => $form->createView(),
-                                   'colonie' => $colonie
-                            ));        
-    }
-    
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}}) 
-    */    
-    public function remerageArtAction(Colonie $colonie, Request $request)
-    {
-        $not_permitted = true;
-        
-        foreach ( $colonie->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $colonie->getMorte() ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-        
-        $lastReine = $colonie->getReines()->last();
-        $reine = new Reine($colonie, $lastReine->getAnneeReine());     
-        $form = $this->createForm(new RemerageArtificielType(), $reine);
-                
-        if ($form->handleRequest($request)->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($reine);
-            $em->flush();
-            
-            $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Remérage artificiel créé avec succès');
-            
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $reine->getColonie()->getId())));                
-        }
-
-        return $this->render('KGBeekeepingManagementBundle:Reine:remerageartificiel.html.twig', 
-                             array('form'    => $form->createView(),
-                                   'colonie' => $colonie
-                            ));        
-    }        
 }    
