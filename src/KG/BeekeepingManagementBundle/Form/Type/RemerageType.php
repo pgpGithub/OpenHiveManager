@@ -5,8 +5,9 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use KG\BeekeepingManagementBundle\Form\EventListener\TypeRemerageFieldSubscriber;
 
-class RemerageArtType extends AbstractType
+class RemerageType extends AbstractType
 {
     private $date;
     
@@ -47,11 +48,12 @@ class RemerageArtType extends AbstractType
                                 'viewSelect' => 'month',
                                 'initialDate' => date("Y-m-d"), 
                             ),
-                        'read_only' => true
+                        //'read_only' => true
                         ))
                 ->add('reine', new ReineType(), array(
                             'label' => false,
-                        ));
+                        ))
+                ->addEventSubscriber(new TypeRemerageFieldSubscriber());
     }
     
     /**

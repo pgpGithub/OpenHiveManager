@@ -5,8 +5,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\Remerage;
 use KG\BeekeepingManagementBundle\Entity\Colonie;
 use KG\BeekeepingManagementBundle\Entity\Reine;
-use KG\BeekeepingManagementBundle\Form\Type\RemerageNatType;
-use KG\BeekeepingManagementBundle\Form\Type\RemerageArtType;
+use KG\BeekeepingManagementBundle\Form\Type\RemerageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -57,7 +56,7 @@ class RemerageController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}}) 
     */    
-    public function addNatAction(Colonie $colonie, Request $request)
+    public function addAction(Colonie $colonie, Request $request)
     {
         $not_permitted = true;
         
@@ -74,16 +73,17 @@ class RemerageController extends Controller
         
         $lastRemerage = $colonie->getRemerages()->last();
         $reine = new Reine(null, $lastRemerage->getReine()->getRace());
-        $remerage = new Remerage($reine, true);
+        $remerage = new Remerage($reine);
         $remerage->setColonie($colonie);
         
-        $form = $this->createForm(new RemerageNatType($lastRemerage->getDate()), $remerage);
+        $form = $this->createForm(new RemerageType($lastRemerage->getDate()), $remerage);
                 
         if ($form->handleRequest($request)->isValid()){
             
             // L'année de la reine est identique à celle de la date de remérage quand le remérage est naturel
-            $remerage->getReine()->setAnneeReine($remerage->getDate());
-            
+            if($remerage->getNaturel()){
+                $remerage->getReine()->setAnneeReine($remerage->getDate());
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($remerage);
             $em->flush();
@@ -94,53 +94,9 @@ class RemerageController extends Controller
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $remerage->getColonie()->getId())));                
         }
 
-        return $this->render('KGBeekeepingManagementBundle:Remerage:addNat.html.twig', 
+        return $this->render('KGBeekeepingManagementBundle:Remerage:add.html.twig', 
                              array('form'    => $form->createView(),
                                    'colonie' => $colonie
                             ));        
     }
-    
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}}) 
-    */    
-    public function addArtAction(Colonie $colonie, Request $request)
-    {
-        $not_permitted = true;
-        
-        foreach ( $colonie->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $colonie->getMorte() ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-        
-        $lastRemerage = $colonie->getRemerages()->last();
-        $reine = new Reine(null, $lastRemerage->getReine()->getRace());
-        $remerage = new Remerage($reine, false);
-        $remerage->setColonie($colonie);
-        
-        $form = $this->createForm(new RemerageArtType($lastRemerage->getDate()), $remerage);
-                
-        if ($form->handleRequest($request)->isValid()){
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($remerage);
-            $em->flush();
-            
-            $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Remérage artificiel créé avec succès');
-            
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $remerage->getColonie()->getId())));                
-        }
-
-        return $this->render('KGBeekeepingManagementBundle:Remerage:addArt.html.twig', 
-                             array('form'    => $form->createView(),
-                                   'colonie' => $colonie
-                            ));        
-    }    
 }    
