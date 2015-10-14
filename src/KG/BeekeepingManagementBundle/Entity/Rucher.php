@@ -39,7 +39,6 @@ class Rucher
 
     /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", mappedBy="rucher", cascade={"remove"}, orphanRemoval=true)
-     * @Assert\Valid()
      */
     private $emplacements;    
     
@@ -65,7 +64,6 @@ class Rucher
     
     /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="rucher")
-     * @Assert\Valid()
      */
     private $colonies; 
     
