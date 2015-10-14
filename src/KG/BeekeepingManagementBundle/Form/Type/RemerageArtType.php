@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RemerageType extends AbstractType
+class RemerageArtType extends AbstractType
 {
     private $date;
     
@@ -48,10 +48,6 @@ class RemerageType extends AbstractType
                                 'initialDate' => date("Y-m-d"), 
                             ),
                         'read_only' => true
-                        ))
-                ->add('naturel', 'checkbox', array(
-                            'label' => false,
-                            'required'  => false
                         ))
                 ->add('reine', new ReineType(), array(
                             'label' => false,

@@ -34,7 +34,8 @@
                       <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
-                        <li><a title="Remérage" href="{{ path('kg_beekeeping_management_remerage', { 'colonie_id': colonie.id }) }}">{{ icon('refresh') }} Remérage</a></li>
+                        <li><a title="Remérage naturel" href="{{ path('kg_beekeeping_management_remerage_naturel', { 'colonie_id': colonie.id }) }}">{{ icon('refresh') }} Remérage naturel</a></li>
+                        <li><a title="Remérage artificiel" href="{{ path('kg_beekeeping_management_remerage_artificiel', { 'colonie_id': colonie.id }) }}">{{ icon('import') }} Remérage artificiel</a></li>
                         {% if colonie.remerages is not empty %}
                             <li><a title="Historique des remérages" href="{{ path('kg_beekeeping_management_view_remerages', { 'colonie_id' : colonie.id }) }}">{{ icon('list') }} Historique des remérages</a></li>
                         {% endif %}                        

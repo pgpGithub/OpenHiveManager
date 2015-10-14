@@ -132,11 +132,17 @@ kg_beekeeping_management_diviser_colonie:
     requirements:
         colonie_id: \d+
 
-kg_beekeeping_management_remerage:
-    path:      /manager/exploitation/colonie/{colonie_id}/ajouter-remerage
-    defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:add }
+kg_beekeeping_management_remerage_naturel:
+    path:      /manager/exploitation/colonie/{colonie_id}/ajouter-remerage-naturel
+    defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:addNat }
     requirements:
         colonie_id: \d+
+        
+kg_beekeeping_management_remerage_artificiel:
+    path:      /manager/exploitation/colonie/{colonie_id}/ajouter-remerage-artificiel
+    defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:addArt }
+    requirements:
+        colonie_id: \d+        
         
 kg_beekeeping_management_enrucher_colonie:
     path:      /manager/exploitation/colonie/{colonie_id}/enrucher-colonie

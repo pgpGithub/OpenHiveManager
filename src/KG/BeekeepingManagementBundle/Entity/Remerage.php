@@ -33,7 +33,6 @@ class Remerage
     
      /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="remerages", cascade="persist")
-     * @Assert\Valid()
      */
     private $colonie;
      
@@ -178,8 +177,8 @@ class Remerage
                    ->addViolation();            
         }
         
-        // Si on est pas sur le remérage de la création de la colonie
-        if($this->getColonie()->getRemerages()->count() > 1){       
+        // Si on est pas sur le remérage de la création de la colonie et que le remérage est articiel
+        if($this->getColonie()->getRemerages()->count() > 1 && !$this->naturel){       
             if(  $this->date->diff($this->reine->getAnneeReine())->format('%y') > 5 ){
                 $context
                        ->buildViolation('La date de remérage est trop éloignée de l\'année de la reine') 
