@@ -45,6 +45,9 @@ class RemerageType extends AbstractType
         $startDate = date_add($this->date,date_interval_create_from_date_string("1 days"));
         $startDateFormat = date_format($startDate,"Y-m-d"); 
         
+        $race       = $builder->getData()->getReine()->getRace();
+        $anneeReine = $builder->getData()->getReine()->getAnneeReine();
+        
         $builder
                 ->add('date', 'collot_datetime', array( 
                         'pickerOptions' =>
@@ -65,12 +68,20 @@ class RemerageType extends AbstractType
                                 'viewSelect' => 'month',
                                 'initialDate' => date("Y-m-d"), 
                             ),
-                        //'read_only' => true
+                        //'read_only' => true,
+                            'attr' => array(
+                                'input_group' => array(
+                                    'prepend' => '.icon-calendar'
+                                ))        
                         ))
                 ->add('reine', new ReineType(), array(
                             'label' => false,
                         ))
-                ->addEventSubscriber(new TypeRemerageFieldSubscriber());
+                ->add('naturel', 'checkbox', array(
+                   'label'     => false,
+                   'required'  => false
+                        ))  
+                ->addEventSubscriber(new TypeRemerageFieldSubscriber($race, $anneeReine));
     }
     
     /**

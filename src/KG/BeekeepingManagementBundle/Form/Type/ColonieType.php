@@ -52,7 +52,11 @@ class ColonieType extends AbstractType
                                     'viewSelect' => 'year',
                                     'initialDate' => date('Y-m-d'), 
                                 ),
-                            'read_only' => true
+                            'read_only' => true,
+                            'attr' => array(
+                                'input_group' => array(
+                                    'prepend' => '.icon-calendar'
+                                ))                          
                 ))
                 
             ->add('affectation', 'entity', array(
