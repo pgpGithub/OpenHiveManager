@@ -32,6 +32,7 @@ class RucherController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
+        $apikey     = $this->container->getParameter('apikey');
         $query      = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->findByRucher($rucher);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -42,7 +43,8 @@ class RucherController extends Controller
         
         return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', 
                 array(  'rucher'         => $rucher,
-                        'pagination'     => $pagination));
+                        'pagination'     => $pagination,
+                        'apikey'          => $apikey));
     }
     /**
     * @Security("has_role('ROLE_USER')")
