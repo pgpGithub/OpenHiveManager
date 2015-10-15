@@ -106,7 +106,7 @@ class RemerageController extends Controller
             $em->flush();
             
             $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Remérage naturel créé avec succès');
+            $flash->success('Remérage créé avec succès');
             
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $remerage->getColonie()->getId())));                
         }

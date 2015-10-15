@@ -56,8 +56,10 @@
             </div>
         </div> 
 
-        {{ form_row(form.reine.anneeReine, {'label': 'Année de la reine :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.reine.race, {'label': 'Race :', 'label_col': 4, 'widget_col': 5})  }}        
+        <div id="artificiel">
+            {{ form_row(form.reine.anneeReine, {'label': 'Année de la reine :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.reine.race, {'label': 'Race :', 'label_col': 4, 'widget_col': 5})  }}        
+        </div>
         
         <div class="row">
             <div class="col-md-offset-4 col-md-6">            
