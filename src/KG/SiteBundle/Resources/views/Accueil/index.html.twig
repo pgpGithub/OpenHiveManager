@@ -5,7 +5,8 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets filter='cssrewrite' 
-        '@KGSiteBundle/Resources/public/css/business-frontpage.css'%}
+        '@KGSiteBundle/Resources/public/css/business-frontpage.css'
+        '@KGSiteBundle/Resources/public/css/forkme.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}  
 {% endblock %}
@@ -112,4 +113,11 @@
             </div>
         </div>
     </div>
+                
+    <div class="github-fork-ribbon-wrapper right">
+        <div class="github-fork-ribbon">
+            <a target="_blank" href="https://git.framasoft.org/keverg/OpenHiveManager.git">Fork me on Framagit</a>
+        </div>
+    </div>
+
 {% endblock %}
