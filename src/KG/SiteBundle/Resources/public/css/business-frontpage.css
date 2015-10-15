@@ -1,7 +1,3 @@
-body {
-    margin-top: 50px; /* Required margin for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-}
-
 header {
     margin-bottom: 50px;
     text-align: center;
@@ -9,8 +5,4 @@ header {
 
 .img-center {
 	margin: 0 auto;
-}
-
-.logo {
-    width: 40%;
 }

@@ -19,8 +19,14 @@
 
 {% block header %}
     <header>
-        <img class="img-responsive img-center logo" src="{{ asset('logo.jpg') }}" alt="OpenHiveManager">
-        <h1><small>La première application participative de gestion apicole</small></h1>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <img class="img-responsive img-center" src="{{ asset('logo.jpg') }}" alt="OpenHiveManager">
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <h1><small>La première application participative de gestion apicole</small></h1>                
+            </div>    
+        </div>    
     </header> 
 {% endblock %}    
 
