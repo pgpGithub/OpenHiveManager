@@ -1,13 +1,16 @@
-.business-header {
-    height: 400px;
-    background: url('../../../../../img/header.jpg') center center no-repeat scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
+body {
+    margin-top: 50px; /* Required margin for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
-.label {
-    font-size: 30%;
-    vertical-align:middle;
+header {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.img-center {
+	margin: 0 auto;
+}
+
+.logo {
+    width: 40%;
 }
