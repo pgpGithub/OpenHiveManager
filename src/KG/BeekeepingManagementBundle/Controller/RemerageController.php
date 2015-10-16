@@ -93,7 +93,7 @@ class RemerageController extends Controller
         $remerage = new Remerage($reine);
         $remerage->setColonie($colonie);
         
-        $form = $this->createForm(new RemerageType($lastRemerage->getDate()), $remerage);
+        $form = $this->createForm(new RemerageType($lastRemerage), $remerage);
                 
         if ($form->handleRequest($request)->isValid()){
             

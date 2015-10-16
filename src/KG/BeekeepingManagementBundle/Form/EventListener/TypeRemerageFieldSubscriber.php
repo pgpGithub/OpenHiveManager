@@ -26,26 +26,24 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityRepository;
  
 class TypeRemerageFieldSubscriber implements EventSubscriberInterface
-{
+{  
     private $race;
-    private $anneeReine;
     
     /**
      * Constructor
      */
-    public function __construct($race, $anneeReine)
+    public function __construct($race)
     {
-        $this->race       = $race;
-        $this->anneeReine = $anneeReine;     
+        $this->race = $race;   
     }    
     
     public static function getSubscribedEvents()
     {
         return array(
-            //FormEvents::PRE_SET_DATA  => 'preSetData',
+            FormEvents::PRE_SET_DATA  => 'preSetData',
             FormEvents::PRE_SUBMIT    => 'preSubmit'
         );
-    }   
+    }    
  
     public function preSetData(FormEvent $event)
     {
@@ -56,21 +54,57 @@ class TypeRemerageFieldSubscriber implements EventSubscriberInterface
             return;
         }
         
-        /*$accessor = PropertyAccess::createPropertyAccessor();
+        $accessor = PropertyAccess::createPropertyAccessor();
         $naturel = $accessor->getValue($data, 'naturel');
         
-        $this->addOrRemoveForm($form, $naturel);*/ 
+        if($naturel){
+            $form->get('reine')->add('race', 'entity', array(
+                                        'class' => 'KGBeekeepingManagementBundle:Race',
+                                        'choice_label' => 'libelle',
+                                        'empty_value' => '',
+                                        'empty_data'  => null, 
+                                        'attr' => array(
+                                            'style' => 'display:none;'
+                                            )
+                                        )) 
+                                ->add('anneeReine', 'collot_datetime', 
+                                array( 
+                                        'pickerOptions' =>
+                                            array('format' => 'yyyy',
+                                                'autoclose' => true,
+                                                'endDate'   => date('Y'), 
+                                                'startView' => 'decade',
+                                                'minView' => 'decade',
+                                                'maxView' => 'decade',
+                                                'todayBtn' => false,
+                                                'todayHighlight' => false,
+                                                'keyboardNavigation' => true,
+                                                'language' => 'fr',
+                                                'forceParse' => true,
+                                                'pickerReferer ' => 'default', 
+                                                'pickerPosition' => 'bottom-right',
+                                                'viewSelect' => 'decade',
+                                                'initialDate' => date('Y'), 
+                                            ),
+                                        'read_only' => true,
+                                        'attr' => array(
+                                            'style' => 'display:none;',
+                                            'input_group' => array(
+                                                'prepend' => '.icon-calendar'
+                                            ))                          
+                            ));
+        }
     }
  
     public function preSubmit(FormEvent $event)
     {
-        $data = $event->getData();
-        
+        $data = $event->getData();      
         $naturel = array_key_exists('naturel', $data) ? $data['naturel'] : null;
         
-        if($naturel){
-            $data['reine']['race'] = $this->race;
-            $data['reine']['anneeReine'] = $this->anneeReine;
-        }      
+        if( $naturel ){
+            $data['reine']['race'] = $this->race->getId();
+            $data['reine']['anneeReine'] = substr($data['date'], 6, 4);
+            $event->setData($data);
+        }        
     }
 }

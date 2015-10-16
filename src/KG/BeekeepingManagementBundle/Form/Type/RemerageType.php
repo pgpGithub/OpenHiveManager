@@ -23,17 +23,20 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use KG\BeekeepingManagementBundle\Form\EventListener\TypeRemerageFieldSubscriber;
+use KG\BeekeepingManagementBundle\Entity\Remerage;
 
 class RemerageType extends AbstractType
 {
     private $date;
+    private $race;
     
     /**
      * Constructor
      */
-    public function __construct(\DateTime $date)
+    public function __construct(Remerage $lastRemerage)
     {
-        $this->date = $date;    
+        $this->date       = $lastRemerage->getDate();    
+        $this->race       = $lastRemerage->getReine()->getRace();
     }    
     
     /**
@@ -44,9 +47,6 @@ class RemerageType extends AbstractType
     {
         $startDate = date_add($this->date,date_interval_create_from_date_string("1 days"));
         $startDateFormat = date_format($startDate,"Y-m-d"); 
-        
-        $race       = $builder->getData()->getReine()->getRace();
-        $anneeReine = $builder->getData()->getReine()->getAnneeReine();
         
         $builder
                 ->add('date', 'collot_datetime', array( 
@@ -81,7 +81,7 @@ class RemerageType extends AbstractType
                    'label'     => false,
                    'required'  => false
                         ))  
-                ->addEventSubscriber(new TypeRemerageFieldSubscriber($race, $anneeReine));
+                ->addEventSubscriber(new TypeRemerageFieldSubscriber($this->race));
     }
     
     /**
