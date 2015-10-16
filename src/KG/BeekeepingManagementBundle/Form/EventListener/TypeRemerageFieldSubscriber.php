@@ -103,6 +103,7 @@ class TypeRemerageFieldSubscriber implements EventSubscriberInterface
         
         if( $naturel ){
             $data['reine']['race'] = $this->race->getId();
+            // L'année de la reine est identique à celle de la date de remérage quand le remérage est naturel
             $data['reine']['anneeReine'] = substr($data['date'], 6, 4);
             $event->setData($data);
         }        

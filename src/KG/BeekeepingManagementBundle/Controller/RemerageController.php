@@ -96,11 +96,7 @@ class RemerageController extends Controller
         $form = $this->createForm(new RemerageType($lastRemerage), $remerage);
                 
         if ($form->handleRequest($request)->isValid()){
-            
-            // L'année de la reine est identique à celle de la date de remérage quand le remérage est naturel
-            if($remerage->getNaturel()){
-                $remerage->getReine()->setAnneeReine($remerage->getDate());
-            }
+           
             $em = $this->getDoctrine()->getManager();
             $em->persist($remerage);
             $em->flush();
