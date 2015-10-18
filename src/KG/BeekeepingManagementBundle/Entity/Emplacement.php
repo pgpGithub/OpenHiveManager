@@ -216,7 +216,7 @@ class Emplacement
     /**
      * Constructor
      */
-    public function __construct(Rucher $rucher)
+    public function __construct(Rucher $rucher = null)
     {
         $this->transhumancesfrom = new \Doctrine\Common\Collections\ArrayCollection();
         $this->transhumancesto = new \Doctrine\Common\Collections\ArrayCollection();

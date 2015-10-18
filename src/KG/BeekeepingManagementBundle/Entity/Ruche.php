@@ -88,12 +88,12 @@ class Ruche
     /**
      * Constructor
      */
-    public function __construct(Emplacement $emplacement)
+    public function __construct(Emplacement $emplacement = null)
     {
         $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->corps   = new Corps();
+        $this->corps   = new Corps($this);
         $this->emplacement = $emplacement;
-        $this->colonie = new Colonie();
+        $this->colonie = new Colonie($this);
     }
 
     /**

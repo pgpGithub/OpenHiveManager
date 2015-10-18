@@ -200,6 +200,24 @@ class Corps
         return $this->type;
     }    
     
+    /**
+     * diviser
+     *
+     * @param integer $nbnourriture
+     * @param integer $nbcouvain
+     * @return Colonie
+     */
+    public function diviser($nbnourriture, $nbcouvain)
+    {        
+        $nbnourriture_div = $this->getNbnourriture() - $nbnourriture; 
+        $nbcouvain_div = $this->getNbcouvain() - $nbcouvain;
+       
+        $this->setNbnourriture($nbnourriture_div);
+        $this->setNbcouvain($nbcouvain_div);
+        
+        return $this;
+    }   
+    
    /**
    * @Assert\Callback
    */

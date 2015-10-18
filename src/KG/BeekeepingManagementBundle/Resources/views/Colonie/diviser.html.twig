@@ -38,7 +38,7 @@
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Division de la colonie de la ruche {{ colonieMere.ruche.nom }}</h4>
+            <h4>Division de la colonie n° {{ colonieMere.numero }}</h4>
         </div>
     </div>
 {% endblock %}
@@ -49,24 +49,24 @@
 
     <fieldset> 
         <legend>Emplacement</legend>        
-        {{ form_row(form.rucher, {'label': 'Rucher :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.emplacement, {'label': 'Emplacement :', 'label_col': 4, 'widget_col': 5})  }}            
+        {{ form_row(form.ruche.rucher, {'label': 'Rucher :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.ruche.emplacement, {'label': 'Emplacement :', 'label_col': 4, 'widget_col': 5})  }}            
     </fieldset> 
             
     <fieldset> 
-        {{ form_row(form.nom, {'label': 'Nom de la ruche :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.matiere, {'label': 'Matière :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.corps.type, {'label': 'Type :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.corps.soustype, {'label': 'Nombre de cadres :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.ruche.nom, {'label': 'Nom de la ruche :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.ruche.matiere, {'label': 'Matière :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.ruche.corps.type, {'label': 'Type :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.ruche.corps.nbcadres, {'label': 'Nombre de cadres :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.ruche.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
     </fieldset>
     
     <fieldset>
         <legend>Colonie</legend>                
-        {{ form_row(form.colonie.dateColonie, {'label': 'Date de la division :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.colonie.affectation, {'label': 'Affectation :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.corps.nbnourriture, {'label': 'Cadres de nourriture :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.corps.nbcouvain, {'label': 'Cadres de couvain :', 'label_col': 4, 'widget_col': 5})  }}                                
+        {{ form_row(form.dateColonie, {'label': 'Date de la division :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.affectation, {'label': 'Affectation :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.ruche.corps.nbnourriture, {'label': 'Cadres de nourriture :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.ruche.corps.nbcouvain, {'label': 'Cadres de couvain :', 'label_col': 4, 'widget_col': 5})  }}                                
     </fieldset>                
 
     {{ form_rest(form) }}

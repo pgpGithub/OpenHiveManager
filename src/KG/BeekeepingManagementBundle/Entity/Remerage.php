@@ -71,11 +71,11 @@ class Remerage
     /**
      * Constructor
      */
-    public function __construct(Reine $reine, $naturel = null, \DateTime $date = null)
+    public function __construct(Reine $reine, Colonie $colonie, $naturel = null)
     {
         $this->setReine($reine);
-        $this->naturel = $naturel;
-        $this->date    = $date;     
+        $this->setColonie($colonie);
+        $this->naturel = $naturel;     
     }    
     
     /**
@@ -166,7 +166,7 @@ class Remerage
     public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie = null)
     {
         $this->colonie = $colonie;
-
+        $colonie->addRemerage($this);
         return $this;
     }
 

@@ -76,14 +76,29 @@ class Reine
      */
     private $remerage;
 
-    /**
-     * Constructor
+     /**
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="reinesFilles", cascade="persist")
+     * @ORM\JoinColumn()
      */
-    public function __construct( \DateTime $date = null, Race $race = null)
-    {          
-        $this->race       = $race;
-        $this->anneeReine = $date;
-    }
+    private $reineMere;
+
+     /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", mappedBy="reineMere", cascade="persist")
+     */
+    private $reinesFilles;
+
+    /**
+     * Remerer
+     *
+     * @return Reine
+     */
+    public function remerer()
+    {
+        $reine = new Reine();
+        $reine->setRace($this->getRace());
+
+        return $reine;
+    }    
     
     /**
      * Get id
@@ -233,7 +248,7 @@ class Reine
      * @param \KG\BeekeepingManagementBundle\Entity\Remerage $remerage
      * @return Reine
      */
-    public function setRemerage(\KG\BeekeepingManagementBundle\Entity\Remerage $remerage = null)
+    public function setRemerage(\KG\BeekeepingManagementBundle\Entity\Remerage $remerage)
     {
         $this->remerage = $remerage;
 
@@ -248,5 +263,61 @@ class Reine
     public function getRemerage()
     {
         return $this->remerage;
+    }
+
+    /**
+     * Set reineMere
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Reine $reineMere
+     * @return Reine
+     */
+    public function setReineMere(\KG\BeekeepingManagementBundle\Entity\Reine $reineMere)
+    {
+        $this->reineMere = $reineMere;
+        $this->reineMere->addReinesFille($this);
+        return $this;
+    }
+
+    /**
+     * Get reineMere
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Reine 
+     */
+    public function getReineMere()
+    {
+        return $this->reineMere;
+    }
+
+    /**
+     * Add reinesFilles
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Reine $reinesFilles
+     * @return Reine
+     */
+    public function addReinesFille(\KG\BeekeepingManagementBundle\Entity\Reine $reinesFilles)
+    {
+        $this->reinesFilles[] = $reinesFilles;
+
+        return $this;
+    }
+
+    /**
+     * Remove reinesFilles
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Reine $reinesFilles
+     */
+    public function removeReinesFille(\KG\BeekeepingManagementBundle\Entity\Reine $reinesFilles)
+    {
+        $this->reinesFilles->removeElement($reinesFilles);
+    }
+
+    /**
+     * Get reinesFilles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReinesFilles()
+    {
+        return $this->reinesFilles;
     }
 }

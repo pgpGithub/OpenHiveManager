@@ -34,11 +34,7 @@
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-6">
-            {%if colonie.ruche %}
-                <h4>Colonie de la ruche {{ colonie.ruche.nom }}</h4>
-            {% else %}
-                <h4>Colonie morte du rucher {{ colonie.rucher.nom }}</h4>
-            {% endif %}
+            <h4>Colonie n° {{ colonie.numero }}</h4>
         </div>
         <div class="col-xs-6">
         {% if not colonie.morte %}
@@ -56,7 +52,7 @@
                         {% if colonie.ruche.corps.nbcouvain > 1 %}<li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('resize-full') }} Diviser</a></li>{% endif %}
                         <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('pencil') }} Modifier la colonie</a></li>
                         <li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('minus-sign') }} Déclarer morte</a></li>
-                        {% if colonie.visites is empty and colonie.recoltes is empty and colonie.coloniesFilles is empty %}
+                        {% if colonie.visites is empty and colonie.recoltes is empty %}
                             <li role="separator" class="divider"></li>
                             <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('trash') }} Supprimer</a></li>                     
                         {% endif %}
@@ -103,27 +99,6 @@
                         <td><strong>Date de naissance</strong></td>
                         <td>{{ colonie.dateColonie|date("m/Y") }}</td>
                     </tr>
-
-                    {% if colonie.colonieMere %}
-                    <tr>
-                        <td><strong>Colonie mère</strong></td>
-                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.colonieMere.id }) }}">{{ icon('user') }}</a></td>
-                    </tr>                              
-                    {% endif %}
-
-                    {% if colonie.coloniesFilles is not empty %}
-                    <tr>
-                        <td><strong>Colonie{% if colonie.coloniesFilles|length > 1 %}s{% endif %} fille{% if colonie.coloniesFilles|length > 1 %}s{% endif %}</strong></td>
-                        <td>
-                            {% for colonieFille in colonie.coloniesFilles %}
-                                {% if not loop.first %}
-                                    - 
-                                {% endif %}
-                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonieFille.id }) }}">{{ icon('user') }}</a>
-                            {% endfor %}
-                        </td>
-                    </tr>                              
-                    {% endif %}
 
                     {% if colonie.ruche %}
                     <tr>

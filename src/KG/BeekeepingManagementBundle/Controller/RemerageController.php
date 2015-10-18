@@ -89,22 +89,20 @@ class RemerageController extends Controller
         }
         
         $lastRemerage = $colonie->getRemerages()->last();
-        $reine = new Reine(null, $lastRemerage->getReine()->getRace());
-        $remerage = new Remerage($reine);
-        $remerage->setColonie($colonie);
+        $colonie->remerer();
         
-        $form = $this->createForm(new RemerageType($lastRemerage), $remerage);
+        $form = $this->createForm(new RemerageType($lastRemerage), $colonie->getRemerages()->last());
                 
         if ($form->handleRequest($request)->isValid()){
            
             $em = $this->getDoctrine()->getManager();
-            $em->persist($remerage);
+            $em->persist($colonie);
             $em->flush();
             
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Remérage créé avec succès');
             
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $remerage->getColonie()->getId())));                
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));                
         }
 
         return $this->render('KGBeekeepingManagementBundle:Remerage:add.html.twig', 

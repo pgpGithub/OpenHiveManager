@@ -19,25 +19,22 @@
 
 namespace KG\BeekeepingManagementBundle\Form\Type;
 
-use KG\BeekeepingManagementBundle\Entity\Reine;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use KG\BeekeepingManagementBundle\Form\EventListener\DeplacerEmplacementFieldSubscriber;
 use Doctrine\ORM\EntityRepository;
 
 class DiviserType extends AbstractType
 {
-    private $colonieMere;
-    private $origine;
+    
+    private $datemin;
     
     /**
      * Constructor
      */
-    public function __construct(\KG\BeekeepingManagementBundle\Entity\Colonie $colonieMere, $origine)
+    public function __construct(\DateTime $datemin)
     {
-        $this->colonieMere = $colonieMere;
-        $this->origine = $origine;
+        $this->datemin = $datemin;
     }
     
     /**
@@ -46,45 +43,43 @@ class DiviserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $propertyPathToEmplacement = 'emplacement';
-        $exploitation = $this->colonieMere->getRucher()->getExploitation()->getId();
+        $exploitation = $builder->getData()->getRemerages()->last()->getReine()->getReineMere()->getRemerage()->getColonie()->getRucher()->getExploitation();
         
-        $colonieFille = new \KG\BeekeepingManagementBundle\Entity\Colonie();
-        $colonieFille->setOrigineColonie($this->origine);
-        $colonieFille->setEtat($this->colonieMere->getEtat());
-        $colonieFille->setAgressivite($this->colonieMere->getAgressivite());
-        $colonieFille->setReine(new Reine());
-        $colonieFille->getReine()->setRace($this->colonieMere->getReine()->getRace());
-        $colonieFille->setColonieMere($this->colonieMere);
-        
-        $builder
-            ->add('rucher', 'entity', array(
-                        'class'         => 'KGBeekeepingManagementBundle:Rucher',
-                        'choice_label'  => 'nom',
-                        'empty_value'   => '',
-                        'mapped'        => false,
-                        'attr'          => array(
-                            'class' => 'rucher_selector'
-                        ),
-                        'query_builder' => function (EntityRepository $repository) use ($exploitation) {
-                            $qb = $repository->queryfindByExploitationId($exploitation);
-                            return $qb;
-                        }
-                    ))
-            ->addEventSubscriber(new DeplacerEmplacementFieldSubscriber($propertyPathToEmplacement))    
-            ->add('nom',  'text', array('attr' => array('label_col' => 4, 'widget_col' => 5)))
-            ->add('matiere', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Matiere',
+        $builder                       
+            ->add('dateColonie', 'collot_datetime', 
+                array( 
+                        'pickerOptions' =>
+                            array(
+                                'format' => 'mm/yyyy',
+                                'autoclose' => true,
+                                'startDate' => date_format($this->datemin,"Y-m-d"),
+                                'endDate' => date('Y-m-d'), 
+                                'startView' => 'decade',
+                                'minView' => 'year',
+                                'maxView' => 'decade',
+                                'todayBtn' => false,
+                                'todayHighlight' => false,
+                                'keyboardNavigation' => true,
+                                'language' => 'fr',
+                                'forceParse' => true,
+                                'pickerReferer ' => 'default', 
+                                'pickerPosition' => 'bottom-right',
+                                'viewSelect' => 'year',
+                                'initialDate' => date('Y-m-d'), 
+                            ),
+                        'read_only' => true,
+                        'attr' => array(
+                            'input_group' => array(
+                                'prepend' => '.icon-calendar'
+                            ))                      
+            ))                                  
+            ->add('affectation', 'entity', array(
+                        'class' => 'KGBeekeepingManagementBundle:Affectation',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
-                        'empty_data'  => null,
-                        'attr' => array('label_col' => 4, 'widget_col' => 5)
-                    ))     
-            ->add('corps', new DiviserCorpsType($this->colonieMere))
-            ->add('image', new ImageType(), array('required' => false))        
-            ->add('colonie', new ColonieFilleType($this->colonieMere->getDateColonie()), array(
-                        'data' => $colonieFille
-                    ));
+                        'empty_data'  => null
+                    ))
+            ->add('ruche', new DiviserRucheType()); 
     }
     
     /**
@@ -93,8 +88,8 @@ class DiviserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Ruche'
-        ));         
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonie'
+        ));
     }
 
     /**
@@ -102,6 +97,6 @@ class DiviserType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_diviser';
+        return 'kg_beekeepingmanagementbundle_colonie';
     }
 }

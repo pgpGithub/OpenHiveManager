@@ -27,6 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Colonie
  *
  * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks() 
  * @ORM\Entity
  */
 class Colonie
@@ -39,6 +40,13 @@ class Colonie
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="numero", type="integer")
+     */
+    private $numero;    
       
      /**
       * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="colonies")
@@ -86,24 +94,11 @@ class Colonie
      /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Remerage", mappedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid()
      */
     private $remerages;
     
      /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="coloniesFilles", cascade="persist")
-     * @ORM\JoinColumn()
-     */
-    private $colonieMere;
-
-     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="colonieMere", cascade="persist")
-     */
-    private $coloniesFilles;
-    
-     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Assert\Valid()
      */
     private $ruche;
 
@@ -147,15 +142,31 @@ class Colonie
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Ruche $ruche = null)
     {
         $this->causes          = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->coloniesFilles  = new \Doctrine\Common\Collections\ArrayCollection();
         $this->visites         = new \Doctrine\Common\Collections\ArrayCollection();
         $this->remerages       = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->addRemerage(new Remerage(new Reine(), true));
+        $this->ruche           = $ruche;
+        $this->remerer(true);
     }
 
+    /**
+    * @ORM\PrePersist
+    */
+    public function fillNumero()
+    {
+        $numero = 0;
+        
+        foreach ($this->rucher->getExploitation()->getRuchers() as $rucher) {
+            foreach ($rucher->getColonies() as $colonie) {
+                $numero ++;
+            }
+        }
+        
+        $this->numero = $numero + 1;        
+    }   
+    
     /**
      * Get id
      *
@@ -187,29 +198,6 @@ class Colonie
     public function getAffectation()
     {
         return $this->affectation;
-    }
-
-    /**
-     * Set colonieMere
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonieMere
-     * @return Colonie
-     */
-    public function setColonieMere(\KG\BeekeepingManagementBundle\Entity\Colonie $colonieMere = null)
-    {
-        $this->colonieMere = $colonieMere;
-
-        return $this;
-    }
-
-    /**
-     * Get colonieMere
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Colonie 
-     */
-    public function getColonieMere()
-    {
-        return $this->colonieMere;
     }
 
     /**
@@ -302,39 +290,6 @@ class Colonie
     public function getRuche()
     {
         return $this->ruche;
-    }
-
-    /**
-     * Add coloniesFilles
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
-     * @return Colonie
-     */
-    public function addColoniesFilles(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
-    {
-        $this->coloniesFilles[] = $coloniesFilles;
-
-        return $this;
-    }
-
-    /**
-     * Remove coloniesFilles
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
-     */
-    public function removeColoniesFilles(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
-    {
-        $this->coloniesFilles->removeElement($coloniesFilles);
-    }
-
-    /**
-     * Get coloniesFilles
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getColoniesFilles()
-    {
-        return $this->coloniesFilles;
     }
 
     /**
@@ -494,62 +449,74 @@ class Colonie
     {
         return $this->origineColonie;
     }
-
-    /**
-     * Add coloniesFilles
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
-     * @return Colonie
-     */
-    public function addColoniesFille(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
-    {
-        $this->coloniesFilles[] = $coloniesFilles;
-
-        return $this;
-    }
-
-    /**
-     * Remove coloniesFilles
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles
-     */
-    public function removeColoniesFille(\KG\BeekeepingManagementBundle\Entity\Colonie $coloniesFilles)
-    {
-        $this->coloniesFilles->removeElement($coloniesFilles);
-    }  
     
     /**
      * diviser
      *
-     * @param integer $nbnourriture
-     * @param integer $nbcouvain
+     * @param var $origine
      * @return Colonie
      */
-    public function diviser($nbnourriture, $nbcouvain)
+    public function diviser($origine)
     {
-        $corps = $this->getRuche()->getCorps();
+        $reineMere  = $this->remerages->last()->getReine();
         
-        $nbnourriture_div = $corps->getNbnourriture() - $nbnourriture; 
-        $nbcouvain_div = $corps->getNbcouvain() - $nbcouvain;
-       
-        $corps->setNbnourriture($nbnourriture_div);
-        $corps->setNbcouvain($nbcouvain_div);
+        $colonie = new Colonie();
+        $colonie->setOrigineColonie($origine);
+        $colonie->setEtat($this->getEtat());
+        $colonie->setAgressivite($this->getAgressivite());
+        
+        $colonie->remerages->last()->getReine()->setReineMere($reineMere);
+        $colonie->remerages->last()->getReine()->setRace($reineMere->getRace());
+                
+        return $colonie;
+    }
+    
+    /**
+     * remerer
+     *
+     * @return Colonie
+     */
+    public function remerer($naturel = null)
+    {
+        // Première reine (création colonie ou division)
+        if($this->remerages->isEmpty()){
+            $reine = new Reine();
+        }else{
+            $reine = $this->remerages->last()->getReine()->remerer();
+        }
+        
+        new Remerage($reine , $this, $naturel);
         
         return $this;
-    }
+    }    
+    
     
    /**
    * @Assert\Callback
    */
     public function isContentValid(ExecutionContextInterface $context)
     {
-        if( $this->colonieMere ){
-            if( $this->colonieMere->getDateColonie() > $this->dateColonie ){
+        $reineMere = $this->remerages->last()->getReine()->getReineMere(); 
+                
+        if( $reineMere ){
+            if( $reineMere->getRemerage()->getColonie()->getDateColonie() > $this->dateColonie ){
                  $context
                    ->buildViolation('La date de division ne peut pas être antérieur à la date de naissance de la colonie mère') 
                    ->atPath('dateColonie')
                    ->addViolation();  
             }
+        }
+        else{
+            // Si c'est le premier remérage (cas de la création d'une colonie mais pas d'une division)
+            // l'écart entre la date de la colonie et l'année de la reine doit être < 5 ans
+            if( $this->remerages->count() == 1 ){
+                if(  $this->remerages[0]->getReine()->getAnneeReine()->diff($this->dateColonie)->format('%r%y') > 5 ){
+                    $context
+                           ->buildViolation('L\'année de la colonie est trop éloignée de l\'année de la reine') 
+                           ->atPath('dateColonie')
+                           ->addViolation();                      
+                }            
+            }             
         }
         
         $today = new \DateTime();
@@ -559,18 +526,7 @@ class Colonie
                    ->buildViolation('La date ne peut pas être située dans le futur') 
                    ->atPath('dateColonie')
                    ->addViolation();            
-        }
-        
-        // Si c'est le premier remérage (cas de la création d'une colonie)
-        // l'écart entre la date de la colonie et l'année de la reine doit être < 5 ans
-        if( $this->getRemerages()->count() == 1){
-            if(  $this->getRemerages()[0]->getReine()->getAnneeReine()->diff($this->dateColonie)->format('%r%y') > 5 ){
-                $context
-                       ->buildViolation('L\'année de la colonie est trop éloignée de l\'année de la reine') 
-                       ->atPath('dateColonie')
-                       ->addViolation();                      
-            }            
-        }        
+        }       
     }    
 
     /**
@@ -648,7 +604,6 @@ class Colonie
     public function addRemerage(\KG\BeekeepingManagementBundle\Entity\Remerage $remerages)
     {
         $this->remerages[] = $remerages;
-        $remerages->setColonie($this);
         return $this;
     }
 
@@ -670,5 +625,28 @@ class Colonie
     public function getRemerages()
     {
         return $this->remerages;
+    }
+
+    /**
+     * Set numero
+     *
+     * @param integer $numero
+     * @return Colonie
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get numero
+     *
+     * @return integer 
+     */
+    public function getNumero()
+    {
+        return $this->numero;
     }
 }

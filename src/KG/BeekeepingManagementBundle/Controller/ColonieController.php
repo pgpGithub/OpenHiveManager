@@ -77,7 +77,7 @@ class ColonieController extends Controller
             }
         }
         
-        if( $not_permitted || !$colonie->getRecoltes()->isEmpty() || !$colonie->getColoniesFilles()->isEmpty() || !$colonie->getVisites()->isEmpty() ){
+        if( $not_permitted || !$colonie->getRecoltes()->isEmpty() || !$colonie->getVisites()->isEmpty() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -157,22 +157,20 @@ class ColonieController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $ruche = new Ruche();
-        $form = $this->createForm(new DiviserType($colonieMere, $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Division")), $ruche);
+        $colonie = $colonieMere->diviser($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Division"));        
+        $form = $this->createForm(new DiviserType($colonieMere->getDateColonie()), $colonie);
         
         if ($form->handleRequest($request)->isValid()){
             
-            $colonieMere->diviser($ruche->getCorps()->getNbnourriture(), $ruche->getCorps()->getNbcouvain());
-            $ruche->getColonie()->setRucher($ruche->getEmplacement()->getRucher());
+            $colonieMere->getRuche()->getCorps()->diviser($colonie->getRuche()->getCorps()->getNbnourriture(), $colonie->getRuche()->getCorps()->getNbcouvain());
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ruche->getCorps());
-            $em->persist($ruche);           
+            $em->persist($colonie);       
             $em->flush();
         
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Colonie divisée avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $ruche->getColonie()->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getColonie()->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Colonie:diviser.html.twig', 

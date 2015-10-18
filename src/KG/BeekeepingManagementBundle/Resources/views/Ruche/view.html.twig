@@ -109,7 +109,7 @@
             </table>
         </div>            
         <div class=" col-md-4 col-lg-4 ">            
-            <h4><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': ruche.colonie.id }) }}">Colonie</a></h4>                          
+            <h4>Colonie n° <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': ruche.colonie.id }) }}">{{ ruche.colonie.numero }}</a></h4>                          
             <table class="table">
                 <tbody>
                     <tr>

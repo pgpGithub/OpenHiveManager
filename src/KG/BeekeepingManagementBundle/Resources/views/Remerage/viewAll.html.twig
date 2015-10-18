@@ -61,3 +61,28 @@
         </div>
     </div>                                    
 {% endblock %}
+
+{#
+
+                    {% if colonie.colonieMere %}
+                    <tr>
+                        <td><strong>Colonie mère</strong></td>
+                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.colonieMere.id }) }}">{{ icon('user') }}</a></td>
+                    </tr>                              
+                    {% endif %}
+
+                    {% if colonie.coloniesFilles is not empty %}
+                    <tr>
+                        <td><strong>Colonie{% if colonie.coloniesFilles|length > 1 %}s{% endif %} fille{% if colonie.coloniesFilles|length > 1 %}s{% endif %}</strong></td>
+                        <td>
+                            {% for colonieFille in colonie.coloniesFilles %}
+                                {% if not loop.first %}
+                                    - 
+                                {% endif %}
+                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonieFille.id }) }}">{{ icon('user') }}</a>
+                            {% endfor %}
+                        </td>
+                    </tr>                              
+                    {% endif %}
+                    
+                    #}
