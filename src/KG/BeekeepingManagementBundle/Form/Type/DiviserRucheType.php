@@ -61,7 +61,7 @@ class DiviserRucheType extends AbstractType
                             return $qb;
                         }
                     ))                  
-            ->addEventSubscriber(new DiviserEmplacementFieldSubscriber($propertyPathToEmplacement))  
+            ->addEventSubscriber(new DeplacerEmplacementFieldSubscriber($propertyPathToEmplacement))  
             ->add('nom',  'text')
             ->add('matiere', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Matiere',

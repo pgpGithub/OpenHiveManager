@@ -54,8 +54,9 @@ class TypeRemerageFieldSubscriber implements EventSubscriberInterface
             return;
         }
         
-        $accessor = PropertyAccess::createPropertyAccessor();
-        $naturel = $accessor->getValue($data, 'naturel');
+        //$accessor = PropertyAccess::createPropertyAccessor();
+        //$naturel = $accessor->getValue($data, 'naturel');
+        $naturel = $form->get('naturel')->getData();
         
         if($naturel){
             $form->get('reine')->add('race', 'entity', array(
