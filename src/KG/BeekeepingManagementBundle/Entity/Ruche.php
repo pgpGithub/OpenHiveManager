@@ -60,6 +60,7 @@ class Ruche
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="ruche")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $emplacement;
     
@@ -89,8 +90,10 @@ class Ruche
     public function __construct(Emplacement $emplacement = null)
     {
         $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->corps   = new Corps($this);
-        $this->emplacement = $emplacement;
+        $this->setCorps(new Corps());
+        if( $emplacement){
+            $this->setEmplacement($emplacement);
+        }
         $this->colonie = new Colonie($this);
     }
 
@@ -179,7 +182,7 @@ class Ruche
      * @param \KG\BeekeepingManagementBundle\Entity\Emplacement $emplacement
      * @return Ruche
      */
-    public function setEmplacement(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacement = null)
+    public function setEmplacement(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacement)
     {
         $this->emplacement = $emplacement;
         $emplacement->setRuche($this);
