@@ -106,7 +106,7 @@ class ColonieController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $ancienClippage = $colonie->getReine()->getClippage();
+        $ancienClippage = $colonie->getRemerages()->last()->getReine()->getClippage();
                 
         $form = $this->createForm(new UpdateColonieType, $colonie);
         

@@ -15,5 +15,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$("[name='kg_beekeepingmanagementbundle_colonie[reine][clippage]']").bootstrapSwitch();
-$("[name='kg_beekeepingmanagementbundle_colonie[reine][marquage]']").bootstrapSwitch();
+$("[name='kg_beekeepingmanagementbundle_colonie[remerages][0][reine][clippage]']").bootstrapSwitch();
+$("[name='kg_beekeepingmanagementbundle_colonie[remerages][0][reine][marquage]']").bootstrapSwitch();

@@ -240,7 +240,8 @@ class Corps
         }
         
         $reineMere = $this->getRuche()->getColonie()->getRemerages()->last()->getReine()->getReineMere();
-        if( $reineMere ){
+        //Cas d'une division, première sauvegarde
+        if( $reineMere && !$this->id){
             if( $this->nbcouvain >= $reineMere->getRemerage()->getColonie()->getRuche()->getCorps()->getNbCouvain()){
                 $context
                        ->buildViolation('Le nombre de cadres de couvain importé doit être inférieur à celui de la colonie mère') 

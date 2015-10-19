@@ -23,26 +23,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UpdateColonieType extends AbstractType
-{
+class UpdateRemerageType extends AbstractType
+{   
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder                                               
-            ->add('affectation', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Affectation',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
-                                             
-            ->add('remerages', 'collection', array(
-                'type'  => new UpdateRemerageType(),
-                'label' => false
-            ));               
+    {        
+        $builder
+                ->add('reine', new UpdateReineType(), array(
+                            'label' => false,
+                        ));
     }
     
     /**
@@ -51,7 +43,7 @@ class UpdateColonieType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Colonie'
+            'data_class' => 'KG\BeekeepingManagementBundle\Entity\Remerage'
         ));
     }
 
@@ -60,6 +52,6 @@ class UpdateColonieType extends AbstractType
      */
     public function getName()
     {
-        return 'kg_beekeepingmanagementbundle_colonie';
+        return 'kg_beekeepingmanagementbundle_remerage';
     }
 }
