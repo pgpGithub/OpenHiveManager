@@ -163,8 +163,19 @@ class ColonieController extends Controller
         if ($form->handleRequest($request)->isValid()){
             
             $colonieMere->getRuche()->getCorps()->diviser($colonie->getRuche()->getCorps()->getNbnourriture(), $colonie->getRuche()->getCorps()->getNbcouvain());
+
+            // On relie la colonie au rucher
+            $colonie->setRucher($colonie->getRuche()->getEmplacement()->getRucher());
+
+            // La date du remérage est la même que celle de la création de la colonie
+            $colonie->getRemerages()[0]->setDate($colonie->getDateColonie());
+            
+            // La date de la reine est la même que celle de la création de la colonie
+            $colonie->getRemerages()[0]->getReine()->setAnneeReine($colonie->getDateColonie());
+            
+            
             $em = $this->getDoctrine()->getManager();
-            $em->persist($colonie);       
+            $em->persist($colonie->getRuche());       
             $em->flush();
         
             $flash = $this->get('braincrafted_bootstrap.flash');

@@ -79,7 +79,11 @@ class DiviserType extends AbstractType
                         'empty_value' => '',
                         'empty_data'  => null
                     ))
-            ->add('ruche', new DiviserRucheType()); 
+            ->add('remerages', 'collection', array(
+                        'type'  => new DiviserRemerageType(),
+                        'label' => false
+                    ))       
+            ->add('ruche', new DiviserRucheType($exploitation)); 
     }
     
     /**

@@ -98,7 +98,7 @@ class Colonie
     private $remerages;
     
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
      */
     private $ruche;
 
@@ -158,7 +158,7 @@ class Colonie
     {
         $numero = 0;
         
-        foreach ($this->rucher->getExploitation()->getRuchers() as $rucher) {
+        foreach ($this->ruche->getEmplacement()->getRucher()->getExploitation()->getRuchers() as $rucher) {
             foreach ($rucher->getColonies() as $colonie) {
                 $numero ++;
             }

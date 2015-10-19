@@ -14,8 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+$("[name='kg_beekeepingmanagementbundle_colonie[remerages][0][reine][clippage]']").bootstrapSwitch();
+$("[name='kg_beekeepingmanagementbundle_colonie[remerages][0][reine][marquage]']").bootstrapSwitch();
 
-$("#kg_beekeepingmanagementbundle_colonie_rucher").change(function(){
+$("#kg_beekeepingmanagementbundle_colonie_ruche_rucher").change(function(){
     var data = {
         rucher_id: $(this).val()
     };
