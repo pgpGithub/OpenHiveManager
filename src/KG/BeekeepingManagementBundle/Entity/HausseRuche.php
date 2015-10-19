@@ -56,6 +56,7 @@ class HausseRuche extends Hausse
     public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche)
     {
         $this->ruche = $ruche;
+        $ruche->addHauss($this);
         return $this;
     }
 

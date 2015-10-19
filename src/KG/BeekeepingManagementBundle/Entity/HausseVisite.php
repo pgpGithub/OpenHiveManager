@@ -60,7 +60,7 @@ class HausseVisite extends Hausse
     public function setVisite(\KG\BeekeepingManagementBundle\Entity\Ruche $visite)
     {
         $this->visite = $visite;
-
+        $visite->addHauss($this);
         return $this;
     }
 

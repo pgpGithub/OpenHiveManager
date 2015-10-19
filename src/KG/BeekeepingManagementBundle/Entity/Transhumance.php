@@ -162,7 +162,7 @@ class Transhumance
     public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie)
     {
         $this->colonie = $colonie;
-
+        $colonie->addTranshumance($this);
         return $this;
     }
 
@@ -185,7 +185,7 @@ class Transhumance
     public function setEmplacementfrom(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementfrom)
     {
         $this->emplacementfrom = $emplacementfrom;
-
+        $emplacementfrom->addTranshumancesfrom($this);
         return $this;
     }
 
@@ -208,7 +208,7 @@ class Transhumance
     public function setEmplacementto(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementto)
     {
         $this->emplacementto = $emplacementto;
-
+        $emplacementto->addTranshumancesto($this);
         return $this;
     }
 

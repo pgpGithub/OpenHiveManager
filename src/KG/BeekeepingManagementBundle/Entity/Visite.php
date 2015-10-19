@@ -224,7 +224,7 @@ class Visite
     public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie)
     {
         $this->colonie = $colonie;
-
+        $colonie->addVisite($this);
         return $this;
     }
 

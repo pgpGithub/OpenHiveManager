@@ -22,6 +22,7 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use KG\BeekeepingManagementBundle\Form\EventListener\DiviserReineFieldSubscriber;
 
 class DiviserReineType extends AbstractType
 {
@@ -40,7 +41,7 @@ class DiviserReineType extends AbstractType
             ->add('marquage', 'checkbox', array(
                 'required'  => false,
                 'label'     => false
-            ));       
+            ));   
     }
     
     /**

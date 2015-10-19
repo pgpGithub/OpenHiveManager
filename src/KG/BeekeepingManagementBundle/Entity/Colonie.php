@@ -414,6 +414,7 @@ class Colonie
     public function setRucher(\KG\BeekeepingManagementBundle\Entity\Rucher $rucher)
     {
         $this->rucher = $rucher;
+        $rucher->addColony($this);
 
         return $this;
     }
@@ -467,7 +468,7 @@ class Colonie
         $colonie->setAgressivite($this->getAgressivite());
         
         $colonie->remerages->last()->getReine()->setRace($reineMere->getRace());
-        $reineMere->addReinesFille($colonie->remerages->last()->getReine());
+        $colonie->remerages->last()->getReine()->setReineMere($reineMere);
                 
         return $colonie;
     }
@@ -486,7 +487,7 @@ class Colonie
             $reine = $this->remerages->last()->getReine()->remerer();
         }
         
-        $this->addRemerage(new Remerage($reine, $naturel));
+        new Remerage($reine, $this, $naturel);
         
         return $this;
     }    
@@ -605,7 +606,6 @@ class Colonie
     public function addRemerage(\KG\BeekeepingManagementBundle\Entity\Remerage $remerage)
     {
         $this->remerages[] = $remerage;
-        $remerage->setColonie($this);
         return $this;
     }
 

@@ -273,6 +273,7 @@ class Reine
     public function setReineMere(\KG\BeekeepingManagementBundle\Entity\Reine $reineMere)
     {
         $this->reineMere = $reineMere;
+        $reineMere->addReinesFille($this);
         return $this;
     }
 
@@ -295,7 +296,6 @@ class Reine
     public function addReinesFille(\KG\BeekeepingManagementBundle\Entity\Reine $reinesFilles)
     {
         $this->reinesFilles[] = $reinesFilles;
-        $reinesFilles->setReineMere($this);
         return $this;
     }
 

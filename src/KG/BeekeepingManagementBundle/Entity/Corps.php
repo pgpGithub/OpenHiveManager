@@ -238,6 +238,9 @@ class Corps
                    ->atPath('nbcadres')
                    ->addViolation();
         }
+        
+        $reine = $this->getRuche()->getColonie()->getRemerages()->last()->getReine()->getReineMere();
+        
     }         
 
     /**

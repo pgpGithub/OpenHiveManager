@@ -69,7 +69,7 @@ class DiviserRucheType extends AbstractType
                         'empty_value' => '',
                         'empty_data'  => null
                     ))
-            ->add('corps', new CorpsType($this->colonieMere))
+            ->add('corps', new DiviserCorpsType($this->colonieMere))
             ->add('image', new ImageType(), array('required' => false));
     }
     

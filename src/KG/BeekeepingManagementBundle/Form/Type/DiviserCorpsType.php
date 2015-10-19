@@ -50,7 +50,8 @@ class DiviserCorpsType extends AbstractType
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
-                    ))      
+                    ))
+            ->add('nbcadres', 'integer')
             ->addEventSubscriber(new DiviserNourritureFieldSubscriber($this->colonieMere->getRuche()->getCorps()->getNbnourriture()))
             ->addEventSubscriber(new DiviserCouvainFieldSubscriber($this->colonieMere->getRuche()->getCorps()->getNbcouvain()));
     }

@@ -100,7 +100,7 @@ class Recolte
     public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie)
     {
         $this->colonie = $colonie;
-
+        $colonie->addRecoltes($this);
         return $this;
     }
 

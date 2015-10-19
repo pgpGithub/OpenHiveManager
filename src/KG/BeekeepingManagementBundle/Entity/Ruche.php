@@ -182,7 +182,7 @@ class Ruche
     public function setEmplacement(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacement = null)
     {
         $this->emplacement = $emplacement;
-
+        $emplacement->setRuche($this);
         return $this;
     }
 
@@ -205,7 +205,7 @@ class Ruche
     public function setCorps(\KG\BeekeepingManagementBundle\Entity\Corps $corps)
     {
         $this->corps = $corps;
-
+        $corps->setRuche($this);
         return $this;
     }
 
