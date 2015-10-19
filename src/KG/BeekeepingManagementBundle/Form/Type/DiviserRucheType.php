@@ -23,18 +23,19 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use KG\BeekeepingManagementBundle\Form\EventListener\DiviserEmplacementFieldSubscriber;
+use KG\BeekeepingManagementBundle\Entity\Colonie;
 use Doctrine\ORM\EntityRepository;
 
 class DiviserRucheType extends AbstractType
 {
-    private $exploitation;
+    private $colonieMere;
     
     /**
      * Constructor
      */
-    public function __construct($exploitation)
+    public function __construct(Colonie $colonieMere)
     {
-        $this->exploitation = $exploitation;
+        $this->colonieMere = $colonieMere;
     }    
     
     /**
@@ -44,7 +45,7 @@ class DiviserRucheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $propertyPathToEmplacement = 'emplacement';
-        $exploitation = $this->exploitation;
+        $exploitation = $this->colonieMere->getRucher()->getExploitation();
         
         $builder    
             ->add('rucher', 'entity', array(
@@ -68,7 +69,7 @@ class DiviserRucheType extends AbstractType
                         'empty_value' => '',
                         'empty_data'  => null
                     ))
-            ->add('corps', new CorpsType())
+            ->add('corps', new CorpsType($this->colonieMere))
             ->add('image', new ImageType(), array('required' => false));
     }
     

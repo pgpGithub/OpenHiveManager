@@ -22,19 +22,21 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use KG\BeekeepingManagementBundle\Entity\Colonie;
 use Doctrine\ORM\EntityRepository;
 
 class DiviserType extends AbstractType
 {
     
-    private $datemin;
+    private $colonieMere;
     
     /**
      * Constructor
      */
-    public function __construct(\DateTime $datemin)
+    public function __construct(Colonie $colonieMere)
     {
-        $this->datemin = $datemin;
+        $this->colonieMere = $colonieMere;
+        
     }
     
     /**
@@ -42,9 +44,7 @@ class DiviserType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $exploitation = $builder->getData()->getRemerages()->last()->getReine()->getReineMere()->getRemerage()->getColonie()->getRucher()->getExploitation();
-        
+    {        
         $builder                       
             ->add('dateColonie', 'collot_datetime', 
                 array( 
@@ -52,7 +52,7 @@ class DiviserType extends AbstractType
                             array(
                                 'format' => 'mm/yyyy',
                                 'autoclose' => true,
-                                'startDate' => date_format($this->datemin,"Y-m-d"),
+                                'startDate' => date_format($this->colonieMere->getDateColonie(),"Y-m-d"),
                                 'endDate' => date('Y-m-d'), 
                                 'startView' => 'decade',
                                 'minView' => 'year',
@@ -83,7 +83,7 @@ class DiviserType extends AbstractType
                         'type'  => new DiviserRemerageType(),
                         'label' => false
                     ))       
-            ->add('ruche', new DiviserRucheType($exploitation)); 
+            ->add('ruche', new DiviserRucheType($this->colonieMere)); 
     }
     
     /**

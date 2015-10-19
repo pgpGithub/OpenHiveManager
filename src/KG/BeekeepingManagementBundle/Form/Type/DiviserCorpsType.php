@@ -22,9 +22,9 @@ namespace KG\BeekeepingManagementBundle\Form\Type;;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use KG\BeekeepingManagementBundle\Form\EventListener\NbCadresFieldSubscriber;
 use KG\BeekeepingManagementBundle\Form\EventListener\DiviserNourritureFieldSubscriber;
 use KG\BeekeepingManagementBundle\Form\EventListener\DiviserCouvainFieldSubscriber;
+use KG\BeekeepingManagementBundle\Entity\Colonie;
 
 class DiviserCorpsType extends AbstractType
 {
@@ -50,8 +50,7 @@ class DiviserCorpsType extends AbstractType
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
-                    ))   
-            ->addEventSubscriber(new NbCadresFieldSubscriber())    
+                    ))      
             ->addEventSubscriber(new DiviserNourritureFieldSubscriber($this->colonieMere->getRuche()->getCorps()->getNbnourriture()))
             ->addEventSubscriber(new DiviserCouvainFieldSubscriber($this->colonieMere->getRuche()->getCorps()->getNbcouvain()));
     }

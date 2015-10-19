@@ -20,11 +20,7 @@
 namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Colonie;
-use KG\BeekeepingManagementBundle\Entity\Reine;
-use KG\BeekeepingManagementBundle\Entity\Ruche;
-use KG\BeekeepingManagementBundle\Form\Type\ColonieType;
 use KG\BeekeepingManagementBundle\Form\Type\UpdateColonieType;
-use KG\BeekeepingManagementBundle\Form\Type\EnrucherType;
 use KG\BeekeepingManagementBundle\Form\Type\DiviserType;
 use KG\BeekeepingManagementBundle\Form\Type\CauseType;
 use Symfony\Component\HttpFoundation\Request;
@@ -158,7 +154,7 @@ class ColonieController extends Controller
         }
         
         $colonie = $colonieMere->diviser($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Division"));        
-        $form = $this->createForm(new DiviserType($colonieMere->getDateColonie()), $colonie);
+        $form = $this->createForm(new DiviserType($colonieMere), $colonie);
         
         if ($form->handleRequest($request)->isValid()){
             
@@ -174,14 +170,15 @@ class ColonieController extends Controller
             $colonie->getRemerages()[0]->getReine()->setAnneeReine($colonie->getDateColonie());
             
             
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($colonie->getRuche());       
+            $em = $this->getDoctrine()->getManager();      
+            $em->persist($colonie);       
+            $em->persist($colonieMere);  
             $em->flush();
         
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Colonie divisée avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getColonie()->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRucher()->getId())));  
         }
 
         return $this->render('KGBeekeepingManagementBundle:Colonie:diviser.html.twig', 

@@ -54,9 +54,7 @@ class Ruche
     private $image;
 
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="ruche", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid()
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="ruche")
      */
     private $colonie;
     

@@ -43,13 +43,14 @@ class Remerage
     
      /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="remerage", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false) 
      * @Assert\Valid()
      */
     private $reine;      
     
      /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="remerages", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", inversedBy="remerages")
+     * @ORM\JoinColumn(nullable=false) 
      */
     private $colonie;
      
@@ -71,10 +72,9 @@ class Remerage
     /**
      * Constructor
      */
-    public function __construct(Reine $reine, Colonie $colonie, $naturel = null)
+    public function __construct(Reine $reine, $naturel = null)
     {
         $this->setReine($reine);
-        $this->setColonie($colonie);
         $this->naturel = $naturel;     
     }    
     
@@ -166,7 +166,7 @@ class Remerage
     public function setColonie(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie = null)
     {
         $this->colonie = $colonie;
-        $colonie->addRemerage($this);
+        
         return $this;
     }
 

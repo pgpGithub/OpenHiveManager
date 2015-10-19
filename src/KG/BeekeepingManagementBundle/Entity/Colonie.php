@@ -92,13 +92,14 @@ class Colonie
     private $agressivite;
     
      /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Remerage", mappedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Remerage", mappedBy="colonie", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $remerages;
     
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid() 
      */
     private $ruche;
 
@@ -278,7 +279,7 @@ class Colonie
     public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche = null)
     {
         $this->ruche = $ruche;
-
+        $ruche->setColonie($this);
         return $this;
     }
 
@@ -465,8 +466,8 @@ class Colonie
         $colonie->setEtat($this->getEtat());
         $colonie->setAgressivite($this->getAgressivite());
         
-        $colonie->remerages->last()->getReine()->setReineMere($reineMere);
         $colonie->remerages->last()->getReine()->setRace($reineMere->getRace());
+        $reineMere->addReinesFille($colonie->remerages->last()->getReine());
                 
         return $colonie;
     }
@@ -485,7 +486,7 @@ class Colonie
             $reine = $this->remerages->last()->getReine()->remerer();
         }
         
-        new Remerage($reine , $this, $naturel);
+        $this->addRemerage(new Remerage($reine, $naturel));
         
         return $this;
     }    
@@ -598,12 +599,13 @@ class Colonie
     /**
      * Add remerages
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Remerage $remerages
+     * @param \KG\BeekeepingManagementBundle\Entity\Remerage $remerage
      * @return Colonie
      */
-    public function addRemerage(\KG\BeekeepingManagementBundle\Entity\Remerage $remerages)
+    public function addRemerage(\KG\BeekeepingManagementBundle\Entity\Remerage $remerage)
     {
-        $this->remerages[] = $remerages;
+        $this->remerages[] = $remerage;
+        $remerage->setColonie($this);
         return $this;
     }
 

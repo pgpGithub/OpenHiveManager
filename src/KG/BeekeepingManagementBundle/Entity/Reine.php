@@ -71,19 +71,18 @@ class Reine
     private $marquage;    
 
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Remerage", mappedBy="reine", cascade="persist")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Remerage", mappedBy="reine")
      * @Assert\Valid()
      */
     private $remerage;
 
      /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="reinesFilles", cascade="persist")
-     * @ORM\JoinColumn()
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="reinesFilles")
      */
     private $reineMere;
 
      /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", mappedBy="reineMere", cascade="persist")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", mappedBy="reineMere")
      */
     private $reinesFilles;
 
@@ -274,7 +273,6 @@ class Reine
     public function setReineMere(\KG\BeekeepingManagementBundle\Entity\Reine $reineMere)
     {
         $this->reineMere = $reineMere;
-        $this->reineMere->addReinesFille($this);
         return $this;
     }
 
@@ -297,7 +295,7 @@ class Reine
     public function addReinesFille(\KG\BeekeepingManagementBundle\Entity\Reine $reinesFilles)
     {
         $this->reinesFilles[] = $reinesFilles;
-
+        $reinesFilles->setReineMere($this);
         return $this;
     }
 

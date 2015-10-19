@@ -189,8 +189,7 @@ class RucheController extends Controller
             $ruche->getColonie()->getRemerages()[0]->setDate($ruche->getColonie()->getDateColonie());
             
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ruche->getCorps());
-            $em->persist($ruche);
+            $em->persist($ruche->getColonie());
             $em->flush();
 
             $flash = $this->get('braincrafted_bootstrap.flash');
