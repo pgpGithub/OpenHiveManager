@@ -20,4 +20,9 @@ class AccueilController extends Controller
     {      
         return $this->render('KGSiteBundle:Accueil:contact.html.twig'); 
     }    
+
+    public function donAction()
+    {      
+        return $this->render('KGSiteBundle:Accueil:don.html.twig'); 
+    }      
 }

@@ -9,5 +9,9 @@ kg_site_cgu:
 kg_site_contact:
     path:      /contact
     defaults:  { _controller: KGSiteBundle:Accueil:contact }
+
+kg_site_don:
+    path:      /don
+    defaults:  { _controller: KGSiteBundle:Accueil:don }
         
     
