@@ -219,10 +219,12 @@ class ColonieController extends Controller
         
         if ($form->handleRequest($request)->isValid()){
             if(!($colonie->getCauses()->isEmpty() && empty($colonie->getAutreCause()))){ 
-                $colonie->setMorte(true);                
+                $colonie->setMorte(true);
+                $ruche = $colonie->getRuche();
+                $colonie->setRuche();
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($colonie);
-                $em->remove($colonie->getRuche());
+                $em->remove($ruche);
                 $em->flush();
 
                 $flash = $this->get('braincrafted_bootstrap.flash');

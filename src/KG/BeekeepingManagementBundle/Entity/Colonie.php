@@ -281,7 +281,9 @@ class Colonie
     public function setRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruche = null)
     {
         $this->ruche = $ruche;
-        $ruche->setColonie($this);
+        if($ruche){
+            $ruche->setColonie($this);
+        }
         return $this;
     }
 
