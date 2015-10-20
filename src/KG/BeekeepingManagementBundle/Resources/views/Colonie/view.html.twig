@@ -36,6 +36,14 @@
         <div class="col-xs-6">
             <h4>Colonie n° {{ colonie.numero }}</h4>
         </div>
+        
+        {% set filleExist = false %}
+        {% for remerage in colonie.remerages %}
+            {% if remerage.reine.reinesFilles is not empty %}
+                {% set filleExist = true %}
+            {% endif %}    
+        {% endfor %}        
+        
         <div class="col-xs-6">
         {% if not colonie.morte %}
             <span class="pull-right">
@@ -52,7 +60,7 @@
                         {% if colonie.ruche.corps.nbcouvain > 1 %}<li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('resize-full') }} Diviser</a></li>{% endif %}
                         <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('pencil') }} Modifier la colonie</a></li>
                         <li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('minus-sign') }} Déclarer morte</a></li>
-                        {% if colonie.visites is empty and colonie.recoltes is empty %}
+                        {% if colonie.visites is empty and colonie.recoltes is empty and not filleExist %}
                             <li role="separator" class="divider"></li>
                             <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('trash') }} Supprimer</a></li>                     
                         {% endif %}

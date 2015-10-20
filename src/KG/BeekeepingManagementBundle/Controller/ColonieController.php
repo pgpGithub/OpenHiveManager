@@ -73,6 +73,13 @@ class ColonieController extends Controller
             }
         }
         
+        foreach ( $colonie->getRemerages() as $remerage ){
+            if( !$remerage->getReine()->getReinesFilles()->isEmpty() ){
+                $not_permitted = true;
+                break;
+            }
+        }
+        
         if( $not_permitted || !$colonie->getRecoltes()->isEmpty() || !$colonie->getVisites()->isEmpty() ){
             throw new NotFoundHttpException('Page inexistante.');
         }

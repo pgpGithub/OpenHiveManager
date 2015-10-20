@@ -42,7 +42,7 @@ class Remerage
     private $id;
     
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="remerage", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", inversedBy="remerage", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinColumn(nullable=false) 
      * @Assert\Valid()
      */

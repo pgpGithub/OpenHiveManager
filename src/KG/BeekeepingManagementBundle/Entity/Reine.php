@@ -86,6 +86,14 @@ class Reine
      */
     private $reinesFilles;
 
+     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reinesFilles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Remerer
      *
