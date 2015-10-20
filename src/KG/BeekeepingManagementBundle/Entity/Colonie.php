@@ -161,7 +161,10 @@ class Colonie
         
         foreach ($this->ruche->getEmplacement()->getRucher()->getExploitation()->getRuchers() as $rucher) {
             foreach ($rucher->getColonies() as $colonie) {
-                $numero ++;
+                // Si la colonie a déjà été sauvegardée, on la comptabilise
+                if( $colonie->getId() ){
+                    $numero ++;
+                }
             }
         }
         
