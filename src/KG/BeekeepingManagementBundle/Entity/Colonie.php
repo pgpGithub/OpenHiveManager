@@ -98,7 +98,6 @@ class Colonie
     
      /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
      */
     private $ruche;
