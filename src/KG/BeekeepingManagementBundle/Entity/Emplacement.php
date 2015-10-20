@@ -295,7 +295,7 @@ class Emplacement
     public function isContentValid(ExecutionContextInterface $context)
     {        
         foreach( $this->getRucher()->getEmplacements() as $emplacement ){
-            if( $emplacement->getNom() == $this->nom ){
+            if( strtoupper($emplacement->getNom()) == strtoupper($this->nom) && $emplacement->getId() != $this->getId() ){
                 $context
                     ->buildViolation('Un autre emplacement porte déjà ce nom dans le rucher') 
                     ->atPath('nom')

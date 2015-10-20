@@ -288,7 +288,7 @@ class Ruche
         foreach( $this->getEmplacement()->getRucher()->getExploitation()->getRuchers() as $rucher ){
             foreach( $rucher->getEmplacements() as $emplacement ){
                 if( $emplacement->getRuche() != $this && $emplacement->getRuche() ){
-                    if( $emplacement->getRuche()->getNom() == $this->nom ){
+                    if( strtoupper($emplacement->getRuche()->getNom()) == strtoupper($this->nom) ){
                         $context
                             ->buildViolation('Une autre ruche porte déjà ce nom dans le rucher '.$rucher->getNom()) 
                             ->atPath('nom')

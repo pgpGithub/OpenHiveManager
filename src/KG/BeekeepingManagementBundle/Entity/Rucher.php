@@ -21,6 +21,7 @@ namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Rucher
@@ -305,4 +306,20 @@ class Rucher
     {
         return $this->colonies;
     }
+    
+   /**
+   * @Assert\Callback
+   */
+    public function isContentValid(ExecutionContextInterface $context)
+    {        
+        foreach( $this->getExploitation()->getRuchers() as $rucher ){
+            if( strtoupper($rucher->getNom()) == strtoupper($this->nom) && $rucher->getId() != $this->getId() ){
+                $context
+                    ->buildViolation('Un autre rucher porte déjà ce nom dans le rucher') 
+                    ->atPath('nom')
+                    ->addViolation();
+                break;
+            }
+        }
+    }     
 }
