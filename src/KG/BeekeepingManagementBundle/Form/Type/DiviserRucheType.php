@@ -22,7 +22,7 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use KG\BeekeepingManagementBundle\Form\EventListener\DiviserEmplacementFieldSubscriber;
+use KG\BeekeepingManagementBundle\Form\EventListener\DeplacerEmplacementFieldSubscriber;
 use KG\BeekeepingManagementBundle\Entity\Colonie;
 use Doctrine\ORM\EntityRepository;
 
