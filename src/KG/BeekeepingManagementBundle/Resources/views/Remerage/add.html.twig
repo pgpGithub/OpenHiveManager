@@ -56,7 +56,7 @@
             </div>
         </div> 
 
-        <div id="artificiel">
+        <div id="artificiel" {% if form.vars.value.naturel %}style = 'display:none;'{% endif %}>
             {{ form_row(form.reine.anneeReine, {'label': 'Année de la reine :', 'label_col': 4, 'widget_col': 5})  }}
             {{ form_row(form.reine.race, {'label': 'Race :', 'label_col': 4, 'widget_col': 5})  }}        
         </div>

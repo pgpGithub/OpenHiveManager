@@ -40,63 +40,10 @@ class TypeRemerageFieldSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            FormEvents::PRE_SET_DATA  => 'preSetData',
             FormEvents::PRE_SUBMIT    => 'preSubmit'
         );
     }    
- 
-    public function preSetData(FormEvent $event)
-    {
-        $data = $event->getData();
-        $form = $event->getForm();
-        
-        if (null === $data) {
-            return;
-        }
-        
-        //$accessor = PropertyAccess::createPropertyAccessor();
-        //$naturel = $accessor->getValue($data, 'naturel');
-        $naturel = $form->get('naturel')->getData();
-        
-        if($naturel){
-            $form->get('reine')->add('race', 'entity', array(
-                                        'class' => 'KGBeekeepingManagementBundle:Race',
-                                        'choice_label' => 'libelle',
-                                        'empty_value' => '',
-                                        'empty_data'  => null, 
-                                        'attr' => array(
-                                            'style' => 'display:none;'
-                                            )
-                                        )) 
-                                ->add('anneeReine', 'collot_datetime', 
-                                array( 
-                                        'pickerOptions' =>
-                                            array('format' => 'yyyy',
-                                                'autoclose' => true,
-                                                'endDate'   => date('Y'), 
-                                                'startView' => 'decade',
-                                                'minView' => 'decade',
-                                                'maxView' => 'decade',
-                                                'todayBtn' => false,
-                                                'todayHighlight' => false,
-                                                'keyboardNavigation' => true,
-                                                'language' => 'fr',
-                                                'forceParse' => true,
-                                                'pickerReferer ' => 'default', 
-                                                'pickerPosition' => 'bottom-right',
-                                                'viewSelect' => 'decade',
-                                                'initialDate' => date('Y'), 
-                                            ),
-                                        'read_only' => true,
-                                        'attr' => array(
-                                            'style' => 'display:none;',
-                                            'input_group' => array(
-                                                'prepend' => '.icon-calendar'
-                                            ))                          
-                            ));
-        }
-    }
- 
+
     public function preSubmit(FormEvent $event)
     {
         $data = $event->getData();      

@@ -68,7 +68,7 @@ class RemerageType extends AbstractType
                                 'viewSelect' => 'month',
                                 'initialDate' => date("Y-m-d"), 
                             ),
-                        //'read_only' => true,
+                        'read_only' => true,
                             'attr' => array(
                                 'input_group' => array(
                                     'prepend' => '.icon-calendar'
