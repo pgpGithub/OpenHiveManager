@@ -52,7 +52,10 @@
             {% endfor %}
             {% for transhumance in emplacement.transhumancesto if not transhumanceExist %}
                 {% set transhumanceExist = true %}
-            {% endfor %}             
+            {% endfor %}
+            {% if emplacement.ruche %}
+                {% set rucheExist = true %}
+            {% endif %}    
         {% endfor %}
                     
         <div class="col-xs-6">
