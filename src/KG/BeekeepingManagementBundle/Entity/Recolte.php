@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * RecolteRuche
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\RecolteRepository")
  */
 class Recolte
 {
@@ -119,7 +119,30 @@ class Recolte
    */
     public function isContentValid(ExecutionContextInterface $context)
     {       
-
+        foreach( $this->getColonie()->getRecoltes() as $lastRecolte ){
+            if ( $this->date < $lastRecolte->getDate()  && $lastRecolte->getId() != $this->getId() ){                
+                $context
+                       ->buildViolation('La date ne peut pas être antérieur à celle d\'une ancienne récolte') 
+                       ->atPath('date')
+                       ->addViolation();
+            }            
+        }
+        
+        if( $this->date < $this->getColonie()->getDateColonie() ){
+            $context
+                   ->buildViolation('La date ne peut pas être antérieur à celle de la naissance de la colonie') 
+                   ->atPath('date')
+                   ->addViolation();            
+        }
+        
+        $today = new \DateTime();
+        
+        if( $this->date > $today ){
+            $context
+                   ->buildViolation('La date ne peut pas être située dans le futur') 
+                   ->atPath('date')
+                   ->addViolation();            
+        }
     }     
 
     /**
