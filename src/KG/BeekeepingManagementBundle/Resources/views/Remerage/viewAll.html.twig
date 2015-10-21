@@ -39,6 +39,8 @@
                         <th>Type</th>
                         <th>Race</th>
                         <th>Année</th>
+                        <th>Colonie mère</th>
+                        <th>Colonies filles</th>
                     </thead>
                     <tbody>
                         {% for remerage in pagination %}
@@ -47,6 +49,12 @@
                                 <td>{% if remerage.naturel %}Naturel{% else %}Artificiel{% endif %}</td>
                                 <td>{{ remerage.reine.race.libelle }}</td>
                                 <td>{{ remerage.reine.anneeReine|date("Y") }}</td>
+                                <td>{% if remerage.reine.reineMere %}<a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': remerage.reine.reineMere.remerage.colonie.id }) }}">{{ remerage.reine.reineMere.remerage.colonie.numero }}</a>{% endif %}</td>
+                                <td>
+                                    {% for reineFille in remerage.reine.reinesFilles %}
+                                        <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reineFille.remerage.colonie.id }) }}">{{ reineFille.remerage.colonie.numero }}</a>
+                                    {% endfor %}
+                                </td>
                             </tr>
 
                         {% endfor %}
@@ -61,28 +69,3 @@
         </div>
     </div>                                    
 {% endblock %}
-
-{#
-
-                    {% if colonie.colonieMere %}
-                    <tr>
-                        <td><strong>Colonie mère</strong></td>
-                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.colonieMere.id }) }}">{{ icon('user') }}</a></td>
-                    </tr>                              
-                    {% endif %}
-
-                    {% if colonie.coloniesFilles is not empty %}
-                    <tr>
-                        <td><strong>Colonie{% if colonie.coloniesFilles|length > 1 %}s{% endif %} fille{% if colonie.coloniesFilles|length > 1 %}s{% endif %}</strong></td>
-                        <td>
-                            {% for colonieFille in colonie.coloniesFilles %}
-                                {% if not loop.first %}
-                                    - 
-                                {% endif %}
-                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonieFille.id }) }}">{{ icon('user') }}</a>
-                            {% endfor %}
-                        </td>
-                    </tr>                              
-                    {% endif %}
-                    
-                    #}

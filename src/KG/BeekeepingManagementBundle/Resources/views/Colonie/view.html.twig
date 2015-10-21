@@ -108,6 +108,28 @@
                         <td>{{ colonie.dateColonie|date("m/Y") }}</td>
                     </tr>
 
+                    {% if colonie.remerages|last.reine.reineMere %}
+                    <tr>
+                        <td><strong>Colonie mère</strong></td>
+                        <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.remerages|last.reine.reineMere.remerage.colonie.id }) }}">{{ colonie.remerages|last.reine.reineMere.remerage.colonie.numero }}</a></td>
+                    </tr>                              
+                    {% endif %}
+
+                    {% if colonie.remerages|last.reine.reinesFilles is not empty %}
+                    <tr>
+                        {% set long = colonie.remerages|last.reine.reinesFilles|length %}
+                        <td><strong>Colonie{% if long > 1 %}s{% endif %} fille{% if long > 1 %}s{% endif %}</strong></td>
+                        <td>
+                            {% for reineFille in colonie.remerages|last.reine.reinesFilles %}
+                                {% if not loop.first %}
+                                    - 
+                                {% endif %}
+                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reineFille.remerage.colonie.id }) }}">{{ reineFille.remerage.colonie.numero }}</a>
+                            {% endfor %}
+                        </td>
+                    </tr>                              
+                    {% endif %}                    
+                    
                     {% if colonie.ruche %}
                     <tr>
                         <td><strong>Ruche</strong></td>
