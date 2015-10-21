@@ -84,6 +84,12 @@ kg_beekeeping_management_view_transhumances:
     requirements:
         colonie_id: \d+
 
+kg_beekeeping_management_view_recoltes:
+    path:      /manager/exploitation/rucher/ruche/colonie/{colonie_id}/afficher-recoltes/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Recolte:viewAll, page: 1 }
+    requirements:
+        colonie_id: \d+
+        
 kg_beekeeping_management_view_remerages:
     path:      /manager/exploitation/rucher/ruche/colonie/{colonie_id}/afficher-remerages/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:viewAll, page: 1 }

@@ -1,0 +1,61 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Récoltes de la ruche{% endblock %}
+
+{% block ruchers %}{{ colonie.rucher.nom }}{% endblock %}
+
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Récoltes de la ruche {{ colonie.ruche.nom }}</h4>
+        </div>
+    </div>    
+{% endblock %}
+
+{% block panel_body %}       
+    <div class="row">
+        <div class=" col-md-12"> 
+            <div class="table-responsive">
+                <table id="mytable" class="table table-bordred table-striped">
+                    <thead>
+                        <th>Date</th>
+                        <th>Type de miel</th>
+                        <th>Nombre de cadres</th>
+                    </thead>
+                    <tbody>
+                        {% for recolte in pagination %}
+                            <tr>
+                                <td>{{ recolte.date|date('d/m/Y') }}</td>
+                                <td>{{ recolte.typemiel }}</td>
+                                <td>{{ recolte.nbcadres }}</td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12 navigation" align="right">
+                    {{ knp_pagination_render(pagination) }}
+                </div> 
+            </div>                            
+        </div>
+    </div>                                    
+{% endblock %}

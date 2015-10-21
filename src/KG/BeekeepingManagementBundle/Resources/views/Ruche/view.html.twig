@@ -58,7 +58,7 @@
                             <li><a title="Créer une récolte" href="{{ path('kg_beekeeping_management_add_recolte', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('open') }} Créer une récolte</a></li>
                         {% endif %}
                         {% if ruche.colonie.recoltes is not empty %}
-                            <li><a title="Historique des récoltes" href="#">{{ icon('list') }} Historique des récoltes</a></li>
+                            <li><a title="Historique des récoltes" href="{{ path('kg_beekeeping_management_view_recoltes', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('list') }} Historique des récoltes</a></li>
                         {% endif %}                        
                         <li><a title="Transhumer" href="{{ path('kg_beekeeping_management_add_transhumance', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plane') }} Transhumer</a></li>
                         {% if ruche.colonie.transhumances is not empty %}
