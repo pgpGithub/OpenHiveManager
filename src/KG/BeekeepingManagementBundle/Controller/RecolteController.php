@@ -57,9 +57,24 @@ class RecolteController extends Controller
         $form = $this->createForm(new RecolteType, $recolte);
         
         if ($form->handleRequest($request)->isValid()){
-                       
+
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ruche);
+            
+            foreach( $colonie->getRuche()->getHausses() as $hausse ){
+                $fieldname = 'hausse_' . $hausse->getId();
+                $recoltes = $form->get($fieldname)->getData();
+                $restant = $hausse->getNbplein() - $recoltes;
+                
+                // Si hausse vide alors on la supprime
+                if( $restant > 0 ){
+                    $hausse->setNbplein( $restant );
+                    $em->persist($hausse);
+                }else{
+                    $em->remove($hausse);
+                }
+            }                    
+                    
+            $em->persist($recolte);
             $em->flush();
 
             $flash = $this->get('braincrafted_bootstrap.flash');

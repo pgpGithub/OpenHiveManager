@@ -22,6 +22,8 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use KG\BeekeepingManagementBundle\Form\EventListener\RecolteFieldSubscriber;
+use KG\BeekeepingManagementBundle\Validator\CheckRecolte;
 
 class RecolteType extends AbstractType
 {
@@ -70,7 +72,20 @@ class RecolteType extends AbstractType
                             'prepend' => '.icon-calendar'
                         ))                  
             ))
-            ->add('typemiel');
+            ->add('typemiel')
+            ->add('nbcadres', 'hidden');
+        
+        $hausses = $builder->getData()->getColonie()->getRuche()->getHausses();
+        
+        foreach( $hausses as $hausse ){
+            $fieldname = 'hausse_' . $hausse->getId();  
+            $builder->add($fieldname, 'integer', array(
+                        'mapped'      => false,
+                        'constraints' => new CheckRecolte($hausse->getNbplein())
+                    ));           
+        }
+        
+        $builder->addEventSubscriber(new RecolteFieldSubscriber($hausses));   
     }
     
     /**

@@ -66,7 +66,7 @@ class Recolte
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string", length=25, unique=true)  
+     * @ORM\Column(name="typemiel", type="string", length=25)  
      * @Assert\NotBlank(message="Veuillez remplir le type de miel récolté")
      * @Assert\Length(max=25, maxMessage="Le type de miel ne peut dépasser {{ limit }} caractères")
      */
