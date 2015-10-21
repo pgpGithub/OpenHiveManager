@@ -25,7 +25,7 @@
     {{ parent() }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Panneau de contrôle{% endblock %}
+{% block title %}{{ parent() }} - Résumé de l'exploitation{% endblock %}
 
 {% block panel_title %}
     <div class="row">
@@ -61,6 +61,21 @@
                     {% endif %}
                 {% endfor %}
                 <p>{{ nbruches }} Ruches | {{ nblibres }} Emplacements libres</p>
+                
+                {% set nbcolonies = 0 %}
+                {% for colonie in rucher.colonies if colonie.morte and nbcolonies < 2 %}
+                    {% set nbcolonies = nbcolonies + 1 %}                   
+                {% endfor %}
+                {% if nbcolonies > 0 %}
+                    <p>Colonie{% if nbcolonies > 1 %}s{% endif %} morte{% if nbcolonies > 1 %}s{% endif %} dans ce rucher : 
+                        {% for colonie in rucher.colonies if colonie.morte %}
+                            {% if not loop.first %}
+                                - 
+                            {% endif %}
+                            <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.id }) }}">{{ colonie.numero }}</a>
+                        {% endfor %}    
+                    </p>
+                {% endif %}
                 <p><a title="Afficher le rucher" class="btn btn-sm btn-success" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">Afficher</a></p>
             </div>    
         </div>          
