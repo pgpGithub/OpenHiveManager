@@ -45,7 +45,6 @@
         {% endfor %}        
         
         <div class="col-xs-6">
-        {% if not colonie.morte %}
             <span class="pull-right">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -53,14 +52,18 @@
                       <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
-                        <li><a title="Remérage" href="{{ path('kg_beekeeping_management_remerage', { 'colonie_id': colonie.id }) }}">{{ icon('refresh') }} Remérage</a></li>                      
-                        {% if colonie.ruche.corps.nbcouvain > 1 %}
-                            <li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('resize-full') }} Diviser</a></li>
+                        {% if not colonie.morte %}
+                            <li><a title="Remérage" href="{{ path('kg_beekeeping_management_remerage', { 'colonie_id': colonie.id }) }}">{{ icon('refresh') }} Remérage</a></li>                      
+                            {% if colonie.ruche.corps.nbcouvain > 1 %}
+                                <li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('resize-full') }} Diviser</a></li>
+                            {% endif %}
+                            <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('pencil') }} Modifier la colonie</a></li>
+                            <li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('minus-sign') }} Déclarer morte</a></li>
+                            {% if colonie.remerages is not empty or colonie.recoltes is not empty or colonie.transhumances is not empty %}
+                                <li role="separator" class="divider"></li>
+                            {% endif %}   
                         {% endif %}
-                        <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('pencil') }} Modifier la colonie</a></li>
-                        <li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('minus-sign') }} Déclarer morte</a></li>
                         {% if colonie.remerages is not empty or colonie.recoltes is not empty or colonie.transhumances is not empty %}
-                            <li role="separator" class="divider"></li>
                             {% if colonie.remerages is not empty %}
                                 <li><a title="Historique des remérages" href="{{ path('kg_beekeeping_management_view_remerages', { 'colonie_id' : colonie.id }) }}">{{ icon('list') }} Historique des remérages</a></li>
                             {% endif %} 
@@ -71,14 +74,13 @@
                                 <li><a title="Historique des transhumances" href="{{ path('kg_beekeeping_management_view_transhumances', { 'colonie_id' : colonie.id }) }}">{{ icon('list') }} Historique des transhumances</a></li>
                             {% endif %}  
                         {% endif %}                       
-                        {% if colonie.visites is empty and colonie.recoltes is empty and not filleExist %}
+                        {% if not colonie.morte and colonie.visites is empty and colonie.recoltes is empty and not filleExist %}
                             <li role="separator" class="divider"></li>
                             <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('trash') }} Supprimer</a></li>                     
                         {% endif %}
                     </ul>
                 </div>                 
             </span>
-        {% endif %}
         </div>
     </div>    
 {% endblock %}
