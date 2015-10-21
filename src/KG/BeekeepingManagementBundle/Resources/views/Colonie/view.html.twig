@@ -53,7 +53,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
                         {% if not colonie.morte %}
-                            <li><a title="Remérage" href="{{ path('kg_beekeeping_management_remerage', { 'colonie_id': colonie.id }) }}">{{ icon('refresh') }} Remérage</a></li>                      
+                            <li><a title="Remérage" href="{{ path('kg_beekeeping_management_add_remerage', { 'colonie_id': colonie.id }) }}">{{ icon('refresh') }} Remérage</a></li>                      
                             {% if colonie.ruche.corps.nbcouvain > 1 %}
                                 <li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('resize-full') }} Diviser</a></li>
                             {% endif %}

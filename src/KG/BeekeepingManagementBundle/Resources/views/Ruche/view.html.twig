@@ -66,17 +66,14 @@
 {% endblock %}
 
                    
-{% block panel_body %} 
+{% block panel_body %}
+    {% set menu = knp_menu_get('KGBeekeepingManagementBundle:RucheMenu:mainMenu', [], {'colonie': ruche.colonie} ) %}
+    {{ knp_menu_render(menu, { 'style': 'justified-tabs' }) }}
+    
+    
+    <h3>Détails</h3>
     <div class="row">
-        <div class="col-md-3 col-lg-3 " align="center"> 
-            {% if ruche.image is not null %}
-                <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-thumbnail img-responsive">
-            {% else %}
-                <img src="{{ asset('img/ruche/' ~ ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
-            {% endif %}       
-        </div>
-        <div class=" col-md-5 col-lg-5 ">
-            <h4>Descriptif</h4>
+        <div class="col-sm-5">
             <table class="table">  
                 <tbody>
                     <tr>
@@ -92,45 +89,146 @@
                         <td>{{ ruche.matiere.libelle }}</td>
                     </tr>
                     <tr>
+                        <td><strong>Emplacemet</strong></td>
+                        <td>{{ ruche.emplacement.nom }}</td>
+                    </tr> 
+                    <tr>
                         <td><strong>% de soleil</strong></td>
                         <td>{{ ruche.emplacement.soleil }}</td>
                     </tr>
                     <tr>
                         <td><strong>Orientation</strong></td>
                         <td>{{ ruche.emplacement.orientation.libelle }}</td>
-                    </tr>                   
+                    </tr>                     
                 </tbody>
             </table>
         </div>            
-        <div class=" col-md-4 col-lg-4 ">            
-            <h4><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': ruche.colonie.id }) }}">Colonie n°{{ ruche.colonie.numero }}</a></h4>                          
+        <div class="col-sm-4">                                      
             <table class="table">
                 <tbody>
-                    <tr>
-                        <td><strong>Race</strong></td>
-                        <td>{{ ruche.colonie.remerages|last.reine.race.libelle }}</td>
-                    </tr>
                     <tr>
                         <td><strong>Affectation</strong></td>
                         <td>{{ ruche.colonie.affectation.libelle }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Etat</strong></td>
-                        <td>{{ ruche.colonie.etat.libelle }}</td>
-                    </tr>
+                        <td><strong>Cadres nourriture</strong></td>
+                        <td>{% if ruche.colonie.ruche %}{{ ruche.corps.nbnourriture }}{% else %}0{% endif %}</td>
+                    </tr>                    
                     <tr>
-                        <td><strong>Cadres de nourriture</strong></td>
-                        <td>{{ ruche.corps.nbnourriture }}</td>
-                    </tr>   
-                    <tr>
-                        <td><strong>Cadres de couvain</strong></td>
-                        <td>{{ ruche.corps.nbcouvain }}</td>
-                    </tr>                        
+                        <td><strong>Cadres couvain</strong></td>
+                        <td>{% if ruche.colonie.ruche %}{{ ruche.corps.nbcouvain }}{% else %}0{% endif %}</td>
+                    </tr> 
+                     
                 </tbody>
             </table>                                  
-        </div> 
+        </div>
+        <div class="col-sm-3" align="center"> 
+            {% if ruche.image is not null %}
+                <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-thumbnail img-responsive">
+            {% else %}
+                <img src="{{ asset('img/ruche/' ~ ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
+            {% endif %}       
+        </div>                    
     </div> 
 
+    <h3>Détails</h3>
+        
+    <div class="row">
+        {% set reine = ruche.colonie.remerages|last.reine %}
+        <div class="col-sm-5">
+            <table class="table">  
+                <tbody>
+                    <tr>
+                        <td><strong>Numéro</strong></td>
+                        <td>{{ ruche.colonie.numero }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Race</strong></td>
+                        <td>{{ reine.race.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date de naissance</strong></td>
+                        <td>{{ ruche.colonie.dateColonie|date("m/Y") }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Colonie mère</strong></td>
+                        <td>
+                            {% if reine.reineMere %}
+                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.remerages|last.reine.reineMere.remerage.colonie.id }) }}">{{ colonie.remerages|last.reine.reineMere.remerage.colonie.numero }}</a>
+                            {% else %}
+                                Inconnue
+                            {% endif %}
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td><strong>Origine</strong></td>
+                        <td>{{ ruche.colonie.origineColonie.libelle }}</td>
+                    </tr>
+                    <tr>
+                        {% set long = reine.reinesFilles|length %}
+                        <td><strong>Colonie{% if long > 1 %}s{% endif %} fille{% if long > 1 %}s{% endif %}</strong></td>
+                        <td>
+                            {% if reine.reinesFilles is empty %}
+                                Aucune
+                            {% endif %}
+                            {% for reineFille in reine.reinesFilles %}
+                                {% if not loop.first %}
+                                    - 
+                                {% endif %}
+                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reineFille.remerage.colonie.id }) }}">{{ reineFille.remerage.colonie.numero }}</a>
+                            {% endfor %}
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>            
+        <div class="col-sm-4">                                   
+            <table class="table">
+                <tbody> 
+                    <tr>
+                        <td><strong>Etat</strong></td>
+                        <td>{{ ruche.colonie.etat.libelle }}</td>
+                    </tr>                    
+                    <tr>
+                        <td><strong>Agressivité</strong></td>
+                        <td>{{ ruche.colonie.agressivite.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Année reine</strong></td>
+                        <td>{% if reine.anneeReine %}{{ reine.anneeReine|date("Y") }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marquage reine</strong></td>
+                        <td>                                   
+                            {% if reine.marquage %}
+                                {% set annee = reine.anneeReine|date("Y")|last %}
+                                {% if annee == 0 or annee == 5 %}{% set marquage = 'Bleu' %}{% endif %}
+                                {% if annee == 1 or annee == 6 %}{% set marquage = 'Blanc' %}{% endif %}
+                                {% if annee == 2 or annee == 7 %}{% set marquage = 'Jaune' %}{% endif %}
+                                {% if annee == 3 or annee == 8 %}{% set marquage = 'Rouge' %}{% endif %}
+                                {% if annee == 4 or annee == 9 %}{% set marquage = 'Vert' %}{% endif %}
+                            {% else %}    
+                                {% set marquage = 'Aucun' %}
+                            {% endif %}
+                            {{ marquage }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clippage reine</strong></td>
+                        <td>{% if reine.clippage %} Oui {% else %} Non {% endif %}</td>
+                    </tr>                                                     
+                </tbody>
+            </table>                                  
+        </div>
+        <div class="col-sm-3" align="center"> 
+            <img src="{{ asset('img/abeille/' ~ reine.race.libelle  ~ '.jpg')}}" alt="{{ reine.race.libelle }}" class="img-thumbnail img-responsive">    
+        </div>                    
+    </div>                    
+                    
+                    
+                    
+                    
+                    
     {% if ruche.hausses is not empty %}                
     <div class="row">    
         <div class=" col-md-12">

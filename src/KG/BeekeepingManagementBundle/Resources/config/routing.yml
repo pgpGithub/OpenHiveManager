@@ -138,7 +138,7 @@ kg_beekeeping_management_diviser_colonie:
     requirements:
         colonie_id: \d+
 
-kg_beekeeping_management_remerage:
+kg_beekeeping_management_add_remerage:
     path:      /manager/exploitation/colonie/{colonie_id}/ajouter-remerage
     defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:add }
     requirements:
