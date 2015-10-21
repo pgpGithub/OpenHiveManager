@@ -63,6 +63,14 @@ class Colonie
      */
     private $dateColonie;
 
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateMort", type="datetime")
+     * @Assert\DateTime()
+     */
+    private $dateMort;
+    
     /**
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Affectation")
      * @ORM\JoinColumn(nullable=false)
@@ -115,15 +123,15 @@ class Colonie
     /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Recolte", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
      */
-    private $recoltes;
-    
+    private $recoltes; 
+
     /**
      * @var boolean
      *
      * @ORM\Column(name="morte", type="boolean")
      */
-    private $morte = false;    
-
+    private $morte = false;   
+    
     /**
      * @var Cause
      * 
@@ -147,7 +155,10 @@ class Colonie
         $this->causes          = new \Doctrine\Common\Collections\ArrayCollection();
         $this->visites         = new \Doctrine\Common\Collections\ArrayCollection();
         $this->remerages       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->transhumances   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->recoltes        = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ruche           = $ruche;
+        $this->dateMort        = new \DateTime();
         $this->remerer(true);
     }
 
@@ -206,12 +217,58 @@ class Colonie
     /**
      * Set anneeColonie
      *
-     * @param \DateTime $anneeColonie
+     * @param \DateTime $dateColonie
      * @return Colonie
      */
     public function setDateColonie($dateColonie)
     {
         $this->dateColonie = $dateColonie;
+
+        return $this;
+    }
+
+    /**
+     * Set morte
+     *
+     * @param boolean $morte
+     * @return Colonie
+     */
+    public function setMorte($morte)
+    {
+        $this->morte = $morte;
+
+        return $this;
+    }
+
+    /**
+     * Get morte
+     *
+     * @return boolean 
+     */
+    public function getMorte()
+    {
+        return $this->morte;
+    }
+    
+    /**
+     * Get dateMort
+     *
+     * @return \DateTime 
+     */
+    public function getDateMort()
+    {
+        return $this->dateMort;
+    }
+
+    /**
+     * Set dateMort
+     *
+     * @param \DateTime $dateMort
+     * @return Colonie
+     */
+    public function setDateMort($dateMort)
+    {
+        $this->dateMort = $dateMort;
 
         return $this;
     }
@@ -225,7 +282,7 @@ class Colonie
     {
         return $this->dateColonie;
     }
-
+    
     /**
      * Set etat
      *
@@ -295,29 +352,6 @@ class Colonie
     public function getRuche()
     {
         return $this->ruche;
-    }
-
-    /**
-     * Set morte
-     *
-     * @param boolean $morte
-     * @return Colonie
-     */
-    public function setMorte($morte)
-    {
-        $this->morte = $morte;
-
-        return $this;
-    }
-
-    /**
-     * Get morte
-     *
-     * @return boolean 
-     */
-    public function getMorte()
-    {
-        return $this->morte;
     }
 
     /**
@@ -532,7 +566,59 @@ class Colonie
                    ->buildViolation('La date ne peut pas être située dans le futur') 
                    ->atPath('dateColonie')
                    ->addViolation();            
-        }       
+        }      
+
+        if ( $this->morte ){
+            if( $this->dateMort > $today ){
+                $context
+                       ->buildViolation('La date de la mort ne peut pas être située dans le futur') 
+                       ->atPath('dateMort')
+                       ->addViolation();            
+            }
+            
+            if( $this->dateMort <= $this->dateColonie ){
+                $context
+                       ->buildViolation('La date de la mort ne peut pas être plus ancienne que la date de naissance') 
+                       ->atPath('dateMort')
+                       ->addViolation();                        
+            }
+            
+            if( !$this->getVisites()->isEmpty() ){
+                if( $this->dateMort <= $this->getVisites()->last()->getDate() ){
+                    $context
+                           ->buildViolation('La date de la mort ne peut pas être plus ancienne que la date de la dernière visite') 
+                           ->atPath('dateMort')
+                           ->addViolation();                        
+                }            
+            }
+            
+            if( !$this->getRemerages()->isEmpty() ){
+                if( $this->dateMort <= $this->getRemerages()->last()->getDate() ){
+                    $context
+                           ->buildViolation('La date de la mort ne peut pas être plus ancienne que la date du dernier remérage') 
+                           ->atPath('dateMort')
+                           ->addViolation();                        
+                }            
+            }            
+
+            if( !$this->getRecoltes()->isEmpty() ){
+                if( $this->dateMort <= $this->getRecoltes()->last()->getDate() ){
+                    $context
+                           ->buildViolation('La date de la mort ne peut pas être plus ancienne que la date de la dernière récolte') 
+                           ->atPath('dateMort')
+                           ->addViolation();                        
+                }            
+            } 
+            
+            if( !$this->getTranshumances()->isEmpty() ){
+                if( $this->dateMort <= $this->getTranshumances()->last()->getDate() ){
+                    $context
+                           ->buildViolation('La date de la mort ne peut pas être plus ancienne que la date de la dernière transhumance') 
+                           ->atPath('dateMort')
+                           ->addViolation();                        
+                }            
+            }               
+        }
     }    
 
     /**

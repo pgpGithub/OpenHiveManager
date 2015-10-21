@@ -36,7 +36,7 @@ class VisiteController extends Controller
     */    
     public function viewAction(Visite $visite)
     {
-        $apiculteurExploitations = $visite->getColonie()->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $visite->getColonie()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -60,7 +60,7 @@ class VisiteController extends Controller
     */    
     public function addAction(Colonie $colonie, Request $request)
     {
-        $exploitation = $colonie->getRuche()->getEmplacement()->getRucher()->getExploitation();
+        $exploitation = $colonie->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -71,7 +71,7 @@ class VisiteController extends Controller
             }
         }
 
-        if( $not_permitted ){
+        if( $not_permitted || $colonie->getMorte()){
             throw new NotFoundHttpException('Page inexistante.');
         }       
         
@@ -138,7 +138,7 @@ class VisiteController extends Controller
             }
         }
         
-        if( $not_permitted || $visite != $visite->getColonie()->getVisites()->last()){
+        if( $not_permitted || $visite != $visite->getColonie()->getVisites()->last() || $visite->getColonie()->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

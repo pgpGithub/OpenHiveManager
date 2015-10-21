@@ -49,7 +49,7 @@ class RecolteController extends Controller
             }
         }
         
-        if( $not_permitted || $colonie->getRuche()->getHausses()->isEmpty() ){
+        if( $not_permitted || $colonie->getRuche()->getHausses()->isEmpty() || $colonie->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

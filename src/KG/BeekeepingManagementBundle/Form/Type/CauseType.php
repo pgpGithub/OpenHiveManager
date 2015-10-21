@@ -31,7 +31,67 @@ class CauseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder                             
+        $colonie = $builder->getData();
+        
+        $lastDate = $colonie->getDateColonie();
+        
+        if( !$colonie->getVisites()->isEmpty() ){
+            $date = $colonie->getVisites()->last()->getDate();
+            if( $lastDate < $date ){
+                $lastDate = $date;
+            }
+        }
+
+        if( !$colonie->getTranshumances()->isEmpty() ){
+            $date = $colonie->getTranshumances()->last()->getDate();
+            if( $lastDate < $date ){
+                $lastDate = $date;
+            }
+        }
+        
+        if( !$colonie->getRecoltes()->isEmpty() ){
+            $date = $colonie->getRecoltes()->last()->getDate();
+            if( $lastDate < $date ){
+                $lastDate = $date;
+            }
+        }
+        
+        if( !$colonie->getRemerages()->isEmpty() ){
+            $date = $colonie->getRemerages()->last()->getDate();
+            if( $lastDate < $date ){
+                $lastDate = $date;
+            }
+        }
+        
+        $startDate = date_add($lastDate,date_interval_create_from_date_string("1 days"));
+        $startDateFormat = date_format($startDate,"Y-m-d"); 
+        
+        $builder    
+            ->add('dateMort', 'collot_datetime', array( 
+                    'pickerOptions' =>
+                        array('format' => 'dd/mm/yyyy',
+                            'autoclose' => true,
+                            'startDate' => (string)$startDateFormat,
+                            'endDate'   => date("Y-m-d"), 
+                            'startView' => 'month',
+                            'minView' => 'month',
+                            'maxView' => 'month',
+                            'todayBtn' => false,
+                            'todayHighlight' => true,
+                            'keyboardNavigation' => true,
+                            'language' => 'fr',
+                            'forceParse' => true,
+                            'pickerReferer ' => 'default', 
+                            'pickerPosition' => 'bottom-right',
+                            'viewSelect' => 'month',
+                            'initialDate' => date("Y-m-d"), 
+                        ),
+                    'read_only' => true,
+                    'attr' => array(
+                        'input_group' => array(
+                            'prepend' => '.icon-calendar'
+                        ))                      
+                    ))               
             ->add('causes', 'entity', array(
                         'class'        => 'KGBeekeepingManagementBundle:Cause',
                         'choice_label' => 'libelle',

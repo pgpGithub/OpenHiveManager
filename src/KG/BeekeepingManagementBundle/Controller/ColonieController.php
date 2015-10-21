@@ -80,7 +80,7 @@ class ColonieController extends Controller
             }
         }
         
-        if( $not_permitted || !$colonie->getRecoltes()->isEmpty() || !$colonie->getVisites()->isEmpty() ){
+        if( $not_permitted || !$colonie->getRecoltes()->isEmpty() || !$colonie->getTranshumances()->isEmpty() || !$colonie->getVisites()->isEmpty()){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -102,7 +102,7 @@ class ColonieController extends Controller
     {
         $not_permitted = true;
         
-        foreach ( $colonie->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+        foreach ( $colonie->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
             if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
                 $not_permitted = false;
                 break;
@@ -149,7 +149,7 @@ class ColonieController extends Controller
     {
         $not_permitted = true;
         
-        foreach ( $colonieMere->getRuche()->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+        foreach ( $colonieMere->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
             if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
                 $not_permitted = false;
                 break;
@@ -200,7 +200,7 @@ class ColonieController extends Controller
     */    
     public function tuerAction(Colonie $colonie, Request $request)
     {
-        $exploitation = $colonie->getRuche()->getEmplacement()->getRucher()->getExploitation();
+        $exploitation = $colonie->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -215,13 +215,13 @@ class ColonieController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
 
+        $colonie->setMorte(true);
         $form = $this->createForm(new CauseType, $colonie);
         
         if ($form->handleRequest($request)->isValid()){
             if(!($colonie->getCauses()->isEmpty() && empty($colonie->getAutreCause()))){ 
-                $colonie->setMorte(true);
                 $ruche = $colonie->getRuche();
-                $colonie->setRuche();
+                $colonie->setRuche();          
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($colonie);
                 $em->remove($ruche);

@@ -85,7 +85,7 @@ class TranshumanceController extends Controller
             }
         }
 
-        if( $not_permitted ){
+        if( $not_permitted || $colonie->getMorte()){
             throw new NotFoundHttpException('Page inexistante.');
         }       
          
