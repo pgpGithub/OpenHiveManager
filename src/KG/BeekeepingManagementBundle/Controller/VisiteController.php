@@ -167,7 +167,7 @@ class VisiteController extends Controller
             $em->flush();
         
             $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Visite créée avec succès');
+            $flash->success('Visite modifier avec succès');
         
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $visite->getColonie()->getRuche()->getId())));
         }
