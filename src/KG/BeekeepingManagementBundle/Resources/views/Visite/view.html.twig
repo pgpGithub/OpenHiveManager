@@ -27,16 +27,18 @@
 
 {% block title %}{{ parent() }} - Visite{% endblock %}
 
-{% block ruchers %}{{ visite.colonie.rucher.nom }}{% endblock %}
+{% block menuRuche %}
+    {% set colonie = visite.colonie %}
+    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+{% endblock menuRuche %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-6">
-            <h4>Visite de {{ visite.colonie.ruche.nom }} du {{ visite.date|date('d/m/Y') }}</h4>
+            <h4>Visite du {{ visite.date|date('d/m/Y') }}</h4>
         </div>
     </div>    
 {% endblock %}
-
 
 {% block panel_body %}
     <div class="row">

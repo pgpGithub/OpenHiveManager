@@ -36,48 +36,33 @@
             <div class="col-xs-12" id="body">
 
                 {% if app.user.exploitations is not empty %}
-                <div class="row">
-                    <nav class="navbar navbar-default">
-                        <div class="container-fluid">
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                                <a title="Panneau de contrôle" class="navbar-brand" href="{{ path('kg_beekeeping_management_home') }}">Exploitation {{ app.user.exploitations|first.nom }}</a>
-                            </div>
+                <nav class="navbar navbar-default" role="navigation">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle"
+                                data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a title="Exploitation" class="navbar-brand" href="{{ path('kg_beekeeping_management_home') }}">{{ app.user.exploitations|first.nom }}</a>
+                    </div>
 
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% block ruchers %}Ruchers{% endblock %}<span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                            {% for rucher in app.user.exploitations|first.ruchers %}
-                                                <li><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ rucher.nom }}</a></li>
-                                                {% if loop.last %}
-                                                    <li role="separator" class="divider"></li>                                            
-                                                {% endif %}
-                                            {% endfor %}
-                                            <li><a title="Créer un rucher" href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.exploitations|first.id }) }}">{{ icon('plus') }} Créer un rucher</a></li>                              
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div><!-- /.navbar-collapse -->
-                        </div><!-- /.container-fluid -->
-                    </nav>                
-                </div>    
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        {% block menuRucher %}{% endblock menuRucher %}
+                    </div><!-- /.navbar-collapse -->
+                </nav>                       
                 {% endif %}
                 
+                {% block menuRuche %}{% endblock menuRuche %}
                 {% include 'BraincraftedBootstrapBundle::flash.html.twig' %}               
 
                 {% block form_error %}{% endblock %}
 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12"> 
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 {% block panel_title %}{% endblock %} 
@@ -85,7 +70,7 @@
                             <div class="panel-body">
                                 {% block panel_body %}{% endblock %}
                             </div>                    
-                        </div>    
+                        </div>      
                     </div>       
                 </div>
             </div>
@@ -94,5 +79,13 @@
 {% endblock %}   
 
 {% block footer %}
-    
+    <footer>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
+                Ce <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.openhivemanager.org" property="cc:attributionName" rel="cc:attributionURL">site</a> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">licence Creative Commons Attribution - Pas d&#39;Utilisation Commerciale - Pas de Modification 4.0 International</a>.
+            </div>                                                      
+        </div>
+    </footer>  
 {% endblock %}      

@@ -27,59 +27,30 @@
 
 {% block title %}{{ parent() }} - Ruche{% endblock %}
 
-{% block ruchers %}{{ ruche.emplacement.rucher.nom }}{% endblock %}
+{% block menuRuche %}
+    {% set colonie = ruche.colonie %}
+    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+{% endblock menuRuche %}
 
-{% set lastVisite = ruche.colonie.visites|last %}
-                                
 {% block panel_title %}
     <div class="row">
-        <div class="col-xs-6">
-            <h4>Ruche {{ ruche.nom }}</h4>
+        <div class="col-xs-12">
+            <h4>Données de la ruche</h4>
         </div>
-        <div class="col-xs-6">
-            <span class="pull-right">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      Menu
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
-                        <li><a title="Modifier la ruche" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}">{{ icon('pencil') }} Modifier la ruche</a></li>
-                        {%if ruche.colonie and ruche.emplacement %}
-                            {% if pagination is not empty %}
-                                {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
-                                    <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plus') }} Créer une visite</a></li>
-                                {% endif %}
-                            {% else %}
-                            <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plus') }} Créer une visite</a></li>
-                            {% endif %}
-                        {% endif %}
-                        {% if ruche.hausses is not empty %}
-                            <li><a title="Créer une récolte" href="{{ path('kg_beekeeping_management_add_recolte', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('open') }} Créer une récolte</a></li>
-                        {% endif %}                      
-                        <li><a title="Transhumer" href="{{ path('kg_beekeeping_management_add_transhumance', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plane') }} Transhumer</a></li>
-                    </ul>
-                </div> 
-            </span>
-        </div>
-    </div>    
+    </div>
 {% endblock %}
-
-                   
-{% block panel_body %}
-    {% set menu = knp_menu_get('KGBeekeepingManagementBundle:RucheMenu:mainMenu', [], {'colonie': ruche.colonie} ) %}
-    {{ knp_menu_render(menu, { 'style': 'justified-tabs' }) }}
-    
-    
-    <h3>Détails</h3>
+{% block panel_body %}         
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-4" align="center"> 
+            {% if ruche.image is not null %}
+                <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-thumbnail img-responsive">
+            {% else %}
+                <img src="{{ asset('img/ruche/' ~ ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
+            {% endif %}       
+        </div>         
+        <div class="col-sm-8">
             <table class="table">  
-                <tbody>
-                    <tr>
-                        <td><strong>Rucher</strong></td>
-                        <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': ruche.emplacement.rucher.id }) }}">{{ ruche.emplacement.rucher.nom }}</a></td>
-                    </tr>                                  
+                <tbody>                               
                     <tr>
                         <td><strong>Type</strong></td>
                         <td>{{ ruche.corps.type.libelle }} {{ ruche.corps.nbcadres }}</td>
@@ -89,23 +60,13 @@
                         <td>{{ ruche.matiere.libelle }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Emplacemet</strong></td>
-                        <td>{{ ruche.emplacement.nom }}</td>
-                    </tr> 
-                    <tr>
                         <td><strong>% de soleil</strong></td>
                         <td>{{ ruche.emplacement.soleil }}</td>
                     </tr>
                     <tr>
                         <td><strong>Orientation</strong></td>
                         <td>{{ ruche.emplacement.orientation.libelle }}</td>
-                    </tr>                     
-                </tbody>
-            </table>
-        </div>            
-        <div class="col-sm-4">                                      
-            <table class="table">
-                <tbody>
+                    </tr>
                     <tr>
                         <td><strong>Affectation</strong></td>
                         <td>{{ ruche.colonie.affectation.libelle }}</td>
@@ -117,141 +78,72 @@
                     <tr>
                         <td><strong>Cadres couvain</strong></td>
                         <td>{% if ruche.colonie.ruche %}{{ ruche.corps.nbcouvain }}{% else %}0{% endif %}</td>
-                    </tr> 
-                     
-                </tbody>
-            </table>                                  
-        </div>
-        <div class="col-sm-3" align="center"> 
-            {% if ruche.image is not null %}
-                <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-thumbnail img-responsive">
-            {% else %}
-                <img src="{{ asset('img/ruche/' ~ ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
-            {% endif %}       
-        </div>                    
-    </div> 
-
-    <h3>Détails</h3>
-        
-    <div class="row">
-        {% set reine = ruche.colonie.remerages|last.reine %}
-        <div class="col-sm-5">
-            <table class="table">  
-                <tbody>
-                    <tr>
-                        <td><strong>Numéro</strong></td>
-                        <td>{{ ruche.colonie.numero }}</td>
                     </tr>
+                    {% for hausse in ruche.hausses %}
                     <tr>
-                        <td><strong>Race</strong></td>
-                        <td>{{ reine.race.libelle }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Date de naissance</strong></td>
-                        <td>{{ ruche.colonie.dateColonie|date("m/Y") }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Colonie mère</strong></td>
-                        <td>
-                            {% if reine.reineMere %}
-                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.remerages|last.reine.reineMere.remerage.colonie.id }) }}">{{ colonie.remerages|last.reine.reineMere.remerage.colonie.numero }}</a>
-                            {% else %}
-                                Inconnue
-                            {% endif %}
-                        </td>
-                    </tr> 
-                    <tr>
-                        <td><strong>Origine</strong></td>
-                        <td>{{ ruche.colonie.origineColonie.libelle }}</td>
-                    </tr>
-                    <tr>
-                        {% set long = reine.reinesFilles|length %}
-                        <td><strong>Colonie{% if long > 1 %}s{% endif %} fille{% if long > 1 %}s{% endif %}</strong></td>
-                        <td>
-                            {% if reine.reinesFilles is empty %}
-                                Aucune
-                            {% endif %}
-                            {% for reineFille in reine.reinesFilles %}
-                                {% if not loop.first %}
-                                    - 
-                                {% endif %}
-                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reineFille.remerage.colonie.id }) }}">{{ reineFille.remerage.colonie.numero }}</a>
-                            {% endfor %}
-                        </td>
-                    </tr>                    
+                        <td><strong>Hausse n°{{ loop.index }}</strong> (cadres pleins/nombre cadres)</td>
+                        <td>({{ hausse.nbplein }}/{{ hausse.nbcadres }})</td>
+                    </tr>                        
+                    {% endfor %}    
                 </tbody>
             </table>
-        </div>            
-        <div class="col-sm-4">                                   
-            <table class="table">
-                <tbody> 
-                    <tr>
-                        <td><strong>Etat</strong></td>
-                        <td>{{ ruche.colonie.etat.libelle }}</td>
-                    </tr>                    
-                    <tr>
-                        <td><strong>Agressivité</strong></td>
-                        <td>{{ ruche.colonie.agressivite.libelle }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Année reine</strong></td>
-                        <td>{% if reine.anneeReine %}{{ reine.anneeReine|date("Y") }}{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Marquage reine</strong></td>
-                        <td>                                   
-                            {% if reine.marquage %}
-                                {% set annee = reine.anneeReine|date("Y")|last %}
-                                {% if annee == 0 or annee == 5 %}{% set marquage = 'Bleu' %}{% endif %}
-                                {% if annee == 1 or annee == 6 %}{% set marquage = 'Blanc' %}{% endif %}
-                                {% if annee == 2 or annee == 7 %}{% set marquage = 'Jaune' %}{% endif %}
-                                {% if annee == 3 or annee == 8 %}{% set marquage = 'Rouge' %}{% endif %}
-                                {% if annee == 4 or annee == 9 %}{% set marquage = 'Vert' %}{% endif %}
-                            {% else %}    
-                                {% set marquage = 'Aucun' %}
-                            {% endif %}
-                            {{ marquage }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>Clippage reine</strong></td>
-                        <td>{% if reine.clippage %} Oui {% else %} Non {% endif %}</td>
-                    </tr>                                                     
-                </tbody>
-            </table>                                  
-        </div>
-        <div class="col-sm-3" align="center"> 
-            <img src="{{ asset('img/abeille/' ~ reine.race.libelle  ~ '.jpg')}}" alt="{{ reine.race.libelle }}" class="img-thumbnail img-responsive">    
-        </div>                    
-    </div>                    
-                    
-                    
-                    
-                    
-                    
-    {% if ruche.hausses is not empty %}                
-    <div class="row">    
-        <div class=" col-md-12">
-            <hr>            
-            <h4>Hausses</h4>
-            <ul class="list-group">
-            {% for hausse in ruche.hausses %}
-                <li class="list-group-item">
-                    <div class="progress">
-                      {% set pourcent = ( hausse.nbplein * 100 ) / ( hausse.nbcadres ) %}
-                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ pourcent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pourcent }}%;">
-                        <span class="sr-only">Miel</span>
-                      </div>
-                    </div>                                    
-                </li>                                       
-            {% endfor %}
-            </ul>
-            <span class="label label-warning">Miel</span>
-        </div>    
-    </div> 
-    {% endif %}
+        </div>                 
+    </div>                             
+{% endblock %}
 
-    {% if pagination is not empty %}
+{#
+
+<li><a title="Modifier la ruche" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}">{{ icon('pencil') }} Modifier la ruche</a></li>
+
+
+
+
+
+            {% if colonie.morte %}
+            <div class="alert alert-danger" role="alert">
+                <h4>{{ icon('alert') }} Cette colonie est morte</h4>
+                <strong>Causes de la mort :</strong></td>
+                {% for cause in colonie.causes %}
+                    {% if not loop.first %}
+                        - 
+                    {% endif %}
+                    {{ cause.libelle }}
+                {% endfor %}
+
+                {% if colonie.causes is not empty and colonie.autreCause %}
+                    -
+                {% endif %}
+                {{ colonie.autreCause }}
+            </div>
+            {% endif %}
+
+
+{% if colonie.ruche.corps.nbcouvain > 1 %}
+    <li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('resize-full') }} Diviser</a></li>
+{% endif %}
+
+ <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('pencil') }} Modifier la colonie</a></li>
+<li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('minus-sign') }} Déclarer morte</a></li>
+
+
+
+{% if not colonie.morte and colonie.visites is empty and colonie.recoltes is empty and not filleExist %}
+    <li role="separator" class="divider"></li>
+    <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('trash') }} Supprimer</a></li>                     
+{% endif %}
+
+
+                        {%if ruche.colonie and ruche.emplacement %}
+                            {% if pagination is not empty %}
+                                {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
+                                    <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plus') }} Créer une visite</a></li>
+                                {% endif %}
+                            {% else %}
+                            <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plus') }} Créer une visite</a></li>
+                            {% endif %}
+                        {% endif %}
+
+{% if pagination is not empty %}
     <div class="row">    
         <div class=" col-md-12"> 
             <hr>            
@@ -293,5 +185,38 @@
             </div>                         
         </div>
     </div>  
-    {% endif %}                
-{% endblock %}
+    {% endif %}   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#}

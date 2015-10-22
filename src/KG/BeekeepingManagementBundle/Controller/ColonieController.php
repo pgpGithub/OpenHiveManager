@@ -215,13 +215,13 @@ class ColonieController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
 
-        $colonie->setMorte(true);
         $form = $this->createForm(new CauseType, $colonie);
         
         if ($form->handleRequest($request)->isValid()){
             if(!($colonie->getCauses()->isEmpty() && empty($colonie->getAutreCause()))){ 
                 $ruche = $colonie->getRuche();
-                $colonie->setRuche();          
+                $colonie->setRuche();   
+                $colonie->setMorte(true);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($colonie);
                 $em->remove($ruche);

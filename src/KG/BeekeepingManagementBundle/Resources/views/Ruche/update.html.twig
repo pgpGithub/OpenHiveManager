@@ -27,12 +27,15 @@
 
 {% block title %}{{ parent() }} - Créer une ruche{% endblock %}
 
-{% block ruchers %}{{ ruche.emplacement.rucher.nom }}{% endblock %}
+{% block menuRuche %}
+    {% set colonie = ruche.colonie %}
+    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+{% endblock menuRuche %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Modification de la ruche {{ ruche.nom }}</h4>
+            <h4>Modification de la ruche</h4>
         </div>
     </div>
 {% endblock %}
@@ -40,10 +43,8 @@
 {% block panel_body %}
                           
     {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-
         {{ form_row(form.nom, {'label': 'Nom de la ruche :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
-
     {{ form_rest(form) }}
 
     <div class="form-group">

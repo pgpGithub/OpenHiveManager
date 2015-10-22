@@ -19,14 +19,16 @@
 
 {% block title %}{{ parent() }} - Remérages de la ruche{% endblock %}
 
-{% block ruchers %}{{ colonie.rucher.nom }}{% endblock %}
+{% block menuRuche %}
+    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+{% endblock menuRuche %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Remérages de la colonie n°{{ colonie.numero }}</h4>
+            <h4>Historique des remérages</h4>
         </div>
-    </div>    
+    </div>
 {% endblock %}
 
 {% block panel_body %}       

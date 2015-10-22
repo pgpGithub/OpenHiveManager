@@ -26,9 +26,11 @@
     {{ parent() }}
 {% endblock %}
 
-{% block ruchers %}{{ colonie.rucher.nom }}{% endblock %}
-
 {% block title %}{{ parent() }} - Créer une récolte{% endblock %}
+
+{% block menuRuche %}
+    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+{% endblock menuRuche %}
 
 {% block panel_title %}
     <div class="row">

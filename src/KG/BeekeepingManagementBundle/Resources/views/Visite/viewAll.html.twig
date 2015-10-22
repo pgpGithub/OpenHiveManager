@@ -17,7 +17,7 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Transhumances de la ruche{% endblock %}
+{% block title %}{{ parent() }} - Transhumances{% endblock %}
 
 {% block menuRuche %}
     {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
@@ -26,7 +26,7 @@
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Historiques des transhumances</h4>
+            <h4>Historique des visites</h4>
         </div>
     </div>
 {% endblock %}
@@ -38,24 +38,29 @@
                 <table id="mytable" class="table table-bordred table-striped">
                     <thead>
                         <th>Date</th>
-                        <th>Rucher de départ</th>
-                        <th>Emplacement de départ</th>
-                        <th>Rucher de destination</th>
-                        <th>Emplacement de destination</th>
+                        <th>Activite</th>
+                        <th>Etat</th>
+                        <th>Cadres nourriture</th>
+                        <th>Cadres couvain</th>
+                        <th>Cellules royales</th>
+                        <th>Nourrissement</th>
+                        <th>Traitement</th>
                     </thead>
-                    <tbody>
-                        {% for transhumance in pagination %}
+                    <tbody> 
+                        {% for visite in pagination %}
                             <tr>
-                                <td>{{ transhumance.date|date('d/m/Y') }}</td>
-                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.emplacementfrom.rucher.id }) }}">{{ transhumance.emplacementfrom.rucher.nom }}</a></td>
-                                <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': transhumance.emplacementfrom.id }) }}">{{ transhumance.emplacementfrom.nom }}</a></td>
-                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.emplacementto.rucher.id }) }}">{{ transhumance.emplacementto.rucher.nom }}</a></td>
-                                <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': transhumance.emplacementto.id }) }}">{{ transhumance.emplacementto.nom }}</a></td>
-                            </tr>
-
+                                <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
+                                <td>{{ visite.activite.libelle }}</td>
+                                <td>{{ visite.etat.libelle }}</td>
+                                <td>{{ visite.nbnourriture }}</td>
+                                <td>{{ visite.nbcouvain }}</td>
+                                <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
+                                <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
+                                <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
+                            </tr>    
                         {% endfor %}
                     </tbody>
-                </table>
+                </table>  
             </div>
             <div class="row">
                 <div class="col-md-12 navigation" align="right">

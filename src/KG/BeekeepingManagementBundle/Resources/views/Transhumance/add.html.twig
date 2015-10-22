@@ -34,12 +34,14 @@
 
 {% block title %}{{ parent() }} - Transhumer une ruche{% endblock %}
 
-{% block ruchers %}{{ colonie.ruche.emplacement.rucher.nom }}{% endblock %}
+{% block menuRuche %}
+    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+{% endblock menuRuche %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Transhumance de la ruche {{ colonie.ruche.nom }}</h4>
+            <h4>Création d'une transhumance</h4>
         </div>
     </div>
 {% endblock %}

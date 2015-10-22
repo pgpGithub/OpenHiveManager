@@ -36,12 +36,15 @@
 
 {% block title %}{{ parent() }} - Modifier une visite{% endblock %}
 
-{% block ruchers %}{{ visite.colonie.ruche.emplacement.rucher.nom }}{% endblock %}
+{% block menuRuche %}
+    {% set colonie = visite.colonie %}
+    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+{% endblock menuRuche %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Modification d'une visite</h4>
+            <h4>Modification de la dernière visite</h4>
         </div>
     </div>
 {% endblock %}

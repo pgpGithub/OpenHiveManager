@@ -36,12 +36,14 @@
 
 {% block title %}{{ parent() }} - Modifier une colonie{% endblock %}
 
-{% block ruchers %}{{ colonie.ruche.emplacement.rucher.nom }}{% endblock %}
+{% block menuRuche %}
+    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+{% endblock menuRuche %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Modification de la colonie n° {{ colonie.numero }}</h4>
+            <h4>Modification de la colonie</h4>
         </div>
     </div>
 {% endblock %}

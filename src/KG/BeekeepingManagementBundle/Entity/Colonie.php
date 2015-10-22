@@ -568,7 +568,7 @@ class Colonie
                    ->addViolation();            
         }      
 
-        if ( $this->morte ){
+        /*if ( $this->morte ){
             if( $this->dateMort > $today ){
                 $context
                        ->buildViolation('La date de la mort ne peut pas être située dans le futur') 
@@ -618,7 +618,7 @@ class Colonie
                            ->addViolation();                        
                 }            
             }               
-        }
+        }*/
     }    
 
     /**
