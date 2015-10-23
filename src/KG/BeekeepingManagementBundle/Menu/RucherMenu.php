@@ -27,29 +27,57 @@ class RucherMenu extends ContainerAware
     public function mainMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');
-        $ruchers = $options["exploitation"]->getRuchers();
-        
-        $title = 'Rucher';
-        if( $options["rucher"] ){
-            $title = $options["rucher"]->getNom();
-        }
-        
-        $menu->addChild($title, array(
-            'route' => 'kg_beekeeping_management_home'
-        ));      
-        
-        foreach( $ruchers as $rucher ){
-            $menu[$title]->addChild($rucher->getNom(), array(
-                'route' => 'kg_beekeeping_management_view_rucher',
-                'routeParameters' => array('rucher_id' => $rucher->getId())
-            ));              
-        }
+        $rucher = $options["rucher"];
 
-        $menu[$title]->addChild('Créer un rucher', array(
-            'route' => 'kg_beekeeping_management_add_rucher',
-            'routeParameters' => array('exploitation_id' => $options["exploitation"]->getId())
-        ));          
+        $menu->addChild('Rucher', array(
+            'route' => 'kg_beekeeping_management_home'
+        )); 
+
+        $menu['Rucher']->addChild('Afficher', array(
+            'route' => 'kg_beekeeping_management_view_rucher',
+            'routeParameters' => array('rucher_id' => $rucher->getId())
+        ));                  
+
+        $menu['Rucher']->addChild('Modifier', array(
+            'route' => 'kg_beekeeping_management_update_rucher',
+            'routeParameters' => array('rucher_id' => $rucher->getId())
+        ));         
+
+        $delete_permitted = true;
         
+        foreach( $rucher->getEmplacements() as $emplacement ){
+            if(    !$emplacement->getTranshumancesfrom()->isEmpty() 
+                || !$emplacement->getTranshumancesto()->isEmpty()
+                || $emplacement->getRuche() ){
+                
+                $delete_permitted = false;
+                break;
+            }
+        }
+        
+        if( $delete_permitted ){
+            $menu['Rucher']->addChild('Supprimer', array(
+                'route' => 'kg_beekeeping_management_delete_rucher',
+                'routeParameters' => array('rucher_id' => $rucher->getId())
+            ));
+        }
+        
+        $menu->addChild('Emplacement', array(
+            'route' => 'kg_beekeeping_management_home'
+        )); 
+        
+        $menu['Emplacement']->addChild('Créer', array(
+            'route' => 'kg_beekeeping_management_add_emplacement',
+            'routeParameters' => array('rucher_id' => $rucher->getId())
+        ));          
+
+        if( !$rucher->getEmplacements()->isEmpty() ){
+            $menu['Emplacement']->addChild('Liste', array(
+                'route' => 'kg_beekeeping_management_view_emplacements',
+                'routeParameters' => array('rucher_id' => $rucher->getId())
+            ));  
+        }
+ 
         return $menu;
     }
 }

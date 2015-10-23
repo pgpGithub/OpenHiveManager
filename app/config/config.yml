@@ -37,6 +37,7 @@ braincrafted_bootstrap:
     jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.11.1.js
     less_filter: lessphp # "less", "lessphp", "sass" or "none"
     fonts_dir: %kernel.root_dir%/../web/fonts
+    icon_prefix: fa
     auto_configure:
         assetic: true
         twig: true

@@ -27,10 +27,10 @@
 
 {% block title %}{{ parent() }} - Ruche{% endblock %}
 
-{% block menuRuche %}
+{% block menu %}
     {% set colonie = ruche.colonie %}
     {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menuRuche %}
+{% endblock menu %}
 
 {% block panel_title %}
     <div class="row">
@@ -90,133 +90,3 @@
         </div>                 
     </div>                             
 {% endblock %}
-
-{#
-
-<li><a title="Modifier la ruche" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id' : ruche.id }) }}">{{ icon('pencil') }} Modifier la ruche</a></li>
-
-
-
-
-
-            {% if colonie.morte %}
-            <div class="alert alert-danger" role="alert">
-                <h4>{{ icon('alert') }} Cette colonie est morte</h4>
-                <strong>Causes de la mort :</strong></td>
-                {% for cause in colonie.causes %}
-                    {% if not loop.first %}
-                        - 
-                    {% endif %}
-                    {{ cause.libelle }}
-                {% endfor %}
-
-                {% if colonie.causes is not empty and colonie.autreCause %}
-                    -
-                {% endif %}
-                {{ colonie.autreCause }}
-            </div>
-            {% endif %}
-
-
-{% if colonie.ruche.corps.nbcouvain > 1 %}
-    <li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('resize-full') }} Diviser</a></li>
-{% endif %}
-
- <li><a title="Editer" href="{{ path('kg_beekeeping_management_update_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('pencil') }} Modifier la colonie</a></li>
-<li><a title="Déclarer mort" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('minus-sign') }} Déclarer morte</a></li>
-
-
-
-{% if not colonie.morte and colonie.visites is empty and colonie.recoltes is empty and not filleExist %}
-    <li role="separator" class="divider"></li>
-    <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id' : colonie.id }) }}">{{ icon('trash') }} Supprimer</a></li>                     
-{% endif %}
-
-
-                        {%if ruche.colonie and ruche.emplacement %}
-                            {% if pagination is not empty %}
-                                {% if lastVisite.date|date('Y-m-d') < "now"|date('Y-m-d') %}
-                                    <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plus') }} Créer une visite</a></li>
-                                {% endif %}
-                            {% else %}
-                            <li><a title="Créer une visite" href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id' : ruche.colonie.id }) }}">{{ icon('plus') }} Créer une visite</a></li>
-                            {% endif %}
-                        {% endif %}
-
-{% if pagination is not empty %}
-    <div class="row">    
-        <div class=" col-md-12"> 
-            <hr>            
-            <h4>Visites</h4> 
-            <div class="table-responsive">
-                <table id="mytable" class="table table-bordred table-striped">
-                    <thead>
-                        <th>Date</th>
-                        <th>Activite</th>
-                        <th>Etat</th>
-                        <th>Cadres nourriture</th>
-                        <th>Cadres couvain</th>
-                        <th>Cellules royales</th>
-                        <th>Nourrissement</th>
-                        <th>Traitement</th>
-                        <th></th>
-                    </thead>
-                    <tbody> 
-                        {% for visite in pagination %}
-                            <tr>
-                                <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
-                                <td>{{ visite.activite.libelle }}</td>
-                                <td>{{ visite.etat.libelle }}</td>
-                                <td>{{ visite.nbnourriture }}</td>
-                                <td>{{ visite.nbcouvain }}</td>
-                                <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if lastVisite == visite %}<a title="Editer" href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id' : visite.id }) }}" class="btn btn-xs btn-warning">{{ icon('pencil') }}</a>{% endif %}</td>
-                            </tr>    
-                        {% endfor %}
-                    </tbody>
-                </table>                
-            </div>
-            <div class="row">
-                <div class="col-md-12 navigation" align="right">
-                    {{ knp_pagination_render(pagination) }}
-                </div>  
-            </div>                         
-        </div>
-    </div>  
-    {% endif %}   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#}

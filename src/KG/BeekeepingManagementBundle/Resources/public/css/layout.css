@@ -20,5 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #body{ 
-    margin-top: 50px;
+    margin-top: 20px;
+}
+
+#btn_menu{ 
+    margin-bottom: 40px;
 }

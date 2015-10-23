@@ -81,7 +81,7 @@ class RucheController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}}) 
     */    
-    public function viewAction(Request $request, Ruche $ruche, $page)
+    public function viewAction(Request $request, Ruche $ruche)
     {
         $apiculteurExploitations = $ruche->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
@@ -97,24 +97,8 @@ class RucheController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        if($ruche->getColonie()){    
-            $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByColonie($ruche->getColonie());    
-        }
-        
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            10,
-            array(
-                'defaultSortFieldName' => 'visite.date',
-                'defaultSortDirection' => 'desc'
-            )                
-        );
-        
         return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig',
-                array(  'ruche'       => $ruche,
-                        'pagination'  => $pagination
+                array(  'ruche' => $ruche,
                 ));        
     }  
 
@@ -156,7 +140,7 @@ class RucheController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Ruche créée avec succès');
 
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $emplacement->getRucher()->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Ruche:add.html.twig', 

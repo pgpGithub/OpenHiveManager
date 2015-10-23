@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6b45a664d540245b52b98ef105298f0d",
+    "hash": "1a27725af8bfb0c5b0f214072034b193",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -763,6 +763,54 @@
             "time": "2015-08-31 13:19:01"
         },
         {
+            "name": "fortawesome/font-awesome",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "c6304f5f7d495b8998cb7f306419cc30e3c1fc11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/c6304f5f7d495b8998cb7f306419cc30e3c1fc11",
+                "reference": "c6304f5f7d495b8998cb7f306419cc30e3c1fc11",
+                "shasum": ""
+            },
+            "require-dev": {
+                "jekyll": "1.0.2",
+                "lessc": "1.4.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OFL-1.1",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Gandy",
+                    "email": "dave@fontawesome.io",
+                    "homepage": "http://twitter.com/davegandy",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The iconic font and CSS framework",
+            "homepage": "http://fontawesome.io/",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon"
+            ],
+            "time": "2015-10-07 17:16:25"
+        },
+        {
             "name": "friendsofsymfony/jsrouting-bundle",
             "version": "dev-master",
             "source": {
@@ -1138,12 +1186,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
-                "reference": "f8c6b24a846e3713899f02e72604a78d80bb1b37"
+                "reference": "a07920b10a3b888abe7c47c7aecf56f69553f707"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/f8c6b24a846e3713899f02e72604a78d80bb1b37",
-                "reference": "f8c6b24a846e3713899f02e72604a78d80bb1b37",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/a07920b10a3b888abe7c47c7aecf56f69553f707",
+                "reference": "a07920b10a3b888abe7c47c7aecf56f69553f707",
                 "shasum": ""
             },
             "require": {
@@ -1187,7 +1235,7 @@
             "keywords": [
                 "menu"
             ],
-            "time": "2015-10-01 08:23:01"
+            "time": "2015-10-22 10:06:42"
         },
         {
             "name": "knplabs/knp-paginator-bundle",
@@ -2248,7 +2296,8 @@
         "friendsofsymfony/jsrouting-bundle": 20,
         "braincrafted/bootstrap-bundle": 20,
         "knplabs/knp-paginator-bundle": 20,
-        "knplabs/knp-menu-bundle": 20
+        "knplabs/knp-menu-bundle": 20,
+        "fortawesome/font-awesome": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

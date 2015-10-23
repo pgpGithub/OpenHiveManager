@@ -8,11 +8,11 @@
 
         {% block stylesheets %}
             {% stylesheets filter='cssrewrite' 
+                'css/bootstrap.css'
+                'css/font-awesome.min.css'   
                 '@KGSiteBundle/Resources/public/css/layout.css'%}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
             {% endstylesheets %}
-            <!-- Bootstrap -->
-            <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
         {% endblock %}
       
         <style>{% block style %}{% endblock %}</style>
@@ -46,8 +46,6 @@
                     <ul id="g-account-menu" class="dropdown-menu" role="menu">
                         <li><a href="{{ path('fos_user_profile_edit') }}">Profil</a></li>
                         <li><a href="{{ path('fos_user_change_password') }}">Mot de passe</a></li>
-                        {% block menu_user %}
-                        {% endblock %}
                         <li role="separator" class="divider"></li>     
                         <li><a href="{{ path('fos_user_security_logout') }}">{{ icon('log-out') }} Déconnexion</a></li>
                     </ul>

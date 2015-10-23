@@ -1,3 +1,6 @@
+<a id="btn_menu" class="btn btn-info btn-md" href="{{ path('kg_beekeeping_management_home') }}" role="button"><strong>{{ icon('angle-double-left') }} {{ colonie.rucher.exploitation.nom }}</strong></a>
+<a id="btn_menu" class="btn btn-info btn-md" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': colonie.rucher.id }) }}" role="button"><strong>{{ icon('angle-left') }} {{ colonie.rucher.nom }}</strong></a>
+
 <nav class="navbar navbar-default" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -9,7 +12,9 @@
             <span class="icon-bar"></span>
         </button>
         {% if colonie.ruche %}
-            <a title="Ruche" class="navbar-brand" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': colonie.ruche.id }) }}">Ruche {{ colonie.ruche.nom }}</a>
+            <a title="Ruche" class="navbar-brand" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': colonie.ruche.id }) }}">Ruche {{ colonie.ruche.nom }} | Colonie n°{{ colonie.numero }}</a>
+        {% else %}
+            <a title="Colonie" class="navbar-brand" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.id }) }}">Colonie n°{{ colonie.numero }} (morte)</a>
         {% endif %}
     </div>
 

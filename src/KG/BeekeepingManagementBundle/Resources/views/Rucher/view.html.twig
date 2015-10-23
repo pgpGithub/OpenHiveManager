@@ -36,49 +36,17 @@
 
 {% block title %}{{ parent() }} - Rucher{% endblock %}
 
-{% block ruchers %}{{ rucher.nom }}{% endblock %}
+{% block menu %}
+    {% include 'KGBeekeepingManagementBundle::menuRucher.html.twig' %}
+{% endblock menu %}
 
 {% block panel_title %}
     <div class="row">
-        <div class="col-xs-6">
-            <h4>Rucher {{ rucher.nom }}</h4>
-        </div>
-        
-        {% set rucheExist = false %}
-        {% set transhumanceExist = false %}
-        {% for emplacement in rucher.emplacements %}
-            {% for transhumance in emplacement.transhumancesfrom if not transhumanceExist %}
-                {% set transhumanceExist = true %}
-            {% endfor %}
-            {% for transhumance in emplacement.transhumancesto if not transhumanceExist %}
-                {% set transhumanceExist = true %}
-            {% endfor %}
-            {% if emplacement.ruche %}
-                {% set rucheExist = true %}
-            {% endif %}    
-        {% endfor %}
-                    
-        <div class="col-xs-6">
-            <span class="pull-right">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Menu
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
-                    <li><a title="Modifier le rucher" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id' : rucher.id }) }}">{{ icon('pencil') }} Modifier le rucher</a></li>
-                    <li><a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id' : rucher.id }) }}">{{ icon('plus') }} Créer un emplacement</a></li>                          
-                    {% if not rucheExist and not transhumanceExist %}
-                        <li role="separator" class="divider"></li>                
-                        <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id' : rucher.id }) }}">{{ icon('trash') }} Supprimer</a></li>                                   
-                    {% endif %}
-                </ul>
-            </div>
-            </span>
+        <div class="col-xs-12">
+            <h4>Données du rucher</h4>
         </div>
     </div>    
 {% endblock %}
-
 
 {% block panel_body %}     
     <div class="row">
@@ -125,48 +93,4 @@
             </div>     
         </div>
     </div>
-                    
-    {%if pagination is not empty %}
-    <div class="row">
-        <div class=" col-md-12"> 
-            <hr>
-            <h4>Emplacements</h4>            
-            <div class="table-responsive">
-                <table id="mytable" class="table table-bordred table-striped">
-                    <thead>
-                        <th>Nom</th>
-                        <th>Ruche</th>
-                        <th>Type</th>
-                        <th>Race</th>
-                        <th>Hausses</th>
-                    </thead>
-                    <tbody>
-                        {% for emplacement in pagination %}
-                            <tr>
-                                <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
-                                {% if emplacement.ruche %}
-                                    <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>
-                                    <td>{{ emplacement.ruche.corps.type.libelle }} {{ emplacement.ruche.corps.nbcadres }}</td>
-                                    {% if emplacement.ruche.colonie %}
-                                        <td>{{ emplacement.ruche.colonie.remerages|last.reine.race.libelle }}</td>
-                                    {% endif %}
-                                    <td>{{ emplacement.ruche.hausses|length }}</td>
-                                {% else %}
-                                    <td colspan="4">
-                                        <a title="Créer une colonie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs">{{ icon('plus') }} Créer une colonie</a>                                                
-                                    </td> 
-                                {% endif %}                                     
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <div class="col-md-12 navigation" align="right">
-                    {{ knp_pagination_render(pagination) }}
-                </div>                
-            </div>                            
-        </div>
-    </div>
-    {% endif %}
 {% endblock %}

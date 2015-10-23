@@ -17,50 +17,53 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Transhumances{% endblock %}
+{% block title %}{{ parent() }} - Ruchers de l'exploitation{% endblock %}
 
 {% block menu %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+    {% include 'KGBeekeepingManagementBundle::menuExploitation.html.twig' %}
 {% endblock menu %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Historique des visites</h4>
+            <h4>Liste des ruchers</h4>
         </div>
     </div>
 {% endblock %}
 
-{% block panel_body %}       
+{% block panel_body %} 
     <div class="row">
         <div class=" col-md-12"> 
             <div class="table-responsive">
                 <table id="mytable" class="table table-bordred table-striped">
                     <thead>
-                        <th>Date</th>
-                        <th>Activite</th>
-                        <th>Etat</th>
-                        <th>Cadres nourriture</th>
-                        <th>Cadres couvain</th>
-                        <th>Cellules royales</th>
-                        <th>Nourrissement</th>
-                        <th>Traitement</th>
+                        <th>Nom</th>
+                        <th>Emplacements</th>
+                        <th>Ruches</th>
+                        <th>Emplacements libres</th>
                     </thead>
-                    <tbody> 
-                        {% for visite in pagination %}
+                    <tbody>
+                        {% for rucher in pagination %}
+                            {% set nblibres = 0 %}
+                            {% set nbruches = 0 %}
+                            {% for emplacement in rucher.emplacements %}
+                                {% if emplacement.ruche %}
+                                    {% set nbruches = nbruches + 1 %}
+                                {% else %}
+                                    {% set nblibres = nblibres + 1 %}
+                                {% endif %}
+                            {% endfor %}                            
+
                             <tr>
-                                <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
-                                <td>{{ visite.activite.libelle }}</td>
-                                <td>{{ visite.etat.libelle }}</td>
-                                <td>{{ visite.nbnourriture }}</td>
-                                <td>{{ visite.nbcouvain }}</td>
-                                <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
-                            </tr>    
+                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ rucher.nom }}</a></td>
+                                <td>{{ rucher.emplacements|length }}</td>
+                                <td>{{ nbruches }}</td>
+                                <td>{{ nblibres }}</td>
+                            </tr>
+
                         {% endfor %}
                     </tbody>
-                </table>  
+                </table>
             </div>
             <div class="row">
                 <div class="col-md-12 navigation" align="right">

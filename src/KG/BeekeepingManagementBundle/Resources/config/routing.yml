@@ -1,6 +1,6 @@
 kg_beekeeping_management_home:
     path:      /manager
-    defaults:  { _controller: KGBeekeepingManagementBundle:Accueil:index }
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:view }
         
 kg_beekeeping_management_add_exploitation:
     path:      /manager/exploitation/creer-exploitation
@@ -37,8 +37,8 @@ kg_beekeeping_management_delete_rucher:
         rucher_id: \d+
         
 kg_beekeeping_management_view_rucher:
-    path:      /manager/exploitation/rucher/{rucher_id}/afficher-rucher/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view, page: 1 }
+    path:      /manager/exploitation/rucher/{rucher_id}/afficher-rucher
+    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view }
     requirements:
         rucher_id: \d+
 
@@ -55,8 +55,8 @@ kg_beekeeping_management_update_ruche:
         ruche_id: \d+
                 
 kg_beekeeping_management_view_ruche:
-    path:      /manager/exploitation/rucher/ruche/{ruche_id}/afficher-ruche/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view, page: 1 }
+    path:      /manager/exploitation/rucher/ruche/{ruche_id}/afficher-ruche
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view }
     requirements:
         ruche_id: \d+
        
@@ -83,6 +83,18 @@ kg_beekeeping_management_view_transhumances:
     defaults:  { _controller: KGBeekeepingManagementBundle:Transhumance:viewAll, page: 1 }
     requirements:
         colonie_id: \d+
+
+kg_beekeeping_management_view_ruchers:
+    path:      /manager/exploitation/{exploitation_id}/afficher-ruchers/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:viewAll, page: 1 }
+    requirements:
+        exploitation_id: \d+
+
+kg_beekeeping_management_view_emplacements:
+    path:      /manager/exploitation/rucher/{rucher_id}/afficher-emplacements/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:viewAll, page: 1 }
+    requirements:
+        rucher_id: \d+
 
 kg_beekeeping_management_view_visites:
     path:      /manager/exploitation/rucher/ruche/colonie/{colonie_id}/afficher-visites/{page}

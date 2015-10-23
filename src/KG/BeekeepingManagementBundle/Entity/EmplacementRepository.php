@@ -29,6 +29,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class EmplacementRepository extends EntityRepository
 {
+    public function getListByRucher($rucher)
+    {
+        return $this->createQueryBuilder('e')
+                    ->leftJoin('e.rucher','r')
+                    ->addSelect('r')
+                    ->where('r.id = :rucher')
+                    ->setParameter('rucher',$rucher->getId())
+                    ->getQuery();
+    } 
+    
     public function queryfindByRucherId($rucher)
     {
         return $this->createQueryBuilder('emplacement')

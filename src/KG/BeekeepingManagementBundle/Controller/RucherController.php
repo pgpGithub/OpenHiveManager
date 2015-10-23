@@ -32,9 +32,49 @@ class RucherController extends Controller
 {
     /**
     * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("exploitation", options={"mapping": {"exploitation_id" : "id"}})  
+    */    
+    public function viewAllAction(Request $request, Exploitation $exploitation, $page)
+    {
+        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
+        $not_permitted = true;
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $page < 1  || $exploitation->getRuchers()->isEmpty()){
+            throw new NotFoundHttpException('Page inexistante.');
+        }      
+        
+        if($exploitation){    
+            $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getListByExploitation($exploitation);    
+        }
+        
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', $page),
+            10,
+            array(
+                'defaultSortFieldName' => 'r.nom',
+                'defaultSortDirection' => 'desc'
+            )                
+        );        
+        
+        return $this->render('KGBeekeepingManagementBundle:Rucher:viewAll.html.twig', 
+                array(  'exploitation' => $exploitation,
+                        'pagination'   => $pagination));
+    } 
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
-    public function viewAction(Request $request, Rucher $rucher, $page)
+    public function viewAction(Request $request, Rucher $rucher)
     {
         $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
@@ -46,23 +86,15 @@ class RucherController extends Controller
             }
         }
         
-        if( $not_permitted || $page < 1 ){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $apikey     = $this->container->getParameter('apikey');
-        $query      = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->findByRucher($rucher);
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            10/*limit per page*/
-        );
+        $apikey = $this->container->getParameter('apikey');
         
         return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', 
-                array(  'rucher'         => $rucher,
-                        'pagination'     => $pagination,
-                        'apikey'          => $apikey));
+                array(  'rucher' => $rucher,
+                        'apikey' => $apikey));
     }
     /**
     * @Security("has_role('ROLE_USER')")
@@ -123,7 +155,7 @@ class RucherController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $rucher = new Rucher();
+        $rucher = new Rucher($exploitation);
         $form = $this->createForm(new RucherType, $rucher);
         
         if ($form->handleRequest($request)->isValid()){

@@ -27,9 +27,9 @@
 
 {% block title %}{{ parent() }} - Colonie{% endblock %}
 
-{% block menuRuche %}
+{% block menu %}
     {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menuRuche %}
+{% endblock menu %}
 
 {% block panel_title %}
     <div class="row">
@@ -39,9 +39,26 @@
     </div>
 {% endblock %}
 
-{% block panel_body %}
+{% block panel_body %}    
+    {% if colonie.morte %}
+        <div class="well">
+            <h4>{{ icon('heartbeat') }} Cette colonie est morte le {{ colonie.dateMort|date("d/m/Y") }}</h4>
+            Causes de la mort :
+            {% for cause in colonie.causes %}
+                {% if not loop.first %}
+                    - 
+                {% endif %}
+                {{ cause.libelle }}
+            {% endfor %}
+
+            {% if colonie.causes is not empty and colonie.autreCause %}
+                -
+            {% endif %}
+            {{ colonie.autreCause }}
+        </div>
+    {% endif %}      
     <div class="row">
-        {% set reine = colonie.remerages|last.reine %}
+        {% set reine = colonie.remerages|last.reine %}       
         <div class="col-sm-4">
             <h3>Caractéristiques</h3>
             <table class="table">  
@@ -69,7 +86,7 @@
                     <tr>
                         <td><strong>Agressivité</strong></td>
                         <td>{{ colonie.agressivite.libelle }}</td>
-                    </tr>                   
+                    </tr>              
                 </tbody>
             </table>
         </div>            

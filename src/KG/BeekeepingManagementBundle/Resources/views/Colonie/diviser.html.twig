@@ -38,14 +38,10 @@
 
 {% block title %}{{ parent() }} - Diviser une colonie{% endblock %}
 
-{% block menuRucher %} 
-    {% set menuRucher = knp_menu_get('KGBeekeepingManagementBundle:RucherMenu:mainMenu', [], {'exploitation': colonieMere.rucher.exploitation, 'rucher' : colonieMere.rucher } ) %}
-    {% include 'KGBeekeepingManagementBundle::menuRucher.html.twig' %}
-{% endblock menuRucher %}  
-{% block menuRuche %}
+{% block menu %}
     {% set colonie = colonieMere %}
     {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menuRuche %}
+{% endblock menu %}
 
 {% block panel_title %}
     <div class="row">

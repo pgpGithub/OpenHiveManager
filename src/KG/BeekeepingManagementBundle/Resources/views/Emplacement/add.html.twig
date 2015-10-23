@@ -19,7 +19,9 @@
 
 {% block title %}{{ parent() }} - Créer un emplacement{% endblock %}
 
-{% block ruchers %}{{ rucher.nom }}{% endblock %}
+{% block menu %}
+    {% include 'KGBeekeepingManagementBundle::menuRucher.html.twig' %}
+{% endblock menu %}
 
 {% block panel_title %}
     <div class="row">

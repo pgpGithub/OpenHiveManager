@@ -88,9 +88,10 @@ class Rucher
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Exploitation $exploitation)
     {
         $this->emplacements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->exploitation = $exploitation;
     }
     
     /**

@@ -20,7 +20,6 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * RucherRepository
@@ -30,17 +29,14 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class RucherRepository extends EntityRepository
 {
-    public function getRucherByExploitation($id, $exploitation)
+    public function getListByExploitation($exploitation)
     {
         return $this->createQueryBuilder('r')
                     ->leftJoin('r.exploitation','e')
                     ->addSelect('e')
                     ->where('e.id = :exploitation')
-                    ->andWhere('r.id = :id')
-                    ->setParameter('exploitation',$exploitation)
-                    ->setParameter('id',$id)
-                    ->getQuery()
-                    ->getSingleResult();
+                    ->setParameter('exploitation',$exploitation->getId())
+                    ->getQuery();
     }  
 
     public function queryfindByExploitationId($exploitation, $rucher = null)
