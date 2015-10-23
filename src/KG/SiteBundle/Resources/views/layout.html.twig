@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
         <title>{% block title %}OpenHiveManager{% endblock %}</title>
 
         {% block stylesheets %}
@@ -30,7 +30,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ path('kg_site_home') }}">OpenHiveManager</a>
+                <a class="navbar-brand" href="{{ path('kg_site_home') }}">
+                    <img alt="OpenHiveManager" src="{{ asset('logo_navbar.png') }}">
+                </a>
           </div>   
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">    
