@@ -8,7 +8,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a title="Ruche" class="navbar-brand" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': colonie.ruche.id }) }}">Ruche {{ colonie.ruche.nom }}</a>
+        {% if colonie.ruche %}
+            <a title="Ruche" class="navbar-brand" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': colonie.ruche.id }) }}">Ruche {{ colonie.ruche.nom }}</a>
+        {% endif %}
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
