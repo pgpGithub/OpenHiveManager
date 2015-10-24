@@ -93,4 +93,49 @@
             </div>     
         </div>
     </div>
+                    
+    {% if pagination is not empty %}                
+                    
+    <hr>
+    
+    <div class="row">
+        <div class=" col-md-12"> 
+            <div class="table-responsive">
+                <table id="mytable" class="table table-bordred table-striped">
+                    <thead>
+                        <th>Nom</th>
+                        <th>Ruche</th>
+                        <th>Type</th>
+                        <th>Race</th>
+                        <th>Hausses</th>
+                    </thead>
+                    <tbody>
+                        {% for emplacement in pagination %}
+                            <tr>
+                                <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
+                                {% if emplacement.ruche %}
+                                    <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>
+                                    <td>{{ emplacement.ruche.corps.type.libelle }} {{ emplacement.ruche.corps.nbcadres }}</td>
+                                    {% if emplacement.ruche.colonie %}
+                                        <td>{{ emplacement.ruche.colonie.remerages|last.reine.race.libelle }}</td>
+                                    {% endif %}
+                                    <td>{{ emplacement.ruche.hausses|length }}</td>
+                                {% else %}
+                                    <td colspan="4">
+                                        <a title="Créer une colonie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs">{{ icon('plus') }} Créer une colonie</a>                                                
+                                    </td> 
+                                {% endif %}                                     
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12 navigation" align="right">
+                    {{ knp_pagination_render(pagination) }}
+                </div> 
+            </div>                            
+        </div>
+    </div>                          
+    {% endif %}                
 {% endblock %}

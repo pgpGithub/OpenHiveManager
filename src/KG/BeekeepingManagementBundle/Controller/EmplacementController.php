@@ -32,46 +32,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EmplacementController extends Controller
-{
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
-    */    
-    public function viewAllAction(Request $request, Rucher $rucher, $page)
-    {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $page < 1  || $rucher->getEmplacements()->isEmpty()){
-            throw new NotFoundHttpException('Page inexistante.');
-        }      
-        
-        if($rucher){    
-            $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->getListByRucher($rucher);    
-        }
-        
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            40,
-            array(
-                'defaultSortFieldName' => 'e.nom',
-            )                
-        );        
-        
-        return $this->render('KGBeekeepingManagementBundle:Emplacement:viewAll.html.twig', 
-                array(  'rucher' => $rucher,
-                        'pagination'   => $pagination));
-    } 
-    
+{   
     /**
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("emplacement", options={"mapping": {"emplacement_id" : "id"}}) 

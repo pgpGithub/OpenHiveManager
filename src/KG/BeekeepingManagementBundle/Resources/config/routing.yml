@@ -1,6 +1,6 @@
 kg_beekeeping_management_home:
-    path:      /manager
-    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:view }
+    path:      /manager/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:view, page: 1 }
         
 kg_beekeeping_management_add_exploitation:
     path:      /manager/exploitation/creer-exploitation
@@ -37,8 +37,8 @@ kg_beekeeping_management_delete_rucher:
         rucher_id: \d+
         
 kg_beekeeping_management_view_rucher:
-    path:      /manager/exploitation/rucher/{rucher_id}/afficher-rucher
-    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view }
+    path:      /manager/exploitation/rucher/{rucher_id}/afficher-rucher/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view, page: 1 }
     requirements:
         rucher_id: \d+
 

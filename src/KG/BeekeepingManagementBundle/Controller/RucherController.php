@@ -29,52 +29,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class RucherController extends Controller
-{
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("exploitation", options={"mapping": {"exploitation_id" : "id"}})  
-    */    
-    public function viewAllAction(Request $request, Exploitation $exploitation, $page)
-    {
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $page < 1  || $exploitation->getRuchers()->isEmpty()){
-            throw new NotFoundHttpException('Page inexistante.');
-        }      
-        
-        if($exploitation){    
-            $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Rucher')->getListByExploitation($exploitation);    
-        }
-        
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            10,
-            array(
-                'defaultSortFieldName' => 'r.nom',
-                'defaultSortDirection' => 'desc'
-            )                
-        );        
-        
-        return $this->render('KGBeekeepingManagementBundle:Rucher:viewAll.html.twig', 
-                array(  'exploitation' => $exploitation,
-                        'pagination'   => $pagination));
-    } 
-    
+{    
     /**
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
-    public function viewAction(Request $request, Rucher $rucher)
+    public function viewAction(Request $request, Rucher $rucher, $page)
     {
         $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
@@ -92,10 +52,26 @@ class RucherController extends Controller
         
         $apikey = $this->container->getParameter('apikey');
         
+        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->getListByRucher($rucher);    
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', $page),
+            10,
+            array(
+                'defaultSortFieldName' => 'e.nom',
+            )                
+        );        
+        
         return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', 
-                array(  'rucher' => $rucher,
-                        'apikey' => $apikey));
+                array(  'rucher'     => $rucher,
+                        'apikey'     => $apikey,
+                        'pagination' => $pagination
+                    )
+            );        
     }
+    
     /**
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}}) 

@@ -145,13 +145,13 @@ class RucheMenu extends ContainerAware
         ));           
         
         // Récoltes
-        if( !$colonie->getMorte() || !$colonie->getRecoltes()->isEmpty() ){
+        if( !$colonie->getMorte() && ( !$colonie->getRecoltes()->isEmpty() || !$colonie->getRuche()->getHausses()->isEmpty() )){
             $menu->addChild('Récoltes', array(
                 'route' => 'kg_beekeeping_management_home'
             )); 
         }
         
-        if( !$colonie->getMorte() ){
+        if( !$colonie->getMorte() && !$colonie->getRuche()->getHausses()->isEmpty()){
             $menu['Récoltes']->addChild('Créer', array(
                 'route' => 'kg_beekeeping_management_add_recolte',
                 'routeParameters' => array('colonie_id' => $colonie->getId())
