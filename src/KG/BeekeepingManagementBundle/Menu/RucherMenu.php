@@ -31,7 +31,7 @@ class RucherMenu extends ContainerAware
 
         $menu->addChild('.icon-chevron-left Retour à l\'exploitation', array(
             'route' => 'kg_beekeeping_management_home'
-        )); 
+        ));       
         
         $menu->addChild('.icon-pencil Modifier le rucher', array(
             'route' => 'kg_beekeeping_management_update_rucher',

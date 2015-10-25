@@ -162,7 +162,7 @@ class EmplacementController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Emplacement mis à jour avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_emplacement', array('emplacement_id' => $emplacement->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $emplacement->getRucher()->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Emplacement:update.html.twig', 

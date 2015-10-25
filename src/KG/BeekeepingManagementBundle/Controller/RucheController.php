@@ -67,7 +67,7 @@ class RucheController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Ruche mise à jour avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $ruche->getEmplacement()->getRucher()->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Ruche:update.html.twig', 
@@ -140,7 +140,7 @@ class RucheController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Ruche créée avec succès');
 
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('rucher_id' => $ruche->getEmplacement()->getRucher()->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Ruche:add.html.twig', 

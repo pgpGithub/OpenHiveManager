@@ -28,22 +28,59 @@ class RucheMenu extends ContainerAware
     {
         $menu = $factory->createItem('root');
         $colonie = $options["colonie"];
-            
+
+        $menu->addChild('.icon-chevron-left Retour au rucher', array(
+            'route' => 'kg_beekeeping_management_view_rucher',
+            'routeParameters' => array('rucher_id' => $colonie->getRucher()->getId())
+        ));   
+        
         // Ruche
+        $titleRuche = '.icon-archive Ruche';
         if( !$colonie->getMorte() ){
-            $menu->addChild('Ruche', array(
+            $menu->addChild($titleRuche, array(
                 'route' => 'kg_beekeeping_management_home'
             )); 
                     
-            $menu['Ruche']->addChild('Afficher', array(
-            'route' => 'kg_beekeeping_management_view_ruche',
-            'routeParameters' => array('ruche_id' => $colonie->getRuche()->getId())
+            $menu[$titleRuche]->addChild('.icon-eye Afficher', array(
+                'route' => 'kg_beekeeping_management_view_ruche',
+                'routeParameters' => array('ruche_id' => $colonie->getRuche()->getId())
             ));                  
 
-            $menu['Ruche']->addChild('Modifier', array(
-            'route' => 'kg_beekeeping_management_update_ruche',
-            'routeParameters' => array('ruche_id' => $colonie->getRuche()->getId())
+            $menu[$titleRuche]->addChild('.icon-pencil Modifier', array(
+                'route' => 'kg_beekeeping_management_update_ruche',
+                'routeParameters' => array('ruche_id' => $colonie->getRuche()->getId())
             )); 
+            
+            if( $colonie->getRuche()->getCorps()->getNbCouvain() > 1 ){    
+                $menu[$titleRuche]->addChild('.icon-scissors Diviser', array(
+                    'route' => 'kg_beekeeping_management_diviser_colonie',
+                    'routeParameters' => array('colonie_id' => $colonie->getId())
+                )); 
+            }       
+            
+            if( !$colonie->getRuche()->getHausses()->isEmpty()){
+                $menu[$titleRuche]->addChild('.icon-upload Récolter', array(
+                    'route' => 'kg_beekeeping_management_add_recolte',
+                    'routeParameters' => array('colonie_id' => $colonie->getId())
+                ));                  
+            }
+
+            $emplacementVide = false;
+            foreach ($colonie->getRucher()->getExploitation()->getRuchers() as $rucher) {
+                foreach ($rucher->getEmplacements() as $emplacement) {
+                    if( !$emplacement->getRuche() ){
+                        $emplacementVide = true;
+                        break;
+                    }
+                }
+            }
+            
+            if( $emplacementVide ){
+                $menu[$titleRuche]->addChild('.icon-exchange Transhumer', array(
+                    'route' => 'kg_beekeeping_management_add_transhumance',
+                    'routeParameters' => array('colonie_id' => $colonie->getId())
+                ));  
+            }
             
             $filleExist = false;
             foreach( $colonie->getRemerages() as $remerage ){
@@ -54,137 +91,96 @@ class RucheMenu extends ContainerAware
             }
                     
             if( $colonie->getVisites()->isEmpty() && $colonie->getRecoltes()->isEmpty() && !$filleExist ){    
-                $menu['Ruche']->addChild('Supprimer', array(
-                'route' => 'kg_beekeeping_management_delete_colonie',
-                'routeParameters' => array('colonie_id' => $colonie->getId())
+                $menu[$titleRuche]->addChild('.icon-trash Supprimer', array(
+                    'route' => 'kg_beekeeping_management_delete_colonie',
+                    'routeParameters' => array('colonie_id' => $colonie->getId())
                 )); 
             }               
         }        
          
         // Colonie
-        $menu->addChild('Colonie', array(
+        $titleColonie = '.icon-users Colonie';
+                
+        $menu->addChild($titleColonie, array(
             'route' => 'kg_beekeeping_management_home'
         )); 
 
-        $menu['Colonie']->addChild('Afficher', array(
+        $menu[$titleColonie]->addChild('.icon-eye Afficher', array(
         'route' => 'kg_beekeeping_management_view_colonie',
         'routeParameters' => array('colonie_id' => $colonie->getId())
         )); 
         
         if( !$colonie->getMorte() ){
-            $menu['Colonie']->addChild('Modifier', array(
-            'route' => 'kg_beekeeping_management_update_colonie',
-            'routeParameters' => array('colonie_id' => $colonie->getId())
+            $menu[$titleColonie]->addChild('.icon-pencil Modifier', array(
+                'route' => 'kg_beekeeping_management_update_colonie',
+                'routeParameters' => array('colonie_id' => $colonie->getId())
             )); 
 
-            if( $colonie->getRuche()->getCorps()->getNbCouvain() > 1 ){    
-                $menu['Colonie']->addChild('Diviser', array(
-                'route' => 'kg_beekeeping_management_diviser_colonie',
+            $menu[$titleColonie]->addChild('.icon-refresh Remérer', array(
+                'route' => 'kg_beekeeping_management_add_remerage',
                 'routeParameters' => array('colonie_id' => $colonie->getId())
-                )); 
-            }
-            
-            $menu['Colonie']->addChild('Déclarer morte', array(
-            'route' => 'kg_beekeeping_management_tuer_colonie',
-            'routeParameters' => array('colonie_id' => $colonie->getId())
+            ));  
+                        
+            $menu[$titleColonie]->addChild('.icon-heartbeat Déclarer morte', array(
+                'route' => 'kg_beekeeping_management_tuer_colonie',
+                'routeParameters' => array('colonie_id' => $colonie->getId())
             ));         
         }
         
-        // Visites
-        if( !$colonie->getMorte() || !$colonie->getVisites()->isEmpty() ){       
-            $menu->addChild('Visites', array(
-                'route' => 'kg_beekeeping_management_home'
-            )); 
-        }
-        
+        // Créer visite
         if( !$colonie->getMorte() ){
             if( !$colonie->getVisites()->isEmpty() ){
                 if( date_format($colonie->getVisites()->last()->getDate(),"Y-m-d") < date_format(new \DateTime(),"Y-m-d") ){
-                    $menu['Visites']->addChild('Créer', array(
+                    $menu->addChild('.icon-plus Créer une visite', array(
                         'route' => 'kg_beekeeping_management_add_visite',
                         'routeParameters' => array('colonie_id' => $colonie->getId())
                     ));                     
                 }
                 else{
-                    $menu['Visites']->addChild('Modifier dernière visite', array(
+                    $menu->addChild('.icon-pencil Modifier la dernière visite', array(
                         'route' => 'kg_beekeeping_management_update_visite',
                         'routeParameters' => array('visite_id' => $colonie->getVisites()->last()->getId())
                     ));                      
                 }
             }else{
-                $menu['Visites']->addChild('Créer', array(
+                $menu->addChild('.icon-plus Créer une visite', array(
                     'route' => 'kg_beekeeping_management_add_visite',
                     'routeParameters' => array('colonie_id' => $colonie->getId())
                 ));                 
-            }
+            }        
         }
         
+        // Historique
+        $titleHisto = '.icon-calendar Historique';
+        $menu->addChild($titleHisto, array(
+            'route' => 'kg_beekeeping_management_home'
+        )); 
+
         if( !$colonie->getVisites()->isEmpty()){
-            $menu['Visites']->addChild('Historique', array(
+            $menu[$titleHisto]->addChild('.icon-file Visites', array(
                 'route' => 'kg_beekeeping_management_view_visites',
                 'routeParameters' => array('colonie_id' => $colonie->getId())
             ));            
-        }
-
+        }        
         
-        // Remérages
-        $menu->addChild('Remérages', array(
-            'route' => 'kg_beekeeping_management_home'
-        ));                  
-        
-        if( !$colonie->getMorte() ){
-            $menu['Remérages']->addChild('Créer', array(
-                'route' => 'kg_beekeeping_management_add_remerage',
-                'routeParameters' => array('colonie_id' => $colonie->getId())
-            ));                  
-        }
-        
-        $menu['Remérages']->addChild('Historique', array(
+        $menu[$titleHisto]->addChild('.icon-refresh Remérages', array(
             'route' => 'kg_beekeeping_management_view_remerages',
             'routeParameters' => array('colonie_id' => $colonie->getId())
-        ));           
-        
-        // Récoltes
-        if( !$colonie->getMorte() && ( !$colonie->getRecoltes()->isEmpty() || !$colonie->getRuche()->getHausses()->isEmpty() )){
-            $menu->addChild('Récoltes', array(
-                'route' => 'kg_beekeeping_management_home'
-            )); 
-        }
-        
-        if( !$colonie->getMorte() && !$colonie->getRuche()->getHausses()->isEmpty()){
-            $menu['Récoltes']->addChild('Créer', array(
-                'route' => 'kg_beekeeping_management_add_recolte',
-                'routeParameters' => array('colonie_id' => $colonie->getId())
-            ));                  
-        }
-        
-        if( !$colonie->getRecoltes()->isEmpty()){
-            $menu['Récoltes']->addChild('Historique', array(
-                'route' => 'kg_beekeeping_management_view_recoltes',
-                'routeParameters' => array('colonie_id' => $colonie->getId())
-            )); 
-        }
-        
-        // Transhumances
-        if( !$colonie->getMorte() || !$colonie->getTranshumances()->isEmpty() ){
-            $menu->addChild('Transhumances', array(
-                'route' => 'kg_beekeeping_management_home'
-            )); 
-        }
-        
-        if( !$colonie->getMorte() ){
-            $menu['Transhumances']->addChild('Créer', array(
-                'route' => 'kg_beekeeping_management_add_transhumance',
-                'routeParameters' => array('colonie_id' => $colonie->getId())
-            ));                  
-        }
-        
+        ));          
+
         if( !$colonie->getTranshumances()->isEmpty()){
-            $menu['Transhumances']->addChild('Historique', array(
+            $menu[$titleHisto]->addChild('.icon-exchange Transhumances', array(
                 'route' => 'kg_beekeeping_management_view_transhumances',
                 'routeParameters' => array('colonie_id' => $colonie->getId())
             )); 
-        }
+        }    
+        
+        if( !$colonie->getRecoltes()->isEmpty()){
+            $menu[$titleHisto]->addChild('.icon-upload Récoltes', array(
+                'route' => 'kg_beekeeping_management_view_recoltes',
+                'routeParameters' => array('colonie_id' => $colonie->getId())
+            )); 
+        }        
 
         return $menu;
     }

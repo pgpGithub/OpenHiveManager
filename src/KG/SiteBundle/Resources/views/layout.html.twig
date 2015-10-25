@@ -44,16 +44,16 @@
                     <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
                     <strong>{{ icon('user') }} {{ app.user.username }}</strong> <span class="caret"></span></a>
                     <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                        <li><a href="{{ path('fos_user_profile_edit') }}">Profil</a></li>
-                        <li><a href="{{ path('fos_user_change_password') }}">Mot de passe</a></li>
+                        <li><a href="{{ path('fos_user_profile_edit') }}">{{ icon('gear') }} Profil</a></li>
+                        <li><a href="{{ path('fos_user_change_password') }}">{{ icon('key') }} Mot de passe</a></li>
                         <li role="separator" class="divider"></li>     
-                        <li><a href="{{ path('fos_user_security_logout') }}">{{ icon('log-out') }} Déconnexion</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}">{{ icon('sign-out') }} Déconnexion</a></li>
                     </ul>
                 </li>
                 {% else %}
-                <li><a href="{{ path('fos_user_security_login') }}">{{ icon('log-in') }} Connexion</a></li>
+                <li><a href="{{ path('fos_user_security_login') }}">{{ icon('sign-in') }} Connexion</a></li>
                 {% endif %}
-                <li><a href="{{ path('kg_site_don') }}"><strong>{{ icon('heart') }} Faire un don</strong></a></li>  
+                <li><a href="{{ path('kg_site_don') }}"><strong>{{ icon('heart') }} Participez</strong></a></li>  
             </ul>
           </div>
         </div>
