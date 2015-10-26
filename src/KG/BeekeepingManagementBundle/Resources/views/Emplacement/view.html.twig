@@ -28,8 +28,7 @@
 {% block title %}{{ parent() }} - Emplacement{% endblock %}
 
 {% block menu %}
-    {% set rucher = emplacement.rucher %}
-    {% include 'KGBeekeepingManagementBundle::menuRucher.html.twig' %}
+    {% include 'KGBeekeepingManagementBundle::menuEmplacement.html.twig' %}
 {% endblock menu %}
 
 {% block panel_title %}

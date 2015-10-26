@@ -1,0 +1,19 @@
+<nav class="navbar navbar-default" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle"
+                data-toggle="collapse" data-target=".menuEmplacement">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a title="Emplacement" class="navbar-brand" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse menuEmplacement">
+        {% set menuEmplacement = knp_menu_get('KGBeekeepingManagementBundle:EmplacementMenu:mainMenu', [], {'emplacement': emplacement} ) %}
+        {{ knp_menu_render(menuEmplacement, { 'style': 'navbar-right' }) }}
+    </div><!-- /.navbar-collapse -->
+</nav>    

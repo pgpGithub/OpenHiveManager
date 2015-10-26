@@ -167,7 +167,7 @@ class EmplacementController extends Controller
 
         return $this->render('KGBeekeepingManagementBundle:Emplacement:update.html.twig', 
                              array(
-                                    'form'  => $form->createView(),
+                                    'form'        => $form->createView(),
                                     'emplacement' => $emplacement
                 ));
     }  
