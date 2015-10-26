@@ -7,6 +7,8 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
+    contact: contact@openhivemanager.org
+    support: support@openhivemanager.org
 
 framework:
     #esi:             ~
@@ -97,11 +99,15 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
+    transport: smtp
+    auth_mode: login
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    spool:     { type: memory }
+    port:       25
+    #encryption: ssl
+        
+    #spool:     { type: memory }
 
 sc_datetimepicker:
     picker: ~

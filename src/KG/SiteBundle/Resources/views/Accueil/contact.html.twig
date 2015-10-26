@@ -5,20 +5,49 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets filter='cssrewrite' 
-        '@KGSiteBundle/Resources/public/css/business-frontpage.css'%}
+        '@KGSiteBundle/Resources/public/css/business-frontpage.css'
+        'css/bootstrap_switch/bootstrap-switch.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}  
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts %}
+    {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
+                    '@KGSiteBundle/Resources/public/js/contact/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
-{% endblock %}  
+{% endblock %}
+
+{% block title %}{{ parent() }} - Contact{% endblock %}
 
 {% block body %}
-    <div class="row">
+    {% include 'BraincraftedBootstrapBundle::flash.html.twig' %}   
+    
+    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
 
-    </div>        
+        <fieldset> 
+            <legend>Formulaire de contact</legend>    
+            {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.prenom, {'label': 'Prénom :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.email, {'label': 'Adresse mail :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.sujet, {'label': 'Sujet :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.message, {'label': 'Message :', 'label_col': 4, 'widget_col': 5})  }}
+            <div class="row">
+                <div class="col-md-offset-4 col-md-6">            
+                {{ form_row(form.secure, {'attr': {'data-label-text' : "Etes vous humain ?", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                </div>
+            </div>            
+        </fieldset>
+    {{ form_rest(form) }}
+    
+    <div class="form-group">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary pull-right">
+                {{ icon('send') }} Envoyer
+            </button>
+        </div>        
+    </div>
+
+    {{ form_end(form) }}   
 {% endblock %}
