@@ -32,7 +32,7 @@
             {{ form_row(form.prenom, {'label': 'Prénom :', 'label_col': 4, 'widget_col': 5})  }}
             {{ form_row(form.email, {'label': 'Adresse mail :', 'label_col': 4, 'widget_col': 5})  }}
             {{ form_row(form.sujet, {'label': 'Sujet :', 'label_col': 4, 'widget_col': 5})  }}
-            {{ form_row(form.message, {'label': 'Message :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.message, {'label': 'Message :', 'label_col': 4, 'widget_col': 5, 'attr': { 'rows' : '10'}})  }}
             <div class="row">
                 <div class="col-md-offset-4 col-md-6">            
                 {{ form_row(form.secure, {'attr': {'data-label-text' : "Etes vous humain ?", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}

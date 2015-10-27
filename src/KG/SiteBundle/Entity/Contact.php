@@ -78,7 +78,7 @@ class Contact
 
     public function getPrenom()
     {
-        return $this->nom;
+        return $this->prenom;
     }
 
     public function setPrenom($prenom)

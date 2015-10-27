@@ -104,8 +104,8 @@ swiftmailer:
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    port:       25
-    #encryption: ssl
+    port:       465
+    encryption: ssl
         
     #spool:     { type: memory }
 

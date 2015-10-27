@@ -27,8 +27,8 @@ class AccueilController extends Controller
         
         if ($form->handleRequest($request)->isValid()){
             $message = \Swift_Message::newInstance()
-                    ->setSubject($contact->getSujet())
-                    ->setFrom($contact->getEmail())
+                    ->setSubject($contact->getSujet()->getLibelle())
+                    ->setFrom($this->container->getParameter('mailer_user'))
                     ->setBody($this->renderView('KGSiteBundle::mail.txt.twig', array('contact' => $contact)));
             
             if( $contact->getSujet()->getId() == 1 || $contact->getSujet()->getId() == 2){

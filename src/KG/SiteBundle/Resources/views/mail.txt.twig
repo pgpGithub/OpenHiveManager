@@ -1,4 +1,4 @@
-Un message vous a été envoyé par {{ contact.prenom }} {{ contact.nom }} à {{ "now" | date("Y-m-d H:i") }}.
+Un message vous a été envoyé par {{ contact.prenom }} {{ contact.nom }} le {{ "now" | date("d-m-Y") }} à {{ "now" | date("H:i") }}.
 
 Adresse du contact : {{ contact.email }}
 Sujet : {{ contact.sujet.libelle }}
