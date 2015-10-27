@@ -120,16 +120,16 @@ fos_user:
         confirmation:
             enabled: true
             from_email:
-                address:        registration@openhivemanager.org
-                sender_name:    OpenHiveManager           
+                address:        "%fos_user_registration%"
+                sender_name:    "%sender_name%"           
     from_email:
-        address:        no-reply@openhivemanager.org
-        sender_name:    OpenHiveManager 
+        address:        "%mailer_user%"
+        sender_name:    "%sender_name%"    
     resetting:
         email:
             from_email:
-                address:        resetting@openhivemanager.org
-                sender_name:    OpenHiveManager    
+                address:        "%fos_user_resetting%"
+                sender_name:    "%sender_name%"     
     service:
         mailer: fos_user.mailer.twig_swift
     resetting:

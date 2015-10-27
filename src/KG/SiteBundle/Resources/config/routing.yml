@@ -10,8 +10,8 @@ kg_site_contact:
     path:      /contact
     defaults:  { _controller: KGSiteBundle:Accueil:contact }
 
-kg_site_don:
-    path:      /don
-    defaults:  { _controller: KGSiteBundle:Accueil:don }
+kg_site_participer:
+    path:      /participer
+    defaults:  { _controller: KGSiteBundle:Accueil:participer }
         
     

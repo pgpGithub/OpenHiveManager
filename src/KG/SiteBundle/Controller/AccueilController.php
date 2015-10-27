@@ -50,8 +50,8 @@ class AccueilController extends Controller
                 ));        
     }    
 
-    public function donAction()
+    public function participerAction()
     {      
-        return $this->render('KGSiteBundle:Accueil:don.html.twig'); 
+        return $this->render('KGSiteBundle:Accueil:participer.html.twig'); 
     }      
 }

@@ -5,7 +5,7 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets filter='cssrewrite' 
-        '@KGSiteBundle/Resources/public/css/business-frontpage.css'
+        '@KGSiteBundle/Resources/public/css/layout.css'
         'css/bootstrap_switch/bootstrap-switch.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}  
@@ -37,13 +37,13 @@
             </ul>
         </div>
         
-        {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.prenom, {'label': 'Prénom :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.email, {'label': 'Adresse mail :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.sujet, {'label': 'Sujet :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.message, {'label': 'Message :', 'label_col': 4, 'widget_col': 5, 'attr': { 'rows' : '10'}})  }}
+        {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 3, 'widget_col': 6})  }}
+        {{ form_row(form.prenom, {'label': 'Prénom :', 'label_col': 3, 'widget_col': 6})  }}
+        {{ form_row(form.email, {'label': 'Adresse mail :', 'label_col': 3, 'widget_col': 6})  }}
+        {{ form_row(form.sujet, {'label': 'Sujet :', 'label_col': 3, 'widget_col': 6})  }}
+        {{ form_row(form.message, {'label': 'Message :', 'label_col': 3, 'widget_col': 6, 'attr': { 'rows' : '10'}})  }}
         <div class="row">
-            <div class="col-md-offset-4 col-md-6">            
+            <div class="col-md-offset-3 col-md-6">            
             {{ form_row(form.secure, {'attr': {'data-label-text' : "Etes vous humain ?", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
             </div>
         </div>            
