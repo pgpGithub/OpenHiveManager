@@ -1,5 +1,5 @@
 body { 
-    padding-top: 120px;
+    padding-top: 80px;
 }
 
 footer { 
@@ -8,6 +8,7 @@ footer {
 
 #logo{
     width: 600px;
+    margin-top: 40px;
 }
 
 .navbar-inner{
