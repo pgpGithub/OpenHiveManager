@@ -218,23 +218,18 @@ class ColonieController extends Controller
         $form = $this->createForm(new CauseType, $colonie);
         
         if ($form->handleRequest($request)->isValid()){
-            if(!($colonie->getCauses()->isEmpty() && empty($colonie->getAutreCause()))){ 
-                $ruche = $colonie->getRuche();
-                $colonie->setRuche();   
-                $colonie->setMorte(true);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($colonie);
-                $em->remove($ruche);
-                $em->flush();
+            $ruche = $colonie->getRuche();
+            $colonie->setRuche();   
+            $colonie->setMorte(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($colonie);
+            $em->remove($ruche);
+            $em->flush();
 
-                $flash = $this->get('braincrafted_bootstrap.flash');
-                $flash->success('Colonie déclarée morte avec succès');
-                
-                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));                          
-            }
-            else{
-                $this->get('session')->getFlashBag()->add('danger','Veuillez renseigner au moins une cause de la mort');  
-            }                     
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Colonie déclarée morte avec succès');
+
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));                                            
         }
         
         return $this->render('KGBeekeepingManagementBundle:Colonie:tuer.html.twig', 

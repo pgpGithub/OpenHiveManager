@@ -22,6 +22,8 @@ namespace KG\BeekeepingManagementBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use KG\BeekeepingManagementBundle\Validator\CheckDateMort;
+use KG\BeekeepingManagementBundle\Validator\CheckCauseMort;
 
 class CauseType extends AbstractType
 {
@@ -86,6 +88,7 @@ class CauseType extends AbstractType
                             'viewSelect' => 'month',
                             'initialDate' => date("Y-m-d"), 
                         ),
+                    'constraints' => new CheckDateMort($colonie),
                     'read_only' => true,
                     'attr' => array(
                         'input_group' => array(
@@ -98,7 +101,10 @@ class CauseType extends AbstractType
                         'multiple'     => true,
                         'required'     => false
                     ))
-            ->add('autreCause', 'text', array('required' => false));
+            ->add('autreCause', 'text', array(
+                        'required' => false,
+                        'constraints' => new CheckCauseMort(),
+                    ));
     }   
     
     /**

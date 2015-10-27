@@ -93,11 +93,10 @@
             </div>     
         </div>
     </div>
-                    
-    {% if pagination is not empty %}                
-                    
+                                   
     <hr>
-    
+
+    {% if pagination is not empty %}     
     <h4>Emplacements</h4>
     <div class="row">
         <div class=" col-md-12"> 
@@ -137,6 +136,12 @@
                 </div> 
             </div>                            
         </div>
-    </div>                          
+    </div>    
+    {% else %}    
+    <div class="row">
+        <div class="col-md-12" align="center">      
+            Le rucher est vide. Commencez par <a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}">créer un emplacement</a>.
+        </div>
+    </div>          
     {% endif %}                
 {% endblock %}
