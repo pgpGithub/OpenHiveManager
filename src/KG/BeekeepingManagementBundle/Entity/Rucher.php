@@ -81,7 +81,7 @@ class Rucher
     private $localisation;
     
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="rucher")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="rucher", cascade={"remove"}, orphanRemoval=true)
      */
     private $colonies; 
     
