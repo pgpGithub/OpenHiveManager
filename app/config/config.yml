@@ -118,18 +118,18 @@ fos_user:
     user_class:    KG\UserBundle\Entity\User   
     registration:
         confirmation:
-            enabled: false
+            enabled: true
             from_email:
-                address:        registration@example.com
-                sender_name:    Demo Registration            
+                address:        registration@openhivemanager.org
+                sender_name:    OpenHiveManager           
     from_email:
-        address:        noreply@example.com
-        sender_name:    Demo App 
+        address:        no-reply@openhivemanager.org
+        sender_name:    OpenHiveManager 
     resetting:
         email:
             from_email:
-                address:        resetting@example.com
-                sender_name:    Demo Resetting    
+                address:        resetting@openhivemanager.org
+                sender_name:    OpenHiveManager    
     service:
         mailer: fos_user.mailer.twig_swift
     resetting:
