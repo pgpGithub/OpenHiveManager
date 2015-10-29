@@ -1,0 +1,23 @@
+kg_beekeeping_management_exploitation:
+    resource: "@KGBeekeepingManagementBundle/Resources/config/routing/exploitation.yml"
+    prefix:   /exploitation/ 
+
+kg_beekeeping_management_rucher:
+    resource: "@KGBeekeepingManagementBundle/Resources/config/routing/rucher.yml"
+    prefix:   /rucher/                 
+
+kg_beekeeping_management_colonie:
+    resource: "@KGBeekeepingManagementBundle/Resources/config/routing/colonie.yml"
+    prefix:   /colonie/                         
+
+kg_beekeeping_management_ruche:
+    resource: "@KGBeekeepingManagementBundle/Resources/config/routing/ruche.yml"
+    prefix:   /ruche/      
+
+kg_beekeeping_management_emplacement:
+    resource: "@KGBeekeepingManagementBundle/Resources/config/routing/emplacement.yml"
+    prefix:   /emplacement/ 
+    
+kg_beekeeping_management_visite:
+    resource: "@KGBeekeepingManagementBundle/Resources/config/routing/visite.yml"
+    prefix:   /visite/ 

@@ -3,7 +3,7 @@ kg_site:
     prefix:   /   
 
 kg_beekeeping_management:
-    resource: "@KGBeekeepingManagementBundle/Resources/config/routing.yml"
+    resource: "@KGBeekeepingManagementBundle/Resources/config/routing/routing.yml"
     prefix:   /manager/    
     
 fos_user_security:

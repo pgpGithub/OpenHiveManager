@@ -1,0 +1,29 @@
+kg_beekeeping_management_add_ruche:
+    path:      /{emplacement_id}/ruche/creer-ruche/
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:add }
+    requirements:
+        emplacement_id: \d+     
+        
+kg_beekeeping_management_select_emplacements_ruche:
+    path:      /select_emplacements-ruche
+    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:emplacements }
+    options:
+        expose: true 
+        
+kg_beekeeping_management_delete_emplacement:
+    path:      /{emplacement_id}/supprimer-emplacement
+    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:delete }
+    requirements:
+        emplacement_id: \d+
+        
+kg_beekeeping_management_view_emplacement:
+    path:      /{emplacement_id}/afficher-emplacement
+    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:view }
+    requirements:
+        emplacement_id: \d+   
+        
+kg_beekeeping_management_update_emplacement:
+    path:      /{emplacement_id}/modifier-emplacement
+    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:update }
+    requirements:
+        emplacement_id: \d+              

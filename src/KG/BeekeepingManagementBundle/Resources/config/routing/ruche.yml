@@ -1,0 +1,11 @@
+kg_beekeeping_management_update_ruche:
+    path:      /{ruche_id}/modifier-ruche
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:update }
+    requirements:
+        ruche_id: \d+
+                
+kg_beekeeping_management_view_ruche:
+    path:      /{ruche_id}/afficher-ruche
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view }
+    requirements:
+        ruche_id: \d+        

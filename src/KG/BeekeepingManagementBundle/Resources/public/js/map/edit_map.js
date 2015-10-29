@@ -16,7 +16,7 @@
  */
 
 var overlay = new ol.Overlay({
-    element: $('<img src="../../../../../../web/location.png">')
+    element: $($("#map").data("picker"))
     .css({marginTop: '-275%', marginLeft: '-50%'})
 });
 

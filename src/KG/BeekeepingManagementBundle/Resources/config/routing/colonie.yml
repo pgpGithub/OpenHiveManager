@@ -1,0 +1,77 @@
+kg_beekeeping_management_add_recolte:
+    path:      /{colonie_id}/ajouter-recolte
+    defaults:  { _controller: KGBeekeepingManagementBundle:Recolte:add }
+    requirements:
+        colonie_id: \d+
+
+kg_beekeeping_management_add_transhumance:
+    path:      /{colonie_id}/ajouter-transhumance
+    defaults:  { _controller: KGBeekeepingManagementBundle:Transhumance:add }
+    requirements:
+        colonie_id: \d+
+        
+kg_beekeeping_management_add_visite:
+    path:      /{colonie_id}/creer-visite/
+    defaults:  { _controller: KGBeekeepingManagementBundle:Visite:add }
+    requirements:
+        colonie_id: \d+
+
+kg_beekeeping_management_view_transhumances:
+    path:      /{colonie_id}/afficher-transhumances/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Transhumance:viewAll, page: 1 }
+    requirements:
+        colonie_id: \d+
+
+kg_beekeeping_management_view_visites:
+    path:      /{colonie_id}/afficher-visites/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Visite:viewAll, page: 1 }
+    requirements:
+        colonie_id: \d+
+        
+kg_beekeeping_management_view_recoltes:
+    path:      /{colonie_id}/afficher-recoltes/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Recolte:viewAll, page: 1 }
+    requirements:
+        colonie_id: \d+
+        
+kg_beekeeping_management_view_remerages:
+    path:      /{colonie_id}/afficher-remerages/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:viewAll, page: 1 }
+    requirements:
+        colonie_id: \d+
+               
+kg_beekeeping_management_delete_colonie:
+    path:      /{colonie_id}/supprimer-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:delete }
+    requirements:
+        colonie_id: \d+
+
+kg_beekeeping_management_update_colonie:
+    path:      /{colonie_id}/modifier-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:update }
+    requirements:
+        colonie_id: \d+      
+
+kg_beekeeping_management_view_colonie:
+    path:      /{colonie_id}/afficher-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:view }
+    requirements:
+        colonie_id: \d+         
+        
+kg_beekeeping_management_diviser_colonie:
+    path:      /{colonie_id}/diviser-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:diviser }
+    requirements:
+        colonie_id: \d+
+
+kg_beekeeping_management_add_remerage:
+    path:      /{colonie_id}/ajouter-remerage
+    defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:add }
+    requirements:
+        colonie_id: \d+
+        
+kg_beekeeping_management_tuer_colonie:
+    path:      /{colonie_id}/tuer-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:tuer }
+    requirements:
+        colonie_id: \d+         
