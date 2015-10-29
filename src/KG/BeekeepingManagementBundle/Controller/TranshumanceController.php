@@ -36,7 +36,7 @@ class TranshumanceController extends Controller
     */    
     public function viewAllAction(Request $request, Colonie $colonie, $page)
     {
-        $exploitation = $colonie->getRucher()->getExploitation();
+        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -74,7 +74,7 @@ class TranshumanceController extends Controller
     */    
     public function addAction(Colonie $colonie, Request $request)
     {
-        $exploitation = $colonie->getRuche()->getEmplacement()->getRucher()->getExploitation();
+        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -94,7 +94,6 @@ class TranshumanceController extends Controller
         $form = $this->createForm(new TranshumanceType, $transhumance);
         
         if ($form->handleRequest($request)->isValid()){
-            $transhumance->getColonie()->setRucher($transhumance->getEmplacementto()->getRucher());
             $transhumance->getColonie()->getRuche()->setEmplacement($transhumance->getEmplacementto());
             
             $em = $this->getDoctrine()->getManager();

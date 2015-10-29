@@ -46,6 +46,12 @@ class Ruche
      * @ORM\Column(name="nom", type="string", length=25)
      */
     private $nom;
+
+     /**
+      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="colonies")
+      * @ORM\JoinColumn(nullable=false)
+      */
+    private $rucher;  
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Image", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -59,8 +65,7 @@ class Ruche
     private $colonie;
     
     /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="ruche")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="ruche", cascade={"persist"})
      */
     private $emplacement;
     
@@ -93,6 +98,7 @@ class Ruche
         $this->setCorps(new Corps());
         if( $emplacement){
             $this->setEmplacement($emplacement);
+            $this->setRucher($emplacement->getRucher());
         }
         $this->colonie = new Colonie($this);
     }
@@ -182,10 +188,13 @@ class Ruche
      * @param \KG\BeekeepingManagementBundle\Entity\Emplacement $emplacement
      * @return Ruche
      */
-    public function setEmplacement(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacement)
+    public function setEmplacement(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacement = null)
     {
         $this->emplacement = $emplacement;
-        $emplacement->setRuche($this);
+        if($emplacement){
+            $emplacement->setRuche($this);
+            $this->rucher = $emplacement->getRucher();
+        }
         return $this;
     }
 
@@ -278,6 +287,30 @@ class Ruche
         return $this->matiere;
     }    
 
+    /**
+     * Set rucher
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Rucher $rucher
+     * @return Ruche
+     */
+    public function setRucher(\KG\BeekeepingManagementBundle\Entity\Rucher $rucher)
+    {
+        $this->rucher = $rucher;
+        $rucher->addRuche($this);
+
+        return $this;
+    }
+
+    /**
+     * Get rucher
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Rucher 
+     */
+    public function getRucher()
+    {
+        return $this->rucher;
+    }
+    
    /**
    * @Assert\Callback
    */

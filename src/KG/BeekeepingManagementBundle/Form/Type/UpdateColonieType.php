@@ -37,12 +37,7 @@ class UpdateColonieType extends AbstractType
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
-                    ))
-                                             
-            ->add('remerages', 'collection', array(
-                'type'  => new UpdateRemerageType(),
-                'label' => false
-            ));               
+                    ));             
     }
     
     /**

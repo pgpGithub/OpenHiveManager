@@ -37,7 +37,7 @@ class RemerageController extends Controller
     */    
     public function viewAllAction(Request $request, Colonie $colonie, $page)
     {
-        $exploitation = $colonie->getRucher()->getExploitation();
+        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -77,7 +77,7 @@ class RemerageController extends Controller
     {
         $not_permitted = true;
         
-        foreach ( $colonie->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+        foreach ( $colonie->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
             if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
                 $not_permitted = false;
                 break;

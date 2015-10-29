@@ -46,13 +46,7 @@ class Colonie
      *
      * @ORM\Column(name="numero", type="integer")
      */
-    private $numero;    
-      
-     /**
-      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="colonies")
-      * @ORM\JoinColumn(nullable=false)
-      */
-    private $rucher;       
+    private $numero;         
     
      /**
      * @var \DateTime
@@ -106,6 +100,7 @@ class Colonie
     
      /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
      */
     private $ruche;
@@ -170,9 +165,9 @@ class Colonie
         $numero = 0;
         
         foreach ($this->ruche->getEmplacement()->getRucher()->getExploitation()->getRuchers() as $rucher) {
-            foreach ($rucher->getColonies() as $colonie) {
+            foreach ($rucher->getRuches() as $ruche) {
                 // Si la colonie a déjà été sauvegardée, on la comptabilise
-                if( $colonie->getId() ){
+                if( $ruche->getColonie()->getId() ){
                     $numero ++;
                 }
             }
@@ -442,30 +437,6 @@ class Colonie
     {
         return $this->visites;
     }    
-
-    /**
-     * Set rucher
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Rucher $rucher
-     * @return Colonie
-     */
-    public function setRucher(\KG\BeekeepingManagementBundle\Entity\Rucher $rucher)
-    {
-        $this->rucher = $rucher;
-        $rucher->addColony($this);
-
-        return $this;
-    }
-
-    /**
-     * Get rucher
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Rucher 
-     */
-    public function getRucher()
-    {
-        return $this->rucher;
-    }
 
     /**
      * Set origineColonie

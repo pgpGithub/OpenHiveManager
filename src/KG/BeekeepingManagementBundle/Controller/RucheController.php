@@ -42,7 +42,7 @@ class RucheController extends Controller
     */    
     public function updateAction(Ruche $ruche, Request $request)
     {
-        $apiculteurExploitations = $ruche->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $ruche->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -67,7 +67,7 @@ class RucheController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Ruche mise à jour avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $ruche->getEmplacement()->getRucher()->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Ruche:update.html.twig', 
@@ -83,7 +83,7 @@ class RucheController extends Controller
     */    
     public function viewAction(Request $request, Ruche $ruche)
     {
-        $apiculteurExploitations = $ruche->getEmplacement()->getRucher()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $ruche->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -126,10 +126,7 @@ class RucheController extends Controller
         $form = $this->createForm(new AddRucheType, $ruche);
         
         if ($form->handleRequest($request)->isValid()){
-        
-            // On relie la colonie au rucher
-            $ruche->getColonie()->setRucher($emplacement->getRucher());
-            
+                    
             // La date du remérage est la même que celle de la création de la colonie
             $ruche->getColonie()->getRemerages()[0]->setDate($ruche->getColonie()->getDateColonie());
             
@@ -140,7 +137,7 @@ class RucheController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Ruche créée avec succès');
 
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $ruche->getEmplacement()->getRucher()->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $ruche->getRucher()->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Ruche:add.html.twig', 

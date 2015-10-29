@@ -45,7 +45,7 @@ class DiviserRucheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $propertyPathToEmplacement = 'emplacement';
-        $exploitation = $this->colonieMere->getRucher()->getExploitation();
+        $exploitation = $this->colonieMere->getRuche()->getRucher()->getExploitation();
         
         $builder    
             ->add('rucher', 'entity', array(

@@ -30,16 +30,16 @@ class UpdateReineType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {        
         $builder
             ->add('clippage', 'checkbox', array(
-                'required'  => false,
-                'label'     => false                
+                'required'    => false,
+                'label'       => false,
             ))
         
             ->add('marquage', 'checkbox', array(
-                'required'  => false,
-                'label'     => false
+                'required'    => false,
+                'label'       => false,
             ));       
     }
     

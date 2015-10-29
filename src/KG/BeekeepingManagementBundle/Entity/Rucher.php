@@ -81,9 +81,9 @@ class Rucher
     private $localisation;
     
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="rucher", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="rucher", cascade={"remove"}, orphanRemoval=true)
      */
-    private $colonies; 
+    private $ruches; 
     
     /**
      * Constructor
@@ -276,36 +276,36 @@ class Rucher
     }
 
     /**
-     * Add colonies
+     * Add ruches
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonies
+     * @param \KG\BeekeepingManagementBundle\Entity\Ruche $ruches
      * @return Rucher
      */
-    public function addColony(\KG\BeekeepingManagementBundle\Entity\Colonie $colonies)
+    public function addRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruches)
     {
-        $this->colonies[] = $colonies;
+        $this->ruches[] = $ruches;
 
         return $this;
     }
 
     /**
-     * Remove colonies
+     * Remove ruches
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Colonie $colonies
+     * @param \KG\BeekeepingManagementBundle\Entity\Ruche $ruches
      */
-    public function removeColony(\KG\BeekeepingManagementBundle\Entity\Colonie $colonies)
+    public function removeRuche(\KG\BeekeepingManagementBundle\Entity\Ruche $ruches)
     {
-        $this->colonies->removeElement($colonies);
+        $this->ruches->removeElement($ruches);
     }
 
     /**
-     * Get colonies
+     * Get ruches
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getColonies()
+    public function getRuches()
     {
-        return $this->colonies;
+        return $this->ruches;
     }
     
    /**

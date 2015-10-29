@@ -59,6 +59,7 @@
                         <td><strong>Matière</strong></td>
                         <td>{{ ruche.matiere.libelle }}</td>
                     </tr>
+                    {% if ruche.emplacement %}
                     <tr>
                         <td><strong>% de soleil</strong></td>
                         <td>{{ ruche.emplacement.soleil }}</td>
@@ -67,6 +68,7 @@
                         <td><strong>Orientation</strong></td>
                         <td>{{ ruche.emplacement.orientation.libelle }}</td>
                     </tr>
+                    {% endif %}
                     <tr>
                         <td><strong>Affectation</strong></td>
                         <td>{{ ruche.colonie.affectation.libelle }}</td>

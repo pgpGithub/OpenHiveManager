@@ -37,7 +37,7 @@ class TranshumanceType extends AbstractType
         
         $transhumance = $builder->getData();
         $colonie      = $transhumance->getColonie();
-        $exploitation = $colonie->getRucher()->getExploitation()->getId();
+        $exploitation = $colonie->getRuche()->getRucher()->getExploitation()->getId();
         $rucherfrom = $transhumance->getEmplacementfrom()->getRucher()->getId();
         
         $transhumance->setDate(new \DateTime());

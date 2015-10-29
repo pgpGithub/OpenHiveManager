@@ -30,8 +30,9 @@ class UpdateRemerageType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {        
+    {               
         $builder
+                ->add('colonie', new UpdateColonieType())
                 ->add('reine', new UpdateReineType(), array(
                             'label' => false,
                         ));

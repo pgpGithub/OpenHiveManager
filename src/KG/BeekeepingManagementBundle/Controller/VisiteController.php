@@ -36,7 +36,7 @@ class VisiteController extends Controller
     */    
     public function viewAction(Visite $visite)
     {
-        $apiculteurExploitations = $visite->getColonie()->getRucher()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $visite->getColonie()->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -60,7 +60,7 @@ class VisiteController extends Controller
     */    
     public function addAction(Colonie $colonie, Request $request)
     {
-        $exploitation = $colonie->getRucher()->getExploitation();
+        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -128,7 +128,7 @@ class VisiteController extends Controller
     */    
     public function updateAction(Visite $visite, Request $request)
     {
-        $apiculteurExploitations = $visite->getColonie()->getRucher()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $visite->getColonie()->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -184,7 +184,7 @@ class VisiteController extends Controller
     */    
     public function viewAllAction(Request $request, Colonie $colonie, $page)
     {
-        $exploitation = $colonie->getRucher()->getExploitation();
+        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         

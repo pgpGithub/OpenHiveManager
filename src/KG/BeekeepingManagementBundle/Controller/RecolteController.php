@@ -39,7 +39,7 @@ class RecolteController extends Controller
     */    
     public function addAction(Colonie $colonie, Request $request)
     {
-        $apiculteurExploitations = $colonie->getRucher()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $colonie->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -49,7 +49,7 @@ class RecolteController extends Controller
             }
         }
         
-        if( $not_permitted || $colonie->getRuche()->getHausses()->isEmpty() || $colonie->getMorte() ){
+        if( $not_permitted || $colonie->getRuche()->getHausses()->isEmpty()){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -96,7 +96,7 @@ class RecolteController extends Controller
     */    
     public function viewAllAction(Request $request, Colonie $colonie, $page)
     {
-        $exploitation = $colonie->getRucher()->getExploitation();
+        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         

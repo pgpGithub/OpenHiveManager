@@ -20,7 +20,7 @@
 namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Colonie;
-use KG\BeekeepingManagementBundle\Form\Type\UpdateColonieType;
+use KG\BeekeepingManagementBundle\Form\Type\UpdateRemerageType;
 use KG\BeekeepingManagementBundle\Form\Type\DiviserType;
 use KG\BeekeepingManagementBundle\Form\Type\CauseType;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +38,7 @@ class ColonieController extends Controller
     */    
     public function viewAction(Colonie $colonie)
     {
-        $apiculteurExploitations = $colonie->getRucher()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $colonie->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -62,7 +62,7 @@ class ColonieController extends Controller
     */    
     public function deleteAction(Colonie $colonie)
     {
-        $exploitation = $colonie->getRucher()->getExploitation();
+        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -91,7 +91,7 @@ class ColonieController extends Controller
         $flash = $this->get('braincrafted_bootstrap.flash');
         $flash->success('Colonie supprimée avec succès');
         
-        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRucher()->getId())));            
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRuche()->getRucher()->getId())));            
     }
     
     /**
@@ -102,7 +102,7 @@ class ColonieController extends Controller
     {
         $not_permitted = true;
         
-        foreach ( $colonie->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+        foreach ( $colonie->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
             if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
                 $not_permitted = false;
                 break;
@@ -112,27 +112,19 @@ class ColonieController extends Controller
         if( $not_permitted || $colonie->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
-        
-        $ancienClippage = $colonie->getRemerages()->last()->getReine()->getClippage();
                 
-        $form = $this->createForm(new UpdateColonieType, $colonie);
+        $form = $this->createForm(new UpdateRemerageType(), $colonie->getRemerages()->last());
         
         if ($form->handleRequest($request)->isValid()){
-            
-            if($ancienClippage && !$colonie->getReine()->getClippage()){
-                $flash = $this->get('braincrafted_bootstrap.flash');
-                $flash->danger('Le clippage ne peut pas être annulé');
-            }else{
                 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($colonie);
-                $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($colonie);
+            $em->flush();
 
-                $flash = $this->get('braincrafted_bootstrap.flash');
-                $flash->success('Colonie mise à jour avec succès');
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Colonie mise à jour avec succès');
 
-                return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $colonie->getRuche()->getId())));
-            }
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));
         }
 
         return $this->render('KGBeekeepingManagementBundle:Colonie:update.html.twig', 
@@ -149,7 +141,7 @@ class ColonieController extends Controller
     {
         $not_permitted = true;
         
-        foreach ( $colonieMere->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
+        foreach ( $colonieMere->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
             if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
                 $not_permitted = false;
                 break;
@@ -167,9 +159,6 @@ class ColonieController extends Controller
             
             $colonieMere->getRuche()->getCorps()->diviser($colonie->getRuche()->getCorps()->getNbnourriture(), $colonie->getRuche()->getCorps()->getNbcouvain());
 
-            // On relie la colonie au rucher
-            $colonie->setRucher($colonie->getRuche()->getEmplacement()->getRucher());
-
             // La date du remérage est la même que celle de la création de la colonie
             $colonie->getRemerages()[0]->setDate($colonie->getDateColonie());
             
@@ -185,7 +174,7 @@ class ColonieController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Colonie divisée avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRucher()->getId())));  
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRuche()->getRucher()->getId())));  
         }
 
         return $this->render('KGBeekeepingManagementBundle:Colonie:diviser.html.twig', 
@@ -200,7 +189,7 @@ class ColonieController extends Controller
     */    
     public function tuerAction(Colonie $colonie, Request $request)
     {
-        $exploitation = $colonie->getRucher()->getExploitation();
+        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
         $not_permitted = true;
         
@@ -217,13 +206,12 @@ class ColonieController extends Controller
 
         $form = $this->createForm(new CauseType, $colonie);
         
-        if ($form->handleRequest($request)->isValid()){
-            $ruche = $colonie->getRuche();
-            $colonie->setRuche();   
+        if ($form->handleRequest($request)->isValid()){  
             $colonie->setMorte(true);
+            $colonie->getRuche()->getEmplacement()->setRuche();
+            $colonie->getRuche()->setEmplacement();
             $em = $this->getDoctrine()->getManager();
             $em->persist($colonie);
-            $em->remove($ruche);
             $em->flush();
 
             $flash = $this->get('braincrafted_bootstrap.flash');

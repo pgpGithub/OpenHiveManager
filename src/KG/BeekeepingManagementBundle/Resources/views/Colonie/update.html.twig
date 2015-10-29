@@ -54,22 +54,16 @@
 
     <fieldset>
         <legend>Colonnie</legend>
-        {{ form_row(form.affectation, {'label': 'Affectation :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.colonie.affectation, {'label': 'Affectation :', 'label_col': 4, 'widget_col': 5})  }}
     </fieldset>          
     <fieldset>
         <legend>Reine</legend>
-        {% for remerage in form.remerages %}
             <div class="row">
-                <div class="col-md-offset-4 col-md-6">            
-                    {{ form_row(remerage.reine.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                    {% if colonie.remerages|last.reine.clippage %}
-                        {{ form_row(remerage.reine.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}, 'disabled': 'true'}) }}                        
-                    {% else %}    
-                        {{ form_row(remerage.reine.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                    {% endif %}                     
+                <div class="col-md-offset-4 col-md-6">   
+                    {{ form_row(form.reine.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                    {{ form_row(form.reine.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}               
                 </div>
-            </div>  
-        {% endfor %}        
+            </div>    
     </fieldset>             
             
     {{ form_rest(form) }}

@@ -30,8 +30,7 @@ class CheckDateMort extends Constraint
     public $message2 = 'La date de la mort ne peut pas être plus ancienne que la date de naissance';
     public $message3 = 'La date de la mort ne peut pas être plus ancienne que la date de la dernière visite';
     public $message4 = 'La date de la mort ne peut pas être plus ancienne que la date du dernier remérage';
-    public $message5 = 'La date de la mort ne peut pas être plus ancienne que la date de la dernière récolte';
-    public $message6 = 'La date de la mort ne peut pas être plus ancienne que la date de la dernière transhumance';
+    public $message5 = 'La date de la mort ne peut pas être plus ancienne que la date de la dernière transhumance';
     
     private $colonie;
     

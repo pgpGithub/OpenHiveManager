@@ -46,15 +46,9 @@ class CheckDateMortValidator extends ConstraintValidator
             }            
         }            
 
-        if( !$constraint->getColonie()->getRecoltes()->isEmpty() ){
-            if( $value <= $constraint->getColonie()->getRecoltes()->last()->getDate() ){
-                $this->context->addViolation($constraint->message5);
-            }            
-        } 
-
         if( !$constraint->getColonie()->getTranshumances()->isEmpty() ){
             if( $value <= $constraint->getColonie()->getTranshumances()->last()->getDate() ){
-                $this->context->addViolation($constraint->message6);
+                $this->context->addViolation($constraint->message5);
             }            
         }                     
     }
