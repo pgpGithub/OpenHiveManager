@@ -60,7 +60,7 @@ class Ruche
     private $image;
 
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="ruche")
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="ruche", cascade={"remove"}, orphanRemoval=true)
      */
     private $colonie;
     

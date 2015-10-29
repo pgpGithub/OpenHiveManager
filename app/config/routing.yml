@@ -4,7 +4,7 @@ kg_site:
 
 kg_beekeeping_management:
     resource: "@KGBeekeepingManagementBundle/Resources/config/routing.yml"
-    prefix:   /    
+    prefix:   /manager/    
     
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
@@ -27,3 +27,7 @@ fos_user_change_password:
     
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"    
+    
+kg_user_delete:
+    resource: "@KGUserBundle/Resources/config/routing/delete.yml"
+    prefix: /profile

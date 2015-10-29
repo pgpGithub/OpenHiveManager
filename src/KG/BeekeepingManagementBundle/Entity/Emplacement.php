@@ -75,7 +75,7 @@ class Emplacement
     private $rucher;    
 
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="emplacement", cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="emplacement")
      */
     private $ruche; 
     

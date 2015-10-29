@@ -1,0 +1,5 @@
+kg_delete_user:
+    path:      /delete
+    defaults:  { _controller: KGUserBundle:User:deleteUser }
+        
+    

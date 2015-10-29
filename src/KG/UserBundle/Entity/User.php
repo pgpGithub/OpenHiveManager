@@ -78,20 +78,4 @@ class User extends BaseUser
     {
         return $this->apiculteurExploitations;
     }
-
-    /**
-     * Get exploitations
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getExploitations()
-    {  
-        $exploitations = new \Doctrine\Common\Collections\ArrayCollection(); 
-                
-        foreach ( $this->apiculteurExploitations as $apiculteurExploitation ){
-            $exploitations->add($apiculteurExploitation->getExploitation());
-        }
-        
-        return $exploitations;
-    }   
 }

@@ -1,211 +1,211 @@
 kg_beekeeping_management_home:
-    path:      /manager/{page}
+    path:      /exploitation/afficher-exploitation/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:view, page: 1 }
         
 kg_beekeeping_management_add_exploitation:
-    path:      /manager/exploitation/creer-exploitation
+    path:      /exploitation/creer-exploitation
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:add }
        
 kg_beekeeping_management_update_exploitation:
-    path:      /manager/exploitation/{exploitation_id}/modifier-exploitation/
+    path:      /exploitation/{exploitation_id}/modifier-exploitation/
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:update }
     requirements:
         exploitation_id: \d+
         
 kg_beekeeping_management_delete_exploitation:
-    path:      /manager/exploitation/{exploitation_id}/supprimer-exploitation/
+    path:      /exploitation/{exploitation_id}/supprimer-exploitation/
     defaults:  { _controller: KGBeekeepingManagementBundle:Exploitation:delete }
     requirements:
         exploitation_id: \d+
                 
 kg_beekeeping_management_add_rucher:
-    path:      /manager/exploitation/{exploitation_id}/rucher/creer-rucher
+    path:      /exploitation/{exploitation_id}/rucher/creer-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:add }
     requirements:
         exploitation_id: \d+
         
 kg_beekeeping_management_update_rucher:
-    path:      /manager/exploitation/rucher/{rucher_id}/modifier-rucher
+    path:      /exploitation/rucher/{rucher_id}/modifier-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:update }
     requirements:
         rucher_id: \d+
         
 kg_beekeeping_management_delete_rucher:
-    path:      /manager/exploitation/rucher/{rucher_id}/supprimer-rucher
+    path:      /exploitation/rucher/{rucher_id}/supprimer-rucher
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:delete }
     requirements:
         rucher_id: \d+
         
 kg_beekeeping_management_view_rucher:
-    path:      /manager/exploitation/rucher/{rucher_id}/afficher-rucher/{page}
+    path:      /exploitation/rucher/{rucher_id}/afficher-rucher/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view, page: 1 }
     requirements:
         rucher_id: \d+
 
 kg_beekeeping_management_view_colonies_mortes:
-    path:      /manager/exploitation/rucher/{rucher_id}/afficher-colonies-mortes/{page}
+    path:      /exploitation/rucher/{rucher_id}/afficher-colonies-mortes/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:viewColoniesMortes, page: 1 }
     requirements:
         rucher_id: \d+
 
 kg_beekeeping_management_add_ruche:
-    path:      /manager/exploitation/rucher/emplacement/{emplacement_id}/ruche/creer-ruche/
+    path:      /exploitation/rucher/emplacement/{emplacement_id}/ruche/creer-ruche/
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:add }
     requirements:
         emplacement_id: \d+     
 
 kg_beekeeping_management_update_ruche:
-    path:      /manager/exploitation/rucher/ruche/{ruche_id}/modifier-ruche
+    path:      /exploitation/rucher/ruche/{ruche_id}/modifier-ruche
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:update }
     requirements:
         ruche_id: \d+
                 
 kg_beekeeping_management_view_ruche:
-    path:      /manager/exploitation/rucher/ruche/{ruche_id}/afficher-ruche
+    path:      /exploitation/rucher/ruche/{ruche_id}/afficher-ruche
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view }
     requirements:
         ruche_id: \d+
        
 kg_beekeeping_management_add_recolte:
-    path:      /manager/exploitation/ruche/colonie/{colonie_id}/ajouter-recolte
+    path:      /exploitation/ruche/colonie/{colonie_id}/ajouter-recolte
     defaults:  { _controller: KGBeekeepingManagementBundle:Recolte:add }
     requirements:
         colonie_id: \d+
 
 kg_beekeeping_management_add_transhumance:
-    path:      /manager/exploitation/ruche/colonie/{colonie_id}/ajouter-transhumance
+    path:      /exploitation/ruche/colonie/{colonie_id}/ajouter-transhumance
     defaults:  { _controller: KGBeekeepingManagementBundle:Transhumance:add }
     requirements:
         colonie_id: \d+
         
 kg_beekeeping_management_add_visite:
-    path:      /manager/exploitation/rucher/ruche/colonie/{colonie_id}/creer-visite/
+    path:      /exploitation/rucher/ruche/colonie/{colonie_id}/creer-visite/
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:add }
     requirements:
         colonie_id: \d+
 
 kg_beekeeping_management_view_transhumances:
-    path:      /manager/exploitation/rucher/ruche/colonie/{colonie_id}/afficher-transhumances/{page}
+    path:      /exploitation/rucher/ruche/colonie/{colonie_id}/afficher-transhumances/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Transhumance:viewAll, page: 1 }
     requirements:
         colonie_id: \d+
 
 kg_beekeeping_management_view_ruchers:
-    path:      /manager/exploitation/{exploitation_id}/afficher-ruchers/{page}
+    path:      /exploitation/{exploitation_id}/afficher-ruchers/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:viewAll, page: 1 }
     requirements:
         exploitation_id: \d+
 
 kg_beekeeping_management_view_emplacements:
-    path:      /manager/exploitation/rucher/{rucher_id}/afficher-emplacements/{page}
+    path:      /exploitation/rucher/{rucher_id}/afficher-emplacements/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:viewAll, page: 1 }
     requirements:
         rucher_id: \d+
 
 kg_beekeeping_management_view_visites:
-    path:      /manager/exploitation/rucher/ruche/colonie/{colonie_id}/afficher-visites/{page}
+    path:      /exploitation/rucher/ruche/colonie/{colonie_id}/afficher-visites/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:viewAll, page: 1 }
     requirements:
         colonie_id: \d+
         
 kg_beekeeping_management_view_recoltes:
-    path:      /manager/exploitation/rucher/ruche/colonie/{colonie_id}/afficher-recoltes/{page}
+    path:      /exploitation/rucher/ruche/colonie/{colonie_id}/afficher-recoltes/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Recolte:viewAll, page: 1 }
     requirements:
         colonie_id: \d+
         
 kg_beekeeping_management_view_remerages:
-    path:      /manager/exploitation/rucher/ruche/colonie/{colonie_id}/afficher-remerages/{page}
+    path:      /exploitation/rucher/ruche/colonie/{colonie_id}/afficher-remerages/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:viewAll, page: 1 }
     requirements:
         colonie_id: \d+
         
 kg_beekeeping_management_update_visite:
-    path:      /manager/exploitation/rucher/ruche/colonie/visite/{visite_id}/modifier-visite
+    path:      /exploitation/rucher/ruche/colonie/visite/{visite_id}/modifier-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:update }
     requirements:
         visite_id: \d+
         
 kg_beekeeping_management_delete_visite:
-    path:      /manager/exploitation/rucher/ruche/colonie/visite/{visite_id}/supprimer-visite
+    path:      /exploitation/rucher/ruche/colonie/visite/{visite_id}/supprimer-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:delete }
     requirements:
         visite_id: \d+
         
 kg_beekeeping_management_view_visite:
-    path:      /manager/exploitation/rucher/ruche/colonie/visite/{visite_id}/afficher-visite
+    path:      /exploitation/rucher/ruche/colonie/visite/{visite_id}/afficher-visite
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:view }
     requirements:
         visite_id: \d+ 
                
 kg_beekeeping_management_delete_colonie:
-    path:      /manager/exploitation/colonie/{colonie_id}/supprimer-colonie
+    path:      /exploitation/colonie/{colonie_id}/supprimer-colonie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:delete }
     requirements:
         colonie_id: \d+
 
 kg_beekeeping_management_update_colonie:
-    path:      /manager/exploitation/colonie/{colonie_id}/modifier-colonie
+    path:      /exploitation/colonie/{colonie_id}/modifier-colonie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:update }
     requirements:
         colonie_id: \d+      
 
 kg_beekeeping_management_view_colonie:
-    path:      /manager/exploitation/colonie/{colonie_id}/afficher-colonie
+    path:      /exploitation/colonie/{colonie_id}/afficher-colonie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:view }
     requirements:
         colonie_id: \d+         
         
 kg_beekeeping_management_diviser_colonie:
-    path:      /manager/exploitation/colonie/{colonie_id}/diviser-colonie
+    path:      /exploitation/colonie/{colonie_id}/diviser-colonie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:diviser }
     requirements:
         colonie_id: \d+
 
 kg_beekeeping_management_add_remerage:
-    path:      /manager/exploitation/colonie/{colonie_id}/ajouter-remerage
+    path:      /exploitation/colonie/{colonie_id}/ajouter-remerage
     defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:add }
     requirements:
         colonie_id: \d+
         
 kg_beekeeping_management_enrucher_colonie:
-    path:      /manager/exploitation/colonie/{colonie_id}/enrucher-colonie
+    path:      /exploitation/colonie/{colonie_id}/enrucher-colonie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:enrucher }
     requirements:
         colonie_id: \d+ 
 
 kg_beekeeping_management_select_emplacements_ruche:
-    path:      /manager/exploitation/ruche/select_emplacements-ruche
+    path:      /exploitation/ruche/select_emplacements-ruche
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:emplacements }
     options:
         expose: true 
         
 kg_beekeeping_management_tuer_colonie:
-    path:      /manager/exploitation/colonie/{colonie_id}/tuer-colonie
+    path:      /exploitation/colonie/{colonie_id}/tuer-colonie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:tuer }
     requirements:
         colonie_id: \d+ 
         
 kg_beekeeping_management_add_emplacement:
-    path:      /manager/exploitation/rucher/{rucher_id}/creer-emplacement/
+    path:      /exploitation/rucher/{rucher_id}/creer-emplacement/
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:add }
     requirements:
         ruche_id: \d+
         
 kg_beekeeping_management_delete_emplacement:
-    path:      /manager/exploitation/rucher/emplacement/{emplacement_id}/supprimer-emplacement
+    path:      /exploitation/rucher/emplacement/{emplacement_id}/supprimer-emplacement
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:delete }
     requirements:
         visite_id: \d+
         
 kg_beekeeping_management_view_emplacement:
-    path:      /manager/exploitation/rucher/emplacement/{emplacement_id}/afficher-emplacement
+    path:      /exploitation/rucher/emplacement/{emplacement_id}/afficher-emplacement
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:view }
     requirements:
         visite_id: \d+   
         
 kg_beekeeping_management_update_emplacement:
-    path:      /manager/exploitation/rucher/emplacement/{emplacement_id}/modifier-emplacement
+    path:      /exploitation/rucher/emplacement/{emplacement_id}/modifier-emplacement
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:update }
     requirements:
         colonie_id: \d+              
