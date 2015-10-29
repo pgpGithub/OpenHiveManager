@@ -71,6 +71,45 @@ class RucherController extends Controller
                     )
             );        
     }
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
+    */    
+    public function viewColoniesMortesAction(Request $request, Rucher $rucher, $page)
+    {
+        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
+        $not_permitted = true;
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+        
+        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Colonie')->getListMortesByRucher($rucher);    
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', $page),
+            10,
+            array(
+                'defaultSortFieldName' => 'colonie.numero',
+            )                
+        );        
+        
+        return $this->render('KGBeekeepingManagementBundle:Rucher:viewColoniesMortes.html.twig', 
+                array(  'rucher'     => $rucher,
+                        'pagination' => $pagination
+                    )
+            );        
+    }
     
     /**
     * @Security("has_role('ROLE_USER')")

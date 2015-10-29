@@ -1,0 +1,82 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}{{ parent() }} - Colonies mortes{% endblock %}
+
+{% block menu %}
+    {% include 'KGBeekeepingManagementBundle::menuRucher.html.twig' %}
+{% endblock menu %}
+
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Colonies mortes</h4>
+        </div>
+    </div>    
+{% endblock %}
+
+{% block panel_body %}        
+    <div class="row">
+        <div class=" col-md-12"> 
+            <div class="table-responsive">
+                <table id="mytable" class="table table-bordred table-striped">
+                    <thead>
+                        <th>Numéro</th>
+                        <th>Date mort</th>
+                        <th>Cause mort</th>
+                    </thead>
+                    <tbody>
+                        {% for colonie in pagination %}
+                            <tr>
+                                <td><a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': colonie.id }) }}">{{ colonie.numero }}</a></td>                                    
+                                <td>{{ colonie.dateMort|date('d/m/Y') }}</td>
+                                <td>
+                                    {% for cause in colonie.causes %}
+                                        {% if not loop.first %}
+                                            - 
+                                        {% endif %}
+                                        {{ cause.libelle }}
+                                    {% endfor %}
+
+                                    {% if colonie.causes is not empty and colonie.autreCause %}
+                                        -
+                                    {% endif %}
+                                    {{ colonie.autreCause }}                                                                  
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12 navigation" align="right">
+                    {{ knp_pagination_render(pagination) }}
+                </div> 
+            </div>                            
+        </div>
+    </div>                   
+{% endblock %}

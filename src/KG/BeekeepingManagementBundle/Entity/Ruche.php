@@ -48,7 +48,7 @@ class Ruche
     private $nom;
 
      /**
-      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="colonies")
+      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="ruches")
       * @ORM\JoinColumn(nullable=false)
       */
     private $rucher;  

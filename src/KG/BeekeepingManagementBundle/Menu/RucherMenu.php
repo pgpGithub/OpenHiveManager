@@ -33,6 +33,21 @@ class RucherMenu extends ContainerAware
             'route' => 'kg_beekeeping_management_home'
         ));       
         
+        $morteExist = false;
+        foreach( $rucher->getRuches() as $ruche ){
+            if( $ruche->getColonie()->getMorte() ){
+                $morteExist = true;
+                break;
+            }
+        }
+        
+        if( $morteExist ){
+            $menu->addChild('.icon-heartbeat Colonies mortes', array(
+                'route' => 'kg_beekeeping_management_view_colonies_mortes',
+                'routeParameters' => array('rucher_id' => $rucher->getId())
+            ));              
+        }
+        
         $menu->addChild('.icon-pencil Modifier le rucher', array(
             'route' => 'kg_beekeeping_management_update_rucher',
             'routeParameters' => array('rucher_id' => $rucher->getId())

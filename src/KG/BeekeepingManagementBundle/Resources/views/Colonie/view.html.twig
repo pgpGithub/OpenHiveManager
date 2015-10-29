@@ -39,24 +39,7 @@
     </div>
 {% endblock %}
 
-{% block panel_body %}    
-    {% if colonie.morte %}
-        <div class="well">
-            <h4>{{ icon('heartbeat') }} Cette colonie est morte le {{ colonie.dateMort|date("d/m/Y") }}</h4>
-            Causes de la mort :
-            {% for cause in colonie.causes %}
-                {% if not loop.first %}
-                    - 
-                {% endif %}
-                {{ cause.libelle }}
-            {% endfor %}
-
-            {% if colonie.causes is not empty and colonie.autreCause %}
-                -
-            {% endif %}
-            {{ colonie.autreCause }}
-        </div>
-    {% endif %}      
+{% block panel_body %}        
     <div class="row">
         {% set reine = colonie.remerages|last.reine %}       
         <div class="col-sm-4">

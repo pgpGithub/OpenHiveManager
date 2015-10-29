@@ -20,7 +20,6 @@
 namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ColonieRepository
@@ -30,29 +29,15 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class ColonieRepository extends EntityRepository
 {
-    public function getListByExploitation($page=1, $maxperpage=10, $exploitation)
+    public function getListMortesByRucher($rucher)
     {
-        $q = $this->createQueryBuilder('c')
-                  ->leftJoin('c.exploitation','e')
-                  ->addSelect('e')
-                  ->where('e.id = :id')
-                  ->setParameter('id',$exploitation);
-        
-        $q->setFirstResult(($page-1)*$maxperpage)
-          ->setMaxResults($maxperpage);
-        
-        return new Paginator($q);
-    }
-    
-    public function countByExploitation($exploitation)
-    {
-        return $this->createQueryBuilder('c')
-                    ->select('COUNT(c)')
-                    ->leftJoin('c.exploitation','e')
-                    ->where('e.id = :id')              
-                    ->setParameter('id',$exploitation)
-                    ->getQuery()
-                    ->getSingleScalarResult();
-    }   
-      
+        return $this->createQueryBuilder('colonie')
+                    ->leftJoin('colonie.ruche','ruche')
+                    ->addSelect('ruche')
+                    ->leftJoin('ruche.rucher','rucher')
+                    ->addSelect('rucher')                
+                    ->where('rucher.id = :id')
+                    ->setParameter('id',$rucher->getId())
+                    ->getQuery();
+    }      
 }
