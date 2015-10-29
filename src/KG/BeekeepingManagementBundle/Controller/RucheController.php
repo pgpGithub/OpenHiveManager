@@ -52,7 +52,7 @@ class RucheController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || $ruche->getColonie()->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
