@@ -11,7 +11,7 @@ kg_beekeeping_management_add_transhumance:
         colonie_id: \d+
         
 kg_beekeeping_management_add_visite:
-    path:      /{colonie_id}/creer-visite/
+    path:      /{colonie_id}/ajouter-visite/
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:add }
     requirements:
         colonie_id: \d+

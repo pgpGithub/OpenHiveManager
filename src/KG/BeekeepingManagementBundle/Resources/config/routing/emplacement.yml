@@ -1,5 +1,5 @@
 kg_beekeeping_management_add_ruche:
-    path:      /{emplacement_id}/ruche/creer-ruche/
+    path:      /{emplacement_id}/ruche/ajouter-ruche/
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:add }
     requirements:
         emplacement_id: \d+     

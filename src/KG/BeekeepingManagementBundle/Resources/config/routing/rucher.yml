@@ -23,7 +23,7 @@ kg_beekeeping_management_view_colonies_mortes:
         rucher_id: \d+
         
 kg_beekeeping_management_add_emplacement:
-    path:      /exploitation/rucher/{rucher_id}/creer-emplacement/
+    path:      /{rucher_id}/ajouter-emplacement/
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:add }
     requirements:
         rucher_id: \d+        

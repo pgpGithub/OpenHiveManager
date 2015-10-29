@@ -61,6 +61,7 @@ class Ruche
 
      /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Colonie", mappedBy="ruche", cascade={"remove"}, orphanRemoval=true)
+     * @Assert\Valid() 
      */
     private $colonie;
     

@@ -75,12 +75,18 @@
                     </tr>
                     <tr>
                         <td><strong>Cadres nourriture</strong></td>
-                        <td>{% if ruche.colonie.ruche %}{{ ruche.corps.nbnourriture }}{% else %}0{% endif %}</td>
+                        <td>{{ ruche.corps.nbnourriture }}</td>
                     </tr>                    
                     <tr>
                         <td><strong>Cadres couvain</strong></td>
-                        <td>{% if ruche.colonie.ruche %}{{ ruche.corps.nbcouvain }}{% else %}0{% endif %}</td>
+                        <td>{{ ruche.corps.nbcouvain }}</td>
                     </tr>
+                    {% if ruche.colonie.visites is not empty %}
+                    <tr>
+                        <td><strong>Poids (kg)</strong></td>
+                        <td>{{ ruche.colonie.visites|last.poids }}</td>
+                    </tr>
+                    {% endif %}
                     {% for hausse in ruche.hausses %}
                     <tr>
                         <td><strong>Hausse n°{{ loop.index }}</strong> (cadres pleins/nombre cadres)</td>
