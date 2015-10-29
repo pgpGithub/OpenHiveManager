@@ -57,7 +57,7 @@
         
     <fieldset> 
         <legend>Ruche</legend>
-        {{ form_row(form.nom, {'label': 'Nom de la ruche :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.matiere, {'label': 'Matière :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.corps.type, {'label': 'Type :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.corps.nbcadres, {'label': 'Nombre de cadres :', 'label_col': 4, 'widget_col': 5})  }}
@@ -70,7 +70,7 @@
             {{ form_row(remerage.reine.race, {'label': 'Race :', 'label_col': 4, 'widget_col': 5})  }}      
         {% endfor %}
         {{ form_row(form.colonie.origineColonie, {'label': 'Origine :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.colonie.dateColonie, {'label': 'Année :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.colonie.dateColonie, {'label': 'Date de naissance :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.colonie.affectation, {'label': 'Affectation :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.colonie.etat, {'label': 'Etat :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.corps.nbnourriture, {'label': 'Cadres de nourriture :', 'label_col': 4, 'widget_col': 5})  }}

@@ -512,7 +512,7 @@ class Colonie
         if( $reineMere ){
             if( $reineMere->getRemerage()->getColonie()->getDateColonie() > $this->dateColonie ){
                  $context
-                   ->buildViolation('La date de division ne peut pas être antérieur à la date de naissance de la colonie mère') 
+                   ->buildViolation('La date de la division ne peut pas être antérieur à la date de naissance de la colonie mère') 
                    ->atPath('dateColonie')
                    ->addViolation();  
             }
@@ -523,7 +523,7 @@ class Colonie
             if( $this->remerages->count() == 1 ){
                 if(  $this->remerages[0]->getReine()->getAnneeReine()->diff($this->dateColonie)->format('%r%y') > 5 ){
                     $context
-                           ->buildViolation('L\'année de la colonie est trop éloignée de l\'année de la reine') 
+                           ->buildViolation('La date de naissance de la colonie est trop éloignée de l\'année de la reine') 
                            ->atPath('dateColonie')
                            ->addViolation();                      
                 }            
@@ -534,7 +534,7 @@ class Colonie
         
         if( $this->dateColonie > $today ){
             $context
-                   ->buildViolation('La date ne peut pas être située dans le futur') 
+                   ->buildViolation('La date de naissance de la colonie ne peut pas être située dans le futur') 
                    ->atPath('dateColonie')
                    ->addViolation();            
         }      

@@ -34,7 +34,7 @@
 {% block panel_body %}
                   
     {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-        {{ form_row(form.nom, {'label': 'Nom de l\'emplacement :', 'label_col': 4, 'widget_col': 5})  }}
+        {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.soleil, {'label': 'Taux d\'exposition au soleil :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.orientation, {'label': 'Orientation :', 'label_col': 4, 'widget_col': 5})  }}
     {{ form_rest(form) }}
