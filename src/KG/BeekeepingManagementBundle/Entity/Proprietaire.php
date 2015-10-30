@@ -64,7 +64,7 @@ class Proprietaire
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=50)
+     * @ORM\Column(name="adresse", type="string", length=150)
      */
     private $adresse;
 
