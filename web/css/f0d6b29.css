@@ -1,13 +1,8 @@
-.business-header {
-    height: 400px;
-    background: url('../../img/header.jpg') center center no-repeat scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
+header {
+    margin-bottom: 70px;
+    text-align: center;
 }
 
-.label {
-    font-size: 30%;
-    vertical-align:middle;
+.img-center {
+	margin: 0 auto;
 }

@@ -7,7 +7,7 @@
         <title>{% block title %}OpenHiveManager{% endblock %}</title>
 
         {% block stylesheets %}
-            {% stylesheets filter='cssrewrite' 
+            {% stylesheets filter='cssrewrite ?yui_css'
                 'css/bootstrap.css'
                 'css/font-awesome.min.css'   
                 '@KGSiteBundle/Resources/public/css/layout.css'%}
@@ -82,10 +82,13 @@
         <!-- /Main -->                
             
     {% block javascripts %}
-        <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
-        <script src="{{ asset('js/jquery.js') }}"></script>
-        <!-- Include all JavaScripts, compiled by Assetic -->
-        <script src="{{ asset('js/bootstrap.js') }}"></script>
+        {% javascripts filter='?yui_js' 
+            'js/jquery.js'
+            'js/bootstrap.js'%}
+            <script src="{{ asset_url }}" type="text/javascript"></script>  
+        {% endjavascripts %}
+        {{ form_javascript(form) }}
     {% endblock %}    
+    
     </body>
 </html>

@@ -19,7 +19,7 @@
 
 {% block stylesheets %}
     {{ parent() }}  
-    {% stylesheets filter='cssrewrite' 
+    {% stylesheets filter='cssrewrite ?yui_css'
         '@KGBeekeepingManagementBundle/Resources/public/css/layout.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}        

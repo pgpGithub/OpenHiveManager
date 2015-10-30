@@ -19,7 +19,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite' 'css/bootstrap_switch/bootstrap-switch.css' %}
+    {% stylesheets filter='cssrewrite ?yui_css'
+        'css/bootstrap_switch/bootstrap-switch.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}  
     {{ form_stylesheet(form) }}
@@ -27,8 +28,9 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts 'js/bootstrap_switch/bootstrap-switch.js'
-                   '@KGBeekeepingManagementBundle/Resources/public/js/colonie/diviser.js' %}
+    {% javascripts filter='?yui_js'
+        'js/bootstrap_switch/bootstrap-switch.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/colonie/diviser.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>

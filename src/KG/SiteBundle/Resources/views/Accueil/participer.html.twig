@@ -4,18 +4,11 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite' 
+    {% stylesheets filter='cssrewrite ?yui_css'
         '@KGSiteBundle/Resources/public/css/layout.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}  
 {% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>  
-    {% endjavascripts %}
-{% endblock %}  
 
 {% block body %}
     <div class="row">

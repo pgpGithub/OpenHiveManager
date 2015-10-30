@@ -759,6 +759,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+$("[name='kg_beekeepingmanagementbundle_colonie[remerages][0][reine][clippage]']").bootstrapSwitch();
+$("[name='kg_beekeepingmanagementbundle_colonie[remerages][0][reine][marquage]']").bootstrapSwitch();
 
-$("[name='kg_beekeepingmanagementbundle_remerage[reine][clippage]']").bootstrapSwitch();
-$("[name='kg_beekeepingmanagementbundle_remerage[reine][marquage]']").bootstrapSwitch();
+$("#kg_beekeepingmanagementbundle_colonie_ruche_rucher").change(function(){
+    var data = {
+        rucher_id: $(this).val()
+    };
+ 
+    $.ajax({
+        type: 'post',
+        url: Routing.generate('kg_beekeeping_management_select_emplacements_ruche'),
+        data: data,
+        success: function(data) {
+            var $ruche_selector = $('#kg_beekeepingmanagementbundle_colonie_ruche_emplacement');
+ 
+            $ruche_selector.html('<option></option>');
+ 
+            for (var i=0, total = data.length; i < total; i++) {
+                $ruche_selector.append('<option value="' + data[i].id + '">' + data[i].nom + '</option>');
+            }
+        }
+    });
+});

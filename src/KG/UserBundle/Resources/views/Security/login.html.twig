@@ -3,7 +3,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite' 
+    {% stylesheets filter='cssrewrite ?yui_css'
         '@KGUserBundle/Resources/public/css/login/login_panel.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}
@@ -11,7 +11,8 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@KGUserBundle/Resources/public/js/login/login_panel.js' %}
+    {% javascripts filter='?yui_js' 
+        '@KGUserBundle/Resources/public/js/login/login_panel.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
 {% endblock %}

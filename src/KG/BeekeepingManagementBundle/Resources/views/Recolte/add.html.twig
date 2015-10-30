@@ -19,17 +19,11 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite'%}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
     {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>  
-    {% endjavascripts %}
     {{ form_javascript(form) }}
 {% endblock %}
 

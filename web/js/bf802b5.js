@@ -760,5 +760,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$("[name='kg_beekeepingmanagementbundle_remerage[reine][clippage]']").bootstrapSwitch();
-$("[name='kg_beekeepingmanagementbundle_remerage[reine][marquage]']").bootstrapSwitch();
+$("[name='kg_sitebundle_contact[secure]']").bootstrapSwitch();

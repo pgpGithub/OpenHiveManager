@@ -762,3 +762,14 @@
 
 $("[name='kg_beekeepingmanagementbundle_remerage[reine][clippage]']").bootstrapSwitch();
 $("[name='kg_beekeepingmanagementbundle_remerage[reine][marquage]']").bootstrapSwitch();
+$("[name='kg_beekeepingmanagementbundle_remerage[naturel]']").bootstrapSwitch();
+
+$('input[name="kg_beekeepingmanagementbundle_remerage[naturel]"]').on('switchChange.bootstrapSwitch', function(event, state) {
+    // Si remérage artificiel 
+    if( !state ){
+      $("#artificiel").show('slow');  
+    }
+    else{
+      $("#artificiel").hide('slow');   
+    }
+});
