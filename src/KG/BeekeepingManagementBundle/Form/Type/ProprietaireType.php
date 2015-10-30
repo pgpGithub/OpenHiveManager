@@ -34,7 +34,7 @@ class ProprietaireType extends AbstractType
         $builder
             ->add('nom', 'text')
             ->add('prenom', 'text')
-            ->add('adresse', 'text')
+            ->add('adresse', 'textarea')
             ->add('telephone')
         ;
     }
