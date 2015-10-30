@@ -207,7 +207,7 @@ class VisiteController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', $page),
-            10,
+            30,
             array(
                 'defaultSortFieldName' => 'visite.date',
                 'defaultSortDirection' => 'desc'
