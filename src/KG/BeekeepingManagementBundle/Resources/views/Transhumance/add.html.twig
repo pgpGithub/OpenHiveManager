@@ -24,7 +24,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts filter='?yui_js'
+    {% javascripts filter='?uglifyjs2'
         '@KGBeekeepingManagementBundle/Resources/public/js/transhumance/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>

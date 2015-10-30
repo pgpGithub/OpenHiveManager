@@ -7,7 +7,7 @@
         <title>{% block title %}OpenHiveManager{% endblock %}</title>
 
         {% block stylesheets %}
-            {% stylesheets filter='cssrewrite ?yui_css'
+            {% stylesheets filter='cssrewrite, ?uglifycss'
                 'css/bootstrap.css'
                 'css/font-awesome.min.css'   
                 '@KGSiteBundle/Resources/public/css/layout.css'%}
@@ -82,12 +82,11 @@
         <!-- /Main -->                
             
     {% block javascripts %}
-        {% javascripts filter='?yui_js' 
+        {% javascripts filter='?uglifyjs2' 
             'js/jquery.js'
             'js/bootstrap.js'%}
             <script src="{{ asset_url }}" type="text/javascript"></script>  
         {% endjavascripts %}
-        {{ form_javascript(form) }}
     {% endblock %}    
     
     </body>

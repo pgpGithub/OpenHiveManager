@@ -19,7 +19,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite ?yui_css'
+    {% stylesheets filter='cssrewrite, ?uglifycss'
         'css/bootstrap_switch/bootstrap-switch.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}  
@@ -28,7 +28,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts filter='?yui_js'
+    {% javascripts filter='?uglifyjs2'
         'js/bootstrap_switch/bootstrap-switch.js'
         '@KGBeekeepingManagementBundle/Resources/public/js/visite/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
