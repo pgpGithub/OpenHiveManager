@@ -4,6 +4,8 @@ namespace KG\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
 use KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation;
 
@@ -14,6 +16,14 @@ use KG\BeekeepingManagementBundle\Entity\ApiculteurExploitation;
  */
 class User extends BaseUser
 {
+    /**
+     * @Assert\Regex(
+     *  pattern="/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}/",
+     *  message="Pour votre sécurité, votre mot de passe doit contenir au moins 8 caractères, dont un chiffre, une majuscule et une minuscule."
+     * )
+     */
+    protected $plainPassword;
+    
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -93,5 +103,21 @@ class User extends BaseUser
         }
         
         return $exploitations;
-    }   
+    }  
+    
+   /**
+   * @Assert\Callback
+   */
+    public function isContentValid(ExecutionContextInterface $context)
+    {
+        $username = strtolower( $this->getUsername() );
+        $password = strtolower( $this->getPlainPassword() );
+        
+        if( strpos( $password, $username ) ){
+            $context
+                ->buildViolation('Pour votre sécurité, votre nom d\'utilisateur ne doit pas apparaître dans votre mot de passe')
+                ->atPath('plainPassword')
+                ->addViolation();  
+        }
+    }        
 }
