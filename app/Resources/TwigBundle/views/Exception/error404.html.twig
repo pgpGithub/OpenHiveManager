@@ -1,0 +1,28 @@
+{# src/KG/SiteBundle/Resources/views/Accueil/contact.html.twig #}
+
+{% extends "KGSiteBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - {{ status_text }}{% endblock %}
+
+{% block body %}
+ <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ icon('exclamation-triangle ') }} Bzzzz! Une erreur vient de se produire</h1>
+        </div>
+        <div class="col-lg-12">
+            <div class="jumbotron">
+                <h2>Le serveur a retourné l'erreur suivante : "{{ status_code }} {{ status_text }}"</h2>
+                <p>
+                    Cela signifie que la page que vous souhaitez afficher n'a pas été trouvée. Il peut y avoir plusieurs raison à cet échec : 
+                </p>                
+                <ul>
+                    <li>La page n'existe plus</li>
+                    <li>Une erreur inexpliquée s'est produite</li>
+                    <li>Vous n'avez pas le droit d'afficher cette page</li>
+                </ul>
+                
+                Si vous pensez ne pas être concerné par la dernière possibilité, merci de <a title="Contacter le support" href="{{ path('kg_site_contact') }}">contacter le support.</a>
+            </div>            
+        </div>
+    </div>  
+{% endblock %}

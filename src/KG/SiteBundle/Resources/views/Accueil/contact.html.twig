@@ -5,7 +5,6 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets filter='cssrewrite, ?uglifycss'
-        '@KGSiteBundle/Resources/public/css/layout.css'
         'css/bootstrap_switch/bootstrap-switch.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}  
