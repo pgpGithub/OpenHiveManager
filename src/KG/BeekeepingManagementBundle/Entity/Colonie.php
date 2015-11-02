@@ -95,7 +95,6 @@ class Colonie
     
      /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Remerage", mappedBy="colonie", cascade={"persist","remove"}, orphanRemoval=true)
-     * @Assert\Valid() 
      */
     private $remerages;
     

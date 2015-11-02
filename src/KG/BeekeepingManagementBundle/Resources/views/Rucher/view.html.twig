@@ -78,11 +78,11 @@
                             </tr>
                             <tr>
                                 <td><strong>Téléphone 1</strong></td>
-                                <td>{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}</td>
+                                <td>{% if rucher.proprietaire.telephone %}{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}{% endif %}</td>
                             </tr>      
                             <tr>
                                 <td><strong>Téléphone 2</strong></td>
-                                <td>{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}</td>
+                                <td>{% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERANTIONAL') }}{% endif %}</td>
                             </tr>                              
                         </tbody>
                     </table>            

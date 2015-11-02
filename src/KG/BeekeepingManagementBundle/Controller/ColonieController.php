@@ -80,7 +80,7 @@ class ColonieController extends Controller
             }
         }
         
-        if( $not_permitted || !$colonie->getRecoltes()->isEmpty() || !$colonie->getTranshumances()->isEmpty() || !$colonie->getVisites()->isEmpty()){
+        if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

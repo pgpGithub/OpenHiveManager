@@ -92,7 +92,7 @@ class RucheMenu extends ContainerAware
                 }
             }
 
-            if( $colonie->getRemerages()->count() <= 1 && $colonie->getTranshumances()->isEmpty() && $colonie->getVisites()->isEmpty() && $colonie->getRecoltes()->isEmpty() && !$filleExist ){    
+            if( !$filleExist ){    
                 $menu[$titleRuche]->addChild('.icon-trash Supprimer', array(
                     'route' => 'kg_beekeeping_management_delete_colonie',
                     'routeParameters' => array('colonie_id' => $colonie->getId())
@@ -132,18 +132,18 @@ class RucheMenu extends ContainerAware
         // Créer visite
         if( !$colonie->getMorte() ){
             if( !$colonie->getVisites()->isEmpty() ){
+                $menu->addChild('.icon-pencil Modifier la dernière visite', array(
+                    'route' => 'kg_beekeeping_management_update_visite',
+                    'routeParameters' => array('visite_id' => $colonie->getVisites()->last()->getId())
+                ));
+                
                 if( date_format($colonie->getVisites()->last()->getDate(),"Y-m-d") < date_format(new \DateTime(),"Y-m-d") ){
                     $menu->addChild('.icon-plus Créer une visite', array(
                         'route' => 'kg_beekeeping_management_add_visite',
                         'routeParameters' => array('colonie_id' => $colonie->getId())
                     ));                     
-                }
-                else{
-                    $menu->addChild('.icon-pencil Modifier la dernière visite', array(
-                        'route' => 'kg_beekeeping_management_update_visite',
-                        'routeParameters' => array('visite_id' => $colonie->getVisites()->last()->getId())
-                    ));                      
-                }
+                }                     
+                
             }else{
                 $menu->addChild('.icon-plus Créer une visite', array(
                     'route' => 'kg_beekeeping_management_add_visite',
