@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head>        
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:title" content="OpenHiveManager" />
+        <meta property="og:type" content="article" />
+        <meta property="og:description" content="La première application participative de gestion appicole" />
+        <meta property="og:url" content="http://www.openhivemanager.org" />
+        <meta property="og:site_name" content="OpenHiveManager" />
+        <meta property="og:image" content="http://www.openhivemanager.org/logo_ogpng" /> 
+        <meta property="og:image:width" content="200" />
+       
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
@@ -44,7 +53,8 @@
                     <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
                     <strong>{{ icon('user') }} {{ app.user.username }}</strong> <span class="caret"></span></a>
                     <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                        <li><a href="{{ path('fos_user_profile_edit') }}">{{ icon('gear') }} Profil</a></li>
+                        <li><a href="{{ path('fos_user_profile_edit') }}">{{ icon
+('gear') }} Profil</a></li>
                         <li><a href="{{ path('fos_user_change_password') }}">{{ icon('key') }} Mot de passe</a></li>
                         <li role="separator" class="divider"></li>     
                         <li><a href="{{ path('fos_user_security_logout') }}">{{ icon('sign-out') }} Déconnexion</a></li>
@@ -73,7 +83,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
-                            Ce <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.openhivemanager.org" property="cc:attributionName" rel="cc:attributionURL">site</a> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">licence Creative Commons Attribution - Pas d&#39;Utilisation Commerciale - Pas de Modification 4.0 International</a>.
+                            Ce <a href="http://www.openhivemanager.org" property="cc:attributionName" rel="cc:attributionURL">site</a> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">licence Creative Commons Attribution - Pas d&#39;Utilisation Commerciale - Pas de Modification 4.0 International</a>.
                         </div>                                                      
                     </div>
                 </footer>            

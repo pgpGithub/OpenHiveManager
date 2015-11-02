@@ -21,6 +21,7 @@ namespace KG\BeekeepingManagementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 
 /**
  * Proprietaire
@@ -42,7 +43,7 @@ class Proprietaire
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=25)
+     * @ORM\Column(name="nom", type="string", length=25, nullable=true)
      * @Assert\Regex(
      *     pattern="/^[a-zA-ZÀ-ÿ\s\’-]{1,29}$/",
      *     message="Le nom du propriétaire est incorrect"
@@ -53,7 +54,7 @@ class Proprietaire
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=25)
+     * @ORM\Column(name="prenom", type="string", length=25, nullable=true)
      * @Assert\Regex(
      *     pattern="/^[a-zA-ZÀ-ÿ\s\’-]{1,29}$/",
      *     message="Le prénom du propriétaire est incorrect"
@@ -64,21 +65,26 @@ class Proprietaire
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="text", length=150)
+     * @ORM\Column(name="adresse", type="text", length=150, nullable=true)
      */
     private $adresse;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone", type="string", length=10)
-     * @Assert\Regex(
-     *     pattern="/^0[1-68][0-9]{8}$/",
-     *     message="Le numéro de téléphone doit contenir 10 chiffres et commencer par 0"
-     * )
+     * @ORM\Column(name="telephone", type="phone_number", nullable=true)
+     * @AssertPhoneNumber
      */
     private $telephone;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telephone2", type="phone_number", nullable=true)
+     * @AssertPhoneNumber
+     */
+    private $telephone2;
+    
     /**
      * Get id
      *
@@ -180,4 +186,27 @@ class Proprietaire
     {
         return $this->telephone;
     }
+    
+    /**
+     * Set telephone2
+     *
+     * @param string $telephone2
+     * @return Proprietaire
+     */
+    public function setTelephone2($telephone2)
+    {
+        $this->telephone2 = $telephone2;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone2
+     *
+     * @return string 
+     */
+    public function getTelephone2()
+    {
+        return $this->telephone2;
+    }    
 }

@@ -77,8 +77,12 @@
                                 <td>{{ rucher.proprietaire.adresse }}</td>
                             </tr>
                             <tr>
-                                <td><strong>Téléphone</strong></td>
-                                <td>{{ rucher.proprietaire.telephone }}</td>
+                                <td><strong>Téléphone 1</strong></td>
+                                <td>{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}</td>
+                            </tr>      
+                            <tr>
+                                <td><strong>Téléphone 2</strong></td>
+                                <td>{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}</td>
                             </tr>                              
                         </tbody>
                     </table>            

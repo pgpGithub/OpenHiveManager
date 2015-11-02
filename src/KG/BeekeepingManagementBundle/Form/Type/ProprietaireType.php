@@ -19,6 +19,7 @@
 
 namespace KG\BeekeepingManagementBundle\Form\Type;
 
+use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -32,10 +33,25 @@ class ProprietaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', 'text')
-            ->add('prenom', 'text')
-            ->add('adresse', 'textarea')
-            ->add('telephone')
+            ->add('nom', 'text', array(
+                'required'  => false,
+            ))
+            ->add('prenom', 'text', array(
+                'required'  => false,
+            ))
+            ->add('adresse', 'textarea', array(
+                'required'  => false,
+            ))
+            ->add('telephone', 'tel', array(    
+                'default_region' => 'FR', 
+                'format' => PhoneNumberFormat::NATIONAL,                
+                'required'  => false,
+            ))         
+            ->add('telephone2', 'tel', array(
+                'default_region' => 'FR', 
+                'format' => PhoneNumberFormat::NATIONAL,
+                'required'  => false,
+            ));
         ;
     }
     
