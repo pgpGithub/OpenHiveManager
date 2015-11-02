@@ -44,7 +44,8 @@
         "knplabs/knp-menu-bundle": "dev-master",
         "fortawesome/font-awesome": "dev-master",
         "misd/phone-number-bundle": "dev-master",
-        "lexik/maintenance-bundle": "dev-master"
+        "lexik/maintenance-bundle": "dev-master",
+        "doctrine/doctrine-migrations-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

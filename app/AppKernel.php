@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

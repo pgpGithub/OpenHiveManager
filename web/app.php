@@ -18,6 +18,8 @@ $apcLoader->register(true);
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
 
+echo 'Le site est actuellement en maintenance. Nous sommes désolé pour le dérangement et nous invitons à revenir plus tard.';die(); 
+
 $kernel = new AppKernel('prod', false);
 $kernel->loadClassCache();
 //$kernel = new AppCache($kernel);

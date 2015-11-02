@@ -174,3 +174,9 @@ lexik_maintenance:
     response:
         code: 503
         status: "Service Temporarily Unavailable"            
+        
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations        
