@@ -215,7 +215,7 @@ class ColonieController extends Controller
             $em->flush();
 
             $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Colonie déclarée morte avec succès');
+            $flash->success('La mort de la colonie a bien été enregistrée');
 
             return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));                                            
         }

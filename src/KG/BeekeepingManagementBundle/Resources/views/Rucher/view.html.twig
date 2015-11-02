@@ -21,7 +21,7 @@
     {{ parent() }}
     {% stylesheets filter='cssrewrite, ?uglifycss'
         'css/ol/ol.css' 
-        '@KGBeekeepingManagementBundle/Resources/public/css/weather/*' %}
+        '../src/KG/BeekeepingManagementBundle/Resources/public/css/weather/*' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}
 {% endblock %}
