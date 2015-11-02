@@ -104,12 +104,12 @@
                 <tbody> 
                     <tr>
                         <td><strong>Année</strong></td>
-                        <td>{% if reine.anneeReine %}{{ reine.anneeReine|date("Y") }}{% endif %}</td>
+                        <td>{% if reine.anneeReine %}{{ reine.anneeReine|date("Y") }}{% else %}Inconnue{% endif %}</td>
                     </tr>
                     <tr>
                         <td><strong>Marquage</strong></td>
                         <td>                                   
-                            {% if reine.marquage %}
+                            {% if reine.marquage and reine.anneeReine %}
                                 {% set annee = reine.anneeReine|date("Y")|last %}
                                 {% if annee == 0 or annee == 5 %}{% set marquage = 'Bleu' %}{% endif %}
                                 {% if annee == 1 or annee == 6 %}{% set marquage = 'Blanc' %}{% endif %}

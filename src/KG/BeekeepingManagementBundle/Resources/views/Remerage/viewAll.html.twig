@@ -40,7 +40,7 @@
                         <th>Date</th>
                         <th>Type</th>
                         <th>Race</th>
-                        <th>Année</th>
+                        <th>Année de la reine</th>
                         <th>Colonie mère</th>
                         <th>Colonies filles</th>
                     </thead>
@@ -50,7 +50,7 @@
                                 <td>{{ remerage.date|date('d/m/Y') }}</td>
                                 <td>{% if remerage.naturel %}Naturel{% else %}Artificiel{% endif %}</td>
                                 <td>{{ remerage.reine.race.libelle }}</td>
-                                <td>{{ remerage.reine.anneeReine|date("Y") }}</td>
+                                <td>{% if remerage.reine.anneeReine %}{{ remerage.reine.anneeReine|date("Y") }}{% else %} Inconnue {% endif %}</td>
                                 <td>{% if remerage.reine.reineMere %}<a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': remerage.reine.reineMere.remerage.colonie.id }) }}">{{ remerage.reine.reineMere.remerage.colonie.numero }}</a>{% endif %}</td>
                                 <td>
                                     {% for reineFille in remerage.reine.reinesFilles %}

@@ -51,8 +51,7 @@ class Reine
      /**
      * @var \DateTime
      *
-     * @ORM\Column(name="anneeReine", type="datetime")
-     * @Assert\NotBlank(message="Veuillez remplir l'année de naissance de la reine") 
+     * @ORM\Column(name="anneeReine", type="datetime", nullable=true)
      * @Assert\DateTime()
      */
     private $anneeReine;
