@@ -21,7 +21,7 @@
     {{ parent() }}
     {% stylesheets filter='cssrewrite, ?uglifycss'
         'css/ol/ol.css' 
-        '../src/KG/BeekeepingManagementBundle/Resources/public/css/weather/*' %}
+        'bundles/kgbeekeepingmanagement/css/weather/*' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}
 {% endblock %}
@@ -82,7 +82,7 @@
                             </tr>      
                             <tr>
                                 <td><strong>Téléphone 2</strong></td>
-                                <td>{% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERANTIONAL') }}{% endif %}</td>
+                                <td>{% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}{% endif %}</td>
                             </tr>                              
                         </tbody>
                     </table>            
