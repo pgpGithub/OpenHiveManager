@@ -22,41 +22,19 @@
 {% block title %}{{ parent() }} - Contact{% endblock %}
 
 {% block body %}
-    {% include 'BraincraftedBootstrapBundle::flash.html.twig' %}   
-    
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-
-        <h2 class="page-header">Contactez-nous</h2>
-
-        <div class="well">
-            <strong>Pour toute déclaration d'anomalie, nous vous prions de bien vouloir détailler :</strong>
-            <ul>
-                <li>L'URL de la page liée à l'anomalie</li>
-                <li>Les étapes qui vous ont permis d'arriver à cette anomalie</li>
-                <li>Le message d'erreur qui s'affiche</li>
-            </ul>
-        </div>
-        
-        {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 3, 'widget_col': 6})  }}
-        {{ form_row(form.prenom, {'label': 'Prénom :', 'label_col': 3, 'widget_col': 6})  }}
-        {{ form_row(form.email, {'label': 'Adresse mail :', 'label_col': 3, 'widget_col': 6})  }}
-        {{ form_row(form.sujet, {'label': 'Sujet :', 'label_col': 3, 'widget_col': 6})  }}
-        {{ form_row(form.message, {'label': 'Message :', 'label_col': 3, 'widget_col': 6, 'attr': { 'rows' : '10'}})  }}
-        <div class="row">
-            <div class="col-md-offset-3 col-md-6">            
-            {{ form_row(form.secure, {'attr': {'data-label-text' : "Etes vous humain ?", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-            </div>
-        </div>            
-
-    {{ form_rest(form) }}
-    
-    <div class="form-group">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('send') }} Envoyer
-            </button>
-        </div>        
-    </div>
-
-    {{ form_end(form) }}   
+    <h2 class="page-header">{{ icon('envelope') }} Contactez-nous</h2>
+    <h3>{{ icon('info-circle') }} La parole est à vous</h3>
+    <p>
+        Une idée, une remarque, un conseil, un soutien ? N'hésitez pas à nous écrire à <a href="mailto:contact@openhivemanager.org">contact@openhivemanager.org</a>, nous prendrons toujours le temps de vous répondre.
+    </p>
+    <h3>{{ icon('question-circle') }} Nous sommes là pour vous aider</h3>
+    <p>
+        Vous rencontrez une anomalie ou avez besoin d'aide ? Ecrivez nous à <a href="mailto:support@openhivemanager.org">support@openhivemanager.org</a> en détaillant un maximum votre problème avec, si nécessaire :
+        <ul>
+            <li>Des copies d'écran</li>
+            <li>Les étapes pour reproduire l'anomalie</li>
+            <li>L'url de la page</li>
+            <li>Le ou les messages d'erreurs</li>
+        </ul>
+    </p>
 {% endblock %}
