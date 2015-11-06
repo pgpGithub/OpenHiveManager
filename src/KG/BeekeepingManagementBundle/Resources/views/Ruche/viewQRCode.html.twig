@@ -33,6 +33,23 @@
 {% endblock %}
 {% block panel_body %}         
     <div class="row">
-                         
-    </div>                             
+        <div class="col-sm-3" align="center"> 
+            <img alt="QR Code {{ ruche.nom }}" src="{{ qrcode_url( app.request.getSchemeAndHttpHost() ~ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }), extension='jpg') }}" />            
+        </div> 
+        <div class="col-sm-9">
+            <h4>Comment utiliser le QR code</h4>
+            <p>
+                Le QR Code vous permettra, une fois collé sur votre ruche, de pouvoir accéder à ses informations en quelques secondes.
+                Pour l'imprimer, faites un clic-droit dessus et choisissez "Enregistrer l'image sous". Un fichier contenant le QR Code sera télécharger sur votre machine.
+                Ouvrez le et imprimez le comme vous le feriez avec n'importe quel autre fichier.
+            </p>
+            
+            <h4>Astuce</h4>
+            <p>
+                Vous souhaitez imprimer plusieurs QR code sur la même page? Faites un clic droit sur un QR Code puis cliquez sur "Copier l'image". 
+                Ouvrez un logiciel de traitement de texte et faites un clic droit et "coller". 
+                Reproduisez ces étapes pour chaque QR code que vous souhaiterez imprimer.
+            </p>
+        </div>
+    </div>        
 {% endblock %}
