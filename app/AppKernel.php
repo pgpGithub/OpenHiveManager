@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

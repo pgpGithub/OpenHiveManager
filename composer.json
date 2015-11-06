@@ -46,7 +46,8 @@
         "misd/phone-number-bundle": "dev-master",
         "lexik/maintenance-bundle": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
-        "endroid/qrcode-bundle": "dev-master"
+        "endroid/qrcode-bundle": "dev-master",
+        "knplabs/knp-snappy-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
