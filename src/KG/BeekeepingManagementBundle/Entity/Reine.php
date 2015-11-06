@@ -82,7 +82,7 @@ class Reine
     private $reineMere;
 
      /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", mappedBy="reineMere")
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Reine", mappedBy="reineMere", cascade={"remove"}, orphanRemoval=true)
      */
     private $reinesFilles;
 

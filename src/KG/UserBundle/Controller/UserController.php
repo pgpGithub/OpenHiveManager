@@ -33,6 +33,13 @@ class UserController extends Controller
     /**
     * @Security("has_role('ROLE_USER')") 
     */        
+    public function advertDeleteUserAction() {
+        return $this->render('KGUserBundle:Profile:advert_delete.html.twig');
+    }   
+    
+    /**
+    * @Security("has_role('ROLE_USER')") 
+    */        
     public function deleteUserAction() {
        
         $em = $this->getDoctrine()->getManager();

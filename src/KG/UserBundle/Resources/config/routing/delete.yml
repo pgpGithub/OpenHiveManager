@@ -1,5 +1,9 @@
+kg_advert_delete_user:
+    path:      /avertissement-supprimer-compte
+    defaults:  { _controller: KGUserBundle:User:advertDeleteUser }
+
 kg_delete_user:
-    path:      /delete
+    path:      /supprimer
     defaults:  { _controller: KGUserBundle:User:deleteUser }
         
     
