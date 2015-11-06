@@ -100,6 +100,11 @@ class RucheMenu extends ContainerAware
             }               
         }        
          
+        $menu[$titleRuche]->addChild('.icon-qrcode QRCode', array(
+            'route' => 'kg_beekeeping_management_view_qrcode',
+            'routeParameters' => array('ruche_id' => $colonie->getRuche()->getId())
+        ));   
+        
         // Colonie
         $titleColonie = '.icon-users Colonie';
                 
