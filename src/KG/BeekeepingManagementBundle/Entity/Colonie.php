@@ -78,20 +78,6 @@ class Colonie
      * @Assert\NotBlank(message="Veuillez sélectionner l'origine de la colonie")
      */
     private $origineColonie;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Etat")
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message="Veuillez sélectionner l'état de la colonie")
-     */
-    private $etat;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Agressivite")
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message="Veuillez sélectionner l'agressivité de la colonie")
-     */
-    private $agressivite;
     
      /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Remerage", mappedBy="colonie", cascade={"persist","remove"}, orphanRemoval=true)
@@ -276,53 +262,7 @@ class Colonie
     public function getDateColonie()
     {
         return $this->dateColonie;
-    }
-    
-    /**
-     * Set etat
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Etat $etat
-     * @return Colonie
-     */
-    public function setEtat(\KG\BeekeepingManagementBundle\Entity\Etat $etat)
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
-    /**
-     * Get etat
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Etat 
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
-
-    /**
-     * Set agressivite
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Agressivite $agressivite
-     * @return Colonie
-     */
-    public function setAgressivite(\KG\BeekeepingManagementBundle\Entity\Agressivite $agressivite)
-    {
-        $this->agressivite = $agressivite;
-
-        return $this;
-    }
-
-    /**
-     * Get agressivite
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Agressivite 
-     */
-    public function getAgressivite()
-    {
-        return $this->agressivite;
-    }       
+    } 
 
     /**
      * Set ruche

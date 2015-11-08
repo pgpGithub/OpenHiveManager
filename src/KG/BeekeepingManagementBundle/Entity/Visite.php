@@ -172,8 +172,14 @@ class Visite
         $this->colonie = $colonie;
         $this->setNbcouvain($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbcouvain());
         $this->setNbnourriture($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbnourriture());
-        $this->setEtat($colonie->getEtat());
-        $this->setAgressivite($colonie->getAgressivite());
+        
+        if( !$colonie->getVisites()->isEmpty() ){
+            $lastVisite = $colonie->getVisites()->last();  
+            $this->setEtat($lastVisite->getEtat());
+            $this->setAgressivite($lastVisite->getAgressivite());
+            $this->setPoids($lastVisite->getPoids());
+        }
+        
         $this->setDate(new \DateTime()); 
         $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
         

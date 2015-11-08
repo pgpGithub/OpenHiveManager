@@ -54,14 +54,17 @@
                         <td><strong>Origine</strong></td>
                         <td>{{ colonie.origineColonie.libelle }}</td>
                     </tr>
+                    {% if colonie.visites is not empty %}
                     <tr>
                         <td><strong>Etat</strong></td>
-                        <td>{{ colonie.etat.libelle }}</td>
+                        <td>{{ colonie.visites|last.etat.libelle }}</td>
                     </tr>                    
                     <tr>
                         <td><strong>Agressivité</strong></td>
-                        <td>{{ colonie.agressivite.libelle }}</td>
-                    </tr>              
+                        <td>
+                            {{ colonie.visites|last.agressivite.libelle }}</td>
+                    </tr>  
+                    {% endif %}
                 </tbody>
             </table>
         </div>            

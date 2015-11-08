@@ -91,8 +91,6 @@ class VisiteController extends Controller
         
         if ($form->handleRequest($request)->isValid()){
                    
-            $visite->getColonie()->setEtat($visite->getEtat());
-            $visite->getColonie()->setAgressivite($visite->getAgressivite());
             $visite->getColonie()->getRuche()->getCorps()->setNbnourriture($visite->getNbnourriture());
             $visite->getColonie()->getRuche()->getCorps()->setNbcouvain($visite->getNbcouvain());
 
@@ -148,8 +146,6 @@ class VisiteController extends Controller
              
             $em = $this->getDoctrine()->getManager();
                         
-            $visite->getColonie()->setEtat($visite->getEtat());
-            $visite->getColonie()->setAgressivite($visite->getAgressivite());
             $visite->getColonie()->getRuche()->getCorps()->setNbnourriture($visite->getNbnourriture());
             $visite->getColonie()->getRuche()->getCorps()->setNbcouvain($visite->getNbcouvain());
 
