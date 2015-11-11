@@ -194,6 +194,3 @@ knp_snappy:
         #binary:     "%kernel.root_dir%\\Resources\\wkhtmltopdf\\usr\\local\\bin\\wkhtmltoimage" 
         binary:     "%kernel.root_dir%/Resources/wkhtmltopdf/usr/local/bin/wkhtmltoimage"
         options:    []  
-        
-#LD_LIBRARY_PATH="%kernel.root_dir%/Resources/wkhtmltopdf/usr/local/lib":"%kernel.root_dir%/Resources/wkhtmltopdf/usr/lib":"%kernel.root_dir%/Resources/wkhtmltopdf/usr/lib/debug/usr/lib/x86_64-linux-gnu"
-#binary:     LD_LIBRARY_PATH=~/target/usr/local/lib:~/target/usr/lib:~/target/usr/lib/i386-linux-gnu ~/target/usr/local/bin/wkhtmltopdf
