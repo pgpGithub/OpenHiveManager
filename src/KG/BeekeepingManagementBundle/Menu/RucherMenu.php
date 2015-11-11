@@ -31,28 +31,40 @@ class RucherMenu extends ContainerAware
 
         $menu->addChild('.icon-chevron-left Retour à l\'exploitation', array(
             'route' => 'kg_beekeeping_management_home'
-        ));       
+        ));              
         
-        $morteExist = false;
-        foreach( $rucher->getRuches() as $ruche ){
-            if( $ruche->getColonie()->getMorte() ){
-                $morteExist = true;
-                break;
-            }
-        }
+        // Rucher
+        $titleRucher = '.icon-building Rucher';
+        $menu->addChild($titleRucher, array(
+            'route' => 'kg_beekeeping_management_home'
+        )); 
+
+        $menu[$titleRucher]->addChild('.icon-eye Afficher', array(
+            'route' => 'kg_beekeeping_management_view_rucher',
+            'routeParameters' => array('rucher_id' => $rucher->getId())
+        ));    
         
-        if( $morteExist ){
-            $menu->addChild('.icon-heartbeat Colonies mortes', array(
-                'route' => 'kg_beekeeping_management_view_colonies_mortes',
-                'routeParameters' => array('rucher_id' => $rucher->getId())
-            ));              
-        }
-        
-        $menu->addChild('.icon-pencil Modifier le rucher', array(
+        $menu[$titleRucher]->addChild('.icon-pencil Modifier le rucher', array(
             'route' => 'kg_beekeeping_management_update_rucher',
             'routeParameters' => array('rucher_id' => $rucher->getId())
         ));         
 
+        $qrcode_permitted = false;
+        
+        foreach( $rucher->getEmplacements() as $emplacement ){
+            if( $emplacement->getRuche() ){            
+                $qrcode_permitted = true;
+                break;
+            }
+        }        
+
+        if( $qrcode_permitted ){
+            $menu[$titleRucher]->addChild('.icon-qrcode QR Code', array(
+                'route' => 'kg_beekeeping_management_print_all_qr_code',
+                'routeParameters' => array('rucher_id' => $rucher->getId())
+            ));         
+        }
+        
         $delete_permitted = true;
         
         foreach( $rucher->getEmplacements() as $emplacement ){
@@ -72,7 +84,23 @@ class RucherMenu extends ContainerAware
             ));
         }
         
+        // Colonies mortes
+        $morteExist = false;
+        foreach( $rucher->getRuches() as $ruche ){
+            if( $ruche->getColonie()->getMorte() ){
+                $morteExist = true;
+                break;
+            }
+        }
         
+        if( $morteExist ){
+            $menu->addChild('.icon-heartbeat Colonies mortes', array(
+                'route' => 'kg_beekeeping_management_view_colonies_mortes',
+                'routeParameters' => array('rucher_id' => $rucher->getId())
+            ));              
+        }
+        
+        // Emplacement
         $menu->addChild('.icon-plus Créer un emplacement', array(
             'route' => 'kg_beekeeping_management_add_emplacement',
             'routeParameters' => array('rucher_id' => $rucher->getId())
