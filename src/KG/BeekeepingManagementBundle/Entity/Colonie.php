@@ -413,6 +413,8 @@ class Colonie
         
         $colonie = new Colonie();
         $colonie->setOrigineColonie($origine);
+        $colonie->setEtat($this->getEtat());
+        $colonie->setAgressivite($this->getAgressivite());
         
         $colonie->remerages->last()->getReine()->setRace($reineMere->getRace());
         $colonie->remerages->last()->getReine()->setReineMere($reineMere);
