@@ -92,6 +92,11 @@ class RucheMenu extends ContainerAware
                 }
             }
 
+            $menu[$titleRuche]->addChild('.icon-qrcode QR Code', array(
+                'route' => 'kg_beekeeping_management_view_qrcode',
+                'routeParameters' => array('ruche_id' => $colonie->getRuche()->getId())
+            ));               
+            
             if( !$filleExist ){    
                 $menu[$titleRuche]->addChild('.icon-trash Supprimer', array(
                     'route' => 'kg_beekeeping_management_delete_colonie',
@@ -99,7 +104,7 @@ class RucheMenu extends ContainerAware
                 )); 
             }               
         }        
-         
+        
         // Colonie
         $titleColonie = '.icon-users Colonie';
                 

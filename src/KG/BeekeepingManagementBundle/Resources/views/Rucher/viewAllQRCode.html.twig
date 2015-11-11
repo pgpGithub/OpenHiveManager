@@ -1,0 +1,81 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+<!DOCTYPE html>
+<html>
+    <head>        
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:title" content="OpenHiveManager" />
+        <meta property="og:type" content="article" />
+        <meta property="og:description" content="La première application participative de gestion appicole" />
+        <meta property="og:url" content="http://www.openhivemanager.org" />
+        <meta property="og:site_name" content="OpenHiveManager" />
+        <meta property="og:image" content="http://www.openhivemanager.org/logo_ogpng" /> 
+        <meta property="og:image:width" content="200" />
+       
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+        <title>{% block title %}OpenHiveManager{% endblock %}</title>
+
+        {% block stylesheets %}
+            {% stylesheets filter='cssrewrite, ?uglifycss'
+                'css/bootstrap.css'
+                'css/font-awesome.min.css'   %}
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+            {% endstylesheets %}
+        {% endblock %}
+      
+        <style>{% block style %}{% endblock %}</style>
+        
+        {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+    </head>
+
+    <body>
+        <!-- Main -->
+        <div class="container">
+            <h2 class="page-header">Rucher {{ rucher.nom }}</h2>
+            <div class="row">
+                {% set nbRuches = 0 %}
+                {% for emplacement in rucher.emplacements %}    
+                    {% if emplacement.ruche %}
+                        {% set nbRuches = nbRuches + 1 %}
+                        
+                        {% if  ( nbRuches % 4 ) == 0 %}
+                            </div>
+                            <div class="row">
+                        {% endif %}
+
+                        <div class="col-sm-3" align="center"> 
+                            <h3>{{ emplacement.ruche.nom }}</h3>
+                            <img alt="QR Code {{ emplacement.ruche.nom }}" src="{{ qrcode_url( app.request.getSchemeAndHttpHost() ~ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }), extension='jpg') }}" />            
+                        </div>
+                    {% endif %}
+                {% endfor %}  
+            </div> 
+        </div>
+        <!-- /Main -->                
+            
+    {% block javascripts %}
+        {% javascripts filter='?uglifyjs2' 
+            'js/jquery.js'
+            'js/bootstrap.js'%}
+            <script src="{{ asset_url }}" type="text/javascript"></script>  
+        {% endjavascripts %}
+    {% endblock %}    
+    
+    </body>
+</html>
