@@ -60,7 +60,7 @@ class RucherMenu extends ContainerAware
 
         if( $qrcode_permitted ){
             $menu[$titleRucher]->addChild('.icon-qrcode QR Code', array(
-                'route' => 'kg_beekeeping_management_print_all_qr_code',
+                'route' => 'kg_beekeeping_management_view_all_qr_code',
                 'routeParameters' => array('rucher_id' => $rucher->getId())
             ));         
         }
