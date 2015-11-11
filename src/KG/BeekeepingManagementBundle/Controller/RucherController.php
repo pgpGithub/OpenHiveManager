@@ -29,69 +29,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class RucherController extends Controller
-{     
-    
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
-    */    
-    public function viewQRCodeAction(Request $request, Rucher $rucher)
-    {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-               
-        return $this->render('KGBeekeepingManagementBundle:Rucher:viewAllQRCode.html.twig', 
-                array( 'rucher' => $rucher )
-            );        
-    }    
-    
-    
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
-    */    
-    public function printQRCodeAction(Request $request, Rucher $rucher)
-    {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-               
-        $html = $this->renderView('KGBeekeepingManagementBundle:Rucher:viewAllQRCode.html.twig', array(
-            'rucher'  => $rucher
-        ));
-
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            200,
-            array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="file.pdf"'
-            )
-        );
-
-    }
-    
+{    
     /**
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
