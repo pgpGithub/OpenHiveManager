@@ -82,8 +82,8 @@
                         <td>{{ visite.nbcouvain }}</td>
                     </tr>                      
                     <tr>
-                        <td><strong>Poids</strong></td>
-                        <td>{{ visite.poids }} kg</td>
+                        <td><strong>Poids (kg)</strong></td>
+                        <td>{{ visite.poids|number_format(3, ',', ' ') }}</td>
                     </tr> 
                 </tbody>
           </table>

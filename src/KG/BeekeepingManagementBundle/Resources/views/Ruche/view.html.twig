@@ -76,7 +76,7 @@
                     {% if ruche.colonie.visites is not empty %}
                     <tr>
                         <td><strong>Poids (kg)</strong></td>
-                        <td>{{ ruche.colonie.visites|last.poids }}</td>
+                        <td>{{ ruche.colonie.visites|last.poids|number_format(3, ',', ' ') }}</td>
                     </tr>
                     {% endif %}
                     {% for hausse in ruche.hausses %}

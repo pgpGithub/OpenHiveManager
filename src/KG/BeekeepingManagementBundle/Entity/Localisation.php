@@ -41,14 +41,14 @@ class Localisation
     
     /**
      * @var float
-     * @ORM\Column(name="longitude", type="decimal", precision=14, scale=8, nullable=true)
+     * @ORM\Column(name="longitude", type="decimal", precision=14, scale=8)
      * @Assert\NotBlank(message="Veuillez remplir la longitude")
      */
     private $longitude;
 
     /**
      * @var float
-     * @ORM\Column(name="latitude", type="decimal", precision=14, scale=8, nullable=true)
+     * @ORM\Column(name="latitude", type="decimal", precision=14, scale=8)
      * @Assert\NotBlank(message="Veuillez remplir la latitude")
      */
     private $latitude;

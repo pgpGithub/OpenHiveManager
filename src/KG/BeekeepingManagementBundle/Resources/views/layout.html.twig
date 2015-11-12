@@ -20,7 +20,7 @@
 {% block stylesheets %}
     {{ parent() }}  
     {% stylesheets filter='cssrewrite, ?uglifycss'
-        '@KGBeekeepingManagementBundle/Resources/public/css/layout.css'%}
+        'bundles/kgbeekeepingmanagement/css/layout.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}        
 {% endblock %}
