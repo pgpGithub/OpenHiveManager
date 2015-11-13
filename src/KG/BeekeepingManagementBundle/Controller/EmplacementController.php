@@ -86,25 +86,22 @@ class EmplacementController extends Controller
         }
         
         $emplacement = new Emplacement($rucher);
-        $form = $this->createForm(new EmplacementType, $emplacement);
         
-        if ($form->handleRequest($request)->isValid()){
-                        
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($emplacement);
-            $em->flush();
-        
-            $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Emplacement créé avec succès');
-        
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $emplacement->getRucher()->getId())));
-        }
+        if( $rucher->getNumerotation() ){
+            $form = $this->createForm(new EmplacementType, $emplacement);
 
-        return $this->render('KGBeekeepingManagementBundle:Emplacement:add.html.twig', 
-                             array(
-                                    'form'   => $form->createView(),
-                                    'rucher' => $rucher
-                ));
+            if ($form->handleRequest($request)->isValid()){
+                return $this->saveEmplacement($emplacement);
+            }
+
+            return $this->render('KGBeekeepingManagementBundle:Emplacement:add.html.twig', 
+                        array(
+                               'form'   => $form->createView(),
+                               'rucher' => $rucher
+                    ));
+        }else{
+            return $this->saveEmplacement($emplacement);
+        }
     }
 
     /**
@@ -123,7 +120,7 @@ class EmplacementController extends Controller
             }
         }
         
-        if( $not_permitted ){
+        if( $not_permitted || !$emplacement->getRucher()->getNumerotation() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -159,5 +156,16 @@ class EmplacementController extends Controller
         $emplacements = $em->getRepository('KGBeekeepingManagementBundle:Emplacement')->findByRucherId($rucher_id);
 
         return new JsonResponse($emplacements);
-    }      
+    }
+    
+    private function saveEmplacement(Emplacement $emplacement){
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($emplacement);
+        $em->flush();
+
+        $flash = $this->get('braincrafted_bootstrap.flash');
+        $flash->success('Emplacement créé avec succès');
+
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $emplacement->getRucher()->getId())));        
+    }
 }

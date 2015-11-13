@@ -31,9 +31,9 @@
     {{ parent() }}
     {% javascripts filter='?uglifyjs2'
         'js/ol/ol.js'
+        'js/bootstrap_switch/bootstrap-switch.js'
         '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js'
-        '@KGBeekeepingManagementBundle/Resources/public/js/rucher/update.js'
-        'js/bootstrap_switch/bootstrap-switch.js'%}
+        '@KGBeekeepingManagementBundle/Resources/public/js/rucher/update.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
 {% endblock %}

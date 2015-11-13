@@ -284,7 +284,7 @@ class RucherController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Rucher mis à jour avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_home'));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $rucher->getId())));     
         }
         return $this->render('KGBeekeepingManagementBundle:Rucher:update.html.twig', 
                              array('form'   => $form->createView(),

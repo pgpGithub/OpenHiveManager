@@ -78,12 +78,12 @@ class RucherMenu extends ContainerAware
         }
         
         if( $delete_permitted ){
-            $menu->addChild('.icon-trash Supprimer le rucher', array(
+            $menu[$titleRucher]->addChild('.icon-trash Supprimer le rucher', array(
                 'route' => 'kg_beekeeping_management_delete_rucher',
                 'routeParameters' => array('rucher_id' => $rucher->getId())
             ));
         }
-        
+
         // Colonies mortes
         $morteExist = false;
         foreach( $rucher->getRuches() as $ruche ){
