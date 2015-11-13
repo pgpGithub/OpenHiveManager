@@ -69,9 +69,9 @@ class Visite
     private $pollen = false;    
 
     /**
-     * @var float
+     * @var integer
      *
-     * @ORM\Column(name="poids", type="decimal", precision=6, scale=3)
+     * @ORM\Column(name="poids", type="integer")
      * @Assert\Range(
      *      min = 0,
      *      minMessage = "Le poids de la ruche ne peut pas être négatif"

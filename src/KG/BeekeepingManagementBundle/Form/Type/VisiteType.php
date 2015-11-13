@@ -67,7 +67,7 @@ class VisiteType extends AbstractType
                         ))
                 ->add('nbcouvain', 'integer')
                 ->add('nbnourriture', 'integer')
-                ->add('poids', 'number', array('precision' => 3))
+                ->add('poids', 'integer')
                 ->add('celroyales', 'checkbox', array(
                             'label' => false,
                             'required'  => false
