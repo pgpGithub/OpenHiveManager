@@ -32,11 +32,13 @@ class RucherType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', 'text')             
+            ->add('nom', 'text')     
+            ->add('nbemplacements', 'integer', array(
+                    'mapped'  => false,
+                ))                          
             ->add('image', new ImageType(), array('required' => false)) 
             ->add('localisation', new LocalisationType() )
-            ->add('proprietaire', new ProprietaireType() )
-        ;
+            ->add('proprietaire', new ProprietaireType() );
     }
     
     /**

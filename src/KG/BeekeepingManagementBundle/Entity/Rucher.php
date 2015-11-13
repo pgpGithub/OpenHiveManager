@@ -86,6 +86,13 @@ class Rucher
     private $ruches; 
     
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="numerotation", type="boolean", nullable=true)
+     */
+    private $numerotation;      
+    
+    /**
      * Constructor
      */
     public function __construct(Exploitation $exploitation)
@@ -322,5 +329,28 @@ class Rucher
                 break;
             }
         }
-    }     
+    }  
+    
+    /**
+     * Set numerotation
+     *
+     * @param boolean $numerotation
+     * @return Rucher
+     */
+    public function setNumerotation($numerotation)
+    {
+        $this->numerotation = $numerotation;
+
+        return $this;
+    }
+
+    /**
+     * Get numerotation
+     *
+     * @return boolean 
+     */
+    public function getNumerotation()
+    {
+        return $this->numerotation;
+    }    
 }
