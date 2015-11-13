@@ -30,7 +30,7 @@ $("#kg_beekeepingmanagementbundle_transhumance_rucher").change(function(){
             $emplacement_selector.html('<option></option>');
  
             for (var i=0, total = data.length; i < total; i++) {
-                $emplacement_selector.append('<option value="' + data[i].id + '">' + data[i].nom + '</option>');
+                $emplacement_selector.append('<option value="' + data[i].id + '">' + data[i].numero + '</option>');
             }
         }
     });

@@ -37,30 +37,6 @@ class EmplacementController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("emplacement", options={"mapping": {"emplacement_id" : "id"}}) 
     */    
-    public function viewAction(Emplacement $emplacement)
-    {
-        $apiculteurExploitations = $emplacement->getRucher()->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-        
-        return $this->render('KGBeekeepingManagementBundle:Emplacement:view.html.twig',
-                array( 'emplacement' => $emplacement ));        
-    }
-
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("emplacement", options={"mapping": {"emplacement_id" : "id"}}) 
-    */    
     public function deleteAction(Emplacement $emplacement)
     {
         $exploitation = $emplacement->getRucher()->getExploitation();

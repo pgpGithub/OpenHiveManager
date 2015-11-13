@@ -45,7 +45,7 @@ class DeplacerEmplacementFieldSubscriber implements EventSubscriberInterface
     {
         $formOptions = array(
             'class'         => 'KGBeekeepingManagementBundle:Emplacement',
-            'choice_label'  => 'nom',
+            'choice_label'  => 'numero',
             'empty_value'   => '',
             'attr'          => array(
                 'class' => 'emplacement_selector'

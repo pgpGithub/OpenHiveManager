@@ -123,7 +123,7 @@ class RucherController extends Controller
             $request->query->getInt('page', $page),
             10,
             array(
-                'defaultSortFieldName' => 'e.nom',
+                'defaultSortFieldName' => 'e.numero',
             )                
         );        
         

@@ -45,28 +45,7 @@ class Emplacement
      *
      * @ORM\Column(name="nom", type="string", length=255)
      */
-    private $nom;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="soleil", type="integer", nullable=true)
-     * @Assert\Range(
-     *      min = 0,
-     *      max = 100,
-     *      minMessage = "Le taux d'exposition au soleil ne peut pas être négatif",
-     *      maxMessage = "Le taux d'exposition au soleil ne peut pas dépasser 100%"
-     * )
-     */
-    private $soleil;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Orientation")
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\Valid() 
-     * @Assert\NotBlank(message="Veuillez sélectionner l'orientation de l'emplacement")
-     */
-    private $orientation;
+    private $numero;
 
      /**
       * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="emplacements")
@@ -102,47 +81,24 @@ class Emplacement
     /**
      * Set nom
      *
-     * @param string $nom
+     * @param string $numero
      * @return Emplacement
      */
-    public function setNom($nom)
+    public function setNumero($numero)
     {
-        $this->nom = $nom;
+        $this->numero = $numero;
 
         return $this;
     }
 
     /**
-     * Get nom
+     * Get numero
      *
      * @return string 
      */
-    public function getNom()
+    public function getNumero()
     {
-        return $this->nom;
-    }
-
-    /**
-     * Set soleil
-     *
-     * @param integer $soleil
-     * @return Emplacement
-     */
-    public function setSoleil($soleil)
-    {
-        $this->soleil = $soleil;
-
-        return $this;
-    }
-
-    /**
-     * Get soleil
-     *
-     * @return integer 
-     */
-    public function getSoleil()
-    {
-        return $this->soleil;
+        return $this->numero;
     }
 
     /**
@@ -191,28 +147,6 @@ class Emplacement
         return $this->ruche;
     }
 
-    /**
-     * Set orientation
-     *
-     * @param \KG\BeekeepingManagementBundle\Entity\Orientation $orientation
-     * @return Emplacement
-     */
-    public function setOrientation(\KG\BeekeepingManagementBundle\Entity\Orientation $orientation)
-    {
-        $this->orientation = $orientation;
-
-        return $this;
-    }
-
-    /**
-     * Get orientation
-     *
-     * @return \KG\BeekeepingManagementBundle\Entity\Orientation 
-     */
-    public function getOrientation()
-    {
-        return $this->orientation;
-    }
     /**
      * Constructor
      */
@@ -295,10 +229,10 @@ class Emplacement
     public function isContentValid(ExecutionContextInterface $context)
     {        
         foreach( $this->getRucher()->getEmplacements() as $emplacement ){
-            if( strtoupper($emplacement->getNom()) == strtoupper($this->nom) && $emplacement->getId() != $this->getId() ){
+            if( strtoupper($emplacement->getNumero()) == strtoupper($this->numero) && $emplacement->getId() != $this->getId() ){
                 $context
-                    ->buildViolation('Un autre emplacement porte déjà ce nom dans le rucher') 
-                    ->atPath('nom')
+                    ->buildViolation('Un autre emplacement porte déjà ce numero dans le rucher') 
+                    ->atPath('numero')
                     ->addViolation();
                 break;
             }
