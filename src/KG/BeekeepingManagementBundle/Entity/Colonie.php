@@ -459,16 +459,14 @@ class Colonie
             // Si c'est le premier remérage (cas de la création d'une colonie mais pas d'une division)
             // l'écart entre la date de la colonie et l'année de la reine doit être < 5 ans
             if( $this->remerages->count() == 1 ){
-                if( $this->remerages[0]->getReine()->getAnneeReine()){
-                    if( $this->dateColonie ){
-                        if( $this->remerages[0]->getReine()->getAnneeReine()->diff($this->dateColonie)->format('%r%y') > 5 ){
-                            $context
-                                   ->buildViolation('La date de naissance de la colonie est trop éloignée de l\'année de la reine') 
-                                   ->atPath('dateColonie')
-                                   ->addViolation();                      
-                        }  
-                    }
-                } 
+                if( $this->remerages[0]->getReine()->getAnneeReine() && $this->getDateColonie()){
+                    if( $this->remerages[0]->getReine()->getAnneeReine()->diff($this->dateColonie)->format('%r%y') > 5 ){
+                        $context
+                               ->buildViolation('La date de naissance de la colonie est trop éloignée de l\'année de la reine') 
+                               ->atPath('dateColonie')
+                               ->addViolation();                      
+                    }  
+                }
             }             
         }
         
