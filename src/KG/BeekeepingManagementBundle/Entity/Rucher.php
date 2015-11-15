@@ -56,7 +56,7 @@ class Rucher
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", mappedBy="rucher", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", mappedBy="rucher", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $emplacements;    
     
@@ -352,5 +352,13 @@ class Rucher
     public function getNumerotation()
     {
         return $this->numerotation;
-    }    
+    } 
+    
+    public function updateEmplacements(){
+        if( !$this->numerotation ){
+            foreach( $this->getEmplacements() as $emplacement ){
+                $emplacement->setNumero("?");
+            }
+        }
+    }
 }

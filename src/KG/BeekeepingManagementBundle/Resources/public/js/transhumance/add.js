@@ -17,9 +17,11 @@
 
 $("#kg_beekeepingmanagementbundle_transhumance_rucher").change(function(){
     var data = {
-        rucher_id: $(this).val()
+        rucher_id: $(this).val(),
     };
  
+    var num = false;
+    
     $.ajax({
         type: 'post',
         url: Routing.generate('kg_beekeeping_management_select_emplacements_ruche'),
@@ -31,7 +33,17 @@ $("#kg_beekeepingmanagementbundle_transhumance_rucher").change(function(){
  
             for (var i=0, total = data.length; i < total; i++) {
                 $emplacement_selector.append('<option value="' + data[i].id + '">' + data[i].numero + '</option>');
+                
+                if( data[i].numero != '?'){
+                    num = true;
+                }
+            }
+            
+            if( num ){
+                $("#numerotation").show('slow'); 
+            }else{
+                $("#numerotation").hide('slow');  
             }
         }
-    });
+    });   
 });

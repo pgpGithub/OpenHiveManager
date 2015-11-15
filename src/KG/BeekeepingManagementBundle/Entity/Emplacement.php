@@ -43,9 +43,10 @@ class Emplacement
     /**
      * @var string
      *
-     * @ORM\Column(name="numero", type="string", length=255, nullable=true)
+     * @ORM\Column(name="numero", type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez remplir le numéro de l'emplacement")
      */
-    private $numero;
+    private $numero = "?";
 
      /**
       * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher", inversedBy="emplacements")
@@ -154,7 +155,7 @@ class Emplacement
     {
         $this->transhumancesfrom = new \Doctrine\Common\Collections\ArrayCollection();
         $this->transhumancesto = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->rucher = $rucher;
+        $this->rucher = $rucher;    
     }
 
     /**

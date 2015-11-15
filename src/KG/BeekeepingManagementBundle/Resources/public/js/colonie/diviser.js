@@ -21,6 +21,8 @@ $("#kg_beekeepingmanagementbundle_colonie_ruche_rucher").change(function(){
     var data = {
         rucher_id: $(this).val()
     };
+    
+    var num = false;
  
     $.ajax({
         type: 'post',
@@ -33,7 +35,17 @@ $("#kg_beekeepingmanagementbundle_colonie_ruche_rucher").change(function(){
  
             for (var i=0, total = data.length; i < total; i++) {
                 $ruche_selector.append('<option value="' + data[i].id + '">' + data[i].numero + '</option>');
+                
+                if( data[i].numero != '?'){
+                    num = true;
+                }                
             }
+            
+            if( num ){
+                $("#numerotation").show('slow'); 
+            }else{
+                $("#numerotation").hide('slow');  
+            }            
         }
     });
 });
