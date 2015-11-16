@@ -53,6 +53,7 @@ class Transhumance
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="transhumancesfrom")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Veuillez sélectionner l'emplacement de départ")
      */
     private $emplacementfrom;  
 
@@ -61,6 +62,7 @@ class Transhumance
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="transhumancesto")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Veuillez sélectionner l'emplacement sur lequel la ruche sera déplacée")
      */
     private $emplacementto;      
     
@@ -112,11 +114,13 @@ class Transhumance
                    ->addViolation();            
         }
     
-        if( $this->emplacementfrom->getRucher() == $this->emplacementto->getRucher() ){
-            $context
-                   ->buildViolation('La transhumance ne peut pas se faire dans le même rucher') 
-                   ->atPath('rucherto')
-                   ->addViolation();            
+        if( $this->emplacementfrom && $this->emplacementto ){
+            if( $this->emplacementfrom->getRucher() == $this->emplacementto->getRucher() ){
+                $context
+                       ->buildViolation('La transhumance ne peut pas se faire dans le même rucher') 
+                       ->atPath('rucherto')
+                       ->addViolation();            
+            }
         }
     }     
 

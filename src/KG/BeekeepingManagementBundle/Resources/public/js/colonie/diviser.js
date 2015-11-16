@@ -23,6 +23,7 @@ $("#kg_beekeepingmanagementbundle_colonie_ruche_rucher").change(function(){
     };
     
     var num = false;
+    var id;
  
     $.ajax({
         type: 'post',
@@ -38,13 +39,15 @@ $("#kg_beekeepingmanagementbundle_colonie_ruche_rucher").change(function(){
                 
                 if( data[i].numero != '?'){
                     num = true;
-                }                
+                }       
+                id = data[i].id;
             }
             
             if( num ){
                 $("#numerotation").show('slow'); 
             }else{
                 $("#numerotation").hide('slow');  
+                $("#kg_beekeepingmanagementbundle_colonie_ruche_emplacement").val(id);
             }            
         }
     });

@@ -93,15 +93,7 @@ class TranshumanceController extends Controller
         
         $form = $this->createForm(new TranshumanceType, $transhumance);
         
-        if ($form->handleRequest($request)->isValid()){    
-            // Si rucher pas numéroté
-            if( !$transhumance->getColonie()->getRucher()->getNumerotation() ){
-                foreach( $transhumance->getColonie()>getRuche()->getRucher()->getEmplacements() as $emplacement ){
-                    if( !$emplacement->getRuche() ){
-                        $transhumance->setEmplacementto($emplacement);
-                    }
-                }
-            }             
+        if ($form->handleRequest($request)->isValid()){          
             
             $transhumance->getColonie()->getRuche()->setEmplacement($transhumance->getEmplacementto());
             

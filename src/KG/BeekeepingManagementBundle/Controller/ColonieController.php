@@ -163,16 +163,7 @@ class ColonieController extends Controller
             $colonie->getRemerages()[0]->setDate($colonie->getDateColonie());
             
             // La date de la reine est la même que celle de la création de la colonie
-            $colonie->getRemerages()[0]->getReine()->setAnneeReine($colonie->getDateColonie());
-            
-            // Si rucher pas numéroté
-            if( !$colonie->getRuche()->getRucher()->getNumerotation() ){
-                foreach( $colonie->getRuche()->getRucher()->getEmplacements() as $emplacement ){
-                    if( !$emplacement->getRuche() ){
-                        $colonie->getRuche()->setEmplacement($emplacement);
-                    }
-                }
-            }            
+            $colonie->getRemerages()[0]->getReine()->setAnneeReine($colonie->getDateColonie());        
             
             $em = $this->getDoctrine()->getManager();      
             $em->persist($colonie);       

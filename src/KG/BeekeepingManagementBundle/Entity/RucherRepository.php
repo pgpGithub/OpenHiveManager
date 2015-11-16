@@ -42,8 +42,8 @@ class RucherRepository extends EntityRepository
     public function queryfindByExploitationId($exploitation, $rucher = null)
     {
         $q = $this->createQueryBuilder('rucher')
-                    ->leftJoin('rucher.exploitation', 'exploitation')
-                    ->addSelect('exploitation');
+                  ->leftJoin('rucher.exploitation', 'exploitation')
+                  ->addSelect('exploitation');
         
         if($rucher){
             $q->where('rucher.id != :rucher')
