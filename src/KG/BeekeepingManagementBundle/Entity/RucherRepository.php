@@ -33,7 +33,6 @@ class RucherRepository extends EntityRepository
     {
         return $this->createQueryBuilder('r')
                     ->leftJoin('r.exploitation','e')
-                    ->addSelect('e')
                     ->where('e.id = :exploitation')
                     ->setParameter('exploitation',$exploitation->getId())
                     ->getQuery();
@@ -43,8 +42,7 @@ class RucherRepository extends EntityRepository
     {
         $q = $this->createQueryBuilder('rucher')
                   ->leftJoin('rucher.exploitation', 'exploitation')
-                  ->leftJoin('exploitation.ruchers', 'ruchers')
-                  ->leftJoin('ruchers.emplacements', 'emplacements')
+                  ->leftJoin('rucher.emplacements', 'emplacements')
                   ->leftJoin('emplacements.ruche', 'ruche')
                   ->where('ruche is NULL');
         
@@ -57,8 +55,6 @@ class RucherRepository extends EntityRepository
         }
         
         $q->setParameter('exploitation',$exploitation);
-        
-        dump($q->getDQL());
         
         return $q;
         
