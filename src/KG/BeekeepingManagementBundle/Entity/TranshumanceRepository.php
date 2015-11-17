@@ -33,7 +33,6 @@ class TranshumanceRepository extends EntityRepository
     {
         return $this->createQueryBuilder('t')
                     ->leftJoin('t.colonie','colonie')
-                    ->addSelect('colonie')
                     ->where('colonie.id = :id')
                     ->setParameter('id',$colonie->getId())
                     ->getQuery();                    

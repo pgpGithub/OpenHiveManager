@@ -33,7 +33,6 @@ class RemerageRepository extends EntityRepository
     {
         return $this->createQueryBuilder('r')
                     ->leftJoin('r.colonie','colonie')
-                    ->addSelect('colonie')
                     ->where('colonie.id = :id')
                     ->setParameter('id',$colonie->getId())
                     ->getQuery();                    

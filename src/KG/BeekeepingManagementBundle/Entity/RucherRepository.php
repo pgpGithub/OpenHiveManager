@@ -43,17 +43,22 @@ class RucherRepository extends EntityRepository
     {
         $q = $this->createQueryBuilder('rucher')
                   ->leftJoin('rucher.exploitation', 'exploitation')
-                  ->addSelect('exploitation');
+                  ->leftJoin('exploitation.ruchers', 'ruchers')
+                  ->leftJoin('ruchers.emplacements', 'emplacements')
+                  ->leftJoin('emplacements.ruche', 'ruche')
+                  ->where('ruche is NULL');
         
         if($rucher){
-            $q->where('rucher.id != :rucher')
+            $q->andWhere('rucher.id != :rucher')
               ->andWhere('exploitation.id = :exploitation') 
               ->setParameter('rucher',$rucher);
         }else{
-            $q->where('exploitation.id = :exploitation');                
+            $q->andWhere('exploitation.id = :exploitation');                
         }
         
         $q->setParameter('exploitation',$exploitation);
+        
+        dump($q->getDQL());
         
         return $q;
         

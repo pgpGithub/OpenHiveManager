@@ -33,7 +33,6 @@ class VisiteRepository extends EntityRepository
     {
         return $this->createQueryBuilder('visite')
                     ->leftJoin('visite.colonie','colonie')
-                    ->addSelect('colonie')
                     ->where('colonie.id = :id')
                     ->setParameter('id',$colonie->getId())
                     ->getQuery();
