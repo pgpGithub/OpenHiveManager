@@ -181,4 +181,16 @@ doctrine_migrations:
     dir_name: "%kernel.root_dir%/DoctrineMigrations"
     namespace: Application\Migrations
     table_name: migration_versions
-    name: Application Migrations        
+    name: Application Migrations  
+    
+knp_snappy:
+    pdf:
+        enabled:    true
+        #binary:     "%kernel.root_dir%\\Resources\\wkhtmltopdf\\usr\\local\\bin\\wkhtmltopdf" 
+        binary:     LD_LIBRARY_PATH="%kernel.root_dir%/Resources/wkhtmltopdf/usr/lib/x86_64-linux-gnu" "%kernel.root_dir%/Resources/wkhtmltopdf/usr/local/bin/wkhtmltopdf"
+        options:    []
+    image:
+        enabled:    true
+        #binary:     "%kernel.root_dir%\\Resources\\wkhtmltopdf\\usr\\local\\bin\\wkhtmltoimage" 
+        binary:     "%kernel.root_dir%/Resources/wkhtmltopdf/usr/local/bin/wkhtmltoimage"
+        options:    []  

@@ -82,15 +82,21 @@ class RucherController extends Controller
             'rucher'  => $rucher
         ));
 
+        $filename = 'qr_codes_rucher_'.$rucher->getNom().'.pdf';
+        
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="file.pdf"'
+                'Content-Disposition'   => 'attachment; filename='.$filename,
             )
         );
 
+        /*return $this->render('KGBeekeepingManagementBundle:Rucher:viewAllQRCode.html.twig', 
+                array(  'rucher' => $rucher,
+                    )
+            );           */
     }
     
     /**
