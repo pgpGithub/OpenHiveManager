@@ -22,12 +22,6 @@ kg_beekeeping_management_print_all_qr_code:
     requirements:
         rucher_id: \d+
         
-kg_beekeeping_management_view_all_qr_code:
-    path:      /{rucher_id}/afficher-qr_code
-    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:viewQRCode }
-    requirements:
-        rucher_id: \d+
-        
 kg_beekeeping_management_view_colonies_mortes:
     path:      /{rucher_id}/afficher-colonies-mortes/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:viewColoniesMortes, page: 1 }

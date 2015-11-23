@@ -36,32 +36,6 @@ class RucherController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
-    public function viewQRCodeAction(Request $request, Rucher $rucher)
-    {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-               
-        return $this->render('KGBeekeepingManagementBundle:Rucher:viewAllQRCode.html.twig', 
-                array( 'rucher' => $rucher )
-            );        
-    }    
-    
-    
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
-    */    
     public function printQRCodeAction(Request $request, Rucher $rucher)
     {
         $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
@@ -82,10 +56,23 @@ class RucherController extends Controller
             'rucher'  => $rucher
         ));
 
+        $header = $this->renderView('KGBeekeepingManagementBundle:Rucher:viewAllQRCodeHeader.html.twig', array(
+            'rucher'  => $rucher
+        ));
+
+        $footer = $this->renderView('KGBeekeepingManagementBundle:Rucher:viewAllQRCodeFooter.html.twig', array(
+            'rucher'  => $rucher
+        ));
+        
         $filename = 'qr_codes_rucher_'.$rucher->getNom().'.pdf';
         
         return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            $this->get('knp_snappy.pdf')->getOutputFromHtml(
+                $html, 
+                array(
+                    'footer-html' => $footer,
+                    'header-html'  => $header,
+                    )),
             200,
             array(
                 'Content-Type'          => 'application/pdf',
