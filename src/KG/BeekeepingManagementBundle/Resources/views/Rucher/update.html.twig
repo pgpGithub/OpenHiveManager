@@ -21,7 +21,8 @@
     {{ parent() }}
     {% stylesheets filter='cssrewrite, ?uglifycss'
         'css/ol/ol.css' 
-        '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css'%}
+        '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css'
+        'css/bootstrap_switch/bootstrap-switch.css'%}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}
 {% endblock %}
@@ -30,7 +31,9 @@
     {{ parent() }}
     {% javascripts filter='?uglifyjs2'
         'js/ol/ol.js'
-        '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js' %}
+        'js/bootstrap_switch/bootstrap-switch.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/rucher/update.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
 {% endblock %}
@@ -64,6 +67,11 @@
     <fieldset> 
         <legend>Rucher</legend>     
         {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
+        <div class="row">
+            <div class="col-md-offset-4 col-md-6">   
+                {{ form_row(form.numerotation, {'attr': {'data-label-text' : "Emplacements numérotés ?", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}        
+            </div>
+        </div>   
         {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
         {{ form_row(form.localisation.latitude) }}
         {{ form_row(form.localisation.longitude) }}

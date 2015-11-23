@@ -32,9 +32,9 @@ class EmplacementRepository extends EntityRepository
     public function getListByRucher($rucher)
     {
         return $this->createQueryBuilder('e')
-                    ->leftJoin('e.rucher','r')
-                    ->addSelect('r')
-                    ->where('r.id = :rucher')
+                    ->leftJoin('e.rucher','rucher')
+                    ->leftJoin('e.ruche','ruche')
+                    ->where('rucher.id = :rucher')
                     ->setParameter('rucher',$rucher->getId())
                     ->getQuery();
     } 
@@ -43,9 +43,7 @@ class EmplacementRepository extends EntityRepository
     {
         return $this->createQueryBuilder('emplacement')
                     ->leftJoin('emplacement.rucher', 'rucher')
-                    ->addSelect('rucher')
-                    ->leftJoin('emplacement.ruche', 'ruche')
-                    ->addSelect('ruche')                
+                    ->leftJoin('emplacement.ruche', 'ruche')            
                     ->where('rucher.id = :rucher') 
                     ->andWhere('ruche.emplacement is NULL')
                     ->setParameter('rucher',$rucher);

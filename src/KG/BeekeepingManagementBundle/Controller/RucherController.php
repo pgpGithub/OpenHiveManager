@@ -118,14 +118,29 @@ class RucherController extends Controller
         $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->getListByRucher($rucher);    
 
         $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            10,
-            array(
-                'defaultSortFieldName' => 'e.nom',
-            )                
-        );        
+        
+        if( $rucher->getNumerotation() ){
+            $pagination = $paginator->paginate(
+                $query,
+                $request->query->getInt('page', $page),
+                10,
+                array(
+                    'defaultSortFieldName' => 'e.numero',
+                    'defaultSortDirection' => 'asc'
+                )                
+            );              
+        }else{
+            $pagination = $paginator->paginate(
+                $query,
+                $request->query->getInt('page', $page),
+                10,
+                array(
+                    'defaultSortFieldName' => 'ruche.nom',
+                    'defaultSortDirection' => 'asc'
+                )                
+            );               
+        }
+      
         
         return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', 
                 array(  'rucher'     => $rucher,
@@ -276,7 +291,8 @@ class RucherController extends Controller
         $form = $this->createForm(new RucherType, $rucher);
         
         if ($form->handleRequest($request)->isValid()){
-                        
+            
+            $rucher->updateEmplacements();
             $em = $this->getDoctrine()->getManager();
             $em->persist($rucher);
             $em->flush();
@@ -284,7 +300,7 @@ class RucherController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Rucher mis à jour avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_home'));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $rucher->getId())));     
         }
         return $this->render('KGBeekeepingManagementBundle:Rucher:update.html.twig', 
                              array('form'   => $form->createView(),

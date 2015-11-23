@@ -101,15 +101,28 @@
                                    
     <hr>
 
-    {% if pagination is not empty %}     
+    {% if pagination is not empty %}  
     <h4>Emplacements</h4>
+       
     <div class="row">
         <div class=" col-md-12"> 
             <div class="table-responsive">
                 <table id="mytable" class="table table-bordred table-striped">
                     <thead>
-                        <th>Nom</th>
-                        <th>Ruche</th>
+                        {% if rucher.numerotation %}
+                            <th>
+                                {{ knp_pagination_sortable(pagination, 'Numero', 'e.numero') }}
+                                {% if pagination.isSorted('e.numero') %}
+                                     {{ icon('sort-' ~ pagination.direction('e.numero')) }}
+                                {% endif %}                            
+                            </th>
+                        {% endif %}
+                        <th>
+                            {{ knp_pagination_sortable(pagination, 'Ruche', 'ruche.nom') }}
+                            {% if pagination.isSorted('ruche.nom') %}
+                                 {{ icon('sort-' ~ pagination.direction('ruche.nom')) }}
+                            {% endif %}   
+                        </th>
                         <th>Type</th>
                         <th>Race</th>
                         <th>Hausses</th>
@@ -117,7 +130,9 @@
                     <tbody>
                         {% for emplacement in pagination %}
                             <tr>
-                                <td><a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.nom }}</a></td>
+                                {% if rucher.numerotation %}
+                                    <td><a title="Modifier l'emplacement" href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id': emplacement.id }) }}">{{ emplacement.numero }}</a></td>
+                                {% endif %}    
                                 {% if emplacement.ruche %}
                                     <td><a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ emplacement.ruche.nom }}</a></td>
                                     <td>{{ emplacement.ruche.corps.type.libelle }} {{ emplacement.ruche.corps.nbcadres }}</td>

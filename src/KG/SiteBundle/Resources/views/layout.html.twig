@@ -17,9 +17,9 @@
 
         {% block stylesheets %}
             {% stylesheets filter='cssrewrite, ?uglifycss'
-                'css/bootstrap/bootstrap.css'
+                'css/bootstrap.css'
                 'css/font-awesome.min.css'   
-                'bundles/kgsite/css/layout.css'%}
+                '@KGSiteBundle/Resources/public/css/layout.css'%}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
             {% endstylesheets %}
         {% endblock %}
@@ -93,8 +93,8 @@
             
     {% block javascripts %}
         {% javascripts filter='?uglifyjs2' 
-            'js/jquery/jquery-2.1.1.min.js'
-            'js/bootstrap/bootstrap.js'%}
+            'js/jquery.js'
+            'js/bootstrap.js'%}
             <script src="{{ asset_url }}" type="text/javascript"></script>  
         {% endjavascripts %}
     {% endblock %}    

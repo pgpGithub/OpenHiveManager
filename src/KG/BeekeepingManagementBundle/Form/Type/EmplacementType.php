@@ -32,15 +32,7 @@ class EmplacementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('soleil', 'integer', array('required' => false))
-            ->add('orientation', 'entity', array(
-                        'class' => 'KGBeekeepingManagementBundle:Orientation',
-                        'choice_label' => 'libelle',
-                        'empty_value' => '',
-                        'empty_data'  => null
-                    ))
-        ;
+            ->add('numero');
     }
     
     /**

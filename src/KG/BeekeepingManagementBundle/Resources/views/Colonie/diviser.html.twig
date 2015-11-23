@@ -60,7 +60,9 @@
     <fieldset> 
         <legend>Destination</legend>        
         {{ form_row(form.ruche.rucher, {'label': 'Rucher :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.ruche.emplacement, {'label': 'Emplacement :', 'label_col': 4, 'widget_col': 5})  }}            
+        <div id="numerotation">
+            {{ form_row(form.ruche.emplacement, {'label': 'Emplacement :', 'label_col': 4, 'widget_col': 5})  }}   
+        </div>
     </fieldset> 
             
     <fieldset> 

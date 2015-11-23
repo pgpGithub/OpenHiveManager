@@ -33,9 +33,7 @@ class ColonieRepository extends EntityRepository
     {
         return $this->createQueryBuilder('colonie')
                     ->leftJoin('colonie.ruche','ruche')
-                    ->addSelect('ruche')
-                    ->leftJoin('ruche.rucher','rucher')
-                    ->addSelect('rucher')                
+                    ->leftJoin('ruche.rucher','rucher')            
                     ->where('rucher.id = :id')
                     ->setParameter('id',$rucher->getId())
                     ->getQuery();

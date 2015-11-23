@@ -56,7 +56,7 @@ class Rucher
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", mappedBy="rucher", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", mappedBy="rucher", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $emplacements;    
     
@@ -84,6 +84,13 @@ class Rucher
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="rucher", cascade={"remove"}, orphanRemoval=true)
      */
     private $ruches; 
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="numerotation", type="boolean", nullable=true)
+     */
+    private $numerotation;      
     
     /**
      * Constructor
@@ -322,5 +329,36 @@ class Rucher
                 break;
             }
         }
-    }     
+    }  
+    
+    /**
+     * Set numerotation
+     *
+     * @param boolean $numerotation
+     * @return Rucher
+     */
+    public function setNumerotation($numerotation)
+    {
+        $this->numerotation = $numerotation;
+
+        return $this;
+    }
+
+    /**
+     * Get numerotation
+     *
+     * @return boolean 
+     */
+    public function getNumerotation()
+    {
+        return $this->numerotation;
+    } 
+    
+    public function updateEmplacements(){
+        if( !$this->numerotation ){
+            foreach( $this->getEmplacements() as $emplacement ){
+                $emplacement->setNumero("?");
+            }
+        }
+    }
 }

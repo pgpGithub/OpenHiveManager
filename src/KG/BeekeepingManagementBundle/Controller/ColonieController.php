@@ -163,8 +163,7 @@ class ColonieController extends Controller
             $colonie->getRemerages()[0]->setDate($colonie->getDateColonie());
             
             // La date de la reine est la même que celle de la création de la colonie
-            $colonie->getRemerages()[0]->getReine()->setAnneeReine($colonie->getDateColonie());
-            
+            $colonie->getRemerages()[0]->getReine()->setAnneeReine($colonie->getDateColonie());        
             
             $em = $this->getDoctrine()->getManager();      
             $em->persist($colonie);       

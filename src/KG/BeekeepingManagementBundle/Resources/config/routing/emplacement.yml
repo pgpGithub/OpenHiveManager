@@ -15,13 +15,7 @@ kg_beekeeping_management_delete_emplacement:
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:delete }
     requirements:
         emplacement_id: \d+
-        
-kg_beekeeping_management_view_emplacement:
-    path:      /{emplacement_id}/afficher-emplacement
-    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:view }
-    requirements:
-        emplacement_id: \d+   
-        
+                
 kg_beekeeping_management_update_emplacement:
     path:      /{emplacement_id}/modifier-emplacement
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:update }
