@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new SGK\BarcodeBundle\SGKBarcodeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

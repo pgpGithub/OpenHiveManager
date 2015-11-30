@@ -50,7 +50,9 @@
         "knplabs/knp-snappy-bundle": "dev-master"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "phpoffice/phpword": "dev-master",
+        "sgk/barcode-bundle": "dev-master"
     }, 
     "scripts": {
         "post-root-package-install": [

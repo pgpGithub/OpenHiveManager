@@ -51,39 +51,89 @@ class RucherController extends Controller
         if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
-               
-        $html = $this->renderView('KGBeekeepingManagementBundle:Rucher:viewAllQRCode.html.twig', array(
-            'rucher'  => $rucher
-        ));
-
-        $header = $this->renderView('KGBeekeepingManagementBundle:Rucher:viewAllQRCodeHeader.html.twig', array(
-            'rucher'  => $rucher
-        ));
-
-        $footer = $this->renderView('KGBeekeepingManagementBundle:Rucher:viewAllQRCodeFooter.html.twig', array(
-            'rucher'  => $rucher
-        ));
         
-        $filename = 'qr_codes_rucher_'.$rucher->getNom().'.pdf';
+        //Création de l'objet phpWord pour le fichier ODT
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
         
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml(
-                $html, 
-                array(
-                    'footer-html' => $footer,
-                    'header-html'  => $header,
-                    )),
-            200,
-            array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename='.$filename,
-            )
-        );
+        //Création du path pour gérer les fichiers temporaires
+        $path = $this->get('kernel')->getRootDir(). "/../web/generate/";
+        
+        $phpWord->loadTemplate('template_qrcodes.odt');
+        
+        //Ajout d'une section
+        $section = $phpWord->addSection();
 
-        /*return $this->render('KGBeekeepingManagementBundle:Rucher:viewAllQRCode.html.twig', 
-                array(  'rucher' => $rucher,
-                    )
-            );           */
+        //Ajout de la table contenant les qr codes
+        $table = $section->addTable();
+        
+        //Nombre de ruches dans le fichier, utile pour créer une nouvelle ligne
+        $nbRuches = 0;
+        
+        foreach( $rucher->getEmplacements() as $emplacement){
+            if( $emplacement->getRuche() ){
+                 //4 QRCodes par ligne
+                 if (( $nbRuches % 4 ) === 0 ){
+                     $table->addRow(900);
+                 } 
+                 $nbRuches++;
+                 
+                //Construction de l'url pour accéder à la ruche
+                 $url = $this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $emplacement->getRuche()->getId()));
+                 
+                //Construction du QRCode pointant sur l'url de la ruche
+                $options = array(
+                    'code'   => $url,
+                    'type'   => 'qrcode',
+                    'format' => 'png',
+                );
+                
+                $barcode = $this->get('sgk_barcode.generator')->generate($options);  
+                
+                //Path du fichier avec le QRCode
+                $filename = 'qrcode'.$emplacement->getRuche()->getId().'.png';
+                //Sauvegarde du fichier
+                file_put_contents($path.$filename, base64_decode($barcode));
+                
+                //Ajout du QRCode dans le fichier ODT
+                $table->addCell(2000)->addImage(
+                                'generate/'.$filename,
+                                array(
+                                    'width' => 100,
+                                    'height' => 100,
+                                    'wrappingStyle' => 'behind'
+                                )
+                         );
+            }
+        }
+        
+        //Sauvegarde du fichier ODT
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
+        $filename = 'qr_codes_rucher_'.$rucher->getNom().'_ID_'.$rucher->getId().'.odt';
+        $objWriter->save($path.$filename, 'ODText', true);
+        
+        //Récupération du contenu du fichier
+        $content = file_get_contents($path.$filename);        
+
+        //Création de la réponse avec le contentu du fichier (pour le download)
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.text');
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
+        $response->setContent($content);
+        
+        
+        //Suppression des fichiers créés durant la création du fichier ODT
+        unlink($path.$filename);  
+        
+        foreach( $rucher->getEmplacements() as $emplacement){
+            if( $emplacement->getRuche() ){
+                $filename = 'qrcode'.$emplacement->getRuche()->getId().'.png';
+                unlink($path.$filename);
+            }
+        }
+         
+        //Retour de la réponse
+        return $response;
+
     }
     
     /**

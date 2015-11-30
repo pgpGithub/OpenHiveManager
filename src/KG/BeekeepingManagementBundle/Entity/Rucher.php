@@ -360,5 +360,5 @@ class Rucher
                 $emplacement->setNumero("?");
             }
         }
-    }
+    } 
 }
