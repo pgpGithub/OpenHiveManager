@@ -58,11 +58,12 @@ class RucherController extends Controller
         //Création du path pour gérer les fichiers temporaires
         $path = $this->get('kernel')->getRootDir(). "/../web/generate/";
         
-        $phpWord->loadTemplate('template_qrcodes.odt');
-        
         //Ajout d'une section
         $section = $phpWord->addSection();
-
+       
+        //Création du style des cellules
+        $cellStyle = array('valign' => 'center');
+        
         //Ajout de la table contenant les qr codes
         $table = $section->addTable();
         
@@ -72,8 +73,8 @@ class RucherController extends Controller
         foreach( $rucher->getEmplacements() as $emplacement){
             if( $emplacement->getRuche() ){
                  //4 QRCodes par ligne
-                 if (( $nbRuches % 4 ) === 0 ){
-                     $table->addRow(900);
+                 if (( $nbRuches % 3 ) === 0 ){
+                     $table->addRow(4000);
                  } 
                  $nbRuches++;
                  
@@ -95,28 +96,31 @@ class RucherController extends Controller
                 file_put_contents($path.$filename, base64_decode($barcode));
                 
                 //Ajout du QRCode dans le fichier ODT
-                $table->addCell(2000)->addImage(
+                $cell = $table->addCell(3000, $cellStyle)->addImage(
                                 'generate/'.$filename,
                                 array(
-                                    'width' => 100,
-                                    'height' => 100,
-                                    'wrappingStyle' => 'behind'
+                                    'width' => 150,
+                                    'height' => 150,
+                                    'wrappingStyle' => 'behind',
+                                    'align' => 'center'
                                 )
                          );
+                
+                $cell->getStyle()->setAlign('center');
             }
         }
         
         //Sauvegarde du fichier ODT
-        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
-        $filename = 'qr_codes_rucher_'.$rucher->getNom().'_ID_'.$rucher->getId().'.odt';
-        $objWriter->save($path.$filename, 'ODText', true);
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $filename = 'qr_codes_rucher_'.$rucher->getNom().'_ID_'.$rucher->getId().'.docx';
+        $objWriter->save($path.$filename, 'Word2007', true);
         
         //Récupération du contenu du fichier
         $content = file_get_contents($path.$filename);        
 
         //Création de la réponse avec le contentu du fichier (pour le download)
         $response = new Response();
-        $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.text');
+        //$response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.text');
         $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
         $response->setContent($content);
         
