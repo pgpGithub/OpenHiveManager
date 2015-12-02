@@ -8,10 +8,4 @@ kg_beekeeping_management_view_ruche:
     path:      /{ruche_id}/afficher-ruche
     defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view }
     requirements:
-        ruche_id: \d+        
-        
-kg_beekeeping_management_view_qrcode:
-    path:      /{ruche_id}/afficher-qrcode
-    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:viewQRCode }
-    requirements:
-        ruche_id: \d+              
+        ruche_id: \d+                   

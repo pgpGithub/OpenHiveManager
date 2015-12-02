@@ -145,31 +145,5 @@ class RucheController extends Controller
                                     'form'        => $form->createView(),
                                     'emplacement' => $emplacement
                 ));
-    }  
-    
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}}) 
-    */    
-    public function viewQRCodeAction(Request $request, Ruche $ruche)
-    {
-        $apiculteurExploitations = $ruche->getRucher()->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-        
-        return $this->render('KGBeekeepingManagementBundle:Ruche:viewQRCode.html.twig',
-                array(  
-                    'ruche' => $ruche,
-                ));        
     }      
 }

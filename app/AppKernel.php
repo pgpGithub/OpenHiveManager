@@ -28,8 +28,6 @@ class AppKernel extends Kernel
             new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
-            new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
-            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new SGK\BarcodeBundle\SGKBarcodeBundle(),
         );
 

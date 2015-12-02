@@ -60,9 +60,25 @@ class RucherController extends Controller
         
         //Ajout d'une section
         $section = $phpWord->addSection();
+        
+        //Ajout d'un en-tête
+        $phpWord->addFontStyle('eStyle', array('bold' => true, 'size' => 16));
+        $phpWord->addFontStyle('rStyle', array('size' => 14));
+        $header = $section->addHeader();
+        $headerTable = $header->addTable();
+        $headerTable->addRow();
+        $headerTable->addCell(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(5))->addImage('logo.png', array('height' => 80));
+        $cellText = $headerTable->addCell(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(11));
+        $cellText->addText(htmlspecialchars($rucher->getExploitation()->getNom()), 'eStyle', array('align' => 'right'));
+        $cellText->addText(htmlspecialchars($rucher->getNom()), 'rStyle', array('align' => 'right'));
+        
+        //Ajout d'un pied de page
+        $footer = $section->addFooter();
+        $footer->addPreserveText(htmlspecialchars('{PAGE}/{NUMPAGES}'), null, array('align' => 'right'));
        
         //Création du style des cellules
         $cellStyle = array('valign' => 'center');
+        $phpWord->addFontStyle('qStyle', array('size' => 12));
         
         //Ajout de la table contenant les qr codes
         $table = $section->addTable();
@@ -72,9 +88,9 @@ class RucherController extends Controller
         
         foreach( $rucher->getEmplacements() as $emplacement){
             if( $emplacement->getRuche() ){
-                 //4 QRCodes par ligne
+                 //3 QRCodes par ligne
                  if (( $nbRuches % 3 ) === 0 ){
-                     $table->addRow(4000);
+                     $table->addRow(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(5.5));
                  } 
                  $nbRuches++;
                  
@@ -96,23 +112,30 @@ class RucherController extends Controller
                 file_put_contents($path.$filename, base64_decode($barcode));
                 
                 //Ajout du QRCode dans le fichier ODT
-                $cell = $table->addCell(3000, $cellStyle)->addImage(
+                $cell = $table->addCell(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(5.33), $cellStyle);
+                $cell->addText(htmlspecialchars($emplacement->getRuche()->getNom()), 'qStyle', array('align' => 'center'));
+                $cell->addImage(
                                 'generate/'.$filename,
                                 array(
-                                    'width' => 150,
-                                    'height' => 150,
+                                    'width' => 151.18,
+                                    'height' => 151.18,
                                     'wrappingStyle' => 'behind',
                                     'align' => 'center'
                                 )
                          );
-                
-                $cell->getStyle()->setAlign('center');
             }
+        }
+        
+        //Ajout de cellules vides si ligne incomplète
+        $reste = 3 - $nbRuches % 3;
+        while ( $reste > 0 ){
+            $cell = $table->addCell(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(5.33), $cellStyle);
+            $reste--;
         }
         
         //Sauvegarde du fichier ODT
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $filename = 'qr_codes_rucher_'.$rucher->getNom().'_ID_'.$rucher->getId().'.docx';
+        $filename = $rucher->getId().'_qr_codes_rucher_'.$rucher->getNom().'.docx';
         $objWriter->save($path.$filename, 'Word2007', true);
         
         //Récupération du contenu du fichier
@@ -120,7 +143,7 @@ class RucherController extends Controller
 
         //Création de la réponse avec le contentu du fichier (pour le download)
         $response = new Response();
-        //$response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.text');
+        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
         $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
         $response->setContent($content);
         

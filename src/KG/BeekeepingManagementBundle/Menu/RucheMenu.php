@@ -90,12 +90,7 @@ class RucheMenu extends ContainerAware
                     $filleExist = true;
                     break;
                 }
-            }
-
-            $menu[$titleRuche]->addChild('.icon-qrcode QR Code', array(
-                'route' => 'kg_beekeeping_management_view_qrcode',
-                'routeParameters' => array('ruche_id' => $colonie->getRuche()->getId())
-            ));               
+            }            
             
             if( !$filleExist ){    
                 $menu[$titleRuche]->addChild('.icon-trash Supprimer', array(
