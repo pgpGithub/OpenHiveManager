@@ -21,6 +21,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\Rucher;
 use KG\BeekeepingManagementBundle\Entity\Exploitation;
 use KG\BeekeepingManagementBundle\Form\Type\RucherType;
+use KG\BeekeepingManagementBundle\Form\Type\RucherQRCodesType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,8 +52,24 @@ class RucherController extends Controller
         if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
+              
+        $form = $this->createForm(new RucherQRCodesType($this->getDoctrine()->getManager()), $rucher);
         
-        //Création de l'objet phpWord pour le fichier ODT
+        if ($form->handleRequest($request)->isValid()){    
+            return $this->downloadQRCodeFile($rucher, $form['ruches']->getData());
+        }
+        return $this->render('KGBeekeepingManagementBundle:Rucher:printQRCodes.html.twig', 
+                             array('form'   => $form->createView(),
+                                   'rucher' => $rucher 
+                            ));        
+    }
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */    
+    private function downloadQRCodeFile(Rucher $rucher, $ruches)
+    {       
+        //Création de l'objet phpWord pour le fichier word
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         
         //Création du path pour gérer les fichiers temporaires
@@ -86,8 +103,7 @@ class RucherController extends Controller
         //Nombre de ruches dans le fichier, utile pour créer une nouvelle ligne
         $nbRuches = 0;
         
-        foreach( $rucher->getEmplacements() as $emplacement){
-            if( $emplacement->getRuche() ){
+        foreach( $ruches as $ruche){
                  //3 QRCodes par ligne
                  if (( $nbRuches % 3 ) === 0 ){
                      $table->addRow(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(5.5));
@@ -95,7 +111,7 @@ class RucherController extends Controller
                  $nbRuches++;
                  
                 //Construction de l'url pour accéder à la ruche
-                 $url = $this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $emplacement->getRuche()->getId()));
+                 $url = $this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId()));
                  
                 //Construction du QRCode pointant sur l'url de la ruche
                 $options = array(
@@ -107,13 +123,13 @@ class RucherController extends Controller
                 $barcode = $this->get('sgk_barcode.generator')->generate($options);  
                 
                 //Path du fichier avec le QRCode
-                $filename = 'qrcode'.$emplacement->getRuche()->getId().'.png';
+                $filename = 'qrcode'.$ruche->getId().'.png';
                 //Sauvegarde du fichier
                 file_put_contents($path.$filename, base64_decode($barcode));
                 
                 //Ajout du QRCode dans le fichier ODT
                 $cell = $table->addCell(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(5.33), $cellStyle);
-                $cell->addText(htmlspecialchars($emplacement->getRuche()->getNom()), 'qStyle', array('align' => 'center'));
+                $cell->addText(htmlspecialchars($ruche->getNom()), 'qStyle', array('align' => 'center'));
                 $cell->addImage(
                                 'generate/'.$filename,
                                 array(
@@ -123,14 +139,15 @@ class RucherController extends Controller
                                     'align' => 'center'
                                 )
                          );
-            }
         }
         
         //Ajout de cellules vides si ligne incomplète
         $reste = 3 - $nbRuches % 3;
-        while ( $reste > 0 ){
-            $cell = $table->addCell(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(5.33), $cellStyle);
-            $reste--;
+        if( $reste < 3 ){
+            while ( $reste > 0 ){
+                $cell = $table->addCell(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(5.33), $cellStyle);
+                $reste--;
+            }
         }
         
         //Sauvegarde du fichier ODT
@@ -148,14 +165,12 @@ class RucherController extends Controller
         $response->setContent($content);
         
         
-        //Suppression des fichiers créés durant la création du fichier ODT
+        //Suppression des fichiers créés durant la création du fichier word
         unlink($path.$filename);  
         
-        foreach( $rucher->getEmplacements() as $emplacement){
-            if( $emplacement->getRuche() ){
-                $filename = 'qrcode'.$emplacement->getRuche()->getId().'.png';
+        foreach( $ruches as $ruche){
+                $filename = 'qrcode'.$ruche->getId().'.png';
                 unlink($path.$filename);
-            }
         }
          
         //Retour de la réponse
@@ -377,4 +392,5 @@ class RucherController extends Controller
                                    'rucher' => $rucher 
                             ));
     }     
-}
+}    
+    

@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Ruche
  *
  * @ORM\Table()
- * @ORM\Entity
+* @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\RucheRepository")
  */
 class Ruche
 {
