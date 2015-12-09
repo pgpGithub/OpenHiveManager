@@ -35,6 +35,7 @@ class ColonieRepository extends EntityRepository
                     ->leftJoin('colonie.ruche','ruche')
                     ->leftJoin('ruche.rucher','rucher')            
                     ->where('rucher.id = :id')
+                    ->andWhere('colonie.morte = 1')
                     ->setParameter('id',$rucher->getId())
                     ->getQuery();
     }      
