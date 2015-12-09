@@ -111,7 +111,7 @@ class RucherController extends Controller
                  $nbRuches++;
                  
                 //Construction de l'url pour accéder à la ruche
-                 $url = $this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId()));
+                 $url = $this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $ruche->getId()), true);
                  
                 //Construction du QRCode pointant sur l'url de la ruche
                 $options = array(
