@@ -53,6 +53,11 @@ class Visite
      * @ORM\JoinColumn(nullable=false)
      */
     private $activite;
+
+    /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Tache", mappedBy="visite", cascade={"remove"})
+     */
+    private $taches;
     
     /**
      * @var boolean
@@ -182,6 +187,7 @@ class Visite
         
         $this->setDate(new \DateTime()); 
         $this->hausses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taches = new \Doctrine\Common\Collections\ArrayCollection();
         
         foreach ($colonie->getRuche()->getHausses() as $hausse) {
             $this->addHauss(new HausseVisite($this, $hausse->getNbplein()));
@@ -288,29 +294,6 @@ class Visite
     public function getNourrissement()
     {
         return $this->nourrissement;
-    }
-
-    /**
-     * Set quantite
-     *
-     * @param integer $quantite
-     * @return Visite
-     */
-    public function setQuantite($quantite)
-    {
-        $this->quantite = $quantite;
-
-        return $this;
-    }
-
-    /**
-     * Get quantite
-     *
-     * @return integer 
-     */
-    public function getQuantite()
-    {
-        return $this->quantite;
     }
 
     /**
@@ -621,4 +604,37 @@ class Visite
     {
         return $this->poids;
     }
+    
+    /**
+     * Add taches
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Tache $taches
+     * @return Ruche
+     */
+    public function addTache(\KG\BeekeepingManagementBundle\Entity\Tache $taches)
+    {
+        $this->taches[] = $taches;
+
+        return $this;
+    }
+
+    /**
+     * Remove taches
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Tache $taches
+     */
+    public function removeTache(\KG\BeekeepingManagementBundle\Entity\Tache $taches)
+    {
+        $this->taches->removeElement($taches);
+    }
+
+    /**
+     * Get taches
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTaches()
+    {
+        return $this->taches;
+    }      
 }

@@ -97,6 +97,11 @@ class Colonie
     private $visites;
 
     /**
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Tache", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
+     */
+    private $taches;
+    
+    /**
      * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Transhumance", mappedBy="colonie", cascade={"remove"}, orphanRemoval=true)
      */
     private $transhumances;
@@ -138,6 +143,7 @@ class Colonie
         $this->remerages       = new \Doctrine\Common\Collections\ArrayCollection();
         $this->transhumances   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->recoltes        = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taches          = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ruche           = $ruche;
         $this->dateMort        = new \DateTime();
         $this->remerer(true);
@@ -600,4 +606,37 @@ class Colonie
     {
         return $this->numero;
     }
+    
+    /**
+     * Add taches
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Tache $taches
+     * @return Ruche
+     */
+    public function addTache(\KG\BeekeepingManagementBundle\Entity\Tache $taches)
+    {
+        $this->taches[] = $taches;
+
+        return $this;
+    }
+
+    /**
+     * Remove taches
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Tache $taches
+     */
+    public function removeTache(\KG\BeekeepingManagementBundle\Entity\Tache $taches)
+    {
+        $this->taches->removeElement($taches);
+    }
+
+    /**
+     * Get taches
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTaches()
+    {
+        return $this->taches;
+    }      
 }
