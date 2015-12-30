@@ -20,4 +20,10 @@ kg_beekeeping_management_update_emplacement:
     path:      /{emplacement_id}/modifier-emplacement
     defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:update }
     requirements:
-        emplacement_id: \d+              
+        emplacement_id: \d+ 
+        
+kg_beekeeping_management_view_emplacement:
+    path:      /{emplacement_id}/afficher-emplacement
+    defaults:  { _controller: KGBeekeepingManagementBundle:Emplacement:view }
+    requirements:
+        colonie_id: \d+          
