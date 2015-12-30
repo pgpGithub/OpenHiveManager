@@ -5,7 +5,7 @@ kg_beekeeping_management_update_ruche:
         ruche_id: \d+
                 
 kg_beekeeping_management_view_ruche:
-    path:      /{ruche_id}/afficher-ruche
-    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view }
+    path:      /{ruche_id}/afficher-ruche/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Ruche:view, page: 1  }
     requirements:
         ruche_id: \d+                   

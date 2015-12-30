@@ -81,7 +81,7 @@ class RucheController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}}) 
     */    
-    public function viewAction(Request $request, Ruche $ruche)
+    public function viewAction(Request $request, Ruche $ruche, $page)
     {
         $apiculteurExploitations = $ruche->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
@@ -96,9 +96,24 @@ class RucheController extends Controller
         if( $not_permitted ){
             throw new NotFoundHttpException('Page inexistante.');
         }
+
+        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Tache')->getListByColonie($ruche->getColonie());    
+
+        $paginator  = $this->get('knp_paginator');
+        
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', $page),
+            10,
+            array(
+                'defaultSortFieldName' => 'tache.date',
+                'defaultSortDirection' => 'desc'
+            )                
+        );        
         
         return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig',
                 array(  'ruche' => $ruche,
+                        'pagination' => $pagination
                 ));        
     }  
 

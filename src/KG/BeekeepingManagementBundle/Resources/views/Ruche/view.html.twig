@@ -84,5 +84,51 @@
                 </tbody>
             </table>
         </div>                 
-    </div>                             
+    </div>  
+                    
+                                   
+    <hr>
+
+    {% if pagination is not empty %}  
+    <h4>Tâches à faire :</h4>
+       
+    <div class="row">
+        <div class=" col-md-12"> 
+            <div class="table-responsive">
+                <table id="mytable" class="table table-bordred table-striped">
+                    <thead>
+                        <th>
+                            {{ knp_pagination_sortable(pagination, 'Date', 'tache.date') }}
+                            {% if pagination.isSorted('tache.date') %}
+                                 {{ icon('sort-' ~ pagination.direction('tache.date')) }}
+                            {% endif %}   
+                        </th>
+                        <th>Priorité</th>
+                        <th>Résumé</th>
+                    </thead>
+                    <tbody>
+                        {% for tache in pagination %}
+                            <tr>
+                                <td>{{ tache.date|date('d/m/Y') }}</td>
+                                <td>{{ tache.priorite.libelle }}</td>
+                                <td>{{ tache.resume }}</td>                             
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12 navigation" align="right">
+                    {{ knp_pagination_render(pagination) }}
+                </div> 
+            </div>                            
+        </div>
+    </div>    
+    {% else %}    
+    <div class="row">
+        <div class="col-md-12" align="center">      
+            Pas de tâche en attente.
+        </div>
+    </div>          
+    {% endif %}                     
 {% endblock %}
