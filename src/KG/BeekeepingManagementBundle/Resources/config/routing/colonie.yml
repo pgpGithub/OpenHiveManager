@@ -15,7 +15,13 @@ kg_beekeeping_management_add_visite:
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:add }
     requirements:
         colonie_id: \d+
-
+        
+kg_beekeeping_management_add_tache:
+    path:      /{colonie_id}/ajouter-tache/
+    defaults:  { _controller: KGBeekeepingManagementBundle:Tache:add }
+    requirements:
+        colonie_id: \d+
+        
 kg_beekeeping_management_view_transhumances:
     path:      /{colonie_id}/afficher-transhumances/{page}
     defaults:  { _controller: KGBeekeepingManagementBundle:Transhumance:viewAll, page: 1 }

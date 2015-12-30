@@ -129,29 +129,47 @@ class RucheMenu extends ContainerAware
             ));         
         }
         
-        // Créer visite
+        //Visite
+        $titleVisite = '.icon-file Visite';
+
+        $menu->addChild($titleVisite, array(
+            'route' => 'kg_beekeeping_management_home'
+        )); 
+        
         if( !$colonie->getMorte() ){
             if( !$colonie->getVisites()->isEmpty() ){
-                $menu->addChild('.icon-pencil Modifier la dernière visite', array(
+                $menu[$titleVisite]->addChild('.icon-pencil Modifier la dernière visite', array(
                     'route' => 'kg_beekeeping_management_update_visite',
                     'routeParameters' => array('visite_id' => $colonie->getVisites()->last()->getId())
                 ));
                 
                 if( date_format($colonie->getVisites()->last()->getDate(),"Y-m-d") < date_format(new \DateTime(),"Y-m-d") ){
-                    $menu->addChild('.icon-plus Créer une visite', array(
+                    $menu[$titleVisite]->addChild('.icon-plus Créer une visite', array(
                         'route' => 'kg_beekeeping_management_add_visite',
                         'routeParameters' => array('colonie_id' => $colonie->getId())
                     ));                     
                 }                     
                 
             }else{
-                $menu->addChild('.icon-plus Créer une visite', array(
+                $menu[$titleVisite]->addChild('.icon-plus Créer une visite', array(
                     'route' => 'kg_beekeeping_management_add_visite',
                     'routeParameters' => array('colonie_id' => $colonie->getId())
                 ));                 
             }        
         }
         
+        //Tache
+        $titleTache = '.icon-thumb-tack Tâche';
+
+        $menu->addChild($titleTache, array(
+            'route' => 'kg_beekeeping_management_home'
+        )); 
+        
+        $menu[$titleTache]->addChild('.icon-plus Créer une tâche', array(
+            'route' => 'kg_beekeeping_management_add_tache',
+            'routeParameters' => array('colonie_id' => $colonie->getId())
+        )); 
+                
         // Historique
         $titleHisto = '.icon-calendar Historique';
         $menu->addChild($titleHisto, array(

@@ -48,7 +48,7 @@ class Priorite
      * @Assert\NotBlank(message="Veuillez remplir le libellé de la priorite")
      * @Assert\Length(max=25, maxMessage="Le libellé de la priorite ne peut dépasser {{ limit }} caractères")
      */
-    private $priorite;
+    private $libelle;
 
 
 

@@ -1,0 +1,72 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Transhumances{% endblock %}
+
+{% block menu %}
+    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+{% endblock menu %}
+
+{% block panel_title %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Historique des visites</h4>
+        </div>
+    </div>
+{% endblock %}
+
+{% block panel_body %}       
+    <div class="row">
+        <div class=" col-md-12"> 
+            <div class="table-responsive">
+                <table id="mytable" class="table table-bordred table-striped">
+                    <thead>
+                        <th>Date</th>
+                        <th>Activite</th>
+                        <th>Etat</th>
+                        <th>Cadres nourriture</th>
+                        <th>Cadres couvain</th>
+                        <th>Cellules royales</th>
+                        <th>Nourrissement</th>
+                        <th>Traitement</th>
+                    </thead>
+                    <tbody> 
+                        {% for visite in pagination %}
+                            <tr>
+                                <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
+                                <td>{{ visite.activite.libelle }}</td>
+                                <td>{{ visite.etat.libelle }}</td>
+                                <td>{{ visite.nbnourriture }}</td>
+                                <td>{{ visite.nbcouvain }}</td>
+                                <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
+                                <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
+                                <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
+                            </tr>    
+                        {% endfor %}
+                    </tbody>
+                </table>  
+            </div>
+            <div class="row">
+                <div class="col-md-12 navigation" align="right">
+                    {{ knp_pagination_render(pagination) }}
+                </div> 
+            </div>                            
+        </div>
+    </div>                                    
+{% endblock %}

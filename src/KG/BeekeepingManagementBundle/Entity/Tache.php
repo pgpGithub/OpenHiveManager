@@ -202,7 +202,7 @@ class Tache
      * @param \KG\BeekeepingManagementBundle\Entity\Priorite $priorite
      * @return Tache
      */
-    public function setPriorite(\KG\BeekeepingManagementBundle\Entity\Etat $priorite)
+    public function setPriorite(\KG\BeekeepingManagementBundle\Entity\Priorite $priorite)
     {
         $this->priorite = $priorite;
 
