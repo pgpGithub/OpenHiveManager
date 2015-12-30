@@ -97,7 +97,7 @@
                 <table id="mytable" class="table table-bordred table-striped">
                     <thead>
                         <th>
-                            {{ knp_pagination_sortable(pagination, 'Date', 'tache.date') }}
+                            {{ knp_pagination_sortable(pagination, 'Date prévisionnelle', 'tache.date') }}
                             {% if pagination.isSorted('tache.date') %}
                                  {{ icon('sort-' ~ pagination.direction('tache.date')) }}
                             {% endif %}   
