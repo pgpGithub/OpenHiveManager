@@ -23,7 +23,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
-use KG\BeekeepingManagementBundle\Form\EventListener\DeplacerEmplacementFieldSubscriber;
+use KG\BeekeepingManagementBundle\Form\EventListener\TranshumanceFieldSubscriber;
 
 class TranshumanceType extends AbstractType
 {
@@ -78,11 +78,10 @@ class TranshumanceType extends AbstractType
                             'prepend' => '.icon-calendar'
                         ))                  
             ))    
-            ->add('rucher', 'entity', array(
+            ->add('rucherto', 'entity', array(
                     'class'         => 'KGBeekeepingManagementBundle:Rucher',
                     'choice_label'  => 'nom',
                     'empty_value'   => '',
-                    'mapped'        => false,
                     'attr'          => array(
                         'class' => 'rucher_selector',
                     ),
@@ -91,7 +90,7 @@ class TranshumanceType extends AbstractType
                         return $qb;
                     }
                 ))
-            ->addEventSubscriber(new DeplacerEmplacementFieldSubscriber($propertyPathToEmplacement))  ;  
+            ->addEventSubscriber(new TranshumanceFieldSubscriber($propertyPathToEmplacement))  ;  
     }
     
     /**

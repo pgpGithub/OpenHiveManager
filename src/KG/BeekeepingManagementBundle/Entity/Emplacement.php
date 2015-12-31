@@ -60,12 +60,12 @@ class Emplacement
     private $ruche; 
     
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Transhumance", mappedBy="emplacementfrom", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Transhumance", mappedBy="emplacementfrom")
      */
     private $transhumancesfrom;
     
     /**
-     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Transhumance", mappedBy="emplacementto", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="KG\BeekeepingManagementBundle\Entity\Transhumance", mappedBy="emplacementto")
      */
     private $transhumancesto;    
     
@@ -166,8 +166,9 @@ class Emplacement
      */
     public function addTranshumancesfrom(\KG\BeekeepingManagementBundle\Entity\Transhumance $transhumancesfrom)
     {
+        $transhumancesfrom->setEmplacementfrom($this);
         $this->transhumancesfrom[] = $transhumancesfrom;
-
+        
         return $this;
     }
 
@@ -199,6 +200,7 @@ class Emplacement
      */
     public function addTranshumancesto(\KG\BeekeepingManagementBundle\Entity\Transhumance $transhumancesto)
     {
+        $transhumancesto->setEmplacementfrom($this);        
         $this->transhumancesto[] = $transhumancesto;
 
         return $this;

@@ -47,15 +47,15 @@
                         {% for transhumance in pagination %}
                             <tr>
                                 <td>{{ transhumance.date|date('d/m/Y') }}</td>
-                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.emplacementfrom.rucher.id }) }}">{{ transhumance.emplacementfrom.rucher.nom }}</a></td>
+                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.rucherfrom.id }) }}">{{ transhumance.rucherfrom.nom }}</a></td>
                                 <td>
-                                    {% if transhumance.emplacementfrom.rucher.numerotation %}
+                                    {% if transhumance.rucherfrom.numerotation and transhumance.emplacementfrom %}
                                         <a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': transhumance.emplacementfrom.id }) }}">{{ transhumance.emplacementfrom.numero }}</a>
                                     {% endif %}
                                 </td>
-                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.emplacementto.rucher.id }) }}">{{ transhumance.emplacementto.rucher.nom }}</a></td>
+                                <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.rucherto.id }) }}">{{ transhumance.rucherto.nom }}</a></td>
                                 <td>
-                                    {% if transhumance.emplacementto.rucher.numerotation %}
+                                    {% if transhumance.rucherto.numerotation and transhumance.emplacementto%}
                                         <a title="Afficher l'emplacement" href="{{ path('kg_beekeeping_management_view_emplacement', { 'emplacement_id': transhumance.emplacementto.id }) }}">{{ transhumance.emplacementto.numero }}</a>
                                     {% endif %}
                                 </td>    

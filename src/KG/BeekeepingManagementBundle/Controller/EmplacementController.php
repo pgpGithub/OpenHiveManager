@@ -50,11 +50,22 @@ class EmplacementController extends Controller
             }
         }
         
-        if( $not_permitted || !$emplacement->getTranshumancesfrom()->isEmpty() || !$emplacement->getTranshumancesto()->isEmpty() || $emplacement->getRuche()){
+        if( $not_permitted || $emplacement->getRuche()){
             throw new NotFoundHttpException('Page inexistante.');
         }
-    
+
         $em = $this->getDoctrine()->getManager();
+        
+        foreach( $emplacement->getTranshumancesfrom() as $transhumancefrom ){
+            $transhumancefrom->setEmplacementFrom();
+            $em->persist($transhumancefrom);            
+        }
+
+        foreach( $emplacement->getTranshumancesto() as $transhumanceto ){
+            $transhumanceto->setEmplacementTo();
+            $em->persist($transhumanceto);
+        }
+      
         $em->remove($emplacement);
         $em->flush();
 

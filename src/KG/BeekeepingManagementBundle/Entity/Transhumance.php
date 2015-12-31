@@ -52,19 +52,35 @@ class Transhumance
      * @var Emplacement
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="transhumancesfrom")
-     * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(message="Veuillez sélectionner l'emplacement de départ")
      */
     private $emplacementfrom;  
 
     /**
+     * @var Rucher
+     * 
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Veuillez sélectionner le rucher de départ")
+     */
+    private $rucherfrom;  
+    
+    /**
      * @var Emplacement
      * 
      * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Emplacement", inversedBy="transhumancesto")
-     * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(message="Veuillez sélectionner l'emplacement sur lequel la ruche sera déplacée")
      */
     private $emplacementto;      
+
+    /**
+     * @var Rucher
+     * 
+     * @ORM\ManyToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Rucher")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Veuillez sélectionner le rucher sur lequel la ruche sera déplacée")
+     */
+    private $rucherto;      
     
      /**
      * @var \DateTime
@@ -81,6 +97,7 @@ class Transhumance
     {
         $this->colonie = $colonie;
         $this->emplacementfrom = $colonie->getRuche()->getEmplacement();
+        $this->rucherfrom = $colonie->getRuche()->getRucher();
     }
     
    /**
@@ -186,10 +203,9 @@ class Transhumance
      * @param \KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementfrom
      * @return Transhumance
      */
-    public function setEmplacementfrom(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementfrom)
+    public function setEmplacementfrom(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementfrom=null)
     {
-        $this->emplacementfrom = $emplacementfrom;
-        $emplacementfrom->addTranshumancesfrom($this);
+        $this->emplacementfrom = $emplacementfrom;   
         return $this;
     }
 
@@ -209,10 +225,9 @@ class Transhumance
      * @param \KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementto
      * @return Transhumance
      */
-    public function setEmplacementto(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementto)
+    public function setEmplacementto(\KG\BeekeepingManagementBundle\Entity\Emplacement $emplacementto=null)
     {
         $this->emplacementto = $emplacementto;
-        $emplacementto->addTranshumancesto($this);
         return $this;
     }
 
@@ -224,5 +239,50 @@ class Transhumance
     public function getEmplacementto()
     {
         return $this->emplacementto;
+    }    
+    
+    /**
+     * Set rucherfrom
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Rucher $rucherfrom
+     * @return Transhumance
+     */
+    public function setRucherfrom(\KG\BeekeepingManagementBundle\Entity\Rucher $rucherfrom)
+    {
+        $this->rucherfrom = $rucherfrom;
+        return $this;
     }
+
+    /**
+     * Get rucherfrom
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Rucher
+     */
+    public function getRucherfrom()
+    {
+        return $this->rucherfrom;
+    }
+
+    /**
+     * Set rucherto
+     *
+     * @param \KG\BeekeepingManagementBundle\Entity\Rucher $rucherto
+     * @return Transhumance
+     */
+    public function setRucherto(\KG\BeekeepingManagementBundle\Entity\Rucher $rucherto)
+    {
+        $this->rucherto = $rucherto;
+        return $this;
+    }
+
+    /**
+     * Get rucherto
+     *
+     * @return \KG\BeekeepingManagementBundle\Entity\Rucher
+     */
+    public function getRucherto()
+    {
+        return $this->rucherto;
+    }    
+    
 }

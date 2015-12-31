@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$("#kg_beekeepingmanagementbundle_transhumance_rucher").change(function(){
+$("#kg_beekeepingmanagementbundle_transhumance_rucherto").change(function(){
     var data = {
         rucher_id: $(this).val(),
     };

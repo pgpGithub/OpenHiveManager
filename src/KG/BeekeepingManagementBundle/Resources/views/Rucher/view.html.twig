@@ -141,18 +141,12 @@
                                     {% endif %}
                                     <td>{{ emplacement.ruche.hausses|length }}</td>
                                 {% else %}                                   
-                                    {% if emplacement.transhumancesfrom is empty and emplacement.transhumancesto is empty %}
-                                        <td>
-                                            <a title="Créer une colonie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs">{{ icon('plus') }} Créer une colonie</a>                                                
-                                        </td>                                    
-                                        <td colspan="3">
-                                            <a title="Supprimer l'emplacement" href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id': emplacement.id }) }}" class="btn btn-danger btn-xs">{{ icon('trash') }} Supprimer l'emplacement</a>                                                
-                                        </td>      
-                                    {% else %}
-                                        <td colspan="4">
-                                            <a title="Créer une colonie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs">{{ icon('plus') }} Créer une colonie</a>                                                
-                                        </td>                                        
-                                    {% endif %}    
+                                    <td>
+                                        <a title="Créer une colonie" href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" class="btn btn-info btn-xs">{{ icon('plus') }} Créer une colonie</a>                                                
+                                    </td>                                    
+                                    <td colspan="3">
+                                        <a title="Supprimer l'emplacement" href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id': emplacement.id }) }}" class="btn btn-danger btn-xs">{{ icon('trash') }} Supprimer l'emplacement</a>                                                
+                                    </td>        
                                 {% endif %}                                     
                             </tr>
                         {% endfor %}
