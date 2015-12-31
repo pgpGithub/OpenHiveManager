@@ -44,7 +44,8 @@ class RucherRepository extends EntityRepository
                   ->leftJoin('rucher.exploitation', 'exploitation')
                   ->leftJoin('rucher.emplacements', 'emplacements')
                   ->leftJoin('emplacements.ruche', 'ruche')
-                  ->where('ruche is NULL');
+                  ->where('emplacements.id is not NULL')
+                  ->andWhere('ruche is NULL');
         
         if($rucher){
             $q->andWhere('rucher.id != :rucher')
