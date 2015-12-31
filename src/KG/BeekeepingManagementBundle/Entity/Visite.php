@@ -76,7 +76,7 @@ class Visite
     /**
      * @var integer
      *
-     * @ORM\Column(name="poids", type="integer")
+     * @ORM\Column(name="poids", type="decimal", precision=6, scale=3)
      * @Assert\Range(
      *      min = 0,
      *      minMessage = "Le poids de la ruche ne peut pas être négatif"
