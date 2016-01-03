@@ -20,14 +20,13 @@
 {% block title %}{{ parent() }} - Visite{% endblock %}
 
 {% block menu %}
-    {% set colonie = visite.colonie %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
+    {% include 'KGBeekeepingManagementBundle::menuTache.html.twig' %}
 {% endblock menu %}
 
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-6">
-            <h4>Visite du {{ visite.date|date('d/m/Y') }}</h4>
+            <h4>Tâche</h4>
         </div>
     </div>    
 {% endblock %}
@@ -36,78 +35,25 @@
     <div class="row">
         <div class="col-md-12">
             <table class="table">    
-                <tbody>
+                <tbody>                    
                     <tr>
-                        <td><strong>Activité</strong></td>
-                        <td>{{ visite.activite.libelle }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Pollen entrant</strong></td>
-                        <td>{% if visite.pollen %}Oui{% else %}Non{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Reine vue</strong></td>
-                        <td>{% if visite.reine %}Oui{% else %}Non{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cellules royales</strong></td>
-                        <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Etat</strong></td>
-                        <td>{{ visite.etat.libelle }}</td>
+                        <td><strong>A faire le</strong></td>
+                        <td>{{ tache.date|date('d/m/Y') }}</td>
                     </tr>    
                     <tr>
-                        <td><strong>Agressivité</strong></td>
-                        <td>{{ visite.agressivite.libelle }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Nourrissement</strong></td>
-                        <td>{% if visite.nourrissement %}{{ visite.nourrissement }}{% else %}Non{% endif %}</td>
+                        <td><strong>Priorite</strong></td>
+                        <td>{{ tache.priorite.libelle }}</td>
                     </tr>  
                     <tr>
-                        <td><strong>Traitement</strong></td>
-                        <td>{% if visite.traitement %}{{ visite.traitement }}{% else %}Non{% endif %}</td>
-                    </tr>                    
+                        <td><strong>Résumé</strong></td>
+                        <td>{{ tache.resume }}</td>
+                    </tr>                       
                     <tr>
-                        <td><strong>Observations</strong></td>
-                        <td>{% if visite.observations %}{{ visite.observations }}{% else %}Non{% endif %}</td>
-                    </tr>                    
-                    <tr>
-                        <td><strong>Cadres de nourriture</strong></td>
-                        <td>{{ visite.nbnourriture }}</td>
-                    </tr>   
-                    <tr>
-                        <td><strong>Cadres de couvain</strong></td>
-                        <td>{{ visite.nbcouvain }}</td>
-                    </tr>                      
-                    <tr>
-                        <td><strong>Poids</strong></td>
-                        <td>{{ visite.poids }} kg</td>
-                    </tr> 
+                        <td><strong>Description</strong></td>
+                        <td>{% if tache.description %}{{ tache.description }}{% else %}Non renseignée{% endif %}</td>
+                    </tr>                   
                 </tbody>
           </table>
         </div>
-    </div>
-          
-    {% if visite.hausses is not empty %}                
-    <div class="row">    
-       <div class=" col-md-12">
-           <h4><strong>Hausses</strong></h4>
-            <ul class="list-group">
-            {% for hausse in visite.hausses %}
-                <li class="list-group-item">
-                    <div class="progress">
-                      {% set pourcent = ( hausse.nbplein * 100 ) / ( hausse.nbcadres ) %}
-                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ pourcent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pourcent }}%;">
-                        <span class="sr-only">Miel</span>
-                      </div>
-                    </div>                                    
-                </li>                                       
-            {% endfor %}
-            </ul>
-            <span class="label label-warning">Miel</span>
-       </div>    
-    </div>
-    {% endif %}               
+    </div>             
 {% endblock %}

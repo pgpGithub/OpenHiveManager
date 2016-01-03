@@ -104,13 +104,15 @@
                         </th>
                         <th>Priorité</th>
                         <th>Résumé</th>
+                        <th>Afficher</th>
                     </thead>
                     <tbody>
                         {% for tache in pagination %}
                             <tr>
                                 <td>{{ tache.date|date('d/m/Y') }}</td>
                                 <td>{{ tache.priorite.libelle }}</td>
-                                <td>{{ tache.resume }}</td>                             
+                                <td>{{ tache.resume }}</td>
+                                <td><a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}" class="btn btn-success btn-xs">{{ icon('eye') }}</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

@@ -29,13 +29,46 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class TacheController extends Controller
 {
+    
     /**
     * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("visite", options={"mapping": {"visite_id" : "id"}}) 
+    * @ParamConverter("tache", options={"mapping": {"tache_id" : "id"}}) 
     */    
-    /*public function viewAction(Visite $visite)
+    public function deleteAction(Tache $tache)
     {
-        $apiculteurExploitations = $visite->getColonie()->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
+        $exploitation = $tache->getColonie()->getRuche()->getRucher()->getExploitation();
+        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
+        $not_permitted = true;
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $tache->getVisite() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+              
+        $em->remove($tache);
+        $em->flush();
+
+        $flash = $this->get('braincrafted_bootstrap.flash');
+        $flash->success('Tâche supprimée avec succès');
+
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $tache->getColonie()->getRuche()->getId())));            
+    }
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("tache", options={"mapping": {"tache_id" : "id"}}) 
+    */    
+    public function viewAction(Tache $tache)
+    {
+        $apiculteurExploitations = $tache->getColonie()->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -49,9 +82,9 @@ class TacheController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
        
-        return $this->render('KGBeekeepingManagementBundle:Visite:view.html.twig', 
-                array(  'visite' => $visite ));
-    }*/
+        return $this->render('KGBeekeepingManagementBundle:Tache:view.html.twig', 
+                array(  'tache' => $tache ));
+    }
     
     /**
     * @Security("has_role('ROLE_USER')")
@@ -99,11 +132,11 @@ class TacheController extends Controller
     
     /**
     * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("visite", options={"mapping": {"visite_id" : "id"}}) 
+    * @ParamConverter("tache", options={"mapping": {"tache_id" : "id"}}) 
     */    
-    /*public function updateAction(Visite $visite, Request $request)
+    public function updateAction(Tache $tache, Request $request)
     {
-        $apiculteurExploitations = $visite->getColonie()->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
+        $apiculteurExploitations = $tache->getColonie()->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
         $not_permitted = true;
         
         foreach ( $apiculteurExploitations as $apiculteurExploitation ){
@@ -113,43 +146,30 @@ class TacheController extends Controller
             }
         }
         
-        if( $not_permitted || $visite != $visite->getColonie()->getVisites()->last() || $visite->getColonie()->getMorte() ){
+        if( $not_permitted || $tache->getColonie()->getMorte() || $tache->getVisite() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $form = $this->createForm(new VisiteType, $visite);
+        $form = $this->createForm(new TacheType, $tache);
         
         if ($form->handleRequest($request)->isValid()){
              
             $em = $this->getDoctrine()->getManager();
-                        
-            $visite->getColonie()->getRuche()->getCorps()->setNbnourriture($visite->getNbnourriture());
-            $visite->getColonie()->getRuche()->getCorps()->setNbcouvain($visite->getNbcouvain());
 
-            foreach ( $visite->getColonie()->getRuche()->getHausses() as $hausse ){
-                $em->remove($hausse);
-                $visite->getColonie()->getRuche()->removeHauss($hausse);
-            }
-            
-            
-            foreach ( $visite->getHausses() as $hausse ){
-                $visite->getColonie()->getRuche()->addHauss(new HausseRuche($hausse));
-            }
-            
-            $em->persist($visite);
+            $em->persist($tache);
             $em->flush();
         
             $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Visite mise à jour avec succès');
+            $flash->success('Tâche mise à jour avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $visite->getColonie()->getRuche()->getId())));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $tache->getColonie()->getRuche()->getId())));
         }
-        return $this->render('KGBeekeepingManagementBundle:Visite:update.html.twig', 
+        return $this->render('KGBeekeepingManagementBundle:Tache:update.html.twig', 
                              array(
                                     'form'  => $form->createView(),
-                                    'visite' => $visite
+                                    'tache' => $tache
                 ));
-    }*/ 
+    }
     
     /**
     * @Security("has_role('ROLE_USER')")

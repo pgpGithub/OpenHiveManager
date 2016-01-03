@@ -1,19 +1,19 @@
 kg_beekeeping_management_update_tache:
-    path:      /{visite_id}/modifier-tache
+    path:      /{tache_id}/modifier-tache
     defaults:  { _controller: KGBeekeepingManagementBundle:Tache:update }
     requirements:
-        visite_id: \d+
+        tache_id: \d+
         
 kg_beekeeping_management_delete_tache:
-    path:      /{visite_id}/supprimer-tache
+    path:      /{tache_id}/supprimer-tache
     defaults:  { _controller: KGBeekeepingManagementBundle:Tache:delete }
     requirements:
-        visite_id: \d+
+        tache_id: \d+
         
 kg_beekeeping_management_view_tache:
-    path:      /{visite_id}/afficher-tache
+    path:      /{tache_id}/afficher-tache
     defaults:  { _controller: KGBeekeepingManagementBundle:Tache:view }
     requirements:
-        visite_id: \d+ 
+        tache_id: \d+ 
 
          
