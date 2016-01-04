@@ -175,7 +175,7 @@ class TacheController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    /*public function viewAllAction(Request $request, Colonie $colonie, $page)
+    public function viewAllAction(Request $request, Colonie $colonie, $page)
     {
         $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
         $apiculteurExploitations = $exploitation->getApiculteurExploitations();
@@ -193,7 +193,7 @@ class TacheController extends Controller
         }      
         
         if($colonie){    
-            $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByColonie($colonie);    
+            $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Tache')->getAllListByColonie($colonie);    
         }
         
         $paginator  = $this->get('knp_paginator');
@@ -202,14 +202,14 @@ class TacheController extends Controller
             $request->query->getInt('page', $page),
             30,
             array(
-                'defaultSortFieldName' => 'visite.date',
+                'defaultSortFieldName' => 'tache.date',
                 'defaultSortDirection' => 'desc'
             )                
         );        
         
-        return $this->render('KGBeekeepingManagementBundle:Visite:viewAll.html.twig', 
+        return $this->render('KGBeekeepingManagementBundle:Tache:viewAll.html.twig', 
                 array(  'colonie'    => $colonie,
                         'pagination' => $pagination));
-    }*/    
+    }    
     
 }

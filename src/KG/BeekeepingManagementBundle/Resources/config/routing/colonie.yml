@@ -33,6 +33,12 @@ kg_beekeeping_management_view_visites:
     defaults:  { _controller: KGBeekeepingManagementBundle:Visite:viewAll, page: 1 }
     requirements:
         colonie_id: \d+
+
+kg_beekeeping_management_view_taches:
+    path:      /{colonie_id}/afficher-taches/{page}
+    defaults:  { _controller: KGBeekeepingManagementBundle:Tache:viewAll, page: 1 }
+    requirements:
+        colonie_id: \d+
         
 kg_beekeeping_management_view_recoltes:
     path:      /{colonie_id}/afficher-recoltes/{page}

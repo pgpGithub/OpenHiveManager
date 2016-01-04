@@ -17,7 +17,7 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Transhumances{% endblock %}
+{% block title %}{{ parent() }} - Tâches{% endblock %}
 
 {% block menu %}
     {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
@@ -26,7 +26,7 @@
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
-            <h4>Historique des visites</h4>
+            <h4>Historique des tâches</h4>
         </div>
     </div>
 {% endblock %}
@@ -37,26 +37,26 @@
             <div class="table-responsive">
                 <table id="mytable" class="table table-bordred table-striped">
                     <thead>
-                        <th>Date</th>
-                        <th>Activite</th>
-                        <th>Etat</th>
-                        <th>Cadres nourriture</th>
-                        <th>Cadres couvain</th>
-                        <th>Cellules royales</th>
-                        <th>Nourrissement</th>
-                        <th>Traitement</th>
+                        <th>Date de réalisation</th>
+                        <th>Date prévisionnelle</th>
+                        <th>Priorité</th>
+                        <th>Résumé</th>
+                        <th>Afficher</th>
                     </thead>
                     <tbody> 
-                        {% for visite in pagination %}
+                        {% for tache in pagination %}
                             <tr>
-                                <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
-                                <td>{{ visite.activite.libelle }}</td>
-                                <td>{{ visite.etat.libelle }}</td>
-                                <td>{{ visite.nbnourriture }}</td>
-                                <td>{{ visite.nbcouvain }}</td>
-                                <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
-                                <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
+                                <td>
+                                    {% if tache.visite %}
+                                        <a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': tache.visite.id }) }}">{{ tache.visite.date|date('d/m/Y') }}</a>
+                                    {% else %}
+                                        En attente
+                                    {% endif %}
+                                </td>
+                                <td>{{ tache.date|date('d/m/Y') }}</td>
+                                <td>{{ tache.priorite.libelle }}</td>
+                                <td>{{ tache.resume }}</td>
+                                <td><a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}" class="btn btn-success btn-xs">{{ icon('eye') }}</a></td>                                
                             </tr>    
                         {% endfor %}
                     </tbody>

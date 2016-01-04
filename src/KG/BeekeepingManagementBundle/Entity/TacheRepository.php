@@ -35,19 +35,18 @@ class TacheRepository extends EntityRepository
                     ->leftJoin('tache.colonie','colonie')
                     ->leftJoin('tache.visite','visite')
                     ->where('colonie.id = :id')
-                    ->andWhere('visite is NULL')
                     ->setParameter('id',$colonie->getId())
                     ->getQuery();
     }   
     
-    public function getListByColonie($colonie, $visite)
+    public function getListByColonie($colonie, $visite = null)
     {
         $result = $this->createQueryBuilder('tache')
                     ->leftJoin('tache.colonie','colonie')
                     ->leftJoin('tache.visite','visite')
                     ->where('colonie.id = :colonieid');
         
-        if( $visite->getId() ){
+        if( $visite ){
             $result->andWhere('visite is NULL OR visite.id = :visiteid')
                    ->setParameter('visiteid',$visite->getId());
         }
@@ -57,6 +56,6 @@ class TacheRepository extends EntityRepository
         
         $result->setParameter('colonieid',$colonie->getId());
                 
-        return $result->getQuery()->getResult();        
+        return $result->getQuery();        
     }       
 }

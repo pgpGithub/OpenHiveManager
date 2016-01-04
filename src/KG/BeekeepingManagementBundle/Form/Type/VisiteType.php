@@ -158,7 +158,7 @@ class VisiteType extends AbstractType
     private function getArrayOfEntities(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie, \KG\BeekeepingManagementBundle\Entity\Visite $visite)
     {
         $repo = $this->em->getRepository('KGBeekeepingManagementBundle:Tache');
-        return $repo->getListByColonie($colonie, $visite);
+        return $repo->getListByColonie($colonie, $visite)->getResult();
     } 
     
     /**

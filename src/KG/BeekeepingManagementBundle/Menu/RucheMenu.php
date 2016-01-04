@@ -202,6 +202,13 @@ class RucheMenu extends ContainerAware
             )); 
         }        
 
+        if( !$colonie->getTaches()->isEmpty()){
+            $menu[$titleHisto]->addChild('.icon-thumb-tack Tâches', array(
+                'route' => 'kg_beekeeping_management_view_taches',
+                'routeParameters' => array('colonie_id' => $colonie->getId())
+            )); 
+        }  
+        
         return $menu;
     }
 }
