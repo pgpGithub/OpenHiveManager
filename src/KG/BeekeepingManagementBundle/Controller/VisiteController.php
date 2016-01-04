@@ -86,15 +86,24 @@ class VisiteController extends Controller
         }
  
         $visite = new Visite($colonie);
-        
-        $form = $this->createForm(new VisiteType, $visite);
+
+        $em = $this->getDoctrine()->getManager();        
+        $form = $this->createForm(new VisiteType($em), $visite);
         
         if ($form->handleRequest($request)->isValid()){
-                   
+             
+            // On retire toutes les tâches qui étaient cochées avant
+            foreach( $visite->getTaches() as $tache){
+                $visite->removeTache($tache);
+            }
+            
+            // Et on recoche que les nouvelles pour que celle qui ne le sont plus ne le soient plus
+            foreach( $form['taches']->getData() as $tache){    
+                $visite->addTache($tache);
+            }         
+            
             $visite->getColonie()->getRuche()->getCorps()->setNbnourriture($visite->getNbnourriture());
             $visite->getColonie()->getRuche()->getCorps()->setNbcouvain($visite->getNbcouvain());
-
-            $em = $this->getDoctrine()->getManager();
             
             foreach ( $visite->getColonie()->getRuche()->getHausses() as $hausse ){
                 $em->remove($hausse);
@@ -136,16 +145,26 @@ class VisiteController extends Controller
             }
         }
         
+        $em = $this->getDoctrine()->getManager();
+                    
         if( $not_permitted || $visite != $visite->getColonie()->getVisites()->last() || $visite->getColonie()->getMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $form = $this->createForm(new VisiteType, $visite);
+        $form = $this->createForm(new VisiteType($em), $visite);
         
         if ($form->handleRequest($request)->isValid()){
-             
-            $em = $this->getDoctrine()->getManager();
-                        
+
+            // On retire toutes les tâches qui étaient cochées avant
+            foreach( $visite->getTaches() as $tache){
+                $visite->removeTache($tache);
+            }
+            
+            // Et on recoche que les nouvelles pour que celle qui ne le sont plus ne le soient plus
+            foreach( $form['taches']->getData() as $tache){    
+                $visite->addTache($tache);
+            }   
+            
             $visite->getColonie()->getRuche()->getCorps()->setNbnourriture($visite->getNbnourriture());
             $visite->getColonie()->getRuche()->getCorps()->setNbcouvain($visite->getNbcouvain());
 
@@ -153,7 +172,6 @@ class VisiteController extends Controller
                 $em->remove($hausse);
                 $visite->getColonie()->getRuche()->removeHauss($hausse);
             }
-            
             
             foreach ( $visite->getHausses() as $hausse ){
                 $visite->getColonie()->getRuche()->addHauss(new HausseRuche($hausse));

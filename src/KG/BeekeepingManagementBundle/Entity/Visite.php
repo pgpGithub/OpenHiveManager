@@ -608,24 +608,26 @@ class Visite
     /**
      * Add taches
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Tache $taches
+     * @param \KG\BeekeepingManagementBundle\Entity\Tache $tache
      * @return Ruche
      */
-    public function addTache(\KG\BeekeepingManagementBundle\Entity\Tache $taches)
+    public function addTache(\KG\BeekeepingManagementBundle\Entity\Tache $tache)
     {
-        $this->taches[] = $taches;
-
+        $this->taches[] = $tache;
+        $tache->setVisite($this);
         return $this;
     }
 
     /**
      * Remove taches
      *
-     * @param \KG\BeekeepingManagementBundle\Entity\Tache $taches
+     * @param \KG\BeekeepingManagementBundle\Entity\Tache $tache
      */
-    public function removeTache(\KG\BeekeepingManagementBundle\Entity\Tache $taches)
+    public function removeTache(\KG\BeekeepingManagementBundle\Entity\Tache $tache)
     {
-        $this->taches->removeElement($taches);
+        $this->taches->removeElement($tache);
+        $tache->setVisite();
+        return $this;
     }
 
     /**

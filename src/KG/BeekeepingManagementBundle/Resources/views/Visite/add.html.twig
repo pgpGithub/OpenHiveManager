@@ -53,25 +53,50 @@
 {% block panel_body %}            
     {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
         {{ form_row(form.date, {'label': 'Date :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.activite, {'label': 'Activité :', 'label_col': 4, 'widget_col': 5}) }}   
-        <div class="row">
-            <div class="col-md-offset-4 col-md-6">            
-            {{ form_row(form.pollen, {'attr': {'data-label-text' : "Pollen entrant", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-            {{ form_row(form.reine, {'attr': {'data-label-text' : "Reine vue", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-            {{ form_row(form.celroyales, {'attr': {'data-label-text' : "Cellules royales", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-            </div>
-        </div>
-        {{ form_row(form.etat, {'label': 'Etat :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.agressivite, {'label': 'Agressivité :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.nourrissement, {'label': 'Nourrissement :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.traitement, {'label': 'Traitement :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.observations, {'label': 'Observations :', 'label_col': 4, 'widget_col': 5})  }}                         
 
-        {{ form_row(form.nbnourriture, {'label': 'Cadres de nourriture :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.nbcouvain, {'label': 'Cadres de couvain :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.poids, {'label': 'Poids (kg):', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.hausses, {'label': 'Hausses :', 'label_col': 4, 'widget_col': 8})  }} 
-    {{ form_rest(form) }}
+        <fieldset> 
+            <legend>Tâches réalisées</legend>            
+            {% for tache in form.taches %}
+                {% set index = tache.vars.value %}
+                {% set entity = form.taches.vars.choices[index].data %}
+                <div class="form-group">
+                    {{ form_label(tache, entity.resume, {'label_attr': {'class': 'col-md-5 control-label'}} ) }}
+                    <div class="col-md-7">
+                        {# Si la visite est renseignée alors on coche la checkbox. Attention, la liste des tâches comprend les tâches sans visite ou avec la visite courrante #}
+                        {% if entity.visite %}
+                            {{ form_widget(tache, {'attr': {'class': 'form-control', 'checked': true, 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                        {% else %}
+                            {{ form_widget(tache, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}                            
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </fieldset>
+
+        <fieldset> 
+            <legend>Informations relevées</legend> 
+        
+            {{ form_row(form.activite, {'label': 'Activité :', 'label_col': 4, 'widget_col': 5}) }}   
+            <div class="row">
+                <div class="col-md-offset-4 col-md-6">            
+                {{ form_row(form.pollen, {'attr': {'data-label-text' : "Pollen entrant", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                {{ form_row(form.reine, {'attr': {'data-label-text' : "Reine vue", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                {{ form_row(form.celroyales, {'attr': {'data-label-text' : "Cellules royales", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+                </div>
+            </div>
+            {{ form_row(form.etat, {'label': 'Etat :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.agressivite, {'label': 'Agressivité :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.nourrissement, {'label': 'Nourrissement :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.traitement, {'label': 'Traitement :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.observations, {'label': 'Observations :', 'label_col': 4, 'widget_col': 5})  }}                         
+
+            {{ form_row(form.nbnourriture, {'label': 'Cadres de nourriture :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.nbcouvain, {'label': 'Cadres de couvain :', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.poids, {'label': 'Poids (kg):', 'label_col': 4, 'widget_col': 5})  }}
+            {{ form_row(form.hausses, {'label': 'Hausses :', 'label_col': 4, 'widget_col': 8})  }} 
+        </fieldset>
+            
+        {{ form_rest(form) }}
 
     <div class="form-group">
         <div class="col-md-12">

@@ -97,7 +97,7 @@ class RucheController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
 
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Tache')->getListByColonie($ruche->getColonie());    
+        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Tache')->getAllListByColonie($ruche->getColonie());    
 
         $paginator  = $this->get('knp_paginator');
         

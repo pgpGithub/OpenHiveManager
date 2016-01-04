@@ -133,10 +133,9 @@ class Tache
      * @param \KG\BeekeepingManagementBundle\Entity\Visite $visite
      * @return Tache
      */
-    public function setVisite(\KG\BeekeepingManagementBundle\Entity\Visite $visite)
+    public function setVisite(\KG\BeekeepingManagementBundle\Entity\Visite $visite=null)
     {
         $this->visite = $visite;
-        $visite->addTache($this);
         return $this;
     }
 

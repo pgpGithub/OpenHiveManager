@@ -26,6 +26,20 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class VisiteType extends AbstractType
 {
+
+    /** @var \Doctrine\ORM\EntityManager */	 
+    private $em;
+
+    /**	 
+     * Constructor	 
+     * 	 
+     * @param Doctrine $doctrine	 
+     */	 
+    public function __construct($manager) 
+    {	 
+        $this->em = $manager;	 
+    }    
+    
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -129,8 +143,23 @@ class VisiteType extends AbstractType
                     'options'            => array(
                         'attr' => array('style' => 'inline')
                     )                    
+                ))
+                ->add('taches', 'entity', array(	 
+                    'class'        => 'KGBeekeepingManagementBundle:Tache',
+                    'choice_label' => null,
+                    'choices'      => $this->getArrayOfEntities($colonie, $builder->getData()),
+                    'mapped'       => false,
+                    'expanded'     => true,
+                    'multiple'     => true,
+                    'label'        => false
                 ));               
     }
+
+    private function getArrayOfEntities(\KG\BeekeepingManagementBundle\Entity\Colonie $colonie, \KG\BeekeepingManagementBundle\Entity\Visite $visite)
+    {
+        $repo = $this->em->getRepository('KGBeekeepingManagementBundle:Tache');
+        return $repo->getListByColonie($colonie, $visite);
+    } 
     
     /**
      * @param OptionsResolverInterface $resolver
