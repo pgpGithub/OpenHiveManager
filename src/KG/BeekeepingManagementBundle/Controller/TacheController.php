@@ -19,8 +19,10 @@
 
 namespace KG\BeekeepingManagementBundle\Controller;
 use KG\BeekeepingManagementBundle\Entity\Tache;
+use KG\BeekeepingManagementBundle\Entity\Rucher;
 use KG\BeekeepingManagementBundle\Entity\Colonie;
 use KG\BeekeepingManagementBundle\Form\Type\TacheType;
+use KG\BeekeepingManagementBundle\Form\Type\DupliquerTacheType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -211,5 +213,66 @@ class TacheController extends Controller
                 array(  'colonie'    => $colonie,
                         'pagination' => $pagination));
     }    
-    
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("tache", options={"mapping": {"tache_id" : "id"}})  
+    * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
+    */    
+    public function duplicateAction(Request $request, Tache $tache, Rucher $rucher)
+    {
+        $exploitation = $rucher->getExploitation();
+        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
+        $not_permitted = true;
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        $exploitation = $tache->getColonie()->getRuche()->getRucher()->getExploitation();
+        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
+        
+        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
+                $not_permitted = false;
+                break;
+            }
+        }
+        
+        if( $not_permitted || $page < 1 ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }      
+        
+        $form = $this->createForm(new DupliquerTacheType($this->getDoctrine()->getManager()), $rucher);
+        
+        if ($form->handleRequest($request)->isValid()){          
+
+            $em = $this->getDoctrine()->getManager();
+            
+            foreach($form['ruches']->getData() as $ruche){
+               $tacheCopy = new Tache($ruche->getColonie());
+               $tacheCopy->setDate($tache->getDate());
+               $tacheCopy->setDescription($tache->getDescription());
+               $tacheCopy->setResume($tache->getResume());
+               $tacheCopy->setPriorite($tache->getPriorite());
+               $em->persist($tacheCopy);
+            }
+            
+            $em->flush();
+        
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Tâche dupliquée avec succès');
+        
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $rucher->getId())));
+        }
+        return $this->render('KGBeekeepingManagementBundle:Tache:duplicate.html.twig', 
+                             array(
+                                    'form'   => $form->createView(),
+                                    'rucher' => $rucher,
+                                    'tache'  => $tache,
+                ));  
+    }       
 }

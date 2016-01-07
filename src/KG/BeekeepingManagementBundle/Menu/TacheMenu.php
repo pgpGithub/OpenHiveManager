@@ -34,6 +34,21 @@ class TacheMenu extends ContainerAware
             'routeParameters' => array('ruche_id' => $tache->getColonie()->getRuche()->getId())
         ));   
 
+        //Dupliquer
+        $titleDupliquer = '.icon-files-o Dupliquer ';
+        $menu->addChild($titleDupliquer, array(
+            'route' => 'kg_beekeeping_management_home'
+        ));         
+        
+        $ruchers = $tache->getColonie()->getRuche()->getRucher()->getExploitation()->getRuchers();
+        foreach( $ruchers as $rucher){
+            $menu[$titleDupliquer]->addChild('.icon-long-arrow-right vers '.$rucher->getNom(), array(
+                'route' => 'kg_beekeeping_management_duplicate_tache',
+                'routeParameters' => array('tache_id'  => $tache->getId(),
+                                           'rucher_id' => $rucher->getId())
+            ));                
+        }       
+        
         //Colonie vivante et tâche non liée à une visite
         if( !$tache->getColonie()->getMorte() && !$tache->getVisite() ){
             $menu->addChild('.icon-pencil Modifier', array(

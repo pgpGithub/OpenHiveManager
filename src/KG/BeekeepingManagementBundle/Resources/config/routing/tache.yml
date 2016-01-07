@@ -15,5 +15,10 @@ kg_beekeeping_management_view_tache:
     defaults:  { _controller: KGBeekeepingManagementBundle:Tache:view }
     requirements:
         tache_id: \d+ 
-
-         
+        
+kg_beekeeping_management_duplicate_tache:
+    path:      /{tache_id}/{rucher_id}/dupliquer-tache
+    defaults:  { _controller: KGBeekeepingManagementBundle:Tache:duplicate }
+    requirements:
+        tache_id: \d+  
+        rucher_id: \d+ 
