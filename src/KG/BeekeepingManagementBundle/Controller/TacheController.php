@@ -241,16 +241,8 @@ class TacheController extends Controller
                 break;
             }
         }
-
-        $rucheExist = false;
-        foreach( $rucher->getEmplacements() as $emplacement ){
-            if( $emplacement->getRuche() ){
-                $rucheExist = true;
-                break;
-            }
-        }
         
-        if( $not_permitted || !$rucheExist ){
+        if( $not_permitted || $page < 1 ){
             throw new NotFoundHttpException('Page inexistante.');
         }      
         
