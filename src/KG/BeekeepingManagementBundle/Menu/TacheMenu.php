@@ -42,11 +42,20 @@ class TacheMenu extends ContainerAware
         
         $ruchers = $tache->getColonie()->getRuche()->getRucher()->getExploitation()->getRuchers();
         foreach( $ruchers as $rucher){
-            $menu[$titleDupliquer]->addChild('.icon-long-arrow-right vers '.$rucher->getNom(), array(
-                'route' => 'kg_beekeeping_management_duplicate_tache',
-                'routeParameters' => array('tache_id'  => $tache->getId(),
-                                           'rucher_id' => $rucher->getId())
-            ));                
+            $rucheExist = false;
+            foreach( $rucher->getEmplacements() as $emplacement ){
+                if( $emplacement->getRuche() ){
+                    $rucheExist = true;
+                    break;
+                }
+            }
+            if( $rucheExist ){
+                $menu[$titleDupliquer]->addChild('.icon-long-arrow-right vers '.$rucher->getNom(), array(
+                    'route' => 'kg_beekeeping_management_duplicate_tache',
+                    'routeParameters' => array('tache_id'  => $tache->getId(),
+                                               'rucher_id' => $rucher->getId())
+                ));                 
+            }               
         }       
         
         //Colonie vivante et tâche non liée à une visite
