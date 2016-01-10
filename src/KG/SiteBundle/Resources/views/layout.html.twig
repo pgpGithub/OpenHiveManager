@@ -41,8 +41,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="{{ path('kg_site_home') }}">
-                        OpenHiveManager
-                        <!--<img alt="OpenHiveManager" src="{{ asset('logo_navbar.png') }}">-->
+                        {{ app.user.exploitations|first.nom }}
                     </a>
                 </div>
                 <!-- /.navbar-header -->
@@ -77,26 +76,40 @@
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="#"><i class="fa fa-tachometer fa-fw"></i> {{ app.user.exploitations|first.nom }}<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li><a title="Afficher l'exploitation" href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}">{{ icon('eye') }} Afficher</a></li>
-                                    <li><a title="Modifier l'exploitation" href="{{ path('kg_beekeeping_management_update_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}">{{ icon('pencil') }} Modifier</a></li>
-                                    <li><a title="Créer un rucher" href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.exploitations|first.id }) }}">{{ icon('plus') }} Créer un rucher</a></li>                                    
-                                    {% if app.user.exploitations|first.ruchers is not empty %}
-                                    <li>
-                                        <a href="#"><i class="fa fa-building fa-fw"></i>Rucher <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            {% for rucher in app.user.exploitations|first.ruchers %}
+                                <li><a title="Afficher l'exploitation" href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}">{{ icon('eye') }} Afficher</a></li>
+                                <li><a title="Modifier l'exploitation" href="{{ path('kg_beekeeping_management_update_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}">{{ icon('pencil') }} Modifier</a></li>
+                                <li><a title="Créer un rucher" href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.exploitations|first.id }) }}">{{ icon('plus') }} Créer un rucher</a></li>                                                             
+                                {% for rucher in app.user.exploitations|first.ruchers %}
+                                <li>
+                                    <a href="#"><i class="fa fa-building fa-fw"></i> {{ rucher.nom }}<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ icon('eye') }} Afficher</a></li>
+                                        <li><a title="Modifier l'exploitation" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}">{{ icon('pencil') }} Modifier</a></li>
+                                        <li><a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}">{{ icon('plus') }} Créer un emplacement</a></li>  
+                                        <li><a title="Afficher les colonies mortes" href="{{ path('kg_beekeeping_management_view_colonies_mortes', { 'rucher_id': rucher.id }) }}">{{ icon('heartbeat') }} Colonies mortes</a></li>
+                                        <li><a title="Générer les QR codes" href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}">{{ icon('qrcode') }} QR codes</a></li>
+                                        <li>
+                                            <a href="#">Third Level <span class="fa arrow"></span></a>
+                                            <ul class="nav nav-third-level">
                                                 <li>
-                                                    <a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ icon('eye') }} {{ rucher.nom }}</a>
+                                                    <a href="#">Third Level Item</a>
                                                 </li>
-                                            {% endfor %}
-                                        </ul>
-                                        <!-- /.nav-third-level -->
-                                    </li>
-                                    {% endif %}
-                                </ul>
-                                <!-- /.nav-second-level -->
+                                                <li>
+                                                    <a href="#">Third Level Item</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Third Level Item</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Third Level Item</a>
+                                                </li>
+                                            </ul>
+                                            <!-- /.nav-third-level -->
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                                </li>
+                                {% endfor %} 
                             </li>
                         </ul>
                     </div>
