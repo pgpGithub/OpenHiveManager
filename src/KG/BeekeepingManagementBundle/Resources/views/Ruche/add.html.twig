@@ -40,11 +40,6 @@
 
 {% block title %}{{ parent() }} - Créer une ruche{% endblock %}
 
-{% block menu %}
-    {% set rucher = emplacement.rucher %}
-    {% include 'KGBeekeepingManagementBundle::menuRucher.html.twig' %}
-{% endblock menu %}
-
 {% block panel_title %}
     <div class="row">
         <div class="col-xs-12">
