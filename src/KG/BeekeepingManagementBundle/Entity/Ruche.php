@@ -312,6 +312,17 @@ class Ruche
         return $this->rucher;
     }
     
+    public function canBeUpdated()
+    {
+        $permitted = true;
+        
+        if( $this->getColonie->getMorte()){
+            $permitted = false;
+        }
+        
+        return $permitted;        
+    }     
+    
    /**
    * @Assert\Callback
    */

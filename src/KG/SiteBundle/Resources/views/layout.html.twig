@@ -40,9 +40,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.exploitations|first %}
                     <a class="navbar-brand" href="{{ path('kg_site_home') }}">
                         {{ app.user.exploitations|first.nom }}
                     </a>
+                    {% endif %} 
                 </div>
                 <!-- /.navbar-header -->
 
@@ -71,7 +73,7 @@
                 </ul>
                 <!-- /.navbar-top-links -->
 
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.exploitations|first %}
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
@@ -88,24 +90,6 @@
                                         <li><a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}">{{ icon('plus') }} Créer un emplacement</a></li>  
                                         <li><a title="Afficher les colonies mortes" href="{{ path('kg_beekeeping_management_view_colonies_mortes', { 'rucher_id': rucher.id }) }}">{{ icon('heartbeat') }} Colonies mortes</a></li>
                                         <li><a title="Générer les QR codes" href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}">{{ icon('qrcode') }} QR codes</a></li>
-                                        <li>
-                                            <a href="#">Third Level <span class="fa arrow"></span></a>
-                                            <ul class="nav nav-third-level">
-                                                <li>
-                                                    <a href="#">Third Level Item</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Third Level Item</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Third Level Item</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Third Level Item</a>
-                                                </li>
-                                            </ul>
-                                            <!-- /.nav-third-level -->
-                                        </li>
                                     </ul>
                                     <!-- /.nav-second-level -->
                                 </li>

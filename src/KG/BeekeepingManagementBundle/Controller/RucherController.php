@@ -38,18 +38,8 @@ class RucherController extends Controller
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
     public function printQRCodeAction(Request $request, Rucher $rucher)
-    {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
               
@@ -183,18 +173,8 @@ class RucherController extends Controller
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
     public function viewAction(Request $request, Rucher $rucher, $page)
-    {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    {        
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -240,18 +220,8 @@ class RucherController extends Controller
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
     public function viewColoniesMortesAction(Request $request, Rucher $rucher, $page)
-    {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    {        
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -279,28 +249,8 @@ class RucherController extends Controller
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}}) 
     */    
     public function deleteAction(Rucher $rucher)
-    {
-        $exploitation = $rucher->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( !$not_permitted ){
-            foreach ( $rucher->getEmplacements() as $emplacement){
-                if( $emplacement->getRuche() || !$emplacement->getTranshumancesfrom()->isEmpty() || !$emplacement->getTranshumancesto()->isEmpty() ){
-                    $not_permitted = true;
-                    break;                
-                }
-            }
-        }
-        
-        if( $not_permitted ){
+    {        
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) || !$rucher->canBeDeleted() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -319,17 +269,8 @@ class RucherController extends Controller
     * @ParamConverter("exploitation", options={"mapping": {"exploitation_id" : "id"}}) 
     */    
     public function addAction(Exploitation $exploitation, Request $request)
-    {
-        $not_permitted = true;
-        
-        foreach ( $exploitation->getApiculteurExploitations() as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    {        
+        if( !$this->getUser()->canDisplayExploitation($exploitation) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -359,17 +300,8 @@ class RucherController extends Controller
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}}) 
     */    
     public function updateAction(Rucher $rucher, Request $request)
-    {
-        $not_permitted = true;
-        
-        foreach ( $rucher->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    {        
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

@@ -36,19 +36,8 @@ class RemerageController extends Controller
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
     public function viewAllAction(Request $request, Colonie $colonie, $page)
-    {
-        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $page < 1  || $colonie->getRemerages()->isEmpty()){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || $page < 1  || $colonie->getRemerages()->isEmpty()){
             throw new NotFoundHttpException('Page inexistante.');
         }
  
@@ -74,17 +63,8 @@ class RemerageController extends Controller
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}}) 
     */    
     public function addAction(Colonie $colonie, Request $request)
-    {
-        $not_permitted = true;
-        
-        foreach ( $colonie->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $colonie->getMorte() ){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canBeRemeree() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

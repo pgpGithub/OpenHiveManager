@@ -639,4 +639,15 @@ class Visite
     {
         return $this->taches;
     }      
+    
+    public function canBeUpdated()
+    {
+        $permitted = true;
+        
+        if( $this != $this->getColonie()->getVisites()->last() || $this->getColonie()->getMorte() ){
+            $permitted = false;
+        }
+        
+        return $permitted;
+    }
 }

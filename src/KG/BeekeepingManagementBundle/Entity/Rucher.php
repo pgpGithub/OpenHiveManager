@@ -361,4 +361,32 @@ class Rucher
             }
         }
     } 
+    
+    public function canBeDeleted()
+    {
+        $permitted = true;
+        
+        foreach ( $this->getEmplacements() as $emplacement){
+            if( $emplacement->getRuche() || !$emplacement->getTranshumancesfrom()->isEmpty() || !$emplacement->getTranshumancesto()->isEmpty() ){
+                $permitted = false;
+                break;                
+            }
+        } 
+        
+        return $permitted;
+    }
+    
+    public function hasRuche()
+    {
+        $permitted = false;
+        
+        foreach( $this->getEmplacements() as $emplacement ){
+            if( $emplacement->getRuche() ){
+                $permitted = true;
+                break;
+            }
+        }
+        
+        return $permitted;
+    }
 }

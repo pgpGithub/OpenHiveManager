@@ -38,18 +38,8 @@ class RecolteController extends Controller
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
     public function addAction(Colonie $colonie, Request $request)
-    {
-        $apiculteurExploitations = $colonie->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $colonie->getRuche()->getHausses()->isEmpty()){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || $colonie->canBeRecoltee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -95,19 +85,8 @@ class RecolteController extends Controller
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
     public function viewAllAction(Request $request, Colonie $colonie, $page)
-    {
-        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $page < 1  || $colonie->getRecoltes()->isEmpty()){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || $page < 1  || $colonie->getRecoltes()->isEmpty()){
             throw new NotFoundHttpException('Page inexistante.');
         }
  

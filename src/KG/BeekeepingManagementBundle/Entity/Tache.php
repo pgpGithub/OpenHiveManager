@@ -240,4 +240,26 @@ class Tache
     {
         return $this->date;
     }
+    
+    public function canBeDeleted()
+    {
+        $permitted = true;
+        
+        if( $this->getVisite() ){
+            $permitted = false;
+        }
+        
+        return $permitted;
+    }
+    
+    public function canBeUpdated()
+    {
+        $permitted = true;
+        
+        if( $this->getColonie()->getMorte() || $this->getVisite() ){
+            $permitted = false;
+        }
+        
+        return $permitted;
+    }
 }

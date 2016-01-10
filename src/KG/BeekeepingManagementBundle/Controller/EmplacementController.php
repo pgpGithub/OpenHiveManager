@@ -38,19 +38,8 @@ class EmplacementController extends Controller
     * @ParamConverter("emplacement", options={"mapping": {"emplacement_id" : "id"}}) 
     */    
     public function deleteAction(Emplacement $emplacement)
-    {
-        $exploitation = $emplacement->getRucher()->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $emplacement->getRuche()){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($emplacement->getRucher()->getExploitation()) || !$emplacement->canBeDeleted()){
             throw new NotFoundHttpException('Page inexistante.');
         }
 
@@ -81,18 +70,7 @@ class EmplacementController extends Controller
     */    
     public function addAction(Rucher $rucher, Request $request)
     {
-        $exploitation = $rucher->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+        if( !$this->getUser()->canDisplayExploitation($emplacement->getRucher()->getExploitation())){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -120,18 +98,8 @@ class EmplacementController extends Controller
     * @ParamConverter("emplacement", options={"mapping": {"emplacement_id" : "id"}})  
     */    
     public function updateAction(Emplacement $emplacement, Request $request)
-    {
-        $apiculteurExploitations = $emplacement->getRucher()->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || !$emplacement->getRucher()->getNumerotation() ){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($emplacement->getRucher()->getExploitation()) || !$emplacement->canBeUpdated() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

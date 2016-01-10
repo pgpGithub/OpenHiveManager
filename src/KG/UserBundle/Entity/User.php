@@ -105,6 +105,29 @@ class User extends BaseUser
         return $exploitations;
     }  
     
+  /**
+   * Vérifie si l'utilisateur à le droit d'accéder à l'exploitation
+   *
+   * @param Exploitation $exploitation
+   * @return bool
+   */
+  public function canDisplayExploitation(Exploitation $exploitation)
+  {
+    $permitted = false;
+      
+    $apiculteurExploitations = $exploitation->getApiculteurExploitations();  
+    foreach ( $apiculteurExploitations as $apiculteurExploitation ){
+        if( $apiculteurExploitation->getApiculteur()->getId() == $this->getId() ){
+            $permitted = true;
+            break;
+        }
+    }    
+    
+    return $permitted;
+  }    
+    
+    
+    
    /**
    * @Assert\Callback
    */
