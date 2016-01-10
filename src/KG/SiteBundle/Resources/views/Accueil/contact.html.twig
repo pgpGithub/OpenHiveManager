@@ -4,37 +4,33 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite, ?uglifycss'
-        'css/bootstrap_switch/bootstrap-switch.css'%}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts filter='?uglifyjs2' 
-        'js/bootstrap_switch/bootstrap-switch.js'
-        '@KGSiteBundle/Resources/public/js/contact/add.js'%}
-        <script src="{{ asset_url }}" type="text/javascript"></script>  
-    {% endjavascripts %}
 {% endblock %}
 
 {% block title %}{{ parent() }} - Contact{% endblock %}
 
 {% block body %}
-    <h2 class="page-header">{{ icon('envelope') }} Contactez-nous</h2>
-    <h3>{{ icon('info-circle') }} La parole est à vous</h3>
-    <p>
-        Une idée, une remarque, un conseil, un soutien ? N'hésitez pas à nous écrire à <a href="mailto:contact@openhivemanager.org">contact@openhivemanager.org</a>, nous prendrons toujours le temps de vous répondre.
-    </p>
-    <h3>{{ icon('question-circle') }} Nous sommes là pour vous aider</h3>
-    <p>
-        Vous rencontrez une anomalie ou avez besoin d'aide ? Ecrivez nous à <a href="mailto:support@openhivemanager.org">support@openhivemanager.org</a> en détaillant un maximum votre problème avec, si nécessaire :
-        <ul>
-            <li>Des copies d'écran</li>
-            <li>Les étapes pour reproduire l'anomalie</li>
-            <li>L'url de la page</li>
-            <li>Le ou les messages d'erreurs</li>
-        </ul>
-    </p>
+    <div class="row">
+        <div class="col-lg-12">  
+            <h2 class="page-header">{{ icon('envelope') }} Contactez-nous</h2>            
+
+            <h3>{{ icon('info-circle') }} La parole est à vous</h3>
+            <p>
+                Une idée, une remarque, un conseil, un soutien ? N'hésitez pas à nous écrire à <a href="mailto:contact@openhivemanager.org">contact@openhivemanager.org</a>, nous prendrons toujours le temps de vous répondre.
+            </p>
+            <h3>{{ icon('question-circle') }} Nous sommes là pour vous aider</h3>
+            <p>
+                Vous rencontrez une anomalie ou avez besoin d'aide ? Ecrivez nous à <a href="mailto:support@openhivemanager.org">support@openhivemanager.org</a> en détaillant un maximum votre problème avec, si nécessaire :
+                <ul>
+                    <li>Des copies d'écran</li>
+                    <li>Les étapes pour reproduire l'anomalie</li>
+                    <li>L'url de la page</li>
+                    <li>Le ou les messages d'erreurs</li>
+                </ul>
+            </p>
+        </div>
+    </div>      
 {% endblock %}

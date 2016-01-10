@@ -4,10 +4,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite, ?uglifycss'
-        '@KGSiteBundle/Resources/public/css/layout.css'%}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
 {% endblock %}
 
 {% block body %}
