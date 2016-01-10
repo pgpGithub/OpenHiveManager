@@ -16,48 +16,30 @@
  #}
 
 {% extends 'KGSiteBundle::layout.html.twig' %}
-
-{% block stylesheets %}
-    {{ parent() }}  
-    {% stylesheets filter='cssrewrite, ?uglifycss'
-        '@KGBeekeepingManagementBundle/Resources/public/css/layout.css'%}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}        
-{% endblock %}
     
-{% block body %}
-    {% if is_granted('ROLE_USER') %}
-        <div class="row">
-            {{ parent() }}
-            <div class="col-xs-12" id="body">
-                {% block menu %}{% endblock menu %}
-                {% include 'BraincraftedBootstrapBundle::flash.html.twig' %}               
+{% if is_granted('ROLE_USER') %}
+    {% block body %}
+        {{ parent() }}
 
-                <div class="row">
-                    <div class="col-md-12"> 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                {% block panel_title %}{% endblock %} 
-                            </div>                
-                            <div class="panel-body">
-                                {% block panel_body %}{% endblock %}
-                            </div>                    
-                        </div>      
-                    </div>       
-                </div>
+        {% block menu %}
+        {% endblock menu %}
+
+        {% include 'BraincraftedBootstrapBundle::flash.html.twig' %} 
+
+        {% block contain_body %}
+        {% endblock %}
+    {% endblock %}
+    
+    {% block footer %}
+        <footer>
+            <hr>
+            <div class="row">
+                <div class="col-md-12" align="center">
+                    <p>OpenHiveManager n'est pas une application gratuite. C'est une application participative. <a title="Participez" href="{{ path('kg_site_participer') }}">Pour la faire vivre, participez! </a></p>
+                    <p>Une question? Un besoin? Une anomalie? <a title="Contactez-nous" href="{{ path('kg_site_contact') }}">Contactez-nous!</a></p>
+                </div>                                                      
             </div>
-        </div>
-    {% endif %}     
-{% endblock %}   
+        </footer>  
+    {% endblock %}   
 
-{% block footer %}
-    <footer>
-        <hr>
-        <div class="row">
-            <div class="col-md-12" align="center">
-                <p>OpenHiveManager n'est pas une application gratuite. C'est une application participative. <a title="Participez" href="{{ path('kg_site_participer') }}">Pour la faire vivre, participez! </a></p>
-                <p>Une question? Un besoin? Une anomalie? <a title="Contactez-nous" href="{{ path('kg_site_contact') }}">Contactez-nous!</a></p>
-            </div>                                                      
-        </div>
-    </footer>  
-{% endblock %}      
+{% endif %}     
