@@ -19,15 +19,11 @@
 
 {% block title %}{{ parent() }} - Colonies mortes{% endblock %}
 
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Colonies mortes</h4>
-        </div>
-    </div>    
+{% block header %}
+    {{ icon('heartbeat') }} Colonies mortes
 {% endblock %}
 
-{% block panel_body %}        
+{% block contain_body %}        
     <div class="row">
         <div class=" col-md-12"> 
             <div class="table-responsive">

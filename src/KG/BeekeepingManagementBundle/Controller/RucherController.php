@@ -221,7 +221,7 @@ class RucherController extends Controller
     */    
     public function viewColoniesMortesAction(Request $request, Rucher $rucher, $page)
     {        
-        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) || !$rucher->hasColonieMorte() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

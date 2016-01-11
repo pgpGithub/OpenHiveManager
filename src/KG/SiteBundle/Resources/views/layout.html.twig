@@ -88,7 +88,9 @@
                                         <li><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ icon('eye') }} Afficher</a></li>
                                         <li><a title="Modifier le rucher" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}">{{ icon('pencil') }} Modifier</a></li>
                                         <li><a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}">{{ icon('plus') }} Créer un emplacement</a></li>  
-                                        <li><a title="Afficher les colonies mortes" href="{{ path('kg_beekeeping_management_view_colonies_mortes', { 'rucher_id': rucher.id }) }}">{{ icon('heartbeat') }} Colonies mortes</a></li>
+                                        {% if rucher.hasColonieMorte %}
+                                            <li><a title="Afficher les colonies mortes" href="{{ path('kg_beekeeping_management_view_colonies_mortes', { 'rucher_id': rucher.id }) }}">{{ icon('heartbeat') }} Colonies mortes</a></li>
+                                        {% endif %}
                                         {% if rucher.hasRuche %}
                                             <li><a title="Générer les QR codes" href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}">{{ icon('qrcode') }} QR codes</a></li>
                                         {% endif %}

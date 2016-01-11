@@ -389,4 +389,18 @@ class Rucher
         
         return $permitted;
     }
+    
+    public function hasColonieMorte()
+    {
+        $permitted = false;
+        
+        foreach( $this->getRuches() as $ruche ){
+            if( $ruche->getColonie()->getMorte() ){
+                $permitted = true;
+                break;
+            }
+        }
+        
+        return $permitted;        
+    }
 }
