@@ -38,6 +38,36 @@ class TacheRepository extends EntityRepository
                     ->setParameter('id',$colonie->getId())
                     ->getQuery();
     }   
+
+    public function getListByExploitation($exploitation)
+    {
+        return $this->createQueryBuilder('tache')
+                    ->leftJoin('tache.colonie','colonie')
+                    ->leftJoin('colonie.ruche','ruche')
+                    ->leftJoin('ruche.rucher','rucher')
+                    ->leftJoin('rucher.exploitation','exploitation')
+                    ->leftJoin('tache.visite','visite')
+                    ->where('exploitation.id = :id')
+                    ->andWhere('visite is NULL')
+                    ->setParameter('id',$exploitation->getId())
+                    ->getQuery();
+    }   
+    
+    public function getListUrgentesByExploitation($exploitation)
+    {
+        return $this->createQueryBuilder('tache')
+                    ->leftJoin('tache.colonie','colonie')
+                    ->leftJoin('colonie.ruche','ruche')
+                    ->leftJoin('ruche.rucher','rucher')
+                    ->leftJoin('rucher.exploitation','exploitation')
+                    ->leftJoin('tache.visite','visite')
+                    ->where('exploitation.id = :id')
+                    ->andWhere('visite is NULL')
+                    ->andWhere('tache.date < :today')
+                    ->setParameter('id',$exploitation->getId())
+                    ->setParameter('today', new \DateTime())
+                    ->getQuery();
+    }     
     
     public function getListByColonie($colonie, $visite = null)
     {

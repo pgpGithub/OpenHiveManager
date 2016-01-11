@@ -35,8 +35,7 @@ class RucherRepository extends EntityRepository
                     ->leftJoin('r.exploitation','e')
                     ->where('e.id = :exploitation')
                     ->setParameter('exploitation',$exploitation->getId())
-                    ->getQuery()
-                    ->getResult();
+                    ->getQuery();
     }  
 
     public function queryfindByExploitationId($exploitation, $rucher = null)
