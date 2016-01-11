@@ -126,7 +126,7 @@
                     <footer>
                         <hr>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-lg-12">
                                 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
                                 Ce <a href="http://www.openhivemanager.org" property="cc:attributionName" rel="cc:attributionURL">site</a> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">licence Creative Commons Attribution - Pas d&#39;Utilisation Commerciale - Pas de Modification 4.0 International</a>.
                             </div>                                                      
@@ -140,30 +140,29 @@
         <!-- /#wrapper -->        
 
         {% block javascripts %}
-                {% javascripts filter='?uglifyjs2' 
+            {% javascripts filter='?uglifyjs2' 
                     'js/jquery.js'
                     'js/bootstrap.js'
                     'assets/vendor/metisMenu/dist/metisMenu.min.js'
                     'assets/vendor/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js'
-                %}
-                <script src="{{ asset_url }}" type="text/javascript"></script>          
-
-                <!-- Piwik -->
-                <script type="text/javascript">
-                  var _paq = _paq || [];
-                  _paq.push(['trackPageView']);
-                  _paq.push(['enableLinkTracking']);
-                  (function() {
-                        var u="//analytics.openhivemanager.org/";
-                        _paq.push(['setTrackerUrl', u+'piwik.php']);
-                        _paq.push(['setSiteId', 1]);
-                        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-                  })();
-                </script>
-                <noscript><p><img src="//analytics.openhivemanager.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
-                <!-- End Piwik Code -->			
+            %}
+                <script src="{{ asset_url }}" type="text/javascript"></script>          		
             {% endjavascripts %}
+            <!-- Piwik -->
+            <script type="text/javascript">
+              var _paq = _paq || [];
+              _paq.push(['trackPageView']);
+              _paq.push(['enableLinkTracking']);
+              (function() {
+                    var u="//analytics.openhivemanager.org/";
+                    _paq.push(['setTrackerUrl', u+'piwik.php']);
+                    _paq.push(['setSiteId', 1]);
+                    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+              })();
+            </script>
+            <noscript><p><img src="//analytics.openhivemanager.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+            <!-- End Piwik Code -->	           
         {% endblock %}       
     </body>
 </html>
