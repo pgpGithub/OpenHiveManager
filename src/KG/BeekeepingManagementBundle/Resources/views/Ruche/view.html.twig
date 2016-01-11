@@ -19,71 +19,212 @@
 
 {% block title %}{{ parent() }} - Ruche{% endblock %}
 
-{% block menu %}
-    {% set colonie = ruche.colonie %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menu %}
-
 {% block header %}
    {{ icon('archive') }} Ruche {{ ruche.nom }}
 {% endblock %}
 
-{% block contain_body %}         
-    <div class="row">
-        <div class="col-sm-4" align="center"> 
-            {% if ruche.image is not null %}
-                <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-thumbnail img-responsive">
-            {% else %}
-                <img src="{{ asset('img/ruche/' ~ ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
-            {% endif %}       
-        </div>         
-        <div class="col-sm-8">
-            <table class="table">  
-                <tbody>                               
-                    <tr>
-                        <td><strong>Type</strong></td>
-                        <td>{{ ruche.corps.type.libelle }} {{ ruche.corps.nbcadres }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Matière</strong></td>
-                        <td>{{ ruche.matiere.libelle }}</td>
-                    </tr>
-                    {% if ruche.emplacement and ruche.rucher.numerotation %}
-                    <tr>
-                        <td><strong>Numéro emplacement</strong></td>
-                        <td>{{ ruche.emplacement.numero }}</td>
-                    </tr>
-                    {% endif %}
-                    <tr>
-                        <td><strong>Affectation</strong></td>
-                        <td>{{ ruche.colonie.affectation.libelle }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cadres nourriture</strong></td>
-                        <td>{{ ruche.corps.nbnourriture }}</td>
-                    </tr>                    
-                    <tr>
-                        <td><strong>Cadres couvain</strong></td>
-                        <td>{{ ruche.corps.nbcouvain }}</td>
-                    </tr>
-                    {% if ruche.colonie.visites is not empty %}
-                    <tr>
-                        <td><strong>Poids (kg)</strong></td>
-                        <td>{{ ruche.colonie.visites|last.poids|number_format(3, ',', ' ') }}</td>
-                    </tr>
-                    {% endif %}
-                    {% for hausse in ruche.hausses %}
-                    <tr>
-                        <td><strong>Hausse n°{{ loop.index }}</strong> (cadres pleins/nombre cadres)</td>
-                        <td>({{ hausse.nbplein }}/{{ hausse.nbcadres }})</td>
-                    </tr>                        
-                    {% endfor %}    
-                </tbody>
-            </table>
-        </div>                 
-    </div>  
-                    
-                                   
+{% block contain_body %} 
+    {% set colonie = ruche.colonie %}
+    {% set reine = colonie.remerages|last.reine %}      
+    
+    <div class="row">   
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a data-toggle="collapse" href="#collapseRuche">Identité</a>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                {{ icon('chevron-down') }} Menu
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                {% if not colonie.morte %}
+                                    <li><a title="Modifier" href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id': ruche.id }) }}">{{ icon('pencil') }} Modifier</a></li>
+                                    <li><a title="Remérer" href="{{ path('kg_beekeeping_management_add_remerage', { 'colonie_id': colonie.id }) }}">{{ icon('refresh') }} Remérer</a></li>
+                                    <li><a title="Déclarer morte" href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id': colonie.id }) }}">{{ icon('heartbeat') }} Déclarer morte</a></li>
+                                {% endif %}
+                                {% if ruche.hausses is not empty %}
+                                    <li><a title="Récolter" href="{{ path('kg_beekeeping_management_add_recolte', { 'colonie_id': colonie.id }) }}">{{ icon('upload') }} Récolter</a></li>
+                                {% endif %}
+                                {% if not colonie.morte and ruche.rucher.exploitation.getNbEmplacementsVides > 0 %}
+                                    <li><a title="Transhumer la ruche" href="{{ path('kg_beekeeping_management_add_transhumance', { 'colonie_id': colonie.id }) }}">{{ icon('exchange') }} Transhumer</a></li>
+                                {% endif %}
+                                {% if colonie.canBeDivisee %}
+                                    <li><a title="Diviser" href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id': colonie.id }) }}">{{ icon('scissors') }} Récolter</a></li>
+                                {% endif %}                                
+                                {% if not colonie.hasFille %}
+                                    <li class="divider"></li>
+                                    <li><a title="Supprimer" href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id': colonie.id }) }}">{{ icon('trash') }} Supprimer</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>                
+                </div>
+                <div id="collapseRuche" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="row">              
+                            <div class="col-sm-5">                                
+                                {% if ruche.image is not null %}
+                                    <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-thumbnail img-responsive">
+                                {% else %}
+                                    <img src="{{ asset('img/ruche/' ~ ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
+                                {% endif %}   
+                            </div>   
+                            <div class="col-sm-7">
+                                <h3>Ruche</h3>
+                                <table class="table">  
+                                    <tbody>                               
+                                        <tr>
+                                            <td><strong>Type</strong></td>
+                                            <td>{{ ruche.corps.type.libelle }} {{ ruche.corps.nbcadres }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Matière</strong></td>
+                                            <td>{{ ruche.matiere.libelle }}</td>
+                                        </tr>
+                                        {% if ruche.emplacement and ruche.rucher.numerotation %}
+                                        <tr>
+                                            <td><strong>Numéro emplacement</strong></td>
+                                            <td>{{ ruche.emplacement.numero }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td><strong>Affectation</strong></td>
+                                            <td>{{ ruche.colonie.affectation.libelle }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Cadres nourriture</strong></td>
+                                            <td>{{ ruche.corps.nbnourriture }}</td>
+                                        </tr>                    
+                                        <tr>
+                                            <td><strong>Cadres couvain</strong></td>
+                                            <td>{{ ruche.corps.nbcouvain }}</td>
+                                        </tr>
+                                        {% if ruche.colonie.visites is not empty %}
+                                        <tr>
+                                            <td><strong>Poids (kg)</strong></td>
+                                            <td>{{ ruche.colonie.visites|last.poids|number_format(3, ',', ' ') }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% for hausse in ruche.hausses %}
+                                        <tr>
+                                            <td><strong>Hausse n°{{ loop.index }}</strong> (cadres pleins/nombre cadres)</td>
+                                            <td>({{ hausse.nbplein }}/{{ hausse.nbcadres }})</td>
+                                        </tr>                        
+                                        {% endfor %}    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>      
+                         
+                        <hr>            
+                                    
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h3>Colonie</h3>
+                                <table class="table">  
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Numéro</strong></td>
+                                            <td>{{ colonie.numero }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Race</strong></td>
+                                            <td>{{ reine.race.libelle }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Date de naissance</strong></td>
+                                            <td>{{ colonie.dateColonie|date("m/Y") }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Origine</strong></td>
+                                            <td>{{ colonie.origineColonie.libelle }}</td>
+                                        </tr>
+                                        {% if colonie.visites is not empty %}
+                                        <tr>
+                                            <td><strong>Etat</strong></td>
+                                            <td>{{ colonie.visites|last.etat.libelle }}</td>
+                                        </tr>                    
+                                        <tr>
+                                            <td><strong>Agressivité</strong></td>
+                                            <td>
+                                                {{ colonie.visites|last.agressivite.libelle }}</td>
+                                        </tr>  
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>            
+                            <div class="col-sm-4">
+                                <h3>Lignée</h3>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Colonie mère</strong></td>
+                                            <td>
+                                                {% if reine.reineMere %}
+                                                    <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reine.reineMere.remerage.colonie.id }) }}">{{ reine.reineMere.remerage.colonie.numero }}</a>
+                                                {% else %}
+                                                    Inconnue
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            {% set long = reine.reinesFilles|length %}
+                                            <td><strong>Colonie{% if long > 1 %}s{% endif %} fille{% if long > 1 %}s{% endif %}</strong></td>
+                                            <td>
+                                                {% if reine.reinesFilles is empty %}
+                                                    Aucune
+                                                {% endif %}
+                                                {% for reineFille in reine.reinesFilles %}
+                                                    {% if not loop.first %}
+                                                        - 
+                                                    {% endif %}
+                                                    <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reineFille.remerage.colonie.id }) }}">{{ reineFille.remerage.colonie.numero }}</a>
+                                                {% endfor %}
+                                            </td>
+                                        </tr>                                         
+                                    </tbody>
+                                </table>                                  
+                            </div>
+                            <div class="col-sm-4">   
+                                {% set reine = colonie.remerages|last.reine %}
+                                <h3>Reine</h3>
+                                <table class="table">
+                                    <tbody> 
+                                        <tr>
+                                            <td><strong>Année</strong></td>
+                                            <td>{% if reine.anneeReine %}{{ reine.anneeReine|date("Y") }}{% else %}Inconnue{% endif %}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Marquage</strong></td>
+                                            <td>                                   
+                                                {% if reine.marquage and reine.anneeReine %}
+                                                    {% set annee = reine.anneeReine|date("Y")|last %}
+                                                    {% if annee == 0 or annee == 5 %}{% set marquage = 'Bleu' %}{% endif %}
+                                                    {% if annee == 1 or annee == 6 %}{% set marquage = 'Blanc' %}{% endif %}
+                                                    {% if annee == 2 or annee == 7 %}{% set marquage = 'Jaune' %}{% endif %}
+                                                    {% if annee == 3 or annee == 8 %}{% set marquage = 'Rouge' %}{% endif %}
+                                                    {% if annee == 4 or annee == 9 %}{% set marquage = 'Vert' %}{% endif %}
+                                                {% else %}    
+                                                    {% set marquage = 'Aucun' %}
+                                                {% endif %}
+                                                {{ marquage }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Clippage</strong></td>
+                                            <td>{% if reine.clippage %} Oui {% else %} Non {% endif %}</td>
+                                        </tr>                                                     
+                                    </tbody>
+                                </table>             
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+            </div>                           
+        </div>
+    </div>                                    
+                                            
     <hr>
 
     <h4>Tâches à faire :</h4>

@@ -53,16 +53,6 @@ class VisiteController extends Controller
         if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation())|| $colonie->canHaveNewVisite() ){
             throw new NotFoundHttpException('Page inexistante.');
         }       
-        
-        $today = new \DateTime();
-        $today->setTime('00', '00', '00');
-        
-        $lastVisite = $colonie->getVisites()->last();
-        if ( $lastVisite ){
-            if ( $lastVisite->getDate() >= $today ){
-                throw new NotFoundHttpException('Page inexistante.');
-            }
-        }
  
         $visite = new Visite($colonie);
 

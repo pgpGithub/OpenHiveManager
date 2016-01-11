@@ -740,8 +740,33 @@ class Colonie
         
         if( $this->getMorte()){
             $permitted = false;
+            return $permitted; 
+        }
+
+        $today = new \DateTime();
+        $today->setTime('00', '00', '00');
+        
+        $lastVisite = $this->getVisites()->last();
+        if ( $lastVisite ){
+            if ( $lastVisite->getDate() >= $today ){
+                $permitted = false;
+            }
         }
         
         return $permitted;        
-    }     
+    }   
+    
+    public function hasFille(){
+        
+        $fille = false;
+        
+        foreach( $this->getRemerages() as $remerage ){
+            if( !$remerage->getReine()->getReinesFilles()->isEmpty() ){
+                $fille = true;
+                break;
+            }
+        }  
+            
+        return $fille;
+    }
 }
