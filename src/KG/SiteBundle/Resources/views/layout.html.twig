@@ -86,6 +86,20 @@
                                     <a href="#"><i class="fa fa-sitemap fa-fw"></i> {{ rucher.nom }}<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ icon('eye') }} Afficher</a></li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-archive fa-fw"></i>Ruches <span class="fa arrow"></span></a>
+                                            <ul class="nav nav-third-level">
+                                                {% for emplacement in rucher.emplacements %}
+                                                    {% if emplacement.ruche %}
+                                                        <li>
+                                                            <a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ icon('eye') }} {{ emplacement.ruche.nom }}</a>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                            <!-- /.nav-third-level -->
+                                        </li>
+                                        
                                         <li><a title="Modifier le rucher" href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}">{{ icon('pencil') }} Modifier</a></li>
                                         <li><a title="Créer un emplacement" href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}">{{ icon('plus') }} Créer un emplacement</a></li>  
                                         {% if rucher.hasColonieMorte %}

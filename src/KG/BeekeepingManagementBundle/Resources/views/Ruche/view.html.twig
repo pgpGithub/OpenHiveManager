@@ -24,14 +24,11 @@
     {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
 {% endblock menu %}
 
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Données de la ruche</h4>
-        </div>
-    </div>
+{% block header %}
+   {{ icon('archive') }} Ruche {{ ruche.nom }}
 {% endblock %}
-{% block panel_body %}         
+
+{% block contain_body %}         
     <div class="row">
         <div class="col-sm-4" align="center"> 
             {% if ruche.image is not null %}

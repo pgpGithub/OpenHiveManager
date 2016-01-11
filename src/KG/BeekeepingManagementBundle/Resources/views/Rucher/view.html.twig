@@ -44,27 +44,8 @@
 {% block contain_body %}     
     <div class="row">
         <div class=" col-sm-12">
-            <div class="row">
-                <div class="col-sm-5">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" href="#collapsePhoto">Photo</a>
-                            </h4>
-                        </div>
-                        <div id="collapsePhoto" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                {% if rucher.image is not null %}
-                                    <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}" class="img-thumbnail img-responsive">
-                                {% else %}
-                                    <img src="{{ asset("img/rucher.jpg") }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
-                                {% endif %}  
-                            </div>
-                        </div>
-                    </div>
-                </div>                
-
-                <div class="col-sm-7">
+            <div class="row">              
+                <div class="col-sm-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -73,58 +54,69 @@
                         </div>
                         <div id="collapseProprietaire" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <table class="table">  
-                                    <tbody>                                 
-                                        <tr>
-                                            <td><strong>Nom</strong></td>
-                                            <td>{{ rucher.proprietaire.nom|capitalize }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Prénom</strong></td>
-                                            <td>{{ rucher.proprietaire.prenom|capitalize }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Adresse</strong></td>
-                                            <td>{{ rucher.proprietaire.adresse }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Téléphone 1</strong></td>
-                                            <td>{% if rucher.proprietaire.telephone %}{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}{% endif %}</td>
-                                        </tr>      
-                                        <tr>
-                                            <td><strong>Téléphone 2</strong></td>
-                                            <td>{% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}{% endif %}</td>
-                                        </tr>                              
-                                    </tbody>
-                                </table>
+                                <div class="row">              
+                                    <div class="col-sm-5">                                
+                                        {% if rucher.image is not null %}
+                                            <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}" class="img-thumbnail img-responsive">
+                                        {% else %}
+                                            <img src="{{ asset("img/rucher.jpg") }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
+                                        {% endif %} 
+                                    </div>   
+                                    <div class="col-sm-7"> 
+                                        <table class="table">  
+                                            <tbody>                                 
+                                                <tr>
+                                                    <td><strong>Nom</strong></td>
+                                                    <td>{{ rucher.proprietaire.nom|capitalize }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Prénom</strong></td>
+                                                    <td>{{ rucher.proprietaire.prenom|capitalize }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Adresse</strong></td>
+                                                    <td>{{ rucher.proprietaire.adresse }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Téléphone 1</strong></td>
+                                                    <td>{% if rucher.proprietaire.telephone %}{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}{% endif %}</td>
+                                                </tr>      
+                                                <tr>
+                                                    <td><strong>Téléphone 2</strong></td>
+                                                    <td>{% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}{% endif %}</td>
+                                                </tr>                              
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>                
                             </div>
                         </div>                
                     </div>                                
                 </div>  
+                <div class="col-sm-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapseMeteo">Prévisions météo</a>
+                            </h4>
+                        </div>
+                        <div id="collapseMeteo" class="panel-collapse collapse in">
+                            <div class="panel-body">                    
+                                <div id="weather"
+                                     data-latitude="{{ rucher.localisation.latitude }}"
+                                     data-longitude="{{ rucher.localisation.longitude }}"
+                                     data-apikey="{{ apikey }}">                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
+                </div>                                          
             </div>     
         </div>
     </div>
                                    
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapseMeteo">Prévisions météo</a>
-                    </h4>
-                </div>
-                <div id="collapseMeteo" class="panel-collapse collapse in">
-                    <div class="panel-body">                    
-                        <div id="weather"
-                             data-latitude="{{ rucher.localisation.latitude }}"
-                             data-longitude="{{ rucher.localisation.longitude }}"
-                             data-apikey="{{ apikey }}">                   
-                        </div>
-                    </div>
-                </div>
-            </div>        
-        </div>         
-        <div class="col-sm-8">
+    <div class="row">      
+        <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
