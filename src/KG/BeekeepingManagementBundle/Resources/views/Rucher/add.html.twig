@@ -33,61 +33,103 @@
         'js/ol/ol.js'
         '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js'
         'js/bootstrap_switch/bootstrap-switch.js'
-        '@KGBeekeepingManagementBundle/Resources/public/js/rucher/add.js'%}
+        '@KGBeekeepingManagementBundle/Resources/public/js/rucher/add.js'
+        'assets/js/plugins/loaders/pace.min.js'
+        'assets/js/plugins/loaders/blockui.min.js'
+        'assets/js/core/libraries/jquery_ui/core.min.js'
+        'assets/js/plugins/forms/wizards/form_wizard/form.min.js'
+        'assets/js/plugins/forms/wizards/form_wizard/form_wizard.min.js'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        'assets/js/core/libraries/jasny_bootstrap.min.js'
+        'assets/js/plugins/forms/validation/validate.min.js'
+        'assets/js/plugins/notifications/sweet_alert.min.js'
+        'assets/js/pages/wizard_form.js'
+    %}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Créer un rucher{% endblock %}             
-
-{% block header %}
-    {{ icon('plus') }} Créer un rucher
-{% endblock %}
+{% block titre %}Panneau de contrôle{% endblock %}             
     
-{% block contain_body %}
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-    <fieldset>
-        <legend>Propriétaire du terrain</legend>
-        {{ form_row(form.proprietaire.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.proprietaire.prenom, {'label': 'Prénom :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.proprietaire.telephone, {'label': 'Téléphone 1 :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.proprietaire.telephone2, {'label': 'Téléphone 2 :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.proprietaire.adresse, {'label': 'Adresse :', 'label_col': 4, 'widget_col': 5})  }} 
-    </fieldset>   
+{% block body %}
     
-    <fieldset> 
-        <legend>Rucher</legend>     
-        {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
-        <div class="row">
-            <div class="col-md-offset-4 col-md-6">   
-                {{ form_row(form.numerotation, {'attr': {'data-label-text' : "Emplacements numérotés ?", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}        
+    <!-- Basic setup -->
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h6 class="panel-title">Création d'un rucher</h6>
             </div>
-        </div>          
-        {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.localisation.latitude) }}
-        {{ form_row(form.localisation.longitude) }}
 
-        <div class="col-md-offset-2 col-md-8">
-            <h4><center>Localisez le rucher sur la carte</center></h4>     
-            {{ form_errors(form) }}
-            <div id="map" 
-                 class="map thumbnail" 
-                 data-latitude="kg_beekeepingmanagementbundle_rucher_localisation_latitude"
-                 data-longitude="kg_beekeepingmanagementbundle_rucher_localisation_longitude"
-                 data-picker="<img src='{{ asset('location.png') }}'>">
+            {{ form_start(form, { 'attr': {'class': 'form-basic'} }) }}
+            
+            <fieldset class="step" id="step1">
+                <h6 class="form-wizard-title text-semibold">
+                    <span class="form-wizard-count">1</span>
+                    Paramètres du rucher
+                    <small class="display-block">Pour l'identifier</small>
+                </h6>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.nom, {'label': 'Nom :'})  }}
+                    </div>
+                    
+                <div class="row">
+                    <div class="col-md-offset-4 col-md-6">   
+                        {{ form_row(form.numerotation, {'attr': {'data-label-text' : "Emplacements numérotés ?", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}        
+                    </div>
+                </div> 
+                {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}    
+
+            </fieldset>
+
+            <fieldset class="step" id="step2">
+                <h6 class="form-wizard-title text-semibold">
+                    <span class="form-wizard-count">2</span>
+                    Propriétaire
+                    <small class="display-block">A contacter en cas de problème</small>
+                </h6>
+                
+                {{ form_row(form.proprietaire.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
+                {{ form_row(form.proprietaire.prenom, {'label': 'Prénom :', 'label_col': 4, 'widget_col': 5})  }}
+                {{ form_row(form.proprietaire.telephone, {'label': 'Téléphone 1 :', 'label_col': 4, 'widget_col': 5})  }}
+                {{ form_row(form.proprietaire.telephone2, {'label': 'Téléphone 2 :', 'label_col': 4, 'widget_col': 5})  }}
+                {{ form_row(form.proprietaire.adresse, {'label': 'Adresse :', 'label_col': 4, 'widget_col': 5})  }} 
+                                                                
+            </fieldset>
+
+            <fieldset class="step" id="step3">
+                <h6 class="form-wizard-title text-semibold">
+                    <span class="form-wizard-count">3</span>
+                    Localisation du rucher
+                    <small class="display-block">Utile pour les informations météorologiques</small>
+                </h6>
+                
+                {{ form_row(form.localisation.latitude) }}
+                {{ form_row(form.localisation.longitude) }}
+
+                <div class="col-md-offset-2 col-md-8">
+                    <h4><center>Localisez le rucher sur la carte</center></h4>     
+                    {{ form_errors(form) }}
+                    <div id="map" 
+                         class="map thumbnail" 
+                         data-latitude="kg_beekeepingmanagementbundle_rucher_localisation_latitude"
+                         data-longitude="kg_beekeepingmanagementbundle_rucher_localisation_longitude"
+                         data-picker="<img src='{{ asset('location.png') }}'>">
+                    </div>
+                </div> 
+                
+            </fieldset>
+            
+            {{ form_rest(form) }}
+            
+            <div class="form-wizard-actions">
+                <input class="btn btn-default" id="basic-back" value="Back" type="reset">
+                <input class="btn btn-info" id="basic-next" value="Next" type="submit">
             </div>
-        </div>    
-    </fieldset>
-
-    {{ form_rest(form) }}
-
-    <div class="form-group">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('floppy-o') }} Sauvegarder
-            </button>
-        </div>        
-    </div>
-
-    {{ form_end(form) }}    
+            
+            {{ form_end(form) }}
+        </div>
+        <!-- /basic setup -->  
 {% endblock %}
+
