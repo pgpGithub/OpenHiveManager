@@ -22,7 +22,8 @@
     {% stylesheets filter='cssrewrite, ?uglifycss'
         'css/ol/ol.css' 
         '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css'
-        'css/bootstrap_switch/bootstrap-switch.css' %}
+
+    %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}
 {% endblock %}
@@ -32,7 +33,7 @@
     {% javascripts filter='?uglifyjs2'
         'js/ol/ol.js'
         '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js'
-        'js/bootstrap_switch/bootstrap-switch.js'
+
         '@KGBeekeepingManagementBundle/Resources/public/js/rucher/add.js'
         'assets/js/plugins/loaders/pace.min.js'
         'assets/js/plugins/loaders/blockui.min.js'
@@ -65,15 +66,20 @@
             <fieldset class="step" id="step1">
                 <h6 class="form-wizard-title text-semibold">
                     <span class="form-wizard-count">1</span>
-                    Paramètres du rucher
-                    <small class="display-block">Pour l'identifier</small>
+                    Descriptiopn du rucher
+                    <small class="display-block">Pour l'identifier et le paramétrer</small>
                 </h6>
 
                 <div class="row">
                     <div class="col-md-6">
                         {{ form_row(form.nom, {'label': 'Nom :'})  }}
                     </div>
-                    
+                    <div class="checkbox checkbox-switch">
+                            <label>
+                                    <input type="checkbox" class="switch" data-on-text="Oui" data-off-text="Non">
+                                    Checked switch
+                            </label>
+                    </div>                    
                 <div class="row">
                     <div class="col-md-offset-4 col-md-6">   
                         {{ form_row(form.numerotation, {'attr': {'data-label-text' : "Emplacements numérotés ?", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}        
