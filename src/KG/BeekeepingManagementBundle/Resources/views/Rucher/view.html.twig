@@ -40,11 +40,88 @@
     {% endjavascripts %}
 {% endblock %}
 
-{% block titre %}Rucher {{ rucher.nom }}{% endblock %}   
+{% block titre %}Rucher {{ rucher.nom }}{% endblock %}  
+
+{% block breadcrumb %} 
+    <li class="active">Afficher un rucher</li>
+{% endblock %} 
+
+{% block breadcrumb_element %}
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-bars position-left"></i>
+            Menu
+            <span class="caret"></span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
+            <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
+            <li><a href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-pencil position-left"></i> Modifier le rucher</a></li>
+            {% if rucher.canBeDeleted %}
+                <li><a href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-trash position-left"></i> Supprimer le rucher</a></li>
+            {% endif %}
+        </ul>
+    </li>    
+{% endblock %} 
 
 {% block body %}                          
-      
-<!-- Media library -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Information générales</h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="close"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            {% if rucher.image is not null %}
+                                <img src="{{ asset(rucher.image.webPath) }}" alt="{{ rucher.image.alt }}" class="img-thumbnail img-responsive">
+                            {% else %}
+                                <img src="{{ asset("img/rucher.jpg") }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
+                            {% endif %}                             
+                        </div>
+                        <div class="col-md-5">
+                            <h6>Propriétaire du terrain</h6>
+                            <p>
+                                <strong>Nom :</strong> {{ rucher.proprietaire.nom|capitalize }}
+                            </p>
+                            <p>
+                                <strong>Prénom</strong> {{ rucher.proprietaire.prenom|capitalize }}
+                            </p>
+                            <p>    
+                                <strong>Adresse</strong> {{ rucher.proprietaire.adresse }}
+                            </p>
+                            <p>
+                                <strong>Téléphone 1</strong> {% if rucher.proprietaire.telephone %}{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}{% endif %}
+                            </p>    
+                            <p>
+                                <strong>Téléphone 2</strong> {% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}{% endif %}
+                            </p>
+                        </div>            
+                        <div class="col-md-4">
+                            <h6>Prévisions météo</h6>
+                            <div id="weather"
+                                 data-latitude="{{ rucher.localisation.latitude }}"
+                                 data-longitude="{{ rucher.localisation.longitude }}"
+                                 data-apikey="{{ apikey }}">                   
+                            </div>                        
+                        </div>
+                    </div>        
+                </div>    
+            </div>      
+        </div> 
+    </div>
+
+  
+    <!-- Media library -->
     <div class="panel panel-white">
         <div class="panel-heading">
             <h6 class="panel-title text-semibold">Composition</h6>
@@ -111,15 +188,15 @@
                                         {% if rucher.numerotation %}
                                             <li><a href="#"><i class="fa fa-pencil"></i> Modifier l'emplacement</a></li>
                                         {% endif %}
-                                        
+
                                         {% if not emplacement.ruche %}
                                             <li><a href="#"><i class="fa fa-trash"></i> Supprimer l'emplacement</a></li>
                                         {% endif %}
-                                        
+
                                         {% if not emplacement.ruche or rucher.numerotation %}
                                             <li class="divider"></li>
                                         {% endif %}
-                                        
+
                                         {% if emplacement.ruche %}
                                             <li><a href="#"><i class="fa fa-folder-open-o"></i> Ouvrir la ruche</a></li>
 
@@ -140,5 +217,6 @@
             </tbody>
         </table>
     </div>
-    <!-- /media library --> 
+    <!-- /media library -->
+                 
 {% endblock %}

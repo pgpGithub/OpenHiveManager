@@ -42,6 +42,12 @@
 {% endblock %}
 
 {% block titre %}Panneau de contrôle{% endblock %}             
+
+{% block breadcrumb %} 
+    <li class="active">Créer un rucher</li>
+{% endblock %} 
+
+{% block breadcrumb_element %} {{ parent() }} {% endblock %} 
     
 {% block body %}
  

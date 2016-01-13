@@ -132,7 +132,7 @@
                                 <ul class="navigation navigation-main navigation-accordion">
 
                                     <!-- Main -->
-                                    <li class="navigation-header"><span>Menu</span> <i class="icon-menu" title="Main pages"></i></li>
+                                    <li class="navigation-header"><span>Menu Principal</span> <i class="icon-menu" title="Main pages"></i></li>
                                     <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="fa fa-tachometer"></i> <span>Panneau de contrôle</span></a></li>
                                     <li>
                                         <a href="#"><i class="fa fa-sitemap"></i> <span>Ruchers</span></a>
@@ -185,9 +185,17 @@
                             </div>
                         </div>
                         
-                        <div class="breadcrumb-line">                           
+                        <div class="breadcrumb-line"> 
+                            <ul class="breadcrumb">
+                                <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="icon-home2 position-left"></i> Manager</a></li>
+                                {% block breadcrumb %} 
+                                {% endblock %}
+                            </ul>         
+                            
                             <ul class="breadcrumb-elements">
-                                <li><a href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="fa fa-plus position-left"></i> Créer un rucher</a></li>
+                                {% block breadcrumb_element %}
+                                    <li><a href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="fa fa-plus position-left"></i> Créer un rucher</a></li>
+                                {% endblock %}
                             </ul>
                         </div>
                     </div>
