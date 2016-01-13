@@ -22,7 +22,6 @@
     {% stylesheets filter='cssrewrite, ?uglifycss'
         'css/ol/ol.css' 
         '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css'
-
     %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
     {% endstylesheets %}
@@ -33,19 +32,11 @@
     {% javascripts filter='?uglifyjs2'
         'js/ol/ol.js'
         '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js'
-
-        '@KGBeekeepingManagementBundle/Resources/public/js/rucher/add.js'
         'assets/js/plugins/loaders/pace.min.js'
         'assets/js/plugins/loaders/blockui.min.js'
-        'assets/js/core/libraries/jquery_ui/core.min.js'
-        'assets/js/plugins/forms/wizards/form_wizard/form.min.js'
-        'assets/js/plugins/forms/wizards/form_wizard/form_wizard.min.js'
         'assets/js/plugins/forms/selects/select2.min.js'
         'assets/js/plugins/forms/styling/uniform.min.js'
-        'assets/js/core/libraries/jasny_bootstrap.min.js'
-        'assets/js/plugins/forms/validation/validate.min.js'
-        'assets/js/plugins/notifications/sweet_alert.min.js'
-        'assets/js/pages/wizard_form.js'
+        'assets/js/pages/form_layouts.js'
     %}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
@@ -54,88 +45,123 @@
 {% block titre %}Panneau de contrôle{% endblock %}             
     
 {% block body %}
-    
-    <!-- Basic setup -->
-        <div class="panel panel-white">
+ 
+    <!-- 2 columns form -->
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="panel panel-flat">
             <div class="panel-heading">
-                <h6 class="panel-title">Création d'un rucher</h6>
+                <h5 class="panel-title">Création d'un rucher</h5>
             </div>
 
-            {{ form_start(form, { 'attr': {'class': 'form-basic'} }) }}
-            
-            <fieldset class="step" id="step1">
-                <h6 class="form-wizard-title text-semibold">
-                    <span class="form-wizard-count">1</span>
-                    Descriptiopn du rucher
-                    <small class="display-block">Pour l'identifier et le paramétrer</small>
-                </h6>
-
+            <div class="panel-body"> 
                 <div class="row">
                     <div class="col-md-6">
-                        {{ form_row(form.nom, {'label': 'Nom :'})  }}
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-info position-left"></i> Description</legend>
+
+                            <div class="form-group">
+                                {{ form_label(form.nom, 'Nom :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.nom) }}
+                                    {{ form_errors(form.nom) }}
+                                </div>
+                            </div>  
+                                
+                            <div class="form-group">
+                                {{ form_label(form.image.file, 'Photo :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.image.file, { 'attr': {'class': 'file-styled'} }) }}
+                                    {{ form_errors(form.image.file) }}
+                                </div>                                
+                            </div>                                
+
+                            <div class="form-group">
+                                {{ form_label(form.numerotation, 'Numéroter les emplacements :', { 'label_attr': {'class': 'col-lg-9'} }) }}
+                                {{ form_widget(form.numerotation, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
+                                {{ form_errors(form.numerotation) }}
+                            </div>                              
+                        </fieldset>
                     </div>
-                    <div class="checkbox checkbox-switch">
-                            <label>
-                                    <input type="checkbox" class="switch" data-on-text="Oui" data-off-text="Non">
-                                    Checked switch
-                            </label>
-                    </div>                    
+
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-key position-left"></i> Propriétaire</legend>
+
+                            <div class="form-group">
+                                {{ form_label(form.proprietaire.nom, 'Nom :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.proprietaire.nom, { 'attr': {'placeholder': 'Nom'} }) }}
+                                            {{ form_errors(form.proprietaire.nom) }}
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.proprietaire.prenom, { 'attr': {'placeholder': 'Prénom'} }) }}
+                                            {{ form_errors(form.proprietaire.prenom) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.proprietaire.telephone, 'Téléphone :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.proprietaire.telephone, { 'attr': {'placeholder': 'Fixe'} }) }}
+                                            {{ form_errors(form.proprietaire.telephone) }}
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.proprietaire.telephone2, { 'attr': {'placeholder': 'Mobile'} }) }}
+                                            {{ form_errors(form.proprietaire.telephone2) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.proprietaire.adresse, 'Adresse :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.proprietaire.adresse) }} 
+                                    {{ form_errors(form.proprietaire.adresse) }}
+                                </div>
+                            </div>                                        
+                        </fieldset>
+                    </div>
+                </div>
+                                                                                            
                 <div class="row">
-                    <div class="col-md-offset-4 col-md-6">   
-                        {{ form_row(form.numerotation, {'attr': {'data-label-text' : "Emplacements numérotés ?", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}        
+                    <div class="col-md-10 col-md-offset-1">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-map-marker position-left"></i> Localisation</legend>
+                            {{ form_row(form.localisation.latitude) }}
+                            {{ form_row(form.localisation.longitude) }}
+
+                            <div class="col-md-12">
+                                <center>Localisez le rucher sur la carte avec une précision d'environ 5km</center>    
+                                {{ form_errors(form) }}  
+                                <div id="map" 
+                                     class="map thumbnail" 
+                                     data-latitude="kg_beekeepingmanagementbundle_rucher_localisation_latitude"
+                                     data-longitude="kg_beekeepingmanagementbundle_rucher_localisation_longitude"
+                                     data-picker="<img src='{{ asset('location.png') }}'>">
+                                </div>
+                            </div> 
+
+                        </fieldset>
                     </div>
-                </div> 
-                {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}    
-
-            </fieldset>
-
-            <fieldset class="step" id="step2">
-                <h6 class="form-wizard-title text-semibold">
-                    <span class="form-wizard-count">2</span>
-                    Propriétaire
-                    <small class="display-block">A contacter en cas de problème</small>
-                </h6>
+                </div>
+                          
+                {{ form_rest(form) }}
                 
-                {{ form_row(form.proprietaire.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
-                {{ form_row(form.proprietaire.prenom, {'label': 'Prénom :', 'label_col': 4, 'widget_col': 5})  }}
-                {{ form_row(form.proprietaire.telephone, {'label': 'Téléphone 1 :', 'label_col': 4, 'widget_col': 5})  }}
-                {{ form_row(form.proprietaire.telephone2, {'label': 'Téléphone 2 :', 'label_col': 4, 'widget_col': 5})  }}
-                {{ form_row(form.proprietaire.adresse, {'label': 'Adresse :', 'label_col': 4, 'widget_col': 5})  }} 
-                                                                
-            </fieldset>
-
-            <fieldset class="step" id="step3">
-                <h6 class="form-wizard-title text-semibold">
-                    <span class="form-wizard-count">3</span>
-                    Localisation du rucher
-                    <small class="display-block">Utile pour les informations météorologiques</small>
-                </h6>
-                
-                {{ form_row(form.localisation.latitude) }}
-                {{ form_row(form.localisation.longitude) }}
-
-                <div class="col-md-offset-2 col-md-8">
-                    <h4><center>Localisez le rucher sur la carte</center></h4>     
-                    {{ form_errors(form) }}
-                    <div id="map" 
-                         class="map thumbnail" 
-                         data-latitude="kg_beekeepingmanagementbundle_rucher_localisation_latitude"
-                         data-longitude="kg_beekeepingmanagementbundle_rucher_localisation_longitude"
-                         data-picker="<img src='{{ asset('location.png') }}'>">
-                    </div>
-                </div> 
-                
-            </fieldset>
-            
-            {{ form_rest(form) }}
-            
-            <div class="form-wizard-actions">
-                <input class="btn btn-default" id="basic-back" value="Back" type="reset">
-                <input class="btn btn-info" id="basic-next" value="Next" type="submit">
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
             </div>
-            
-            {{ form_end(form) }}
         </div>
-        <!-- /basic setup -->  
+    {{ form_end(form) }}
+    <!-- /2 columns form -->    
 {% endblock %}
 
