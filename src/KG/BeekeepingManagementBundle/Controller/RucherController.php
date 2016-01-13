@@ -180,37 +180,12 @@ class RucherController extends Controller
         
         $apikey = $this->container->getParameter('apikey');
         
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->getListByRucher($rucher);    
-
-        $paginator  = $this->get('knp_paginator');
-        
-        if( $rucher->getNumerotation() ){
-            $pagination = $paginator->paginate(
-                $query,
-                $request->query->getInt('page', $page),
-                10,
-                array(
-                    'defaultSortFieldName' => 'e.numero',
-                    'defaultSortDirection' => 'asc'
-                )                
-            );              
-        }else{
-            $pagination = $paginator->paginate(
-                $query,
-                $request->query->getInt('page', $page),
-                10,
-                array(
-                    'defaultSortFieldName' => 'ruche.nom',
-                    'defaultSortDirection' => 'asc'
-                )                
-            );               
-        }
-      
+        $emplacements = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->getListByRucher($rucher)->getResult();    
         
         return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', 
-                array(  'rucher'     => $rucher,
-                        'apikey'     => $apikey,
-                        'pagination' => $pagination
+                array(  'rucher'       => $rucher,
+                        'apikey'       => $apikey,
+                        'emplacements' => $emplacements
                     )
             );        
     }

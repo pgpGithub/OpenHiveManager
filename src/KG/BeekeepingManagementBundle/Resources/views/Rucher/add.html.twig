@@ -32,11 +32,10 @@
     {% javascripts filter='?uglifyjs2'
         'js/ol/ol.js'
         '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js'
-        'assets/js/plugins/loaders/pace.min.js'
-        'assets/js/plugins/loaders/blockui.min.js'
         'assets/js/plugins/forms/selects/select2.min.js'
         'assets/js/plugins/forms/styling/uniform.min.js'
-        'assets/js/pages/form_layouts.js'
+        'assets/js/plugins/uploaders/fileinput.min.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/rucher/add.js'
     %}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
@@ -70,7 +69,7 @@
                             <div class="form-group">
                                 {{ form_label(form.image.file, 'Photo :', { 'label_attr': {'class': 'col-lg-3'} }) }}
                                 <div class="col-lg-9">
-                                    {{ form_widget(form.image.file, { 'attr': {'class': 'file-styled'} }) }}
+                                    {{ form_widget(form.image.file, { 'attr': {'class': 'file-input-custom', 'data-show-caption': 'true', 'data-show-upload': 'true', 'accept': 'image/*'} }) }}
                                     {{ form_errors(form.image.file) }}
                                 </div>                                
                             </div>                                
