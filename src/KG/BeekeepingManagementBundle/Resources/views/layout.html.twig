@@ -141,16 +141,18 @@
                                                     <li>
                                                         <a href="#"><i class="fa fa-building"></i> {{ rucher.nom }}<span class="fa arrow"></span></a>
                                                         <ul class="nav nav-second-level">
-                                                            <li><a title="Ouvrir le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ icon('folder-open-o') }} Ouvrir</a></li>
+                                                            <li><a title="Ouvrir le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-folder-open-o"></i> Ouvrir</a></li>
                                                             {% if rucher.hasRuche %}
                                                                 <li>
                                                                     <a href="#"><i class="fa fa-list fa-fw"></i>Ruches <span class="fa arrow"></span></a>
                                                                     <ul>
                                                                         {% for emplacement in rucher.emplacements %}
                                                                             {% if emplacement.ruche %}
-                                                                                <li>
-                                                                                    <a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}">{{ icon('archive') }} {{ emplacement.ruche.nom }}</a>
-                                                                                </li>
+                                                                                {% if emplacement.ruche.id %}
+                                                                                    <li>
+                                                                                        <a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}"><i class="fa fa-archive"></i> {{ emplacement.ruche.nom }}</a>
+                                                                                    </li>
+                                                                                {% endif %}
                                                                             {% endif %}
                                                                         {% endfor %}
                                                                     </ul>

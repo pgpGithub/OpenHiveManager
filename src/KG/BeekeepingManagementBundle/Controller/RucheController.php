@@ -103,7 +103,7 @@ class RucheController extends Controller
     */    
     public function addAction(Emplacement $emplacement, Request $request)
     {
-        if( !$this->getUser()->canDisplayExploitation($ruche->getRucher()->getExploitation()) || !$emplacement->isEmpty() ){
+        if( !$this->getUser()->canDisplayExploitation($emplacement->getRucher()->getExploitation()) || !$emplacement->isEmpty() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

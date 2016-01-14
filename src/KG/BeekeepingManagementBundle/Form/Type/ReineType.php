@@ -58,11 +58,7 @@ class ReineType extends AbstractType
                                     'viewSelect' => 'decade',
                                     'initialDate' => date('Y'), 
                                 ),
-                            'read_only' => true,
-                            'attr' => array(
-                                'input_group' => array(
-                                    'prepend' => '.icon-calendar'
-                                ))                          
+                            'read_only' => true                       
                 ))
                 
             ->add('clippage', 'checkbox', array(

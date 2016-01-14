@@ -19,18 +19,16 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite, ?uglifycss'
-        'css/bootstrap_switch/bootstrap-switch.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
     {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     {% javascripts filter='?uglifyjs2'
-        'js/bootstrap_switch/bootstrap-switch.js'
-        '@KGBeekeepingManagementBundle/Resources/public/js/colonie/add.js' %}
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        'assets/js/plugins/uploaders/fileinput.min.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/ruche/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>                   
@@ -38,64 +36,168 @@
     {{ form_javascript(form) }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Créer une ruche{% endblock %}
+{% block titre %}Rucher {{ emplacement.rucher.nom }}{% endblock %}              
 
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Création d'une colonie</h4>
-        </div>
-    </div>
-{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': emplacement.rucher.id }) }}">{{ emplacement.rucher.nom}}</a></li>
+    <li class="active">Créer une ruche</li>
+{% endblock %} 
+
+{% block breadcrumb_element %}{% endblock %} 
     
-{% block panel_body %}
-              
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-        
-    <fieldset> 
-        <legend>Ruche</legend>
-        {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.matiere, {'label': 'Matière :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.corps.type, {'label': 'Type :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.corps.nbcadres, {'label': 'Nombre de cadres :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
-    </fieldset>
+{% block body %}
+<!-- 2 columns form -->
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Création d'un rucher</h5>
+            </div>
 
-    <fieldset>
-        <legend>Colonie</legend>
-        {% for remerage in form.colonie.remerages %}
-            {{ form_row(remerage.reine.race, {'label': 'Race :', 'label_col': 4, 'widget_col': 5})  }}      
-        {% endfor %}
-        {{ form_row(form.colonie.origineColonie, {'label': 'Origine :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.colonie.dateColonie, {'label': 'Date de naissance :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.colonie.affectation, {'label': 'Affectation :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.corps.nbnourriture, {'label': 'Cadres de nourriture :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.corps.nbcouvain, {'label': 'Cadres de couvain :', 'label_col': 4, 'widget_col': 5})  }}
-    </fieldset>
-        
-    <fieldset>
-        <legend>Reine</legend>
-        {% for remerage in form.colonie.remerages %}
-            {{ form_row(remerage.reine.anneeReine, {'label': 'Année :', 'label_col': 4, 'widget_col': 5})  }}
-            <div class="row">
-                <div class="col-md-offset-4 col-md-6">            
-                    {{ form_row(remerage.reine.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                    {{ form_row(remerage.reine.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
+            <div class="panel-body"> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-archive position-left"></i> Ruche</legend>
+                            
+                            <div class="form-group">
+                                {{ form_label(form.nom, 'Nom :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.nom) }}
+                                    {{ form_errors(form.nom) }}
+                                </div>
+                            </div>  
+
+                            <div class="form-group">
+                                {{ form_label(form.matiere, 'Matière :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.matiere) }}
+                                    {{ form_errors(form.matiere) }}
+                                </div>
+                            </div>  
+
+                            <div class="form-group">
+                                {{ form_label(form.corps.type, 'Type :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.corps.type) }}
+                                    {{ form_errors(form.corps.type) }}
+                                </div>
+                            </div>  
+
+                            <div class="form-group">
+                                {{ form_label(form.corps.nbcadres, 'Nombre de cadres :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.corps.nbcadres) }}
+                                    {{ form_errors(form.corps.nbcadres) }}
+                                </div>
+                            </div> 
+                                
+                            <div class="form-group">
+                                {{ form_label(form.image.file, 'Photo :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.image.file, { 'attr': {'class': 'file-input-custom', 'data-show-caption': 'true', 'data-show-upload': 'true', 'accept': 'image/*'} }) }}
+                                    {{ form_errors(form.image.file) }}
+                                </div>                                
+                            </div>                                
+                            
+                        </fieldset>
+                    </div>
+
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-users position-left"></i> Colonie</legend>
+                            {% for remerage in form.colonie.remerages %}
+                                <div class="form-group">
+                                    {{ form_label(remerage.reine.race, 'Race :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        {{ form_widget(remerage.reine.race) }}
+                                        {{ form_errors(remerage.reine.race) }}
+                                    </div>
+                                </div>                                 
+                            {% endfor %}
+                            
+                            <div class="form-group">
+                                {{ form_label(form.colonie.origineColonie, 'Origine :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.colonie.origineColonie) }}
+                                    {{ form_errors(form.colonie.origineColonie) }}
+                                </div>
+                            </div>                                                           
+                                
+                            <div class="form-group">
+                                {{ form_label(form.colonie.dateColonie, 'Date de naissance :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        {{ form_widget(form.colonie.dateColonie) }}
+                                        {{ form_errors(form.colonie.dateColonie) }}
+                                    </div>
+                                </div>
+                            </div>                                   
+
+                            <div class="form-group">
+                                {{ form_label(form.colonie.affectation, 'Affectation :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.colonie.affectation) }}
+                                    {{ form_errors(form.colonie.affectation) }}
+                                </div>
+                            </div>  
+                                
+                            <div class="form-group">
+                                {{ form_label(form.corps.nbnourriture, 'Cadres de nourriture :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.corps.nbnourriture) }}
+                                    {{ form_errors(form.corps.nbnourriture) }}
+                                </div>
+                            </div> 
+                                
+                            <div class="form-group">
+                                {{ form_label(form.corps.nbcouvain, 'Cadres de couvain :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.corps.nbcouvain) }}
+                                    {{ form_errors(form.corps.nbcouvain) }}
+                                </div>
+                            </div> 
+    
+                        </fieldset>
+
+                        <fieldset>
+                            <legend class="text-semibold"><i class="icon-crown position-left"></i> Reine</legend>
+                            {% for remerage in form.colonie.remerages %}
+                                <div class="form-group">
+                                    {{ form_label(remerage.reine.anneeReine, 'Année :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            {{ form_widget(remerage.reine.anneeReine) }}
+                                            {{ form_errors(remerage.reine.anneeReine) }}
+                                        </div>
+                                    </div>
+                                </div>                                       
+                                
+                                <div class="form-group">
+                                    {{ form_label(remerage.reine.marquage, 'Marquée :', { 'label_attr': {'class': 'col-lg-9'} }) }}
+                                    {{ form_widget(remerage.reine.marquage, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
+                                    {{ form_errors(remerage.reine.marquage) }}
+                                </div> 
+
+                                <div class="form-group">
+                                    {{ form_label(remerage.reine.clippage, 'Clippée :', { 'label_attr': {'class': 'col-lg-9'} }) }}
+                                    {{ form_widget(remerage.reine.clippage, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
+                                    {{ form_errors(remerage.reine.clippage) }}
+                                </div> 
+                            {% endfor %}                                                                 
+                        </fieldset>                                
+                    </div>
                 </div>
-            </div>  
-        {% endfor %}        
-    </fieldset>
-
-    {{ form_rest(form) }}
-
-    <div class="form-group">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('floppy-o') }} Sauvegarder
-            </button>
-        </div>        
-    </div>
-
-    {{ form_end(form) }}         
+                                                                                                                     
+                {{ form_rest(form) }}
+                
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+    <!-- /2 columns form -->      
 
 {% endblock %}

@@ -186,6 +186,10 @@
                                     </a>
 
                                     <ul class="dropdown-menu dropdown-menu-right">
+                                        {% if not emplacement.ruche %}
+                                            <li><a href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" ><i class="fa fa-plus"></i> Créer une ruche</a>  
+                                        {% endif %}
+                                        
                                         {% if rucher.numerotation %}
                                             <li><a href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-pencil"></i> Modifier l'emplacement</a></li>
                                         {% endif %}
