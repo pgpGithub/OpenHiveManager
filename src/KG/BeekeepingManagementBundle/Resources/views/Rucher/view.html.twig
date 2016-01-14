@@ -56,11 +56,7 @@
         </a>
 
         <ul class="dropdown-menu dropdown-menu-right">
-            {% if rucher.numerotation %}
-                
-            {% else %}    
-                <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
-            {% endif %}
+            <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
             <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
             <li><a href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-pencil position-left"></i> Modifier le rucher</a></li>
             {% if rucher.canBeDeleted %}
