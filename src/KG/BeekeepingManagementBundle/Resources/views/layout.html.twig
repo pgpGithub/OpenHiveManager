@@ -135,7 +135,7 @@
                                     <li class="navigation-header"><span>Menu Principal</span> <i class="icon-menu" title="Main pages"></i></li>
                                     <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="fa fa-tachometer"></i> <span>Panneau de contrôle</span></a></li>
                                     <li>
-                                        <a href="#"><i class="fa fa-sitemap"></i> <span>Ruchers</span></a>
+                                        <a href="#"><i class="icon-lan2"></i> <span>Ruchers</span></a>
                                             <ul>
                                                 {% for rucher in app.user.exploitations|first.ruchers %}
                                                     <li>

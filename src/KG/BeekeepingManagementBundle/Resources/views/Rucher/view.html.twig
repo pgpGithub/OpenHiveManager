@@ -232,18 +232,20 @@
                                             </div>
 
                                             <div class="panel-body">
-                                                <dl class="dl-horizontal">                                 
-                                                    <dt>Nom :</dt>
-                                                    <dd>{{ rucher.proprietaire.nom|capitalize }}</dd>
-                                                    <dt>Prénom :</dt>
-                                                    <dd>{{ rucher.proprietaire.prenom|capitalize }}</dd>
-                                                    <dt>Adresse :</dt>
-                                                    <dd>{{ rucher.proprietaire.adresse }}</dd>
-                                                    <dt>Fixe :</dt>
-                                                    <dd>{% if rucher.proprietaire.telephone %}{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}{% endif %}</dd>
-                                                    <dt>Mobile :</dt>
-                                                    <dd>{% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}{% endif %}</dd>                
-                                                </dl>       
+                                                <div class="well">
+                                                    <dl class="dl-horizontal">                                 
+                                                        <dt>Nom :</dt>
+                                                        <dd>{{ rucher.proprietaire.nom|capitalize }}</dd>
+                                                        <dt>Prénom :</dt>
+                                                        <dd>{{ rucher.proprietaire.prenom|capitalize }}</dd>
+                                                        <dt>Adresse :</dt>
+                                                        <dd>{{ rucher.proprietaire.adresse }}</dd>
+                                                        <dt>Fixe :</dt>
+                                                        <dd>{% if rucher.proprietaire.telephone %}{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}{% endif %}</dd>
+                                                        <dt>Mobile :</dt>
+                                                        <dd>{% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}{% endif %}</dd>                
+                                                    </dl>
+                                                </div>
                                             </div>    
                                         </div>     
                                     </div>                                        
