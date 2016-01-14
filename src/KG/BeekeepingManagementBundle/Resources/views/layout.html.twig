@@ -177,48 +177,32 @@
 
                 <!-- Main content -->
                 <div class="content-wrapper">
+ 
+                    <!-- Cover area -->
+                    {% block cover %}
+                    {% endblock %}    
+                    <!-- /cover area -->                    
+                    
+                    <!-- Toolbar -->
+                    {% block toolbar %}
+                    {% endblock %}
+                    <!-- /toolbar -->                    
 
-                    <!-- Page header -->
-                    <div class="page-header">
+                    <!-- Content area -->
+                    <div class="content">
+                            {% include 'BraincraftedBootstrapBundle::flash.html.twig' %} 
+                            {% block body %}
 
-                        <div class="page-header-content">
-                            <div class="page-title">
-                                <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{% block titre %}Panneau de contrôle{% endblock %}</span></h4>
+                            {% endblock %}
+
+                            <!-- Footer -->
+                            <div class="footer text-muted">
+                                OpenHiveManager n'est pas une application gratuite. C'est une application participative. <a title="Participez" href="{{ path('kg_site_participer') }}">Pour la faire vivre, participez! </a>
                             </div>
-                        </div>
-                        
-                        <div class="breadcrumb-line"> 
-                            <ul class="breadcrumb">
-                                <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="icon-home2 position-left"></i> Manager</a></li>
-                                {% block breadcrumb %} 
-                                {% endblock %}
-                            </ul>         
-                            
-                            <ul class="breadcrumb-elements">
-                                {% block breadcrumb_element %}
-                                    <li><a href="{{ path('kg_beekeeping_management_add_rucher', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="fa fa-plus position-left"></i> Créer un rucher</a></li>
-                                {% endblock %}
-                            </ul>
-                        </div>
+                            <!-- /footer -->
+
                     </div>
-                    <!-- /page header -->
-
-
-                        <!-- Content area -->
-                        <div class="content">
-                                {% include 'BraincraftedBootstrapBundle::flash.html.twig' %} 
-                                {% block body %}
-                            
-                                {% endblock %}
-                                
-                                <!-- Footer -->
-                                <div class="footer text-muted">
-                                    OpenHiveManager n'est pas une application gratuite. C'est une application participative. <a title="Participez" href="{{ path('kg_site_participer') }}">Pour la faire vivre, participez! </a>
-                                </div>
-                                <!-- /footer -->
-
-                        </div>
-                        <!-- /content area -->
+                    <!-- /content area -->
 
                 </div>
                 <!-- /main content -->

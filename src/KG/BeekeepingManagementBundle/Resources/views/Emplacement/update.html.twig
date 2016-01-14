@@ -17,15 +17,23 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block titre %}Rucher {{ emplacement.rucher.nom }}{% endblock %}             
+{% block cover %}
+    <!-- Cover area -->
+    <div class="profile-cover">
+        {% if emplacement.rucher.image is not null %}
+            <div class="profile-cover-img" style="background-image: url({{ asset(emplacement.rucher.image.webPath) }})"></div>
+        {% else %}
+            <div class="profile-cover-img" style="background-image: url({{ asset("img/rucher.jpg") }})"></div>
+        {% endif %}          
+        <div class="media">
+            <div class="media-body">
+                <h1>Rucher {{ emplacement.rucher.nom }}</h1>
+            </div>
+        </div>
+    </div>
+    <!-- /cover area -->    
+{% endblock %}  
 
-{% block breadcrumb %} 
-    <li><a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': emplacement.rucher.id }) }}">{{ emplacement.rucher.nom}}</a></li>
-    <li class="active">Modifier un emplacement</li>
-{% endblock %} 
-
-{% block breadcrumb_element %}{% endblock %} 
-    
 {% block body %}
 
     <!-- Centered forms -->
