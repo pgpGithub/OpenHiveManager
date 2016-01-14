@@ -64,6 +64,12 @@
         </ul>
 
         <div class="navbar-collapse collapse" id="navbar-filter">
+            <ul class="nav navbar-nav element-active-slate-400">
+                <li class="active"><a href="#lastvisite" data-toggle="tab"><i class="icon-clipboard position-left"></i> Dernière visite</a></li>
+                <li><a href="#taches" data-toggle="tab"><i class="fa fa-tasks position-left"></i> Tâches</a></li>
+                <li><a href="#infos" data-toggle="tab"><i class="fa fa-info position-left"></i> Détails</a></li>
+            </ul>             
+            
             <div class="navbar-right">
                 <ul class="nav navbar-nav">     
                     <li class="dropdown">
@@ -97,172 +103,219 @@
 {% endblock %} 
 
 {% block body %}
-    <div class="row">   
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a data-toggle="collapse" href="#collapseRuche">Identité</a>             
-                </div>
-                <div id="collapseRuche" class="panel-collapse collapse in">
-                    <div class="panel-body">  
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="tabbable">
+                <div class="tab-content">
+                    
+                    <div class="tab-pane fade in active" id="lastvisite">             
                         <div class="row">
-                            <div class="col-sm-6">
-                                <h6 class="text-semibold"><i class="fa fa-archive position-left"></i> Ruche</h6>
-                                <div class="well">
-                                    <dl class="dl-horizontal">                             
-                                        <dt>Type</dt>
-                                        <dd>{{ ruche.corps.type.libelle }} {{ ruche.corps.nbcadres }}</dd>
-                                        <dt>Matière</dt>
-                                        <dd>{{ ruche.matiere.libelle }}</dd>
-                                        {% if ruche.emplacement and ruche.rucher.numerotation %}
-                                            <dt>Numéro emplacement</dt>
-                                            <dd>{{ ruche.emplacement.numero }}</dd>
-                                        {% endif %}
-                                        <dt>Affectation</dt>
-                                        <dd>{{ ruche.colonie.affectation.libelle }}</dd>
-                                        <dt>Cadres nourriture</dt>
-                                        <dd>{{ ruche.corps.nbnourriture }}</dd>
-                                        <dt>Cadres couvain</dt>
-                                        <dd>{{ ruche.corps.nbcouvain }}</dd>
-                                        {% if ruche.colonie.visites is not empty %}
-                                            <dt>Poids (kg)</dt>
-                                            <dd>{{ ruche.colonie.visites|last.poids|number_format(3, ',', ' ') }}</dd>
-                                        {% endif %}
-                                        {% for hausse in ruche.hausses %}
-                                            <dt>Hausse n°{{ loop.index }} (cadres pleins/nombre cadres)</dt>
-                                            <dd>({{ hausse.nbplein }}/{{ hausse.nbcadres }})</dd>                       
-                                        {% endfor %}    
-                                    </dl>
-                                </div>
-                            </div>
-                                    
-                            <div class="col-sm-6">    
-                                <h6 class="text-semibold"><i class="fa fa-users position-left"></i> Colonie</h6>
-                                <div class="well">
-                                    <dl class="dl-horizontal">  
-                                        <dt>Numéro</dt>
-                                        <dd>{{ colonie.numero }}</dd>
-                                        <dt>Race</dt>
-                                        <dd>{{ reine.race.libelle }}</dd>
-                                        <dt>Date de naissance</dt>
-                                        <dd>{{ colonie.dateColonie|date("m/Y") }}</dd>
-                                        <dt>Origine</dt>
-                                        <dd>{{ colonie.origineColonie.libelle }}</dd>
-                                    {% if colonie.visites is not empty %}
-                                        <dt>Etat</dt>
-                                        <dd>{{ colonie.visites|last.etat.libelle }}</dd>
-                                        <dt>Agressivité</dt>
-                                        <dd>{{ colonie.visites|last.agressivite.libelle }}</dd>  
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">        
-                            <div class="col-sm-6">        
-                                {% set reine = colonie.remerages|last.reine %}
-                                <h6 class="text-semibold"><i class="icon-crown position-left"></i> Reine</h6>
-                                <div class="well">
-                                    <dl class="dl-horizontal">  
-                                        <dt>Année</dt>
-                                        <dd>{% if reine.anneeReine %}{{ reine.anneeReine|date("Y") }}{% else %}Inconnue{% endif %}</dd>
-                                        <dt>Marquage</dt>
-                                        <dd>                                   
-                                            {% if reine.marquage and reine.anneeReine %}
-                                                {% set annee = reine.anneeReine|date("Y")|last %}
-                                                {% if annee == 0 or annee == 5 %}{% set marquage = 'Bleu' %}{% endif %}
-                                                {% if annee == 1 or annee == 6 %}{% set marquage = 'Blanc' %}{% endif %}
-                                                {% if annee == 2 or annee == 7 %}{% set marquage = 'Jaune' %}{% endif %}
-                                                {% if annee == 3 or annee == 8 %}{% set marquage = 'Rouge' %}{% endif %}
-                                                {% if annee == 4 or annee == 9 %}{% set marquage = 'Vert' %}{% endif %}
-                                            {% else %}    
-                                                {% set marquage = 'Aucun' %}
-                                            {% endif %}
-                                            {{ marquage }}
-                                        </dd>
-                                        <dt>Clippage</dt>
-                                        <dd>{% if reine.clippage %} Oui {% else %} Non {% endif %}</dd>                                                   
-                                    </dl>
-                                </div>    
-                            </div>   
-                                
-                            <div class="col-sm-6">
-                                <h6 class="text-semibold"><i class="icon-tree7 position-left"></i> Lignée</h6>
-                                <div class="well">
-                                    <dl class="dl-horizontal">  
-                                        <dt>Colonie mère</dt>
-                                        <dd>
-                                            {% if reine.reineMere %}
-                                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reine.reineMere.remerage.colonie.id }) }}">{{ reine.reineMere.remerage.colonie.numero }}</a>
-                                            {% else %}
-                                                Inconnue
-                                            {% endif %}
-                                        </dd>
-                                        {% set long = reine.reinesFilles|length %}
-                                        <dt>Colonie{% if long > 1 %}s{% endif %} fille{% if long > 1 %}s{% endif %}</dt>
-                                        <dd>
-                                            {% if reine.reinesFilles is empty %}
-                                                Aucune
-                                            {% endif %}
-                                            {% for reineFille in reine.reinesFilles %}
-                                                {% if not loop.first %}
-                                                    - 
-                                                {% endif %}
-                                                <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reineFille.remerage.colonie.id }) }}">{{ reineFille.remerage.colonie.numero }}</a>
-                                            {% endfor %}
-                                        </dd>                                        
-                                    </dl> 
-                                </div>        
-                            </div>  
-                        </div>       
-                    </div>
-                </div>
-            </div>                           
-        </div>
-    </div>                                    
-                                            
-    <hr>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-md-offset-3">   
+                                        <div class="panel panel-flat">
+                                            <div class="panel-heading">
+                                                <h5 class="panel-title">Dernières visites</h5>
+                                            </div>
 
-    <h4>Tâches à faire :</h4>
-    {% if pagination is not empty %}       
-    <div class="row">
-        <div class=" col-md-12"> 
-            <div class="table-responsive">
-                <table id="mytable" class="table table-bordred table-striped">
-                    <thead>
-                        <th>
-                            {{ knp_pagination_sortable(pagination, 'Date prévisionnelle', 'tache.date') }}
-                            {% if pagination.isSorted('tache.date') %}
-                                 {{ icon('sort-' ~ pagination.direction('tache.date')) }}
-                            {% endif %}   
-                        </th>
-                        <th>Priorité</th>
-                        <th>Résumé</th>
-                        <th>Afficher</th>
-                    </thead>
-                    <tbody>
-                        {% for tache in pagination %}
-                            <tr>
-                                <td>{{ tache.date|date('d/m/Y') }}</td>
-                                <td>{{ tache.priorite.libelle }}</td>
-                                <td>{{ tache.resume }}</td>
-                                <td><a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}" class="btn btn-success btn-xs">{{ icon('eye') }}</a></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                                            <div class="panel-body">
+                           
+                                            </div>    
+                                        </div>     
+                                    </div>
+                                </div>                               
+                            </div>    
+                        </div>     
+                    </div>                    
+
+                    <div class="tab-pane fade" id="taches">             
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-md-offset-3">   
+                                        <div class="panel panel-flat">
+                                            <div class="panel-heading">
+                                                <h5 class="panel-title">Listes des tâches</h5>
+                                            </div>
+
+                                            <div class="panel-body">
+                                                <h4>Tâches à faire :</h4>
+                                                {% if pagination is not empty %}       
+                                                <div class="row">
+                                                    <div class=" col-md-12"> 
+                                                        <div class="table-responsive">
+                                                            <table id="mytable" class="table table-bordred table-striped">
+                                                                <thead>
+                                                                    <th>
+                                                                        {{ knp_pagination_sortable(pagination, 'Date prévisionnelle', 'tache.date') }}
+                                                                        {% if pagination.isSorted('tache.date') %}
+                                                                             {{ icon('sort-' ~ pagination.direction('tache.date')) }}
+                                                                        {% endif %}   
+                                                                    </th>
+                                                                    <th>Priorité</th>
+                                                                    <th>Résumé</th>
+                                                                    <th>Afficher</th>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {% for tache in pagination %}
+                                                                        <tr>
+                                                                            <td>{{ tache.date|date('d/m/Y') }}</td>
+                                                                            <td>{{ tache.priorite.libelle }}</td>
+                                                                            <td>{{ tache.resume }}</td>
+                                                                            <td><a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}" class="btn btn-success btn-xs">{{ icon('eye') }}</a></td>
+                                                                        </tr>
+                                                                    {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 navigation" align="right">
+                                                                {{ knp_pagination_render(pagination) }}
+                                                            </div> 
+                                                        </div>                            
+                                                    </div>
+                                                </div>    
+                                                {% else %}    
+                                                <div class="row">
+                                                    <div class="col-md-12" align="center">      
+                                                        Pas de tâche en attente.
+                                                    </div>
+                                                </div>          
+                                                {% endif %} 
+                                            </div>    
+                                        </div>     
+                                    </div>
+                                </div>                               
+                            </div>    
+                        </div>     
+                    </div> 
+                    
+                    <div class="tab-pane fade" id="infos">    
+                        <div class="row">   
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" href="#collapseRuche">Identité</a>             
+                                    </div>
+                                    <div id="collapseRuche" class="panel-collapse collapse in">
+                                        <div class="panel-body">  
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <h6 class="text-semibold"><i class="fa fa-archive position-left"></i> Ruche</h6>
+                                                    <div class="well">
+                                                        <dl class="dl-horizontal">                             
+                                                            <dt>Type</dt>
+                                                            <dd>{{ ruche.corps.type.libelle }} {{ ruche.corps.nbcadres }}</dd>
+                                                            <dt>Matière</dt>
+                                                            <dd>{{ ruche.matiere.libelle }}</dd>
+                                                            {% if ruche.emplacement and ruche.rucher.numerotation %}
+                                                                <dt>Numéro emplacement</dt>
+                                                                <dd>{{ ruche.emplacement.numero }}</dd>
+                                                            {% endif %}
+                                                            <dt>Affectation</dt>
+                                                            <dd>{{ ruche.colonie.affectation.libelle }}</dd>
+                                                            <dt>Cadres nourriture</dt>
+                                                            <dd>{{ ruche.corps.nbnourriture }}</dd>
+                                                            <dt>Cadres couvain</dt>
+                                                            <dd>{{ ruche.corps.nbcouvain }}</dd>
+                                                            {% if ruche.colonie.visites is not empty %}
+                                                                <dt>Poids (kg)</dt>
+                                                                <dd>{{ ruche.colonie.visites|last.poids|number_format(3, ',', ' ') }}</dd>
+                                                            {% endif %}
+                                                            {% for hausse in ruche.hausses %}
+                                                                <dt>Hausse n°{{ loop.index }} (cadres pleins/nombre cadres)</dt>
+                                                                <dd>({{ hausse.nbplein }}/{{ hausse.nbcadres }})</dd>                       
+                                                            {% endfor %}    
+                                                        </dl>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">    
+                                                    <h6 class="text-semibold"><i class="fa fa-users position-left"></i> Colonie</h6>
+                                                    <div class="well">
+                                                        <dl class="dl-horizontal">  
+                                                            <dt>Numéro</dt>
+                                                            <dd>{{ colonie.numero }}</dd>
+                                                            <dt>Race</dt>
+                                                            <dd>{{ reine.race.libelle }}</dd>
+                                                            <dt>Date de naissance</dt>
+                                                            <dd>{{ colonie.dateColonie|date("m/Y") }}</dd>
+                                                            <dt>Origine</dt>
+                                                            <dd>{{ colonie.origineColonie.libelle }}</dd>
+                                                        {% if colonie.visites is not empty %}
+                                                            <dt>Etat</dt>
+                                                            <dd>{{ colonie.visites|last.etat.libelle }}</dd>
+                                                            <dt>Agressivité</dt>
+                                                            <dd>{{ colonie.visites|last.agressivite.libelle }}</dd>  
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">        
+                                                <div class="col-sm-6">        
+                                                    {% set reine = colonie.remerages|last.reine %}
+                                                    <h6 class="text-semibold"><i class="icon-crown position-left"></i> Reine</h6>
+                                                    <div class="well">
+                                                        <dl class="dl-horizontal">  
+                                                            <dt>Année</dt>
+                                                            <dd>{% if reine.anneeReine %}{{ reine.anneeReine|date("Y") }}{% else %}Inconnue{% endif %}</dd>
+                                                            <dt>Marquage</dt>
+                                                            <dd>                                   
+                                                                {% if reine.marquage and reine.anneeReine %}
+                                                                    {% set annee = reine.anneeReine|date("Y")|last %}
+                                                                    {% if annee == 0 or annee == 5 %}{% set marquage = 'Bleu' %}{% endif %}
+                                                                    {% if annee == 1 or annee == 6 %}{% set marquage = 'Blanc' %}{% endif %}
+                                                                    {% if annee == 2 or annee == 7 %}{% set marquage = 'Jaune' %}{% endif %}
+                                                                    {% if annee == 3 or annee == 8 %}{% set marquage = 'Rouge' %}{% endif %}
+                                                                    {% if annee == 4 or annee == 9 %}{% set marquage = 'Vert' %}{% endif %}
+                                                                {% else %}    
+                                                                    {% set marquage = 'Aucun' %}
+                                                                {% endif %}
+                                                                {{ marquage }}
+                                                            </dd>
+                                                            <dt>Clippage</dt>
+                                                            <dd>{% if reine.clippage %} Oui {% else %} Non {% endif %}</dd>                                                   
+                                                        </dl>
+                                                    </div>    
+                                                </div>   
+
+                                                <div class="col-sm-6">
+                                                    <h6 class="text-semibold"><i class="icon-tree7 position-left"></i> Lignée</h6>
+                                                    <div class="well">
+                                                        <dl class="dl-horizontal">  
+                                                            <dt>Colonie mère</dt>
+                                                            <dd>
+                                                                {% if reine.reineMere %}
+                                                                    <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reine.reineMere.remerage.colonie.id }) }}">{{ reine.reineMere.remerage.colonie.numero }}</a>
+                                                                {% else %}
+                                                                    Inconnue
+                                                                {% endif %}
+                                                            </dd>
+                                                            {% set long = reine.reinesFilles|length %}
+                                                            <dt>Colonie{% if long > 1 %}s{% endif %} fille{% if long > 1 %}s{% endif %}</dt>
+                                                            <dd>
+                                                                {% if reine.reinesFilles is empty %}
+                                                                    Aucune
+                                                                {% endif %}
+                                                                {% for reineFille in reine.reinesFilles %}
+                                                                    {% if not loop.first %}
+                                                                        - 
+                                                                    {% endif %}
+                                                                    <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reineFille.remerage.colonie.id }) }}">{{ reineFille.remerage.colonie.numero }}</a>
+                                                                {% endfor %}
+                                                            </dd>                                        
+                                                        </dl> 
+                                                    </div>        
+                                                </div>  
+                                            </div>       
+                                        </div>
+                                    </div>
+                                </div>                           
+                            </div>
+                        </div>                                    
+                    </div>
+                </div>                           
             </div>
-            <div class="row">
-                <div class="col-md-12 navigation" align="right">
-                    {{ knp_pagination_render(pagination) }}
-                </div> 
-            </div>                            
-        </div>
-    </div>    
-    {% else %}    
-    <div class="row">
-        <div class="col-md-12" align="center">      
-            Pas de tâche en attente.
-        </div>
-    </div>          
-    {% endif %}                     
+        </div>    
+    </div>                                                                       
 {% endblock %}
