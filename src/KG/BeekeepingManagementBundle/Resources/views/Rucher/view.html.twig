@@ -62,6 +62,12 @@
         </ul>
 
         <div class="navbar-collapse collapse" id="navbar-filter">
+            <ul class="nav navbar-nav element-active-slate-400">
+                <li class="active"><a href="#composition" data-toggle="tab"><i class="fa fa-list position-left"></i> Ruches</a></li>
+                <li><a href="#meteo" data-toggle="tab"><i class="icon-cloud position-left"></i> Météo</a></li>
+                <li><a href="#proprietaire" data-toggle="tab"><i class="fa fa-key position-left"></i> Propriétaire</a></li>
+            </ul>            
+            
             <div class="navbar-right">
                 <ul class="nav navbar-nav">    
                     <li class="dropdown">
@@ -82,155 +88,183 @@
     </div>                    
 {% endblock %} 
 
-{% block body %}                          
+{% block body %}
     <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Information générales</h5>
-                    <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li><a data-action="collapse"></a></li>
-                            <li><a data-action="close"></a></li>
-                        </ul>
-                    </div>
-                </div>
+        <div class="col-lg-9">
+            <div class="tabbable">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="composition">
+                        <!-- Media library -->
+                        <div class="panel panel-white">
+                            <div class="panel-heading">
+                                <h6 class="panel-title text-semibold">Ruches</h6>
+                            </div>
 
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h6>Propriétaire du terrain</h6>
-                            <p>
-                                <strong>Nom :</strong> {{ rucher.proprietaire.nom|capitalize }}
-                            </p>
-                            <p>
-                                <strong>Prénom</strong> {{ rucher.proprietaire.prenom|capitalize }}
-                            </p>
-                            <p>    
-                                <strong>Adresse</strong> {{ rucher.proprietaire.adresse }}
-                            </p>
-                            <p>
-                                <strong>Téléphone 1</strong> {% if rucher.proprietaire.telephone %}{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}{% endif %}
-                            </p>    
-                            <p>
-                                <strong>Téléphone 2</strong> {% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}{% endif %}
-                            </p>
-                        </div>            
-                        <div class="col-md-4">
-                            <h6>Prévisions météo</h6>
-                            <div id="weather"
-                                 data-latitude="{{ rucher.localisation.latitude }}"
-                                 data-longitude="{{ rucher.localisation.longitude }}"
-                                 data-apikey="{{ apikey }}">                   
-                            </div>                        
+                            <table class="table table-striped media-library table-lg">
+                                <thead>
+                                    <tr>
+                                        <th>Aperçu</th>
+                                        <th>Emplacement</th>
+                                        <th>Ruche</th>
+                                        <th>Type</th>
+                                        <th>Race</th>
+                                        <th>Hausses</th>                    
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for emplacement in emplacements %}
+                                        <tr>
+                                            <td>
+                                                {% if emplacement.ruche %}
+                                                    {% if emplacement.ruche.image is not null %}
+                                                        <a href="{{ asset(emplacement.ruche.image.webPath) }}" data-popup="lightbox">
+                                                            <img src="{{ asset(emplacement.ruche.image.webPath) }}" alt="{{ emplacement.ruche.image.alt }}" class="img-rounded img-preview">
+                                                        </a>
+                                                    {% else %}
+                                                        <a href="{{ asset('img/ruche/' ~ emplacement.ruche.corps.type.libelle ~'.jpg') }}" data-popup="lightbox">
+                                                            <img src="{{ asset('img/ruche/' ~ emplacement.ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-rounded img-preview">
+                                                        </a>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <a href="{{ asset('assets/images/placeholder.jpg') }}" data-popup="lightbox">
+                                                        <img src="{{ asset('assets/images/placeholder.jpg') }}" alt="" class="img-rounded img-preview">
+                                                    </a>                              
+                                                {% endif %}    
+                                            </td>
+                                            {% if rucher.numerotation %}
+                                                <td>{{ emplacement.numero }}</td> 
+                                            {% else %}
+                                                <td>NA</td>
+                                            {% endif %}
+                                            {% if emplacement.ruche %}
+                                                <td>{{ emplacement.ruche.nom }}</td>
+                                                <td>{{ emplacement.ruche.corps.type.libelle }} {{ emplacement.ruche.corps.nbcadres }}</td>
+                                                {% if emplacement.ruche.colonie %}
+                                                    <td>{{ emplacement.ruche.colonie.remerages|last.reine.race.libelle }}</td>
+                                                {% endif %}
+                                                <td>{{ emplacement.ruche.hausses|length }}</td>
+                                            {% else %}                                    
+                                                <td>Emplacement vide</td>                                      
+                                                <td></td>   
+                                                <td></td>   
+                                                <td></td> 
+                                            {% endif %}   
+                                            <td class="text-center">
+                                                <ul class="icons-list">
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                            <i class="icon-menu9"></i>
+                                                        </a>
+
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            {% if not emplacement.ruche %}
+                                                                <li><a href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" ><i class="fa fa-plus"></i> Créer une ruche</a>  
+                                                            {% endif %}
+
+                                                            {% if rucher.numerotation %}
+                                                                <li><a href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-pencil"></i> Modifier l'emplacement</a></li>
+                                                            {% endif %}
+
+                                                            {% if not emplacement.ruche %}
+                                                                <li><a href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-trash"></i> Supprimer l'emplacement</a></li>
+                                                            {% endif %}
+
+                                                            {% if not emplacement.ruche or rucher.numerotation %}
+                                                                <li class="divider"></li>
+                                                            {% endif %}
+
+                                                            {% if emplacement.ruche %}
+                                                                <li><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}"><i class="fa fa-folder-open-o"></i> Ouvrir la ruche</a></li>
+
+                                                                {% if emplacement.ruche.colonie.canHaveNewVisite %}
+                                                                    <li><a href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id': emplacement.ruche.colonie.id }) }}"><i class="fa fa-plus"></i> Créer une visite</a></li>
+                                                                {% endif %}
+
+                                                                {% if emplacement.ruche.colonie.visites is not empty %}
+                                                                    <li><a href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id': emplacement.ruche.colonie.visites|last.id }) }}"><i class="fa fa-pencil"></i> Modifier la dernière visite</a></li>
+                                                                {% endif %}
+                                                            {% endif %}    
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
-                    </div>        
-                </div>    
-            </div>      
-        </div> 
-    </div>
+                        <!-- /media library -->    
+                    </div>
+                                
+                    <div class="tab-pane fade" id="meteo">             
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-md-offset-3">   
+                                        <div class="panel panel-flat">
+                                            <div class="panel-heading">
+                                                <h5 class="panel-title">Prévisions météorologiques</h5>
+                                            </div>
 
-  
-    <!-- Media library -->
-    <div class="panel panel-white">
-        <div class="panel-heading">
-            <h6 class="panel-title text-semibold">Composition</h6>
+                                            <div class="panel-body">
+                                                <div id="weather"
+                                                     data-latitude="{{ rucher.localisation.latitude }}"
+                                                     data-longitude="{{ rucher.localisation.longitude }}"
+                                                     data-apikey="{{ apikey }}">                   
+                                                </div>                               
+                                            </div>    
+                                        </div>     
+                                    </div>
+                                </div>                               
+                            </div>    
+                        </div>     
+                    </div>
+                                                
+                    <div class="tab-pane fade" id="proprietaire">    
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-md-offset-2">                         
+                                        <div class="panel panel-flat">
+                                            <div class="panel-heading">
+                                                <h5 class="panel-title">Propriétaire du terrain</h5>
+                                            </div>
+
+                                            <div class="panel-body">
+                                                <table class="table">  
+                                                    <tbody>                                 
+                                                        <tr>
+                                                            <td><strong>Nom :</strong></td>
+                                                            <td>{{ rucher.proprietaire.nom|capitalize }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Prénom :</strong></td>
+                                                            <td>{{ rucher.proprietaire.prenom|capitalize }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Adresse :</strong></td>
+                                                            <td>{{ rucher.proprietaire.adresse }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Fixe :</strong></td>
+                                                            <td>{% if rucher.proprietaire.telephone %}{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}{% endif %}</td>
+                                                        </tr>      
+                                                        <tr>
+                                                            <td><strong>Mobile :</strong></td>
+                                                            <td>{% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}{% endif %}</td>
+                                                        </tr>                              
+                                                    </tbody>
+                                                </table>       
+                                            </div>    
+                                        </div>     
+                                    </div>                                        
+                                </div>
+                            </div>
+                        </div>                                                                                   
+                    </div>                                        
+                </div>
+            </div>
         </div>
-
-        <table class="table table-striped media-library table-lg">
-            <thead>
-                <tr>
-                    <th>Aperçu</th>
-                    <th>Emplacement</th>
-                    <th>Ruche</th>
-                    <th>Type</th>
-                    <th>Race</th>
-                    <th>Hausses</th>                    
-                    <th class="text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for emplacement in emplacements %}
-                    <tr>
-                        <td>
-                            {% if emplacement.ruche %}
-                                {% if emplacement.ruche.image is not null %}
-                                    <a href="{{ asset(emplacement.ruche.image.webPath) }}" data-popup="lightbox">
-                                        <img src="{{ asset(emplacement.ruche.image.webPath) }}" alt="{{ emplacement.ruche.image.alt }}" class="img-rounded img-preview">
-                                    </a>
-                                {% else %}
-                                    <a href="{{ asset('img/ruche/' ~ emplacement.ruche.corps.type.libelle ~'.jpg') }}" data-popup="lightbox">
-                                        <img src="{{ asset('img/ruche/' ~ emplacement.ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-rounded img-preview">
-                                    </a>
-                                {% endif %}
-                            {% else %}
-                                <a href="{{ asset('assets/images/placeholder.jpg') }}" data-popup="lightbox">
-                                    <img src="{{ asset('assets/images/placeholder.jpg') }}" alt="" class="img-rounded img-preview">
-                                </a>                              
-                            {% endif %}    
-                        </td>
-                        {% if rucher.numerotation %}
-                            <td>{{ emplacement.numero }}</td> 
-                        {% else %}
-                            <td>NA</td>
-                        {% endif %}
-                        {% if emplacement.ruche %}
-                            <td>{{ emplacement.ruche.nom }}</td>
-                            <td>{{ emplacement.ruche.corps.type.libelle }} {{ emplacement.ruche.corps.nbcadres }}</td>
-                            {% if emplacement.ruche.colonie %}
-                                <td>{{ emplacement.ruche.colonie.remerages|last.reine.race.libelle }}</td>
-                            {% endif %}
-                            <td>{{ emplacement.ruche.hausses|length }}</td>
-                        {% else %}                                    
-                            <td>Emplacement vide</td>                                      
-                            <td></td>   
-                            <td></td>   
-                            <td></td> 
-                        {% endif %}   
-                        <td class="text-center">
-                            <ul class="icons-list">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-menu9"></i>
-                                    </a>
-
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        {% if not emplacement.ruche %}
-                                            <li><a href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" ><i class="fa fa-plus"></i> Créer une ruche</a>  
-                                        {% endif %}
-                                        
-                                        {% if rucher.numerotation %}
-                                            <li><a href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-pencil"></i> Modifier l'emplacement</a></li>
-                                        {% endif %}
-
-                                        {% if not emplacement.ruche %}
-                                            <li><a href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-trash"></i> Supprimer l'emplacement</a></li>
-                                        {% endif %}
-
-                                        {% if not emplacement.ruche or rucher.numerotation %}
-                                            <li class="divider"></li>
-                                        {% endif %}
-
-                                        {% if emplacement.ruche %}
-                                            <li><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}"><i class="fa fa-folder-open-o"></i> Ouvrir la ruche</a></li>
-
-                                            {% if emplacement.ruche.colonie.canHaveNewVisite %}
-                                                <li><a href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id': emplacement.ruche.colonie.id }) }}"><i class="fa fa-plus"></i> Créer une visite</a></li>
-                                            {% endif %}
-
-                                            {% if emplacement.ruche.colonie.visites is not empty %}
-                                                <li><a href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id': emplacement.ruche.colonie.visites|last.id }) }}"><i class="fa fa-pencil"></i> Modifier la dernière visite</a></li>
-                                            {% endif %}
-                                        {% endif %}    
-                                    </ul>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <!-- /media library -->
-                 
+    </div>                                         
 {% endblock %}
