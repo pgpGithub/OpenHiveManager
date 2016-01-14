@@ -42,8 +42,9 @@
 
 {% block titre %}Rucher {{ rucher.nom }}{% endblock %}  
 
-{% block breadcrumb %} 
-    <li class="active">Afficher un rucher</li>
+{% block breadcrumb %}
+    <li><a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ rucher.nom}}</a></li>
+    <li class="active">Afficher</li>
 {% endblock %} 
 
 {% block breadcrumb_element %}
@@ -55,7 +56,11 @@
         </a>
 
         <ul class="dropdown-menu dropdown-menu-right">
-            <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
+            {% if rucher.numerotation %}
+                
+            {% else %}    
+                <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
+            {% endif %}
             <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
             <li><a href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-pencil position-left"></i> Modifier le rucher</a></li>
             {% if rucher.canBeDeleted %}
@@ -186,11 +191,11 @@
 
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         {% if rucher.numerotation %}
-                                            <li><a href="#"><i class="fa fa-pencil"></i> Modifier l'emplacement</a></li>
+                                            <li><a href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-pencil"></i> Modifier l'emplacement</a></li>
                                         {% endif %}
 
                                         {% if not emplacement.ruche %}
-                                            <li><a href="#"><i class="fa fa-trash"></i> Supprimer l'emplacement</a></li>
+                                            <li><a href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-trash"></i> Supprimer l'emplacement</a></li>
                                         {% endif %}
 
                                         {% if not emplacement.ruche or rucher.numerotation %}

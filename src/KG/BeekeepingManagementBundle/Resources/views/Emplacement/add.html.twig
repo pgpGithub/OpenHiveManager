@@ -17,35 +17,46 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Créer un emplacement{% endblock %}
+{% block titre %}Rucher {{ rucher.nom }}{% endblock %}             
 
-{% block menu %}
-    {% include 'KGBeekeepingManagementBundle::menuRucher.html.twig' %}
-{% endblock menu %}
+{% block breadcrumb %} 
+    <li><a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}">{{ rucher.nom}}</a></li>
+    <li class="active">Créer un emplacement</li>
+{% endblock %} 
 
-{% block panel_title %}
+{% block breadcrumb_element %}{% endblock %} 
+    
+{% block body %}
+
+    <!-- Centered forms -->
     <div class="row">
-        <div class="col-xs-12">
-            <h4>Création d'un emplacement</h4>
+        <div class="col-md-12">
+            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Création d'un emplacement</h5>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    {{ form_label(form.numero, 'Numéro de l\'emplacement :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        {{ form_widget(form.numero) }}
+                                        {{ form_errors(form.numero) }}
+                                    </div>
+                                </div>                             
+                                {{ form_rest(form) }}
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
         </div>
     </div>
-{% endblock %}
-    
-{% block panel_body %}
-                  
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-        {{ form_row(form.numero, {'label': 'Numéro :', 'label_col': 4, 'widget_col': 5})  }}
-    {{ form_rest(form) }}
-
-    <div class="form-group">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('floppy-o') }}
-                Sauvegarder
-            </button>
-        </div>        
-    </div>
-
-    {{ form_end(form) }}         
-
+    <!-- /form centered -->
 {% endblock %}
