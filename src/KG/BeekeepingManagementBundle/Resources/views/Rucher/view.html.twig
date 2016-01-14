@@ -225,37 +225,25 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-8 col-md-offset-2">                         
+                                    <div class="col-md-6 col-md-offset-3">                         
                                         <div class="panel panel-flat">
                                             <div class="panel-heading">
                                                 <h5 class="panel-title">Propriétaire du terrain</h5>
                                             </div>
 
                                             <div class="panel-body">
-                                                <table class="table">  
-                                                    <tbody>                                 
-                                                        <tr>
-                                                            <td><strong>Nom :</strong></td>
-                                                            <td>{{ rucher.proprietaire.nom|capitalize }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>Prénom :</strong></td>
-                                                            <td>{{ rucher.proprietaire.prenom|capitalize }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>Adresse :</strong></td>
-                                                            <td>{{ rucher.proprietaire.adresse }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>Fixe :</strong></td>
-                                                            <td>{% if rucher.proprietaire.telephone %}{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}{% endif %}</td>
-                                                        </tr>      
-                                                        <tr>
-                                                            <td><strong>Mobile :</strong></td>
-                                                            <td>{% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}{% endif %}</td>
-                                                        </tr>                              
-                                                    </tbody>
-                                                </table>       
+                                                <dl class="dl-horizontal">                                 
+                                                    <dt>Nom :</dt>
+                                                    <dd>{{ rucher.proprietaire.nom|capitalize }}</dd>
+                                                    <dt>Prénom :</dt>
+                                                    <dd>{{ rucher.proprietaire.prenom|capitalize }}</dd>
+                                                    <dt>Adresse :</dt>
+                                                    <dd>{{ rucher.proprietaire.adresse }}</dd>
+                                                    <dt>Fixe :</dt>
+                                                    <dd>{% if rucher.proprietaire.telephone %}{{ phone_number_format(rucher.proprietaire.telephone, 'INTERNATIONAL') }}{% endif %}</dd>
+                                                    <dt>Mobile :</dt>
+                                                    <dd>{% if rucher.proprietaire.telephone2 %}{{ phone_number_format(rucher.proprietaire.telephone2, 'INTERNATIONAL') }}{% endif %}</dd>                
+                                                </dl>       
                                             </div>    
                                         </div>     
                                     </div>                                        
