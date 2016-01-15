@@ -39,14 +39,24 @@
             <div class="profile-cover-img" style="background-image: url({{ asset(colonie.ruche.rucher.image.webPath) }})"></div>
         {% else %}
             <div class="profile-cover-img" style="background-image: url({{ asset("img/rucher.jpg") }})"></div>
-        {% endif %}          
+        {% endif %}    
         <div class="media">
-            <div class="media-body">
-                <h1>Rucher {{ colonie.ruche.rucher.nom }}</h1>
+            <div class="media-left">
+                <a href="#" class="profile-thumb">
+                    {% if colonie.ruche.image is not null %}
+                        <img src="{{ asset(colonie.ruche.image.webPath) }}" alt="{{ colonie.ruche.image.alt }}" class="img-circle">
+                    {% else %}
+                        <img src="{{ asset('img/ruche/' ~ colonie.ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-circle">
+                    {% endif %}                       
+                </a>
             </div>
+
+            <div class="media-body">
+                <h1>Rucher {{ colonie.ruche.rucher.nom }} <small class="display-block">Ruche {{ colonie.ruche.nom }}</small></h1>
+            </div>                    
         </div>
-    </div> 
-{% endblock %} 
+    </div>
+{% endblock %}
     
 {% block body %} 
     <!-- 2 columns form -->
@@ -187,7 +197,14 @@
                                         </div>
                                     </div>         
 
-                                    {{ form_row(form.hausses, {'label': 'Hausses :', 'label_col': 4, 'widget_col': 8})  }}      
+                                    <div class="form-group">
+                                        {{ form_label(form.hausses, 'Hausses :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                        <div class="col-lg-9">
+                                            {{ form_widget(form.hausses) }}
+                                            {{ form_errors(form.hausses) }}
+                                        </div>
+                                    </div>                                          
+
                                 </fieldset>   
                             </div>
                         </div>
