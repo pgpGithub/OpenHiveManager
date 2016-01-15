@@ -89,15 +89,13 @@
                                             {% set index = tache.vars.value %}
                                             {% set entity = form.taches.vars.choices[index].data %}
                                             <div class="form-group">
-                                                {{ form_label(tache, entity.resume, {'label_attr': {'class': 'col-md-5 control-label'}} ) }}
-                                                <div class="col-md-7">
-                                                    {# Si la visite est renseignée alors on coche la checkbox. Attention, la liste des tâches comprend les tâches sans visite ou avec la visite courrante #}
-                                                    {% if entity.visite %}
-                                                        {{ form_widget(tache, {'attr': {'class': 'form-control', 'checked': true, 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                                                    {% else %}
-                                                        {{ form_widget(tache, {'attr': {'class': 'form-control', 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}                            
-                                                    {% endif %}
-                                                </div>
+                                                {{ form_label(tache, entity.resume, {'label_attr': {'class': 'col-lg-9'}} ) }}
+                                                {# Si la visite est renseignée alors on coche la checkbox. Attention, la liste des tâches comprend les tâches sans visite ou avec la visite courrante #}
+                                                {% if entity.visite %}
+                                                    {{ form_widget(tache, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled', 'checked': true}}) }}
+                                                {% else %}
+                                                    {{ form_widget(tache, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}                            
+                                                {% endif %}
                                             </div>
                                         {% endfor %}
 
@@ -197,14 +195,27 @@
                                         </div>
                                     </div>         
 
-                                    <div class="form-group">
+                                    <div class="form-group" id="hausse-fields-list" data-prototype="{{ form_widget(form.hausses.vars.prototype)|e }}">
                                         {{ form_label(form.hausses, 'Hausses :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
-                                            {{ form_widget(form.hausses) }}
-                                            {{ form_errors(form.hausses) }}
-                                        </div>
-                                    </div>                                          
+                                        {% for hausse in form.hausses %}
+                                            <div class="form-group">
+                                                <div class="col-lg-9">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            {{ form_widget(hausse.nbcadres, { 'attr': {'placeholder': 'Nombre de cadres'} }) }}
+                                                            {{ form_errors(hausse.nbcadres) }}
+                                                        </div>
 
+                                                        <div class="col-md-6">
+                                                            {{ form_widget(hausse.nbplein, { 'attr': {'placeholder': 'Nombre de cadres plein'} }) }}
+                                                            {{ form_errors(hausse.nbplein) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <a href="#" id="add-another-hausse">Add another hausse</a>
                                 </fieldset>   
                             </div>
                         </div>
