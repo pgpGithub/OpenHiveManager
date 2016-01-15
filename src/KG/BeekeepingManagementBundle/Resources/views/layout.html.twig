@@ -55,7 +55,7 @@
     <body class="layout-boxed">
 
 	<!-- Main navbar -->
-	<div class="navbar navbar-inverse">
+	<div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ path('kg_site_home') }}">OpenHiveManager</a>
 
@@ -98,7 +98,7 @@
             <div class="page-content">
 
                 <!-- Main sidebar -->
-                <div class="sidebar sidebar-main">
+                <div class="sidebar sidebar-main sidebar-fixed">
                     <div class="sidebar-content">
 
                         <!-- User menu -->
@@ -219,8 +219,9 @@
                     'assets/js/core/libraries/jquery.min.js'
                     'assets/js/core/libraries/bootstrap.min.js'
                     'assets/js/plugins/loaders/blockui.min.js'
+                    'assets/js/plugins/ui/nicescroll.min.js'
+                    '@KGBeekeepingManagementBundle/Resources/public/js/layout_fixed_custom.js'
                     'assets/js/core/app.js'
-                    
             %}
                 <script src="{{ asset_url }}" type="text/javascript"></script>          		
             {% endjavascripts %}
