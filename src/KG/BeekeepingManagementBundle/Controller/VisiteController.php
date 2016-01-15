@@ -50,7 +50,7 @@ class VisiteController extends Controller
     */    
     public function addAction(Colonie $colonie, Request $request)
     {
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation())|| $colonie->canHaveNewVisite() ){
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation())|| !$colonie->canHaveNewVisite() ){
             throw new NotFoundHttpException('Page inexistante.');
         }       
  
