@@ -57,27 +57,29 @@ $(function() {
     
     // Add hausse
     // ------------------------------    
-    // keep track of how many hausses fields have been rendered
-    var hausseCount = '{{ form.hausses|length }}';
+    jQuery(function($) {
+        $(document).on('click', '.btn-add[data-target]', function(event) {
+            var collectionHolder = $('#' + $(this).attr('data-target'));
 
-    jQuery(document).ready(function() {
-        jQuery('#add-another-hausse').click(function(e) {
-            e.preventDefault();
+            if (!collectionHolder.attr('data-counter')) {
+                collectionHolder.attr('data-counter', collectionHolder.children().length);
+            }
 
-            var hausseList = jQuery('#hausse-fields-list');
+            var prototype = collectionHolder.attr('data-prototype');
+            var form = prototype.replace(/__name__/g, collectionHolder.attr('data-counter'));
 
-            // grab the prototype template
-            var newWidget = hausseList.attr('data-prototype');
-            // replace the "__name__" used in the id and name of the prototype
-            // with a number that's unique to your emails
-            // end name attribute looks like name="contact[emails][2]"
-            newWidget = newWidget.replace(/__name__/g, hausseCount);
-            hausseCount++;
+            collectionHolder.attr('data-counter', Number(collectionHolder.attr('data-counter')) + 1);
+            collectionHolder.append(form);
 
-            // create a new list element and add it to the list
-            var newLi = jQuery('<div></div>').html(newWidget);
-            newLi.appendTo(hausseList);
+            event && event.preventDefault();
         });
-    })    
+
+        $(document).on('click', '.btn-remove[data-related]', function(event) {
+            var name = $(this).attr('data-related');
+            $('*[data-content="'+name+'"]').remove();
+
+            event && event.preventDefault();
+        });
+    }); 
     
 });

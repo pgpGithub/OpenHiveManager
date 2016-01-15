@@ -57,12 +57,36 @@
         </div>
     </div>
 {% endblock %}
-    
+
+{% macro widget_prototype(hausse, remove_text) %}
+    <div class="form-group">
+        <div class="col-lg-3">
+        </div>    
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_widget(hausse.nbcadres, { 'attr': {'placeholder': 'Nombre de cadres'} }) }}
+                    {{ form_errors(hausse.nbcadres) }}
+                </div>
+
+                <div class="col-md-6">
+                    {{ form_widget(hausse.nbplein, { 'attr': {'placeholder': 'Nombre de cadres plein'} }) }}
+                    {{ form_errors(hausse.nbplein) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--{#<div data-content="{{ name }}">
+        <a class="btn-remove" data-related="{{ name }}">{{ remove_text }}</a>
+        {{ form_widget(form) }}
+    </div>#}-->
+{% endmacro %}
+
 {% block body %} 
     <!-- 2 columns form -->
     {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
                 <div class="panel panel-flat">
                     <div class="panel-heading">
                         <h5 class="panel-title">Création d'une visite</h5>
@@ -89,12 +113,12 @@
                                             {% set index = tache.vars.value %}
                                             {% set entity = form.taches.vars.choices[index].data %}
                                             <div class="form-group">
-                                                {{ form_label(tache, entity.resume, {'label_attr': {'class': 'col-lg-9'}} ) }}
+                                                {{ form_label(tache, entity.resume, {'label_attr': {'class': 'col-lg-4'}} ) }}
                                                 {# Si la visite est renseignée alors on coche la checkbox. Attention, la liste des tâches comprend les tâches sans visite ou avec la visite courrante #}
                                                 {% if entity.visite %}
-                                                    {{ form_widget(tache, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled', 'checked': true}}) }}
+                                                    {{ form_widget(tache, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled', 'checked': true}}) }}
                                                 {% else %}
-                                                    {{ form_widget(tache, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}                            
+                                                    {{ form_widget(tache, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}                            
                                                 {% endif %}
                                             </div>
                                         {% endfor %}
@@ -114,20 +138,20 @@
                                     </div>  
 
                                     <div class="form-group">
-                                        {{ form_label(form.pollen, 'Pollen entrant :', { 'label_attr': {'class': 'col-lg-9'} }) }}
-                                        {{ form_widget(form.pollen, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
+                                        {{ form_label(form.pollen, 'Pollen entrant :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                        {{ form_widget(form.pollen, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
                                         {{ form_errors(form.pollen) }}
                                     </div> 
 
                                     <div class="form-group">
-                                        {{ form_label(form.reine, 'Reine vue :', { 'label_attr': {'class': 'col-lg-9'} }) }}
-                                        {{ form_widget(form.reine, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
+                                        {{ form_label(form.reine, 'Reine vue :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                        {{ form_widget(form.reine, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
                                         {{ form_errors(form.reine) }}
                                     </div> 
 
                                     <div class="form-group">
-                                        {{ form_label(form.celroyales, 'Cellules royales :', { 'label_attr': {'class': 'col-lg-9'} }) }}
-                                        {{ form_widget(form.celroyales, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
+                                        {{ form_label(form.celroyales, 'Cellules royales :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                        {{ form_widget(form.celroyales, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
                                         {{ form_errors(form.celroyales) }}
                                     </div>                                                             
 
@@ -194,28 +218,17 @@
                                             {{ form_errors(form.poids) }}
                                         </div>
                                     </div>         
-
-                                    <div class="form-group" id="hausse-fields-list" data-prototype="{{ form_widget(form.hausses.vars.prototype)|e }}">
-                                        {{ form_label(form.hausses, 'Hausses :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                        
+                                    <div id="post_tags" data-prototype="{{ _self.widget_prototype(form.hausses.vars.prototype, 'Remove tag')|e }}">
+                                        <div class="form-group">
+                                            {{ form_label(form.hausses, 'Hausses :', { 'label_attr': {'class': 'col-lg-3'} }) }}
                                         {% for hausse in form.hausses %}
-                                            <div class="form-group">
-                                                <div class="col-lg-9">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            {{ form_widget(hausse.nbcadres, { 'attr': {'placeholder': 'Nombre de cadres'} }) }}
-                                                            {{ form_errors(hausse.nbcadres) }}
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            {{ form_widget(hausse.nbplein, { 'attr': {'placeholder': 'Nombre de cadres plein'} }) }}
-                                                            {{ form_errors(hausse.nbplein) }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {{ _self.widget_prototype(hausse, 'Remove tag') }}
                                         {% endfor %}
+                                        </div>
                                     </div>
-                                    <a href="#" id="add-another-hausse">Add another hausse</a>
+                                    <a class="btn-add" data-target="post_tags">Add tag</a>
+                                    
                                 </fieldset>   
                             </div>
                         </div>
