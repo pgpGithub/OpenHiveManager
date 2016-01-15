@@ -962,6 +962,7 @@
 * ---------------------------------------------------------------------------- */
 .layout-boxed {
   background: url(../images/backgrounds/boxed_bg.png) repeat;
+  background-attachment: fixed;
 }
 .layout-boxed > .navbar {
   margin-left: auto;
@@ -993,6 +994,7 @@
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .layout-boxed {
     background: url(../images/backgrounds/boxed_bg_retina.png) repeat;
+    background-attachment: fixed;
   }
 }
 /* ------------------------------------------------------------------------------
