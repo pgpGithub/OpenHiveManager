@@ -58,28 +58,38 @@
     </div>
 {% endblock %}
 
-{% macro widget_prototype(hausse, remove_text) %}
-    <div class="form-group">
-        <div class="col-lg-3">
-        </div>    
-        <div class="col-lg-9">
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_widget(hausse.nbcadres, { 'attr': {'placeholder': 'Nombre de cadres'} }) }}
-                    {{ form_errors(hausse.nbcadres) }}
-                </div>
+{% macro widget_prototype(widget) %}
+    {% if widget.vars.prototype is defined %}
+        {% set form = widget.vars.prototype %}
+        {% set name = widget.vars.prototype.vars.name %}
+    {% else %}
+        {% set form = widget %}
+        {% set name = widget.vars.full_name %}
+    {% endif %}
 
-                <div class="col-md-6">
-                    {{ form_widget(hausse.nbplein, { 'attr': {'placeholder': 'Nombre de cadres plein'} }) }}
-                    {{ form_errors(hausse.nbplein) }}
+    <div data-content="{{ name }}">
+        <div class="form-group">
+            <div class="col-lg-12">
+                <div class="row">
+                    {{ form_label(form.nbcadres, 'Cadres total :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                    <div class="col-lg-2">
+                        {{ form_widget(form.nbcadres) }}
+                        {{ form_errors(form.nbcadres) }}
+                    </div>
+
+                    {{ form_label(form.nbplein, 'Cadres pleins :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                    <div class="col-lg-2">
+                        {{ form_widget(form.nbplein) }}
+                        {{ form_errors(form.nbplein) }}
+                    </div>
+                    
+                    <div class="col-lg-2">
+                        <div class="pull-right"><a type="button" data-related="{{ name }}" class="btn btn-default btn-remove"><i class="fa fa-trash"></i></a></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
-    <!--{#<div data-content="{{ name }}">
-        <a class="btn-remove" data-related="{{ name }}">{{ remove_text }}</a>
-        {{ form_widget(form) }}
-    </div>#}-->
 {% endmacro %}
 
 {% block body %} 
@@ -218,17 +228,22 @@
                                             {{ form_errors(form.poids) }}
                                         </div>
                                     </div>         
+                                </fieldset> 
                                         
-                                    <div id="post_tags" data-prototype="{{ _self.widget_prototype(form.hausses.vars.prototype, 'Remove tag')|e }}">
-                                        <div class="form-group">
-                                            {{ form_label(form.hausses, 'Hausses :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        {% for hausse in form.hausses %}
-                                            {{ _self.widget_prototype(hausse, 'Remove tag') }}
+                                <fieldset>
+                                    <legend class="text-semibold"><i class="fa fa-download position-left"></i> Hausses</legend>    
+
+                                    <div id="post_hausses" data-prototype="{{ _self.widget_prototype(form.hausses)|escape }}">
+                                        {% for widget in form.hausses.children %}
+                                            {{ _self.widget_prototype(widget) }}
                                         {% endfor %}
-                                        </div>
                                     </div>
-                                    <a class="btn-add" data-target="post_tags">Add tag</a>
-                                    
+
+                                    <div class=form-group">
+                                        <div class="col-lg-12">
+                                            <center><a type="button" data-target="post_hausses" class="btn btn-default btn-add">Ajouter une hausse</a></center>
+                                        </div>
+                                    </div>                                 
                                 </fieldset>   
                             </div>
                         </div>

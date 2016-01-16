@@ -40,11 +40,13 @@ class HausseVisite extends Hausse
     /**
      * Constructor
      */
-    public function __construct(Visite $visite, $nbplein = 0)
+    public function __construct(Visite $visite, $nbplein = 0, $nbcadres = 0)
     {
-        $ruche = $visite->getColonie()->getRuche();
         $this->visite = $visite;   
         
+        if($nbcadres){
+            parent::setNbcadres($nbcadres);
+        }
         
         if($nbplein){
             parent::setNbplein($nbplein);

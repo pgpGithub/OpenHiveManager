@@ -190,7 +190,7 @@ class Visite
         $this->taches = new \Doctrine\Common\Collections\ArrayCollection();
         
         foreach ($colonie->getRuche()->getHausses() as $hausse) {
-            $this->addHauss(new HausseVisite($this, $hausse->getNbplein()));
+            $this->addHauss(new HausseVisite($this, $hausse->getNbplein(), $hausse->getNbcadres()));
         }
     }
 

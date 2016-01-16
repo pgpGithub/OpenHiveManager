@@ -215,7 +215,11 @@
                                                                     {% for hausse in visite.hausses %}
                                                                         <li class="list-group-item">
                                                                             <div class="progress">
-                                                                              {% set pourcent = ( hausse.nbplein * 100 ) / ( hausse.nbcadres ) %}
+                                                                              {% if hausse.nbcadres == 0 %}
+                                                                                {% set pourcent = 0 %}  
+                                                                              {% else %}    
+                                                                                {% set pourcent = ( hausse.nbplein * 100 ) / ( hausse.nbcadres ) %}
+                                                                              {% endif %}
                                                                               <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ pourcent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pourcent }}%;">
                                                                                 <span class="sr-only">Miel</span>
                                                                               </div>

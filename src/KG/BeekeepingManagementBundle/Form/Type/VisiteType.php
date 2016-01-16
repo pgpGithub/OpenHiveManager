@@ -135,8 +135,9 @@ class VisiteType extends AbstractType
                 ->add('hausses', 'collection', array(
                     'type' => new HausseType($builder->getData()), 
                     'allow_add' => true,
-                    'allow_delete' => true
-                    ))                    
+                    'allow_delete' => true,
+                    'label' => false
+                ))                    
                 
                 ->add('taches', 'entity', array(	 
                     'class'        => 'KGBeekeepingManagementBundle:Tache',
