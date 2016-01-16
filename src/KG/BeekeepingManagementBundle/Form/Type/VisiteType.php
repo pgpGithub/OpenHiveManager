@@ -135,9 +135,7 @@ class VisiteType extends AbstractType
                 ->add('hausses', 'collection', array(
                     'type' => new HausseType($builder->getData()), 
                     'allow_add' => true,
-                    'allow_delete' => true,
-                    'prototype' => true,
-                    'prototype_name' => 'tag__name__',
+                    'allow_delete' => true
                     ))                    
                 
                 ->add('taches', 'entity', array(	 
