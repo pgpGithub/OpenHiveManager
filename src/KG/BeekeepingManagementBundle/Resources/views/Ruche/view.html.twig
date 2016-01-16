@@ -336,10 +336,6 @@
                                                             <dt>Poids (kg)</dt>
                                                             <dd>{{ ruche.colonie.visites|last.poids|number_format(3, ',', ' ') }}</dd>
                                                         {% endif %}
-                                                        {% for hausse in ruche.hausses %}
-                                                            <dt>Hausse n°{{ loop.index }} (cadres pleins/nombre cadres)</dt>
-                                                            <dd>({{ hausse.nbplein }}/{{ hausse.nbcadres }})</dd>                       
-                                                        {% endfor %}    
                                                     </dl>
                                                 </div>
                                             </div>
@@ -365,7 +361,24 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">        
+                                                
+                                        <div class="row"> 
+                                            <div class="col-sm-6">        
+                                                <h6 class="text-semibold"><i class="fa fa-download position-left"></i> Hausses</h6>
+                                                <div class="well">
+                                                    <dl class="dl-horizontal">
+                                                        {% if ruche.hausses is not empty %}
+                                                            {% for hausse in ruche.hausses %}
+                                                                <dt>Hausse n°{{ loop.index }}</dt>
+                                                                <dd>({{ hausse.nbplein }}/{{ hausse.nbcadres }})</dd>                       
+                                                            {% endfor %}  
+                                                        {% else %}
+                                                            Aucune 
+                                                        {% endif %}    
+                                                    </dl>
+                                                </div>    
+                                            </div>                                              
+                                            
                                             <div class="col-sm-6">        
                                                 {% set reine = colonie.remerages|last.reine %}
                                                 <h6 class="text-semibold"><i class="icon-crown position-left"></i> Reine</h6>
@@ -392,8 +405,10 @@
                                                     </dl>
                                                 </div>    
                                             </div>   
-
-                                            <div class="col-sm-6">
+                                        </div>
+                                                    
+                                        <div class="row"> 
+                                            <div class="col-sm-6 pull-right">
                                                 <h6 class="text-semibold"><i class="icon-tree7 position-left"></i> Lignée</h6>
                                                 <div class="well">
                                                     <dl class="dl-horizontal">  
@@ -423,7 +438,6 @@
                                             </div>  
                                         </div>       
                                     </div>
-
                                 </div>                           
                             </div>
                         </div>                                    
