@@ -195,19 +195,6 @@
                                                     {% else %}
                                                         <center>Aucune</center>
                                                     {% endif %}
-                                                </div>  
-
-                                                <h6 class="text-semibold"><i class="fa fa-tasks position-left"></i> Tâches effectuées</h6>
-                                                <div class="well">
-                                                    {% if visite.taches is empty %}
-                                                        <center>Aucune</center>
-                                                    {% else %}    
-                                                        <ul> 
-                                                            {% for tache in visite.taches %}
-                                                                <li><a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}">{{ tache.resume }}</a></li>
-                                                            {% endfor %}                                     
-                                                        </ul> 
-                                                    {% endif %}
                                                 </div>                                                                                          
                                             </div>   
                                         </div>
@@ -236,7 +223,14 @@
                                                         <center>Aucune</center> 
                                                     {% endif %}    
                                                 </div>       
-                                            </div>                                              
+                                            </div> 
+                                        </div>        
+                                        <div class="row"> 
+                                            <div class="col-md-12">
+                                                <h6 class="text-semibold"><i class="fa fa-tasks position-left"></i> Tâches effectuées</h6>
+                                                <!-- Tasks grid -->
+                                                {% include 'KGBeekeepingManagementBundle:Tache:view.html.twig' with {'taches' : visite.taches} only%}                                      
+                                            </div>                                                                                                     
                                         </div>       
                                     </div>
                                 </div>                           
@@ -248,66 +242,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- Tasks grid -->
-                                {% if taches is not empty %}       
-                                    <div class="row">
-                                        {% for tache in taches %}
-                                            {% if tache.priorite.id == 1 %}
-                                                {% set couleur = 'danger' %}  
-                                            {% elseif tache.priorite.id == 2 %}
-                                                {% set couleur = 'primary' %}   
-                                            {% elseif tache.priorite.id == 3 %}
-                                                {% set couleur = 'success' %}      
-                                            {% endif %}                                              
-                                            
-                                            <div class="col-md-6">
-                                                <div class="panel border-left-lg border-left-{{ couleur }}">
-                                                    <div class="panel-body">
-                                                        <div class="row">
-                                                            <div class="col-md-8">
-                                                                <h6 class="no-margin-top">{{ tache.resume }}</h6>
-                                                                <p class="mb-15">{{ tache.description }}</p>
-                                                            </div>
-
-                                                            <div class="col-md-4">
-                                                                <ul class="list task-details">
-                                                                    <li>{{ tache.date|date('d/m/Y') }}</li>
-                                                                    <li><span class="bg-{{ couleur }}">{{ tache.priorite.libelle }}</span></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="panel-footer">
-                                                        <ul class="pull-right">
-                                                            <li class="dropdown">
-                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
-                                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                                    <li><a href="#"><i class="icon-alarm-add"></i> Check in</a></li>
-                                                                    <li><a href="#"><i class="icon-attachment"></i> Attach screenshot</a></li>
-                                                                    <li><a href="#"><i class="icon-rotate-ccw2"></i> Reassign</a></li>
-                                                                    <li class="divider"></li>
-                                                                    <li><a href="#"><i class="icon-pencil7"></i> Edit task</a></li>
-                                                                    <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>     
-                                            {% if loop.index0 is not divisible by(2)%}
-                                                </div>
-                                                <div class="row">
-                                            {% endif %}    
-                                        {% endfor %}
-                                    </div>                         
-                                </div>    
-                                {% else %}    
-                                <div class="row">
-                                    <div class="col-md-12" align="center">      
-                                        <center>Pas de tâche en attente.</center>
-                                    </div>
-                                </div>          
-                                {% endif %} 
+                                {% include 'KGBeekeepingManagementBundle:Tache:view.html.twig' with {'taches' : taches} only %}                                
+                            </div>    
                         </div>       
                     </div> 
                     

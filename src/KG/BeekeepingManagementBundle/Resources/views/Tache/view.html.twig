@@ -14,46 +14,58 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  #}
-
-{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
-
-{% block title %}{{ parent() }} - Visite{% endblock %}
-
-{% block menu %}
-    {% include 'KGBeekeepingManagementBundle::menuTache.html.twig' %}
-{% endblock menu %}
-
-{% block panel_title %}
+{% if taches is not empty %}       
     <div class="row">
-        <div class="col-xs-6">
-            <h4>Tâche</h4>
-        </div>
-    </div>    
-{% endblock %}
+        {% for tache in taches %}
+            {% if tache.priorite.id == 1 %}
+                {% set couleur = 'danger' %}  
+            {% elseif tache.priorite.id == 2 %}
+                {% set couleur = 'primary' %}   
+            {% elseif tache.priorite.id == 3 %}
+                {% set couleur = 'success' %}      
+            {% endif %}                                              
 
-{% block panel_body %}
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">    
-                <tbody>                    
-                    <tr>
-                        <td><strong>Date prévisionnelle</strong></td>
-                        <td>{{ tache.date|date('d/m/Y') }}</td>
-                    </tr>    
-                    <tr>
-                        <td><strong>Priorite</strong></td>
-                        <td>{{ tache.priorite.libelle }}</td>
-                    </tr>  
-                    <tr>
-                        <td><strong>Résumé</strong></td>
-                        <td>{{ tache.resume }}</td>
-                    </tr>                       
-                    <tr>
-                        <td><strong>Description</strong></td>
-                        <td>{% if tache.description %}{{ tache.description }}{% else %}Non renseignée{% endif %}</td>
-                    </tr>                   
-                </tbody>
-          </table>
-        </div>
-    </div>             
-{% endblock %}
+            <div class="col-md-6">
+                <div class="panel border-left-lg border-left-{{ couleur }}">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6 class="no-margin-top">{{ tache.resume }}</h6>
+                                <p class="mb-15">{{ tache.description }}</p>
+                            </div>
+
+                            <div class="col-md-4">
+                                <ul class="list task-details">
+                                    <li>{{ tache.date|date('d/m/Y') }}</li>
+                                    <li><span class="bg-{{ couleur }}">{{ tache.priorite.libelle }}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <ul class="pull-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#"><i class="icon-alarm-add"></i> Check in</a></li>
+                                    <li><a href="#"><i class="icon-attachment"></i> Attach screenshot</a></li>
+                                    <li><a href="#"><i class="icon-rotate-ccw2"></i> Reassign</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#"><i class="icon-pencil7"></i> Edit task</a></li>
+                                    <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>     
+            {% if loop.index0 is not divisible by(2)%}
+                </div>
+                <div class="row">
+            {% endif %}    
+        {% endfor %}
+    </div>                         
+{% else %}    
+    <center>Aucune</center>       
+{% endif %} 
