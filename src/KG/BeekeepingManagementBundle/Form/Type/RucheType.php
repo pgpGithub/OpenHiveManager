@@ -30,17 +30,18 @@ class RucheType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {       
         $builder
-            ->add('nom',  'text')
+            ->add('nom',  'text')   
             ->add('matiere', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Matiere',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
-                    ))
+                    ))     
             ->add('corps', new CorpsType())
-            ->add('image', new ImageType(), array('required' => false));
+            ->add('image', new ImageType(), array('required' => false))
+            ->add('colonie', new ColonieType(), array('label' => false));
     }
     
     /**

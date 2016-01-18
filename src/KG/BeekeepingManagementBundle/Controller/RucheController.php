@@ -23,9 +23,9 @@ use KG\BeekeepingManagementBundle\Entity\Hausse;
 use KG\BeekeepingManagementBundle\Entity\Emplacement;
 use KG\BeekeepingManagementBundle\Entity\Ruche;
 use KG\BeekeepingManagementBundle\Entity\Remerage;
-use KG\BeekeepingManagementBundle\Form\Type\UpdateRucheType;
+use KG\BeekeepingManagementBundle\Form\Type\UpdateRemerageType;
 use KG\BeekeepingManagementBundle\Form\Type\TranshumerType;
-use KG\BeekeepingManagementBundle\Form\Type\AddRucheType;
+use KG\BeekeepingManagementBundle\Form\Type\RucheType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -46,7 +46,7 @@ class RucheController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $form = $this->createForm(new UpdateRucheType, $ruche);
+                $form = $this->createForm(new UpdateRemerageType(), $ruche->getColonie()->getRemerages()->last());
         
         if ($form->handleRequest($request)->isValid()){
                         
@@ -96,7 +96,7 @@ class RucheController extends Controller
         }
         
         $ruche = new Ruche($emplacement);
-        $form = $this->createForm(new AddRucheType, $ruche);
+        $form = $this->createForm(new RucheType, $ruche);
         
         if ($form->handleRequest($request)->isValid()){
                     

@@ -316,7 +316,7 @@ class Ruche
     {
         $permitted = true;
         
-        if( $this->getColonie->getMorte()){
+        if( $this->getColonie()->getMorte()){
             $permitted = false;
         }
         

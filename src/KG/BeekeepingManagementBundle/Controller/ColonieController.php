@@ -20,7 +20,6 @@
 namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Colonie;
-use KG\BeekeepingManagementBundle\Form\Type\UpdateRemerageType;
 use KG\BeekeepingManagementBundle\Form\Type\DiviserType;
 use KG\BeekeepingManagementBundle\Form\Type\CauseType;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,37 +51,6 @@ class ColonieController extends Controller
         return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRuche()->getRucher()->getId())));            
     }
     
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}}) 
-    */    
-    public function updateAction(Colonie $colonie, Request $request)
-    {
-        
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canBeUpdated() ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }        
-                
-        $form = $this->createForm(new UpdateRemerageType(), $colonie->getRemerages()->last());
-        
-        if ($form->handleRequest($request)->isValid()){
-                
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($colonie);
-            $em->flush();
-
-            $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Colonie mise à jour avec succès');
-
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));
-        }
-
-        return $this->render('KGBeekeepingManagementBundle:Colonie:update.html.twig', 
-                             array('form'     => $form->createView(),
-                                   'colonie' => $colonie 
-                            ));
-    } 
-
     /**
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonieMere", options={"mapping": {"colonie_id" : "id"}}) 

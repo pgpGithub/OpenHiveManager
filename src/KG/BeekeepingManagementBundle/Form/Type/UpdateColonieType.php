@@ -31,13 +31,14 @@ class UpdateColonieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder                                               
+        $builder 
+            ->add('ruche', new UpdateRucheType())    
             ->add('affectation', 'entity', array(
                         'class' => 'KGBeekeepingManagementBundle:Affectation',
                         'choice_label' => 'libelle',
                         'empty_value' => '',
                         'empty_data'  => null
-                    ));             
+                    ));
     }
     
     /**
