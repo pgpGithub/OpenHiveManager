@@ -1,0 +1,83 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+
+<div class="navbar navbar-default navbar-xs content-group">
+    <ul class="nav navbar-nav visible-xs-block">
+        <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+    </ul>
+
+    <div class="navbar-collapse collapse" id="navbar-filter">
+        <ul class="nav navbar-nav element-active-slate-400">
+            <li class="active">
+            {% if colonie.visites|last %}
+                <a href="#lastvisite" data-toggle="tab"><i class="icon-clipboard position-left"></i> Dernière visite</a></li>
+                <li>                   
+            {% endif %}
+            <a href="#taches" data-toggle="tab"><i class="fa fa-tasks position-left"></i> Tâches</a></li>
+            <li><a href="#infos" data-toggle="tab"><i class="icon-profile position-left"></i> Détails</a></li>
+        </ul>             
+
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">  
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-gear position-left"></i>
+                        Option
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        {% if not colonie.morte %}
+                            <li><a href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id': colonie.ruche.id }) }}"><i class="fa fa-pencil"></i> Modifier la ruche</a></li>
+                        {% endif %}    
+                        {% if not colonie.hasFille %}
+                            <li><a href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-trash"></i> Supprimer la ruche</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-wrench"></i>
+                        Action 
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        {% if colonie.visites is not empty %}
+                            <li><a href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id': colonie.visites|last.id }) }}"><i class="fa fa-pencil"></i> Modifier la dernière visite</a></li>
+                        {% endif %}                                
+                        {% if not colonie.morte %}
+                            <li><a href="{{ path('kg_beekeeping_management_add_remerage', { 'colonie_id': colonie.id }) }}"><i class="fa fa-refresh"></i> Remérer</a></li>
+                            <li><a href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-heartbeat"></i> Déclarer morte</a></li>
+                        {% endif %}
+                        {% if colonie.ruche.hausses is not empty %}
+                            <li><a href="{{ path('kg_beekeeping_management_add_recolte', { 'colonie_id': colonie.id }) }}"><i class="fa fa-upload"></i> Récolter</a></li>
+                        {% endif %}
+                        {% if not colonie.morte and colonie.ruche.rucher.exploitation.getNbEmplacementsVides > 0 %}
+                            <li><a href="{{ path('kg_beekeeping_management_add_transhumance', { 'colonie_id': colonie.id }) }}"><i class="fa fa-exchange"></i> Transhumer</a></li>
+                        {% endif %}
+                        {% if colonie.canBeDivisee %}
+                            <li><a href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-scissors"></i> Récolter</a></li>
+                        {% endif %}                                
+                    </ul>
+                </li>  
+            </ul>
+        </div>
+    </div>
+</div>                      

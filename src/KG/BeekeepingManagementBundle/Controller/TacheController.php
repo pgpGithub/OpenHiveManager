@@ -51,21 +51,7 @@ class TacheController extends Controller
 
         return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $tache->getColonie()->getRuche()->getId())));            
     }
-    
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("tache", options={"mapping": {"tache_id" : "id"}}) 
-    */    
-    public function viewAction(Tache $tache)
-    {        
-        if( !$this->getUser()->canDisplayExploitation($tache->getColonie()->getRuche()->getRucher()->getExploitation()) ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
        
-        return $this->render('KGBeekeepingManagementBundle:Tache:view.html.twig', 
-                array(  'tache' => $tache ));
-    }
-    
     /**
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  

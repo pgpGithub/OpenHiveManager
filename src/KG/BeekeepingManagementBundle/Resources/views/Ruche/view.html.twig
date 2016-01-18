@@ -26,40 +26,7 @@
 {% endblock %}
 
 {% block cover %}
-    <div class="profile-cover">
-        {% if ruche.rucher.image is not null %}
-            <div class="profile-cover-img" style="background-image: url({{ asset(ruche.rucher.image.webPath) }})"></div>
-        {% else %}
-            <div class="profile-cover-img" style="background-image: url({{ asset("img/rucher.jpg") }})"></div>
-        {% endif %}    
-        <div class="media">
-            <div class="media-left">
-                <a href="#" class="profile-thumb">
-                    {% if ruche.image is not null %}
-                        <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-circle">
-                    {% else %}
-                        <img src="{{ asset('img/ruche/' ~ ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-circle">
-                    {% endif %}                       
-                </a>
-            </div>
-
-            <div class="media-body">
-                <h1>Rucher {{ ruche.rucher.nom }} <small class="display-block">Ruche {{ ruche.nom }}</small></h1>
-            </div>
-            
-            <div class="media-right media-middle">
-                <ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
-                    {% if ruche.colonie.canHaveNewVisite %}
-                        <li><a href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id': ruche.colonie.id }) }}" class="btn btn-default"><i class="fa fa-plus"></i> Créer une visite</a></li>
-                    {% endif %}
-
-                    {% if ruche.colonie.canHaveNewTache %}
-                        <li><a href="{{ path('kg_beekeeping_management_add_tache', { 'colonie_id': ruche.colonie.id }) }}" class="btn btn-default"><i class="fa fa-plus"></i> Créer une tâche</a></li>
-                    {% endif %}                    
-                </ul>
-            </div>            
-        </div>
-    </div>
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : ruche} only %}
 {% endblock %}
     
 {% set colonie = ruche.colonie %}
@@ -67,71 +34,7 @@
 {% set visite = colonie.visites|last %}
     
 {% block toolbar %}
-    <div class="navbar navbar-default navbar-xs content-group">
-        <ul class="nav navbar-nav visible-xs-block">
-            <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
-        </ul>
-
-        <div class="navbar-collapse collapse" id="navbar-filter">
-            <ul class="nav navbar-nav element-active-slate-400">
-                <li class="active">
-                {% if visite %}
-                    <a href="#lastvisite" data-toggle="tab"><i class="icon-clipboard position-left"></i> Dernière visite</a></li>
-                    <li>                   
-                {% endif %}
-                <a href="#taches" data-toggle="tab"><i class="fa fa-tasks position-left"></i> Tâches</a></li>
-                <li><a href="#infos" data-toggle="tab"><i class="icon-profile position-left"></i> Détails</a></li>
-            </ul>             
-            
-            <div class="navbar-right">
-                <ul class="nav navbar-nav">  
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon-gear position-left"></i>
-                            Option
-                            <span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            {% if not colonie.morte %}
-                                <li><a href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id': ruche.id }) }}"><i class="fa fa-pencil"></i> Modifier la ruche</a></li>
-                            {% endif %}    
-                            {% if not colonie.hasFille %}
-                                <li><a href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-trash"></i> Supprimer la ruche</a></li>
-                            {% endif %}
-                        </ul>
-                    </li>
-                                                        
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-wrench"></i>
-                            Action 
-                            <span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            {% if ruche.colonie.visites is not empty %}
-                                <li><a href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id': ruche.colonie.visites|last.id }) }}"><i class="fa fa-pencil"></i> Modifier la dernière visite</a></li>
-                            {% endif %}                                
-                            {% if not colonie.morte %}
-                                <li><a href="{{ path('kg_beekeeping_management_add_remerage', { 'colonie_id': colonie.id }) }}"><i class="fa fa-refresh"></i> Remérer</a></li>
-                                <li><a href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-heartbeat"></i> Déclarer morte</a></li>
-                            {% endif %}
-                            {% if ruche.hausses is not empty %}
-                                <li><a href="{{ path('kg_beekeeping_management_add_recolte', { 'colonie_id': colonie.id }) }}"><i class="fa fa-upload"></i> Récolter</a></li>
-                            {% endif %}
-                            {% if not colonie.morte and ruche.rucher.exploitation.getNbEmplacementsVides > 0 %}
-                                <li><a href="{{ path('kg_beekeeping_management_add_transhumance', { 'colonie_id': colonie.id }) }}"><i class="fa fa-exchange"></i> Transhumer</a></li>
-                            {% endif %}
-                            {% if colonie.canBeDivisee %}
-                                <li><a href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-scissors"></i> Récolter</a></li>
-                            {% endif %}                                
-                        </ul>
-                    </li>  
-                </ul>
-            </div>
-        </div>
-    </div>                      
+    {% include 'KGBeekeepingManagementBundle:Ruche:toolbar.html.twig' with {'colonie' : ruche.colonie} only %}    
 {% endblock %} 
 
 {% block body %}
@@ -229,7 +132,7 @@
                                             <div class="col-md-12">
                                                 <h6 class="text-semibold"><i class="fa fa-tasks position-left"></i> Tâches effectuées</h6>
                                                 <!-- Tasks grid -->
-                                                {% include 'KGBeekeepingManagementBundle:Tache:view.html.twig' with {'taches' : visite.taches} only%}                                      
+                                                {% include 'KGBeekeepingManagementBundle:Tache:includeView.html.twig' with {'taches' : visite.taches} only%}                                      
                                             </div>                                                                                                     
                                         </div>       
                                     </div>
@@ -242,7 +145,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- Tasks grid -->
-                                {% include 'KGBeekeepingManagementBundle:Tache:view.html.twig' with {'taches' : taches} only %}                                
+                                {% include 'KGBeekeepingManagementBundle:Tache:includeView.html.twig' with {'taches' : taches} only %}                                
                             </div>    
                         </div>       
                     </div> 
