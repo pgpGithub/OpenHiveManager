@@ -24,39 +24,96 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {% javascripts filter='?uglifyjs2'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/visite/add.js'%}
+        <script src="{{ asset_url }}" type="text/javascript"></script>  
+    {% endjavascripts %}
     {{ form_javascript(form) }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Créer une tâche{% endblock %}
+{% block cover %}
+    <div class="profile-cover">
+        {% if colonie.ruche.rucher.image is not null %}
+            <div class="profile-cover-img" style="background-image: url({{ asset(colonie.ruche.rucher.image.webPath) }})"></div>
+        {% else %}
+            <div class="profile-cover-img" style="background-image: url({{ asset("img/rucher.jpg") }})"></div>
+        {% endif %}    
+        <div class="media">
+            <div class="media-left">
+                <a href="#" class="profile-thumb">
+                    {% if colonie.ruche.image is not null %}
+                        <img src="{{ asset(colonie.ruche.image.webPath) }}" alt="{{ colonie.ruche.image.alt }}" class="img-circle">
+                    {% else %}
+                        <img src="{{ asset('img/ruche/' ~ colonie.ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-circle">
+                    {% endif %}                       
+                </a>
+            </div>
 
-{% block menu %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menu %}
-
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Création d'une tâche</h4>
+            <div class="media-body">
+                <h1>Rucher {{ colonie.ruche.rucher.nom }} <small class="display-block">Ruche {{ colonie.ruche.nom }}</small></h1>
+            </div>                    
         </div>
     </div>
-{% endblock %}
-    
-{% block panel_body %}            
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-        {{ form_row(form.date, {'label': 'A faire le :', 'label_col': 4, 'widget_col': 5})  }} 
-        {{ form_row(form.priorite, {'label': 'Priorité :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.resume, {'label': 'Résumé :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.description, {'label': 'Description :', 'label_col': 4, 'widget_col': 5})  }}                         
+{% endblock %} 
 
-    {{ form_rest(form) }}
+{% block body %}
 
-    <div class="form-group">
+    <!-- Centered forms -->
+    <div class="row">
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('floppy-o') }} Sauvegarder
-            </button>
-        </div>        
-    </div>
+            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Création d'une tâche</h5>
+                            </div>
 
-    {{ form_end(form) }}     
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    {{ form_label(form.date, "A faire le :*", { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        {{ form_widget(form.date) }}
+                                        {{ form_errors(form.date) }}
+                                    </div>
+                                </div>    
+                                    
+                                <div class="form-group">
+                                    {{ form_label(form.priorite, "Priorité :*", { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        {{ form_widget(form.priorite) }}
+                                        {{ form_errors(form.priorite) }}
+                                    </div>
+                                </div> 
+
+                                <div class="form-group">
+                                    {{ form_label(form.resume, "Résumé :*", { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        {{ form_widget(form.resume) }}
+                                        {{ form_errors(form.resume) }}
+                                    </div>
+                                </div> 
+                                    
+                                <div class="form-group">
+                                    {{ form_label(form.description, "Description :", { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        {{ form_widget(form.description) }}
+                                        {{ form_errors(form.description) }}
+                                    </div>
+                                </div> 
+                                    
+                                {{ form_rest(form) }}
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <!-- /form centered -->
 {% endblock %}

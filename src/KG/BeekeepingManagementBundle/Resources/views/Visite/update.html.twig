@@ -69,21 +69,21 @@
 
     <div data-content="{{ name }}">
         <div class="form-group">
-            <div class="col-lg-12">
+            <div class="col-md-12">
                 <div class="row">
-                    {{ form_label(form.nbcadres, 'Cadres total :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                    <div class="col-lg-2">
+                    {{ form_label(form.nbcadres, 'Cadres total :*', { 'label_attr': {'class': 'col-md-3'} }) }}
+                    <div class="col-md-2">
                         {{ form_widget(form.nbcadres) }}
                         {{ form_errors(form.nbcadres) }}
                     </div>
 
-                    {{ form_label(form.nbplein, 'Cadres pleins :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                    <div class="col-lg-2">
+                    {{ form_label(form.nbplein, 'Cadres pleins :*', { 'label_attr': {'class': 'col-md-3'} }) }}
+                    <div class="col-md-2">
                         {{ form_widget(form.nbplein) }}
                         {{ form_errors(form.nbplein) }}
                     </div>
                     
-                    <div class="col-lg-2">
+                    <div class="col-md-2">
                         <div class="pull-right"><a type="button" data-related="{{ name }}" class="btn btn-default btn-remove"><i class="fa fa-trash"></i></a></div>
                     </div>
                 </div>
@@ -95,165 +95,172 @@
 {% block body %} 
     <!-- 2 columns form -->
     {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-flat">
-                    <div class="panel-heading">
-                        <h5 class="panel-title">Modification d'une visite</h5>
-                    </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Modification d'une visite</h5>
+            </div>
 
-                    <div class="panel-body"> 
-                        <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
-                                <div class="form-group">
-                                    {{ form_label(form.date, 'Date :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                    <div class="col-lg-9">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            {{ form_widget(form.date) }}
-                                            {{ form_errors(form.date) }}
-                                        </div>
-                                    </div>
+            <div class="panel-body"> 
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="form-group">
+                            {{ form_label(form.date, 'Date :*', { 'label_attr': {'class': 'col-md-3'} }) }}
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    {{ form_widget(form.date) }}
+                                    {{ form_errors(form.date) }}
                                 </div>
-                                        
-                                {% if form.taches is not empty %}
-                                    <fieldset>
-                                        <legend class="text-semibold"><i class="fa fa-users position-left"></i> Tâches réalisées</legend>
-                                        {% for tache in form.taches %}
-                                            {% set index = tache.vars.value %}
-                                            {% set entity = form.taches.vars.choices[index].data %}
-                                            <div class="form-group">
-                                                {{ form_label(tache, entity.resume, {'label_attr': {'class': 'col-lg-4'}} ) }}
-                                                {# Si la visite est renseignée alors on coche la checkbox. Attention, la liste des tâches comprend les tâches sans visite ou avec la visite courrante #}
-                                                {% if entity.visite %}
-                                                    {{ form_widget(tache, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled', 'checked': true}}) }}
-                                                {% else %}
-                                                    {{ form_widget(tache, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}                            
-                                                {% endif %}
-                                            </div>
-                                        {% endfor %}
-
-                                    </fieldset> 
-                                {% endif %} 
-                                
-                                <fieldset>
-                                    <legend class="text-semibold"><i class="fa fa-archive position-left"></i> Informations relevées</legend>
-
-                                    <div class="form-group">
-                                        {{ form_label(form.activite, 'Activité :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
-                                            {{ form_widget(form.activite) }}
-                                            {{ form_errors(form.activite) }}
-                                        </div>
-                                    </div>  
-
-                                    <div class="form-group">
-                                        {{ form_label(form.pollen, 'Pollen entrant :', { 'label_attr': {'class': 'col-lg-4'} }) }}
-                                        {{ form_widget(form.pollen, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
-                                        {{ form_errors(form.pollen) }}
-                                    </div> 
-
-                                    <div class="form-group">
-                                        {{ form_label(form.reine, 'Reine vue :', { 'label_attr': {'class': 'col-lg-4'} }) }}
-                                        {{ form_widget(form.reine, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
-                                        {{ form_errors(form.reine) }}
-                                    </div> 
-
-                                    <div class="form-group">
-                                        {{ form_label(form.celroyales, 'Cellules royales :', { 'label_attr': {'class': 'col-lg-4'} }) }}
-                                        {{ form_widget(form.celroyales, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
-                                        {{ form_errors(form.celroyales) }}
-                                    </div>                                                             
-
-                                    <div class="form-group">
-                                        {{ form_label(form.etat, 'Etat :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
-                                            {{ form_widget(form.etat) }}
-                                            {{ form_errors(form.etat) }}
-                                        </div>
-                                    </div>  
-
-                                    <div class="form-group">
-                                        {{ form_label(form.agressivite, 'Agressivité :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
-                                            {{ form_widget(form.agressivite) }}
-                                            {{ form_errors(form.agressivite) }}
-                                        </div>
-                                    </div>  
-
-                                    <div class="form-group">
-                                        {{ form_label(form.nourrissement, 'Nourrissement :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
-                                            {{ form_widget(form.nourrissement) }}
-                                            {{ form_errors(form.nourrissement) }}
-                                        </div>
-                                    </div> 
-
-                                    <div class="form-group">
-                                        {{ form_label(form.traitement, 'Traitement :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
-                                            {{ form_widget(form.traitement) }}
-                                            {{ form_errors(form.traitement) }}
-                                        </div>
-                                    </div>                                 
-
-                                    <div class="form-group">
-                                        {{ form_label(form.observations, 'Observations :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
-                                            {{ form_widget(form.observations) }}
-                                            {{ form_errors(form.observations) }}
-                                        </div>
-                                    </div>                       
-
-                                    <div class="form-group">
-                                        {{ form_label(form.nbnourriture, 'Cadres de nourriture :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
-                                            {{ form_widget(form.nbnourriture) }}
-                                            {{ form_errors(form.nbnourriture) }}
-                                        </div>
-                                    </div>                                                      
-                                                    
-                                    <div class="form-group">
-                                        {{ form_label(form.nbcouvain, 'Cadres de couvain :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
-                                            {{ form_widget(form.nbcouvain) }}
-                                            {{ form_errors(form.nbcouvain) }}
-                                        </div>
-                                    </div>                                          
-                                        
-                                    <div class="form-group">
-                                        {{ form_label(form.poids, 'Poids (kg) :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
-                                            {{ form_widget(form.poids) }}
-                                            {{ form_errors(form.poids) }}
-                                        </div>
-                                    </div>         
-                                </fieldset> 
-                                        
-                                <fieldset>
-                                    <legend class="text-semibold"><i class="fa fa-download position-left"></i> Hausses</legend>    
-
-                                    <div id="post_hausses" data-prototype="{{ _self.widget_prototype(form.hausses)|escape }}">
-                                        {% for widget in form.hausses.children %}
-                                            {{ _self.widget_prototype(widget) }}
-                                        {% endfor %}
-                                    </div>
-
-                                    <div class=form-group">
-                                        <div class="col-lg-12">
-                                            <center><a type="button" data-target="post_hausses" class="btn btn-default btn-add">Ajouter une hausse</a></center>
-                                        </div>
-                                    </div>                                 
-                                </fieldset>   
                             </div>
-                        </div>
+                        </div>                        
+                    </div>    
+                </div>
+                    
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-stethoscope position-left"></i> Etat général</legend>
+                            <div class="form-group">
+                                {{ form_label(form.pollen, 'Pollen entrant :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                {{ form_widget(form.pollen, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
+                                {{ form_errors(form.pollen) }}
+                            </div> 
 
-                        {{ form_rest(form) }}
+                            <div class="form-group">
+                                {{ form_label(form.reine, 'Reine vue :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                {{ form_widget(form.reine, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
+                                {{ form_errors(form.reine) }}
+                            </div> 
 
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
-                        </div>
+                            <div class="form-group">
+                                {{ form_label(form.celroyales, 'Cellules royales :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                {{ form_widget(form.celroyales, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
+                                {{ form_errors(form.celroyales) }}
+                            </div>                                                             
+
+                            <div class="form-group">
+                                {{ form_label(form.activite, 'Activité :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.activite) }}
+                                    {{ form_errors(form.activite) }}
+                                </div>
+                            </div>  
+                                
+                            <div class="form-group">
+                                {{ form_label(form.etat, 'Etat :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.etat) }}
+                                    {{ form_errors(form.etat) }}
+                                </div>
+                            </div>  
+
+                            <div class="form-group">
+                                {{ form_label(form.agressivite, 'Agressivité :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.agressivite) }}
+                                    {{ form_errors(form.agressivite) }}
+                                </div>
+                            </div>                     
+
+                            <div class="form-group">
+                                {{ form_label(form.nbnourriture, 'Cadres de nourriture :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.nbnourriture) }}
+                                    {{ form_errors(form.nbnourriture) }}
+                                </div>
+                            </div>                                                      
+
+                            <div class="form-group">
+                                {{ form_label(form.nbcouvain, 'Cadres de couvain :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.nbcouvain) }}
+                                    {{ form_errors(form.nbcouvain) }}
+                                </div>
+                            </div>                                          
+
+                            <div class="form-group">
+                                {{ form_label(form.poids, 'Poids (kg) :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.poids) }}
+                                    {{ form_errors(form.poids) }}
+                                </div>
+                            </div>  
+                        </fieldset>        
+                    </div>   
+                                
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-info position-left"></i> Informations complémentaires</legend>   
+                            <div class="form-group">
+                                {{ form_label(form.nourrissement, 'Nourrissement :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.nourrissement) }}
+                                    {{ form_errors(form.nourrissement) }}
+                                </div>
+                            </div> 
+
+                            <div class="form-group">
+                                {{ form_label(form.traitement, 'Traitement :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.traitement) }}
+                                    {{ form_errors(form.traitement) }}
+                                </div>
+                            </div>                                 
+
+                            <div class="form-group">
+                                {{ form_label(form.observations, 'Observations :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.observations) }}
+                                    {{ form_errors(form.observations) }}
+                                </div>
+                            </div>                                
+                        </fieldset>                        
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-tasks position-left"></i> Tâches réalisées</legend>                            
+                            {% if form.taches is empty %}
+                                <center>Aucune</center>
+                            {% else %}    
+                                {% for tache in form.taches %}
+                                    {% set index = tache.vars.value %}
+                                    {% set entity = form.taches.vars.choices[index].data %}
+                                    <div class="form-group">
+                                        {{ form_label(tache, entity.resume, {'label_attr': {'class': 'col-lg-4'}} ) }}
+                                        {# Si la visite est renseignée alors on coche la checkbox. Attention, la liste des tâches comprend les tâches sans visite ou avec la visite courrante #}
+                                        {% if entity.visite %}
+                                            {{ form_widget(tache, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled', 'checked': true}}) }}
+                                        {% else %}
+                                            {{ form_widget(tache, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}                            
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </fieldset>                              
                     </div>
+                </div>
+                            
+                <div class="row">
+                    <div class="col-md-12">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-download position-left"></i> Hausses</legend>    
+                            <div id="post_hausses" data-prototype="{{ _self.widget_prototype(form.hausses)|escape }}">
+                                {% for widget in form.hausses.children %}
+                                    {{ _self.widget_prototype(widget) }}
+                                {% endfor %}
+                            </div>
+
+                            <div class=form-group">
+                                <div class="col-lg-12">
+                                    <center><a type="button" data-target="post_hausses" class="btn btn-default btn-add">Ajouter une hausse</a></center>
+                                </div>
+                            </div>                                 
+                        </fieldset>                            
+                    </div>      
+                </div>
+
+                {{ form_rest(form) }}
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
                 </div>
             </div>
         </div>
