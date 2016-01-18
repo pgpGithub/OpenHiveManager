@@ -68,7 +68,7 @@
             <ul class="nav navbar-nav element-active-slate-400">
                 <li class="active"><a href="#lastvisite" data-toggle="tab"><i class="icon-clipboard position-left"></i> Dernière visite</a></li>
                 <li><a href="#taches" data-toggle="tab"><i class="fa fa-tasks position-left"></i> Tâches</a></li>
-                <li><a href="#infos" data-toggle="tab"><i class="fa fa-info position-left"></i> Détails</a></li>
+                <li><a href="#infos" data-toggle="tab"><i class="icon-profile position-left"></i> Détails</a></li>
             </ul>             
             
             <div class="navbar-right">
@@ -108,140 +108,101 @@
         <div class="col-lg-12">
             <div class="tabbable">
                 <div class="tab-content">    
-                    <div class="tab-pane fade in active" id="lastvisite">             
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-md-offset-3">   
-                                        <div class="panel panel-flat">
-                                            <div class="panel-heading">
-                                                <h5 class="panel-title">Dernière visite</h5>
+                    <div class="tab-pane fade in active" id="lastvisite">
+                        <div class="col-md-12">
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Dernière visite</h5>             
+                                </div>
+                                <div class="panel-body">  
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="text-semibold"><i class="fa fa-stethoscope position-left"></i> Etat général</h6>
+                                            <div class="well">
+                                                <dl class="dl-horizontal">     
+                                                    <dt>Activité</dt>
+                                                    <dd>{{ visite.activite.libelle }}</dd>
+                                                    <dt>Pollen entrant</dt>
+                                                    <dd>{% if visite.pollen %}Oui{% else %}Non{% endif %}</dd>
+                                                    <dt>Reine vue</dt>
+                                                    <dd>{% if visite.reine %}Oui{% else %}Non{% endif %}</dd>
+                                                    <dt>Cellules royales</dt>
+                                                    <dd>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</dd>
+                                                    <dt>Etat</dt>
+                                                    <dd>{{ visite.etat.libelle }}</dd>
+                                                    <dt>Agressivité</dt>
+                                                    <dd>{{ visite.agressivite.libelle }}</dd>
+                                                    <dt>Cadres de nourriture</dt>
+                                                    <dd>{{ visite.nbnourriture }}</dd>
+                                                    <dt>Cadres de couvain</dt>
+                                                    <dd>{{ visite.nbcouvain }}</dd>  
+                                                    <dt>Poids (kg)</dt>
+                                                    <dd>{{ visite.poids|number_format(3, ',', ' ') }}</dd> 
+                                                </dl>
                                             </div>
+                                        </div>
 
-                                            <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        {% if visite %}
-                                                        <fieldset> 
-                                                            <legend>Informations relevées</legend>     
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <table class="table">    
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td><strong>Activité</strong></td>
-                                                                                <td>{{ visite.activite.libelle }}</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td><strong>Pollen entrant</strong></td>
-                                                                                <td>{% if visite.pollen %}Oui{% else %}Non{% endif %}</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td><strong>Reine vue</strong></td>
-                                                                                <td>{% if visite.reine %}Oui{% else %}Non{% endif %}</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td><strong>Cellules royales</strong></td>
-                                                                                <td>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td><strong>Etat</strong></td>
-                                                                                <td>{{ visite.etat.libelle }}</td>
-                                                                            </tr>    
-                                                                            <tr>
-                                                                                <td><strong>Agressivité</strong></td>
-                                                                                <td>{{ visite.agressivite.libelle }}</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td><strong>Nourrissement</strong></td>
-                                                                                <td>{% if visite.nourrissement %}{{ visite.nourrissement }}{% else %}Non{% endif %}</td>
-                                                                            </tr>  
-                                                                            <tr>
-                                                                                <td><strong>Traitement</strong></td>
-                                                                                <td>{% if visite.traitement %}{{ visite.traitement }}{% else %}Non{% endif %}</td>
-                                                                            </tr>                    
-                                                                            <tr>
-                                                                                <td><strong>Observations</strong></td>
-                                                                                <td>{% if visite.observations %}{{ visite.observations }}{% else %}Non{% endif %}</td>
-                                                                            </tr>                    
-                                                                            <tr>
-                                                                                <td><strong>Cadres de nourriture</strong></td>
-                                                                                <td>{{ visite.nbnourriture }}</td>
-                                                                            </tr>   
-                                                                            <tr>
-                                                                                <td><strong>Cadres de couvain</strong></td>
-                                                                                <td>{{ visite.nbcouvain }}</td>
-                                                                            </tr>                      
-                                                                            <tr>
-                                                                                <td><strong>Poids (kg)</strong></td>
-                                                                                <td>{{ visite.poids|number_format(3, ',', ' ') }}</td>
-                                                                            </tr> 
-                                                                        </tbody>
-                                                                  </table>
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-
-                                                        <fieldset> 
-                                                            <legend>Tâches réalisées</legend>
-                                                            <div class="row">
-                                                                <div class=" col-md-12"> 
-                                                                    <div class="table-responsive">
-                                                                        <table id="mytable" class="table table-bordred table-striped">
-                                                                            <thead>
-                                                                                <th>Résumé</th>
-                                                                                <th>Afficher</th>
-                                                                            </thead>
-                                                                            <tbody> 
-                                                                                {% for tache in visite.taches %}
-                                                                                    <tr>
-                                                                                        <td>{{ tache.resume }}</td>
-                                                                                        <td><a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}" class="btn btn-success btn-xs">{{ icon('eye') }}</a></td>                                
-                                                                                    </tr>    
-                                                                                {% endfor %}
-                                                                            </tbody>
-                                                                        </table>  
-                                                                    </div>                         
-                                                                </div>
-                                                            </div>             
-                                                        </fieldset>          
-
-                                                        {% if visite.hausses is not empty %}          
-                                                        <fieldset> 
-                                                            <legend>Hausses</legend>        
-                                                            <div class="row">    
-                                                               <div class=" col-md-12">
-                                                                    <ul class="list-group">
-                                                                    {% for hausse in visite.hausses %}
-                                                                        <li class="list-group-item">
-                                                                            <div class="progress">
-                                                                              {% if hausse.nbcadres == 0 %}
-                                                                                {% set pourcent = 0 %}  
-                                                                              {% else %}    
-                                                                                {% set pourcent = ( hausse.nbplein * 100 ) / ( hausse.nbcadres ) %}
-                                                                              {% endif %}
-                                                                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ pourcent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pourcent }}%;">
-                                                                                <span class="sr-only">Miel</span>
-                                                                              </div>
-                                                                            </div>                                    
-                                                                        </li>                                       
-                                                                    {% endfor %}
-                                                                    </ul>
-                                                                    <span class="label label-warning">Miel</span>
-                                                               </div>    
-                                                            </div>
-                                                        </fieldset>                    
-                                                        {% endif %} 
-                                                      {% endif %}          
-                                                    </div>
-                                                </div>                           
+                                        <div class="col-sm-6">        
+                                            <h6 class="text-semibold"><i class="fa fa-download position-left"></i> Hausses</h6>
+                                            <div class="well">
+                                                <dl class="dl-horizontal">
+                                                    {% if visite.hausses is not empty %}
+                                                        {% for hausse in visite.hausses %}
+                                                            <dt>Hausse n°{{ loop.index }}</dt>
+                                                            <dd>({{ hausse.nbplein }}/{{ hausse.nbcadres }})</dd>                       
+                                                        {% endfor %}  
+                                                    {% else %}
+                                                        <center>Aucune</center> 
+                                                    {% endif %}    
+                                                </dl>
                                             </div>    
-                                        </div>     
+                                        </div>   
                                     </div>
-                                </div>                               
-                            </div>    
-                        </div>     
-                    </div>                    
+
+                                    <div class="row"> 
+                                        <div class="col-sm-6">
+                                            <h6 class="text-semibold"><i class="fa fa-tasks position-left"></i> Tâches effectuées</h6>
+                                            <div class="well">
+                                                {% if visite.taches is empty %}
+                                                    <center>Aucune</center>
+                                                {% else %}    
+                                                    <dl class="dl-horizontal"> 
+                                                        {% for tache in visite.taches %}
+                                                            <dt>Résumé</dt>
+                                                            <dd>{ tache.resume }} <a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}" class="btn btn-success btn-xs"></a></dd>
+                                                        {% endfor %}                                     
+                                                    </dl> 
+                                                {% endif %}
+                                            </div>        
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="text-semibold"><i class="fa fa-info position-left"></i> Informations complémentaires</h6>
+                                            <div class="well">
+                                                {% if visite.nourrissement or visite.traitement or visite.observations %}
+                                                    <dl class="dl-horizontal">  
+                                                        {% if visite.nourrissement %}
+                                                            <dt>Nourrissement</dt>
+                                                            <dd>{{ visite.nourrissement }}</dd>                                    
+                                                        {% endif %}
+                                                        {% if visite.traitement %}
+                                                            <dt>Traitement</dt>
+                                                            <dd>{{ visite.traitement }}</dd>
+                                                        {% endif %}
+                                                        {% if visite.observations %}
+                                                            <dt>Observations</dt>
+                                                            <dd>{{ visite.observations }}<dd>
+                                                        {% endif %}         
+                                                    </dl>
+                                                {% else %}
+                                                    <center>Aucune</center>
+                                                {% endif %}
+                                            </div>        
+                                        </div>                                                        
+                                    </div>       
+                                </div>
+                            </div>                           
+                        </div>
+                    </div>                                                                     
 
                     <div class="tab-pane fade" id="taches">             
                         <div class="row">

@@ -36,20 +36,6 @@ class ColonieController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    public function viewAction(Colonie $colonie)
-    {       
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-       
-        return $this->render('KGBeekeepingManagementBundle:Colonie:view.html.twig', 
-                array(  'colonie' => $colonie ));
-    }
-
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
-    */    
     public function deleteAction(Colonie $colonie)
     {               
         if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canBeDeleted()){

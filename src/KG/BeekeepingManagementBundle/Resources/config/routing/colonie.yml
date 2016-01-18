@@ -62,13 +62,7 @@ kg_beekeeping_management_update_colonie:
     path:      /{colonie_id}/modifier-colonie
     defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:update }
     requirements:
-        colonie_id: \d+      
-
-kg_beekeeping_management_view_colonie:
-    path:      /{colonie_id}/afficher-colonie
-    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:view }
-    requirements:
-        colonie_id: \d+         
+        colonie_id: \d+           
         
 kg_beekeeping_management_diviser_colonie:
     path:      /{colonie_id}/diviser-colonie
