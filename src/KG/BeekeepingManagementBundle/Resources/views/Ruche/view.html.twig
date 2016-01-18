@@ -84,16 +84,36 @@
             </ul>             
             
             <div class="navbar-right">
-                <ul class="nav navbar-nav">     
+                <ul class="nav navbar-nav">  
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-gear position-left"></i>
+                            Option
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            {% if not colonie.morte %}
+                                <li><a href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id': ruche.id }) }}"><i class="fa fa-pencil"></i> Modifier la ruche</a></li>
+                            {% endif %}    
+                            {% if not colonie.hasFille %}
+                                <li><a href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-trash"></i> Supprimer la ruche</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                                                        
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-wrench"></i>
+                            Action 
+                            <span class="caret"></span>
+                        </a>
 
                         <ul class="dropdown-menu dropdown-menu-right">
                             {% if ruche.colonie.visites is not empty %}
-                                <li><a href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id': ruche.colonie.visites|last.id }) }}" class="btn btn-default"><i class="fa fa-pencil"></i> Modifier la dernière visite</a></li>
+                                <li><a href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id': ruche.colonie.visites|last.id }) }}"><i class="fa fa-pencil"></i> Modifier la dernière visite</a></li>
                             {% endif %}                                
                             {% if not colonie.morte %}
-                                <li><a href="{{ path('kg_beekeeping_management_update_ruche', { 'ruche_id': ruche.id }) }}"><i class="fa fa-pencil"></i> Modifier la ruche</a></li>
                                 <li><a href="{{ path('kg_beekeeping_management_add_remerage', { 'colonie_id': colonie.id }) }}"><i class="fa fa-refresh"></i> Remérer</a></li>
                                 <li><a href="{{ path('kg_beekeeping_management_tuer_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-heartbeat"></i> Déclarer morte</a></li>
                             {% endif %}
@@ -106,10 +126,6 @@
                             {% if colonie.canBeDivisee %}
                                 <li><a href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-scissors"></i> Récolter</a></li>
                             {% endif %}                                
-                            {% if not colonie.hasFille %}
-                                <li class="divider"></li>
-                                <li><a href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-trash"></i> Supprimer la ruche</a></li>
-                            {% endif %}
                         </ul>
                     </li>  
                 </ul>
@@ -186,12 +202,11 @@
                                                     {% if visite.taches is empty %}
                                                         <center>Aucune</center>
                                                     {% else %}    
-                                                        <dl class="dl-horizontal"> 
+                                                        <ul> 
                                                             {% for tache in visite.taches %}
-                                                                <dt>Résumé</dt>
-                                                                <dd>{ tache.resume }} <a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}" class="btn btn-success btn-xs"></a></dd>
+                                                                <li><a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}">{{ tache.resume }}</a></li>
                                                             {% endfor %}                                     
-                                                        </dl> 
+                                                        </ul> 
                                                     {% endif %}
                                                 </div>                                                                                          
                                             </div>   
@@ -232,63 +247,68 @@
                     <div class="tab-pane fade {% if not visite %}in active{% endif %}" id="taches">             
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-md-offset-3">   
-                                        <div class="panel panel-flat">
-                                            <div class="panel-heading">
-                                                <h5 class="panel-title">Listes des tâches</h5>
-                                            </div>
-
-                                            <div class="panel-body">
-                                                <h4>Tâches à faire :</h4>
-                                                {% if pagination is not empty %}       
-                                                <div class="row">
-                                                    <div class=" col-md-12"> 
-                                                        <div class="table-responsive">
-                                                            <table id="mytable" class="table table-bordred table-striped">
-                                                                <thead>
-                                                                    <th>
-                                                                        {{ knp_pagination_sortable(pagination, 'Date prévisionnelle', 'tache.date') }}
-                                                                        {% if pagination.isSorted('tache.date') %}
-                                                                             {{ icon('sort-' ~ pagination.direction('tache.date')) }}
-                                                                        {% endif %}   
-                                                                    </th>
-                                                                    <th>Priorité</th>
-                                                                    <th>Résumé</th>
-                                                                    <th>Afficher</th>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {% for tache in pagination %}
-                                                                        <tr>
-                                                                            <td>{{ tache.date|date('d/m/Y') }}</td>
-                                                                            <td>{{ tache.priorite.libelle }}</td>
-                                                                            <td>{{ tache.resume }}</td>
-                                                                            <td><a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}" class="btn btn-success btn-xs">{{ icon('eye') }}</a></td>
-                                                                        </tr>
-                                                                    {% endfor %}
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                <!-- Tasks grid -->
+                                {% if taches is not empty %}       
+                                    <div class="row">
+                                        {% for tache in taches %}
+                                            {% if tache.priorite.id == 1 %}
+                                                {% set couleur = 'danger' %}  
+                                            {% elseif tache.priorite.id == 2 %}
+                                                {% set couleur = 'primary' %}   
+                                            {% elseif tache.priorite.id == 3 %}
+                                                {% set couleur = 'success' %}      
+                                            {% endif %}                                              
+                                            
+                                            <div class="col-md-6">
+                                                <div class="panel border-left-lg border-left-{{ couleur }}">
+                                                    <div class="panel-body">
                                                         <div class="row">
-                                                            <div class="col-md-12 navigation" align="right">
-                                                                {{ knp_pagination_render(pagination) }}
-                                                            </div> 
-                                                        </div>                            
+                                                            <div class="col-md-8">
+                                                                <h6 class="no-margin-top">{{ tache.resume }}</h6>
+                                                                <p class="mb-15">{{ tache.description }}</p>
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <ul class="list task-details">
+                                                                    <li>{{ tache.date|date('d/m/Y') }}</li>
+                                                                    <li><span class="bg-{{ couleur }}">{{ tache.priorite.libelle }}</span></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>    
-                                                {% else %}    
+
+                                                    <div class="panel-footer">
+                                                        <ul class="pull-right">
+                                                            <li class="dropdown">
+                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
+                                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                                    <li><a href="#"><i class="icon-alarm-add"></i> Check in</a></li>
+                                                                    <li><a href="#"><i class="icon-attachment"></i> Attach screenshot</a></li>
+                                                                    <li><a href="#"><i class="icon-rotate-ccw2"></i> Reassign</a></li>
+                                                                    <li class="divider"></li>
+                                                                    <li><a href="#"><i class="icon-pencil7"></i> Edit task</a></li>
+                                                                    <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>     
+                                            {% if loop.index0 is not divisible by(2)%}
+                                                </div>
                                                 <div class="row">
-                                                    <div class="col-md-12" align="center">      
-                                                        Pas de tâche en attente.
-                                                    </div>
-                                                </div>          
-                                                {% endif %} 
-                                            </div>    
-                                        </div>     
+                                            {% endif %}    
+                                        {% endfor %}
+                                    </div>                         
+                                </div>    
+                                {% else %}    
+                                <div class="row">
+                                    <div class="col-md-12" align="center">      
+                                        <center>Pas de tâche en attente.</center>
                                     </div>
-                                </div>                               
-                            </div>    
-                        </div>     
+                                </div>          
+                                {% endif %} 
+                        </div>       
                     </div> 
                     
                     <div class="tab-pane fade" id="infos">    

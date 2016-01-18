@@ -77,23 +77,11 @@ class RucheController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
 
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Tache')->getListByColonie($ruche->getColonie());    
-
-        $paginator  = $this->get('knp_paginator');
-        
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            10,
-            array(
-                'defaultSortFieldName' => 'tache.date',
-                'defaultSortDirection' => 'desc'
-            )                
-        );        
+        $taches = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Tache')->getListByColonie($ruche->getColonie())->getResult();         
         
         return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig',
                 array(  'ruche' => $ruche,
-                        'pagination' => $pagination
+                        'taches' => $taches
                 ));        
     }  
 
