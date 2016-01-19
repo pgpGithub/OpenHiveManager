@@ -53,8 +53,8 @@
                                 
                             <div class="panel-body">
                                 <div class="form-group">
-                                    {{ form_label(form.date, 'Date du remérage :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                    <div class="col-lg-9">
+                                    {{ form_label(form.date, 'Date du remérage :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                    <div class="col-lg-8">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             {{ form_widget(form.date) }}                                        
@@ -63,14 +63,16 @@
                                     </div>
                                 </div>  
                                 
-                                <div class="form-group">        
-                                    {{ form_row(form.naturel, {'attr': {'data-label-text' : "Type de remérage", 'data-off-color' : 'primary', 'data-on-text': "Naturel", 'data-off-text': 'Artificiel'}}) }}
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        {{ form_row(form.naturel, {'attr': {'data-label-text' : "Type de remérage", 'data-off-color' : 'primary', 'data-on-text': "Naturel", 'data-off-text': 'Artificiel'}}) }}
+                                    </div>
                                 </div>                               
                                 
                                 <div id="artificiel" {% if form.vars.value.naturel %}style = 'display:none;'{% endif %}>
                                     <div class="form-group">
-                                        {{ form_label(form.reine.anneeReine, 'Année de la reine :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
+                                        {{ form_label(form.reine.anneeReine, 'Année de la reine :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                        <div class="col-lg-8">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 {{ form_widget(form.reine.anneeReine) }}                                        
@@ -80,24 +82,26 @@
                                     </div>  
                                         
                                     <div class="form-group">
-                                        {{ form_label(form.reine.race, 'Race :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                        <div class="col-lg-9">
+                                        {{ form_label(form.reine.race, 'Race :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                        <div class="col-lg-8">
                                             {{ form_widget(form.reine.race) }}
                                             {{ form_errors(form.reine.race) }}
                                         </div>
                                     </div>     
                                 </div>
 
-                                <div class="form-group">
-                                    {{ form_label(form.reine.marquage, 'Marquée :', { 'label_attr': {'class': 'col-lg-9'} }) }}
-                                    {{ form_widget(form.reine.marquage, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
-                                    {{ form_errors(form.reine.marquage) }}
-                                </div> 
+                                <div class="form-group pt-15">
+                                    <div class="col-lg-6">                 
+                                        {{ form_widget(form.reine.marquage, {'attr': {'class': 'checkbox styled'}}) }} 
+                                        {{ form_label(form.reine.marquage, 'Marquée') }}
+                                        {{ form_errors(form.reine.marquage) }}
+                                    </div>
 
-                                <div class="form-group">
-                                    {{ form_label(form.reine.clippage, 'Clippée :', { 'label_attr': {'class': 'col-lg-9'} }) }}
-                                    {{ form_widget(form.reine.clippage, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
-                                    {{ form_errors(form.reine.clippage) }}
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.reine.clippage, {'attr': {'class': 'checkbox checkbox-right styled'}}) }}        
+                                        {{ form_label(form.reine.clippage, 'Clippée') }}
+                                        {{ form_errors(form.reine.clippage) }}
+                                    </div>
                                 </div> 
                 
                                 {{ form_rest(form) }}

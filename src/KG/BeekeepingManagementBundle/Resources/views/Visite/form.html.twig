@@ -83,8 +83,8 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <div class="form-group">
-                            {{ form_label(form.date, 'Date :*', { 'label_attr': {'class': 'col-md-3'} }) }}
-                            <div class="col-md-9">
+                            {{ form_label(form.date, 'Date :*', { 'label_attr': {'class': 'col-md-4'} }) }}
+                            <div class="col-md-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     {{ form_widget(form.date) }}
@@ -98,68 +98,70 @@
                 <div class="row">
                     <div class="col-md-6">
                         <fieldset>
-                            <legend class="text-semibold"><i class="fa fa-stethoscope position-left"></i> Etat général</legend>
+                            <legend class="text-semibold"><i class="fa fa-stethoscope position-left"></i> Etat général</legend>                                                    
                             <div class="form-group">
-                                {{ form_label(form.pollen, 'Pollen entrant :', { 'label_attr': {'class': 'col-lg-4'} }) }}
-                                {{ form_widget(form.pollen, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
-                                {{ form_errors(form.pollen) }}
-                            </div> 
-
-                            <div class="form-group">
-                                {{ form_label(form.reine, 'Reine vue :', { 'label_attr': {'class': 'col-lg-4'} }) }}
-                                {{ form_widget(form.reine, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
-                                {{ form_errors(form.reine) }}
-                            </div> 
-
-                            <div class="form-group">
-                                {{ form_label(form.celroyales, 'Cellules royales :', { 'label_attr': {'class': 'col-lg-4'} }) }}
-                                {{ form_widget(form.celroyales, {'attr': {'class': 'col-lg-8 checkbox checkbox-right styled'}}) }}        
-                                {{ form_errors(form.celroyales) }}
-                            </div>                                                             
-
-                            <div class="form-group">
-                                {{ form_label(form.activite, 'Activité :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.activite, 'Activité :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.activite) }}
                                     {{ form_errors(form.activite) }}
                                 </div>
                             </div>  
                                 
                             <div class="form-group">
-                                {{ form_label(form.etat, 'Etat :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.etat, 'Etat :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.etat) }}
                                     {{ form_errors(form.etat) }}
                                 </div>
                             </div>  
 
                             <div class="form-group">
-                                {{ form_label(form.agressivite, 'Agressivité :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.agressivite, 'Agressivité :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.agressivite) }}
                                     {{ form_errors(form.agressivite) }}
                                 </div>
                             </div>                     
 
+                            <div class="form-group pt-15">
+                                <div class="col-lg-4">                 
+                                    {{ form_widget(form.pollen, {'attr': {'class': 'checkbox styled'}}) }} 
+                                    {{ form_label(form.pollen, 'Pollen entrant') }}
+                                    {{ form_errors(form.pollen) }}
+                                </div>
+
+                                <div class="col-lg-4">
+                                    {{ form_widget(form.reine, {'attr': {'class': 'checkbox checkbox-right styled'}}) }}        
+                                    {{ form_label(form.reine, 'Reine vue') }}
+                                    {{ form_errors(form.reine) }}
+                                </div>
+                                
+                                <div class="col-lg-4">
+                                    {{ form_widget(form.celroyales, {'attr': {'class': 'checkbox checkbox-right styled'}}) }}        
+                                    {{ form_label(form.celroyales, 'Cellules royales') }}
+                                    {{ form_errors(form.celroyales) }}
+                                </div>
+                            </div>    
+                                
                             <div class="form-group">
-                                {{ form_label(form.nbnourriture, 'Cadres de nourriture :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.nbnourriture, 'Cadres de nourriture :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.nbnourriture) }}
                                     {{ form_errors(form.nbnourriture) }}
                                 </div>
                             </div>                                                      
 
                             <div class="form-group">
-                                {{ form_label(form.nbcouvain, 'Cadres de couvain :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.nbcouvain, 'Cadres de couvain :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.nbcouvain) }}
                                     {{ form_errors(form.nbcouvain) }}
                                 </div>
                             </div>                                          
 
                             <div class="form-group">
-                                {{ form_label(form.poids, 'Poids (kg) :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.poids, 'Poids (kg) :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.poids) }}
                                     {{ form_errors(form.poids) }}
                                 </div>
@@ -171,24 +173,24 @@
                         <fieldset>
                             <legend class="text-semibold"><i class="fa fa-info position-left"></i> Informations complémentaires</legend>   
                             <div class="form-group">
-                                {{ form_label(form.nourrissement, 'Nourrissement :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.nourrissement, 'Nourrissement :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.nourrissement) }}
                                     {{ form_errors(form.nourrissement) }}
                                 </div>
                             </div> 
 
                             <div class="form-group">
-                                {{ form_label(form.traitement, 'Traitement :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.traitement, 'Traitement :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.traitement) }}
                                     {{ form_errors(form.traitement) }}
                                 </div>
                             </div>                                 
 
                             <div class="form-group">
-                                {{ form_label(form.observations, 'Observations :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.observations, 'Observations :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.observations) }}
                                     {{ form_errors(form.observations) }}
                                 </div>

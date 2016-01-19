@@ -55,8 +55,8 @@
                                     {% set index = ruche.vars.value %}
                                     {% set entity = form.ruches.vars.choices[index].data %}
                                     <div class="form-group">
-                                        {{ form_label(ruche, entity.nom, {'label_attr': {'class': 'col-lg-9'}} ) }}
-                                        {{ form_widget(ruche, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}  
+                                        {{ form_label(ruche, entity.nom, {'label_attr': {'class': 'col-lg-8'}} ) }}
+                                        {{ form_widget(ruche, {'attr': {'class': 'col-lg-4 checkbox checkbox-right styled'}}) }}  
                                         {{ form_errors(ruche) }}
                                     </div>
                                 {% endfor %}

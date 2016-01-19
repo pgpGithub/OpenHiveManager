@@ -39,7 +39,7 @@ class RecolteController extends Controller
     */    
     public function addAction(Colonie $colonie, Request $request)
     {       
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || $colonie->canBeRecoltee() ){
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canBeRecoltee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

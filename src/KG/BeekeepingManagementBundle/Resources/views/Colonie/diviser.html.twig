@@ -3,7 +3,7 @@
  
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
+  the Free Software Foundation, either version 4 of the License, or
   (at your option) any later version.
  
   This program is distributed in the hope that it will be useful,
@@ -55,16 +55,16 @@
                             <legend class="text-semibold"><i class="fa fa-plane position-left"></i> Destination</legend>
                         
                             <div class="form-group">
-                                {{ form_label(form.ruche.rucher, 'Rucher :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.ruche.rucher, 'Rucher :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.ruche.rucher) }}
                                     {{ form_errors(form.ruche.rucher) }}
                                 </div>
                             </div>  
 
                             <div class="form-group" id="numerotation">
-                                {{ form_label(form.ruche.emplacement, 'Emplacement :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.ruche.emplacement, 'Emplacement :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.ruche.emplacement) }}
                                     {{ form_errors(form.ruche.emplacement) }}
                                 </div>
@@ -75,17 +75,19 @@
                     <div class="col-md-6">
                         <fieldset>
                             <legend class="text-semibold"><i class="icon-crown position-left"></i> Reine</legend>
-                            {% for remerage in form.remerages %}                      
-                                <div class="form-group">
-                                    {{ form_label(remerage.reine.marquage, 'Marquée :', { 'label_attr': {'class': 'col-lg-9'} }) }}
-                                    {{ form_widget(remerage.reine.marquage, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
-                                    {{ form_errors(remerage.reine.marquage) }}
-                                </div> 
+                            {% for remerage in form.remerages %} 
+                                <div class="form-group pt-15">
+                                    <div class="col-lg-6">                 
+                                        {{ form_widget(remerage.reine.marquage, {'attr': {'class': 'checkbox styled'}}) }} 
+                                        {{ form_label(remerage.reine.marquage, 'Marquée') }}
+                                        {{ form_errors(remerage.reine.marquage) }}
+                                    </div>
 
-                                <div class="form-group">
-                                    {{ form_label(remerage.reine.clippage, 'Clippée :', { 'label_attr': {'class': 'col-lg-9'} }) }}
-                                    {{ form_widget(remerage.reine.clippage, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
-                                    {{ form_errors(remerage.reine.clippage) }}
+                                    <div class="col-lg-6">
+                                        {{ form_widget(remerage.reine.clippage, {'attr': {'class': 'checkbox checkbox-right styled'}}) }}        
+                                        {{ form_label(remerage.reine.clippage, 'Clippée') }}
+                                        {{ form_errors(remerage.reine.clippage) }}
+                                    </div>
                                 </div> 
                             {% endfor %}                                                                 
                         </fieldset>                                                     
@@ -97,40 +99,40 @@
                         <fieldset>
                             <legend class="text-semibold"><i class="fa fa-archive position-left"></i> Ruche</legend>                          
                             <div class="form-group">
-                                {{ form_label(form.ruche.nom, 'Nom :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.ruche.nom, 'Nom :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.ruche.nom) }}
                                     {{ form_errors(form.ruche.nom) }}
                                 </div>
                             </div>                                                           
                                 
                             <div class="form-group">
-                                {{ form_label(form.ruche.matiere, 'Matière :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.ruche.matiere, 'Matière :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.ruche.matiere) }}
                                     {{ form_errors(form.ruche.matiere) }}
                                 </div>
                             </div>                                   
 
                             <div class="form-group">
-                                {{ form_label(form.ruche.corps.type, 'Type :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.ruche.corps.type, 'Type :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.ruche.corps.type) }}
                                     {{ form_errors(form.ruche.corps.type) }}
                                 </div>
                             </div>  
                                 
                             <div class="form-group">
-                                {{ form_label(form.ruche.corps.nbcadres, 'Nombre de cadres :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.ruche.corps.nbcadres, 'Nombre de cadres :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.ruche.corps.nbcadres) }}
                                     {{ form_errors(form.ruche.corps.nbcadres) }}
                                 </div>
                             </div> 
                                 
                             <div class="form-group">
-                                {{ form_label(form.ruche.image.file, 'Photo :', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.ruche.image.file, 'Photo :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.ruche.image.file, { 'attr': {'class': 'file-input-custom', 'data-show-caption': 'true', 'data-show-upload': 'true', 'accept': 'image/*'} }) }}
                                     {{ form_errors(form.ruche.image.file) }}
                                 </div>
@@ -143,8 +145,8 @@
                         <fieldset>
                             <legend class="text-semibold"><i class="fa fa-users position-left"></i> Colonie</legend>
                             <div class="form-group">
-                                {{ form_label(form.dateColonie, 'Date de la division :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.dateColonie, 'Date de la division :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         {{ form_widget(form.dateColonie) }}                                        
@@ -154,24 +156,24 @@
                             </div>                                       
 
                             <div class="form-group">
-                                {{ form_label(form.affectation, 'Affectation :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.affectation, 'Affectation :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.affectation) }}        
                                     {{ form_errors(form.affectation) }}
                                 </div>
                             </div> 
 
                             <div class="form-group">
-                                {{ form_label(form.ruche.corps.nbnourriture, 'Cadres de nourriture :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.ruche.corps.nbnourriture, 'Cadres de nourriture :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.ruche.corps.nbnourriture) }}
                                     {{ form_errors(form.ruche.corps.nbnourriture) }}
                                 </div>
                             </div> 
 
                             <div class="form-group">
-                                {{ form_label(form.ruche.corps.nbcouvain, 'Cadres de couvain :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
-                                <div class="col-lg-9">
+                                {{ form_label(form.ruche.corps.nbcouvain, 'Cadres de couvain :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
                                     {{ form_widget(form.ruche.corps.nbcouvain) }}
                                     {{ form_errors(form.ruche.corps.nbcouvain) }}
                                 </div>
