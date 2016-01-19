@@ -36,8 +36,6 @@
     {{ form_javascript(form) }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Diviser une colonie{% endblock %}
-
 {% block cover %}
     {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonieMere.ruche} only %} 
 {% endblock %} 

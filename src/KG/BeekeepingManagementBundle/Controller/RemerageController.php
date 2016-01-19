@@ -82,7 +82,7 @@ class RemerageController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Remérage créé avec succès');
             
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));                
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $colonie->getRuche()->getId())));                
         }
 
         return $this->render('KGBeekeepingManagementBundle:Remerage:add.html.twig', 

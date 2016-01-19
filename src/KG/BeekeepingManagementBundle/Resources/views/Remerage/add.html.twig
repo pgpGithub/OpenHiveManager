@@ -25,57 +25,91 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts filter='?uglifyjs2'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        'assets/js/plugins/forms/styling/switch.min.js'
         '@KGBeekeepingManagementBundle/Resources/public/js/remerage/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
     {{ form_javascript(form) }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Remérage naturel{% endblock %}
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonie.ruche} only %} 
+{% endblock %} 
 
-{% block menu %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menu %}
+{% block body %}  
     
-{% block panel_title %}
+    <!-- Centered forms -->
     <div class="row">
-        <div class="col-xs-12">
-            <h4>Création d'un remérage</h4>
-        </div>
-    </div>
-{% endblock %}
-
-{% block panel_body %}         
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-        {{ form_row(form.date, {'label': 'Date du remérage :', 'label_col': 4, 'widget_col': 5})  }}
-       
-        <div class="row">
-            <div class="col-md-offset-4 col-md-6">         
-                {{ form_row(form.naturel, {'attr': {'data-label-text' : "Type de remérage", 'data-off-color' : 'primary', 'data-on-text': "Naturel", 'data-off-text': 'Artificiel'}}) }}
-            </div>
-        </div> 
-
-        <div id="artificiel" {% if form.vars.value.naturel %}style = 'display:none;'{% endif %}>
-            {{ form_row(form.reine.anneeReine, {'label': 'Année de la reine :', 'label_col': 4, 'widget_col': 5})  }}
-            {{ form_row(form.reine.race, {'label': 'Race :', 'label_col': 4, 'widget_col': 5})  }}        
-        </div>
-        
-        <div class="row">
-            <div class="col-md-offset-4 col-md-6">            
-                {{ form_row(form.reine.marquage, {'attr': {'data-label-text' : "Marquage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                {{ form_row(form.reine.clippage, {'attr': {'data-label-text' : "Clippage", 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-            </div>
-        </div>           
-    {{ form_rest(form) }}
-
-    <div class="form-group">
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('floppy-o') }} Sauvegarder
-            </button>
-        </div>        
+            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Création d'un remérage</h5>
+                            </div>
+                                
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    {{ form_label(form.date, 'Date du remérage :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            {{ form_widget(form.date) }}                                        
+                                        </div>
+                                        {{ form_errors(form.date) }}
+                                    </div>
+                                </div>  
+                                
+                                <div class="form-group">        
+                                    {{ form_row(form.naturel, {'attr': {'data-label-text' : "Type de remérage", 'data-off-color' : 'primary', 'data-on-text': "Naturel", 'data-off-text': 'Artificiel'}}) }}
+                                </div>                               
+                                
+                                <div id="artificiel" {% if form.vars.value.naturel %}style = 'display:none;'{% endif %}>
+                                    <div class="form-group">
+                                        {{ form_label(form.reine.anneeReine, 'Année de la reine :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                        <div class="col-lg-9">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                {{ form_widget(form.reine.anneeReine) }}                                        
+                                            </div>
+                                            {{ form_errors(form.reine.anneeReine) }}
+                                        </div>
+                                    </div>  
+                                        
+                                    <div class="form-group">
+                                        {{ form_label(form.reine.race, 'Race :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                        <div class="col-lg-9">
+                                            {{ form_widget(form.reine.race) }}
+                                            {{ form_errors(form.reine.race) }}
+                                        </div>
+                                    </div>     
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_label(form.reine.marquage, 'Marquée :', { 'label_attr': {'class': 'col-lg-9'} }) }}
+                                    {{ form_widget(form.reine.marquage, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
+                                    {{ form_errors(form.reine.marquage) }}
+                                </div> 
+
+                                <div class="form-group">
+                                    {{ form_label(form.reine.clippage, 'Clippée :', { 'label_attr': {'class': 'col-lg-9'} }) }}
+                                    {{ form_widget(form.reine.clippage, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
+                                    {{ form_errors(form.reine.clippage) }}
+                                </div> 
+                
+                                {{ form_rest(form) }}
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
     </div>
-
-    {{ form_end(form) }}         
-
+    <!-- /form centered -->
 {% endblock %}
