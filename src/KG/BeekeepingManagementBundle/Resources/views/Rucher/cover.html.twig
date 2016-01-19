@@ -15,4 +15,15 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  #}
 
-{% include 'KGBeekeepingManagementBundle:Visite:form.html.twig' with {'title' : 'Modification', 'colonie' : visite.colonie, 'form' : form } only %}
+<div class="profile-cover">
+    {% if rucher.image is not null %}
+        <div class="profile-cover-img" style="background-image: url({{ asset(rucher.image.webPath) }})"></div>
+    {% else %}
+        <div class="profile-cover-img" style="background-image: url({{ asset("img/rucher.jpg") }})"></div>
+    {% endif %}          
+    <div class="media">
+        <div class="media-body">
+            <h1>Rucher {{ rucher.nom }}</h1>
+        </div>
+    </div>
+</div>

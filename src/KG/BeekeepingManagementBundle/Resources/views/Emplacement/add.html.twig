@@ -18,20 +18,7 @@
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
 {% block cover %}
-    <!-- Cover area -->
-    <div class="profile-cover">
-        {% if rucher.image is not null %}
-            <div class="profile-cover-img" style="background-image: url({{ asset(rucher.image.webPath) }})"></div>
-        {% else %}
-            <div class="profile-cover-img" style="background-image: url({{ asset("img/rucher.jpg") }})"></div>
-        {% endif %}          
-        <div class="media">
-            <div class="media-body">
-                <h1>Rucher {{ rucher.nom }}</h1>
-            </div>
-        </div>
-    </div>
-    <!-- /cover area -->    
+    {% include 'KGBeekeepingManagementBundle:Rucher:cover.html.twig' with {'rucher' : rucher} only %} 
 {% endblock %}  
 
 {% block body %}

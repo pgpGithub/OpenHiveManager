@@ -1,0 +1,47 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+<div class="navbar navbar-default navbar-xs content-group">
+    <ul class="nav navbar-nav visible-xs-block">
+        <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+    </ul>
+
+    <div class="navbar-collapse collapse" id="navbar-filter">
+        <ul class="nav navbar-nav element-active-slate-400">
+            <li class="active"><a href="#composition" data-toggle="tab"><i class="fa fa-list position-left"></i> Ruches</a></li>
+            <li><a href="#meteo" data-toggle="tab"><i class="icon-cloud position-left"></i> Météo</a></li>
+            <li><a href="#proprietaire" data-toggle="tab"><i class="fa fa-key position-left"></i> Propriétaire</a></li>
+        </ul>            
+
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">    
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
+                        <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
+                        <li><a href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-pencil position-left"></i> Modifier le rucher</a></li>
+                        {% if rucher.canBeDeleted %}
+                            <li><a href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-trash position-left"></i> Supprimer le rucher</a></li>
+                        {% endif %}
+                    </ul>
+                </li>  
+            </ul>
+        </div>
+    </div>
+</div>   

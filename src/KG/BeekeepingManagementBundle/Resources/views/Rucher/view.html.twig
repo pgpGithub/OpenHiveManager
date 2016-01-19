@@ -41,51 +41,11 @@
 {% endblock %}
 
 {% block cover %}
-    <div class="profile-cover">
-        {% if rucher.image is not null %}
-            <div class="profile-cover-img" style="background-image: url({{ asset(rucher.image.webPath) }})"></div>
-        {% else %}
-            <div class="profile-cover-img" style="background-image: url({{ asset("img/rucher.jpg") }})"></div>
-        {% endif %}          
-        <div class="media">
-            <div class="media-body">
-                <h1>Rucher {{ rucher.nom }}</h1>
-            </div>
-        </div>
-    </div> 
+    {% include 'KGBeekeepingManagementBundle:Rucher:cover.html.twig' with {'rucher' : rucher} only %} 
 {% endblock %}    
 
 {% block toolbar %}
-    <div class="navbar navbar-default navbar-xs content-group">
-        <ul class="nav navbar-nav visible-xs-block">
-            <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
-        </ul>
-
-        <div class="navbar-collapse collapse" id="navbar-filter">
-            <ul class="nav navbar-nav element-active-slate-400">
-                <li class="active"><a href="#composition" data-toggle="tab"><i class="fa fa-list position-left"></i> Ruches</a></li>
-                <li><a href="#meteo" data-toggle="tab"><i class="icon-cloud position-left"></i> Météo</a></li>
-                <li><a href="#proprietaire" data-toggle="tab"><i class="fa fa-key position-left"></i> Propriétaire</a></li>
-            </ul>            
-            
-            <div class="navbar-right">
-                <ul class="nav navbar-nav">    
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
-
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
-                            <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
-                            <li><a href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-pencil position-left"></i> Modifier le rucher</a></li>
-                            {% if rucher.canBeDeleted %}
-                                <li><a href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-trash position-left"></i> Supprimer le rucher</a></li>
-                            {% endif %}
-                        </ul>
-                    </li>  
-                </ul>
-            </div>
-        </div>
-    </div>                    
+    {% include 'KGBeekeepingManagementBundle:Rucher:toolbar.html.twig' with {'rucher' : rucher} only %}                  
 {% endblock %} 
 
 {% block body %}

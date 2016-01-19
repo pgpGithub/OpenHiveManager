@@ -1,0 +1,160 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite, ?uglifycss'
+        'css/ol/ol.css' 
+        '@KGBeekeepingManagementBundle/Resources/public/css/map/edit_map.css'%}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?uglifyjs2'
+        'js/ol/ol.js'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        'assets/js/plugins/uploaders/fileinput.min.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/map/edit_map.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/rucher/add.js'%}
+        <script src="{{ asset_url }}" type="text/javascript"></script>  
+    {% endjavascripts %}
+{% endblock %}        
+    
+{% block body %}
+<!-- 2 columns form -->
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">{{ title }} d'un rucher</h5>
+            </div>
+
+            <div class="panel-body"> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-info position-left"></i> Description</legend>
+
+                            <div class="form-group">
+                                {{ form_label(form.nom, 'Nom :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.nom) }}
+                                    {{ form_errors(form.nom) }}
+                                </div>
+                            </div>  
+                                
+                            <div class="form-group">
+                                {{ form_label(form.image.file, 'Photo :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.image.file, { 'attr': {'class': 'file-input-custom', 'data-show-caption': 'true', 'data-show-upload': 'true', 'accept': 'image/*'} }) }}
+                                    {{ form_errors(form.image.file) }}
+                                </div>                                
+                            </div>                                
+
+                            <div class="form-group">
+                                {{ form_label(form.numerotation, 'Numéroter les emplacements :', { 'label_attr': {'class': 'col-lg-9'} }) }}
+                                {{ form_widget(form.numerotation, {'attr': {'class': 'col-lg-3 checkbox checkbox-right styled'}}) }}        
+                                {{ form_errors(form.numerotation) }}
+                            </div>                              
+                        </fieldset>
+                    </div>
+
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-key position-left"></i> Propriétaire</legend>
+
+                            <div class="form-group">
+                                {{ form_label(form.proprietaire.nom, 'Nom :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.proprietaire.nom, { 'attr': {'placeholder': 'Nom'} }) }}
+                                            {{ form_errors(form.proprietaire.nom) }}
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.proprietaire.prenom, { 'attr': {'placeholder': 'Prénom'} }) }}
+                                            {{ form_errors(form.proprietaire.prenom) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.proprietaire.telephone, 'Téléphone :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.proprietaire.telephone, { 'attr': {'placeholder': 'Fixe'} }) }}
+                                            {{ form_errors(form.proprietaire.telephone) }}
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            {{ form_widget(form.proprietaire.telephone2, { 'attr': {'placeholder': 'Mobile'} }) }}
+                                            {{ form_errors(form.proprietaire.telephone2) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.proprietaire.adresse, 'Adresse :', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.proprietaire.adresse) }} 
+                                    {{ form_errors(form.proprietaire.adresse) }}
+                                </div>
+                            </div>                                        
+                        </fieldset>
+                    </div>
+                </div>
+                                                                                            
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-map-marker position-left"></i> Localisation</legend>
+                            {{ form_row(form.localisation.latitude) }}
+                            {{ form_row(form.localisation.longitude) }}
+
+                            <div class="col-md-12">
+                                <center>Localisez le rucher sur la carte avec une précision d'environ 5km</center>    
+                                {{ form_errors(form) }}  
+                                <div id="map" 
+                                     class="map thumbnail" 
+                                     data-latitude="kg_beekeepingmanagementbundle_rucher_localisation_latitude"
+                                     data-longitude="kg_beekeepingmanagementbundle_rucher_localisation_longitude"
+                                     data-picker="<img src='{{ asset('location.png') }}'>">
+                                </div>
+                            </div> 
+
+                        </fieldset>
+                    </div>
+                </div>
+                          
+                {{ form_rest(form) }}
+                
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+    <!-- /2 columns form -->           
+{% endblock %}

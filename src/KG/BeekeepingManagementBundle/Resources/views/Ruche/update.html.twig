@@ -17,11 +17,6 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {{ form_stylesheet(form) }}
-{% endblock %}
-
 {% block javascripts %}
     {{ parent() }}
     {% javascripts filter='?uglifyjs2'
@@ -33,23 +28,11 @@
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>                   
     {% endjavascripts %}
-    {{ form_javascript(form) }}
 {% endblock %}
 
 {% block cover %}
-    <div class="profile-cover">
-        {% if ruche.emplacement.rucher.image is not null %}
-            <div class="profile-cover-img" style="background-image: url({{ asset(ruche.emplacement.rucher.image.webPath) }})"></div>
-        {% else %}
-            <div class="profile-cover-img" style="background-image: url({{ asset("img/rucher.jpg") }})"></div>
-        {% endif %}          
-        <div class="media">
-            <div class="media-body">
-                <h1>Rucher {{ ruche.emplacement.rucher.nom }}</h1>
-            </div>
-        </div>
-    </div> 
-{% endblock %} 
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : ruche} only %}
+{% endblock %}
     
 {% block body %}
     <!-- 2 columns form -->
