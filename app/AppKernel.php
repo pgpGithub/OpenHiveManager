@@ -22,8 +22,6 @@ class AppKernel extends Kernel
             new KG\UserBundle\KGUserBundle(),
             new KG\SiteBundle\KGSiteBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),

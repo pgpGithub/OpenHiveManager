@@ -40,8 +40,6 @@
         "jquery/jquery":  "1.11.*",
         "braincrafted/bootstrap-bundle": "dev-master",
         "leafo/lessphp": "v0.4.0",
-        "knplabs/knp-paginator-bundle": "dev-master",
-        "knplabs/knp-menu-bundle": "dev-master",
         "fortawesome/font-awesome": "dev-master",
         "misd/phone-number-bundle": "dev-master",
         "lexik/maintenance-bundle": "dev-master",
