@@ -31,38 +31,6 @@
     {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonie.ruche} only %}
 {% endblock %}
     
-{#{% block panel_body %}
-              
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-
-        <fieldset> 
-            <legend>Informations sur la récolte</legend>    
-            {{ form_row(form.date, {'label': 'Date :', 'label_col': 4, 'widget_col': 5})  }}
-            {{ form_row(form.typemiel, {'label': 'Type de miel :', 'label_col': 4, 'widget_col': 5})  }}
-        </fieldset>
-        
-        <fieldset> 
-            <legend>Nombre de cadres à récolter</legend>
-            {% for hausse in colonie.ruche.hausses %}
-                {{ form_row(attribute(form, 'hausse_' ~ hausse.id), {'label': 'Hausse n°' ~ loop.index ~ ' (' ~ hausse.nbplein ~ '  cadres pleins)' , 'label_col': 4, 'widget_col': 5})  }}
-            {% endfor %}
-        </fieldset>
-
-    {{ form_rest(form) }}
-    
-    <div class="form-group">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('floppy-o') }} Sauvegarder
-            </button>
-        </div>        
-    </div>
-
-    {{ form_end(form) }}         
-
-{% endblock %}
-#}
-
 {% block body %}
     <!-- 2 columns form -->
     {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
@@ -82,9 +50,9 @@
                                 <div class="col-lg-9">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        {{ form_widget(form.date) }}
-                                        {{ form_errors(form.date) }}
+                                        {{ form_widget(form.date) }} 
                                     </div>
+                                    {{ form_errors(form.date) }}
                                 </div>
                             </div>    
 

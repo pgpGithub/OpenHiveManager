@@ -329,22 +329,30 @@ class Ruche
     public function isContentValid(ExecutionContextInterface $context)
     {
         $break = false;
-        
-        foreach( $this->getEmplacement()->getRucher()->getExploitation()->getRuchers() as $rucher ){
-            foreach( $rucher->getEmplacements() as $emplacement ){
-                if( $emplacement->getRuche() != $this && $emplacement->getRuche() ){
-                    if( strtoupper($emplacement->getRuche()->getNom()) == strtoupper($this->nom) ){
-                        $context
-                            ->buildViolation('Une autre ruche porte déjà ce nom dans le rucher '.$rucher->getNom()) 
-                            ->atPath('nom')
-                            ->addViolation();
-                        $break = true;
-                        break;
+       
+        if( !$this->getEmplacement() && !$this->getColonie()->getMorte() ){
+            $context
+                ->buildViolation('L\'emplacement doit être renseigné') 
+                ->atPath('emplacement')
+                ->addViolation();            
+        }
+        else{
+            foreach( $this->getEmplacement()->getRucher()->getExploitation()->getRuchers() as $rucher ){
+                foreach( $rucher->getEmplacements() as $emplacement ){
+                    if( $emplacement->getRuche() != $this && $emplacement->getRuche() ){
+                        if( strtoupper($emplacement->getRuche()->getNom()) == strtoupper($this->nom) ){
+                            $context
+                                ->buildViolation('Une autre ruche porte déjà ce nom dans le rucher '.$rucher->getNom()) 
+                                ->atPath('nom')
+                                ->addViolation();
+                            $break = true;
+                            break;
+                        }
                     }
                 }
-            }
-            if( $break ){
-                break;
+                if( $break ){
+                    break;
+                }
             }
         }
     }     
