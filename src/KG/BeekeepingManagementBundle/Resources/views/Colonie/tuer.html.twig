@@ -19,55 +19,68 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite, ?uglifycss' 
-        'css/bootstrap_switch/bootstrap-switch.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
     {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts filter='?uglifyjs2'
-        'js/bootstrap_switch/bootstrap-switch.js'
-        '@KGBeekeepingManagementBundle/Resources/public/js/colonie/add.js'%}
-        <script src="{{ asset_url }}" type="text/javascript"></script>  
-    {% endjavascripts %}
     {{ form_javascript(form) }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Déclarer la mort d'une colonie{% endblock %}
-
-{% block menu %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menu %}
-
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Déclaration de la mort de la colonie</h4>
-        </div>
-    </div>
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonie.ruche} only %}
 {% endblock %}
 
-{% block panel_body %}
-         
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-
-    {{ form_row(form.dateMort, {'label': 'Date :', 'label_col': 4, 'widget_col': 5})  }}
-    {{ form_row(form.causes, {'label': 'Causes :', 'label_col': 4, 'widget_col': 5})  }}
-    {{ form_row(form.autreCause, {'label': 'Autre cause :', 'label_col': 4, 'widget_col': 5})  }}
-
-    {{ form_rest(form) }}
-
-    <div class="form-group">
+{% block body %}
+    <!-- Centered forms -->
+    <div class="row">
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('floppy-o') }} Sauvegarder
-            </button>
-        </div>        
+            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Déclaration de la mort de la colonie</h5>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    {{ form_label(form.dateMort, 'Date :*', { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            {{ form_widget(form.dateMort) }}
+                                            {{ form_errors(form.dateMort) }}
+                                        </div>
+                                    </div>
+                                </div>    
+                                    
+                                <div class="form-group">
+                                    {{ form_label(form.causes, "Causes :", { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        {{ form_widget(form.causes) }}
+                                        {{ form_errors(form.causes) }}
+                                    </div>
+                                </div>                                      
+                                    
+                                <div class="form-group">
+                                    {{ form_label(form.autreCause, "Autre causes :", { 'label_attr': {'class': 'col-lg-3'} }) }}
+                                    <div class="col-lg-9">
+                                        {{ form_widget(form.autreCause) }}
+                                        {{ form_errors(form.autreCause) }}
+                                    </div>
+                                </div>                                      
+                                    
+                                {{ form_rest(form) }}
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
     </div>
-
-    {{ form_end(form) }}         
-
+    <!-- /form centered -->    
 {% endblock %}

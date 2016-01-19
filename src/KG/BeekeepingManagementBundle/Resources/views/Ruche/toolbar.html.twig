@@ -62,7 +62,7 @@
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-right">
-                        {% if colonie.visites is not empty %}
+                        {% if colonie.visites is not empty and colonie.visites|last.canBeUpdated %}
                             <li><a href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id': colonie.visites|last.id }) }}"><i class="fa fa-pencil"></i> Modifier la dernière visite</a></li>
                         {% endif %}                                
                         {% if not colonie.morte %}

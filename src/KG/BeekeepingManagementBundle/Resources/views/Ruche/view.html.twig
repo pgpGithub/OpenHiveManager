@@ -36,15 +36,48 @@
 {% endblock %} 
 
 {% block body %}
+    {% if ruche.colonie.morte %}
+        <div class="row">
+            <div class="col-lg-12">        
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h5><i class="fa fa-heartbeat"></i> Cette colonie est morte le {{ ruche.colonie.dateMort|date("d/m/Y") }}</h5>
+                    </div>
+      
+                    <div class="panel-body">   
+                        <div class="row">
+                            <div class="col-lg-12"> 
+                                Causes de la mort :
+                                {% for cause in ruche.colonie.causes %}
+                                    {% if not loop.first %}
+                                        - 
+                                    {% endif %}
+                                    {{ cause.libelle }}
+                                {% endfor %}
+
+                                {% if ruche.colonie.causes is not empty and ruche.colonie.autreCause %}
+                                    -
+                                {% endif %}
+                                {{ ruche.colonie.autreCause }}
+                            </div> 
+                        </div> 
+                    </div> 
+                </div>             
+            </div> 
+        </div>             
+    {% endif %} 
+
     <div class="row">
         <div class="col-lg-12">
             <div class="tabbable">
                 <div class="tab-content">  
                     {% if visite %}
                         <div class="tab-pane fade in active" id="lastvisite">
-                            <div class="col-md-12">
-                                <!-- View visite -->
-                                {% include 'KGBeekeepingManagementBundle:Visite:includeView.html.twig' with {'visite' : visite, 'title' : 'Visite'} only %}                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <!-- View visite -->
+                                    {% include 'KGBeekeepingManagementBundle:Visite:includeView.html.twig' with {'visite' : visite, 'title' : 'Visite'} only %}                            
+                                </div>
                             </div>
                         </div>                                                                     
                     {% endif %}   
@@ -52,7 +85,7 @@
                     {% if taches %}
                         <div class="tab-pane fade {% if not visite %}in active{% endif %}" id="taches">             
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-lg-12">
                                     <!-- Tasks grid -->
                                     {% include 'KGBeekeepingManagementBundle:Tache:includeView.html.twig' with {'taches' : taches} only %}                                
                                 </div>    
@@ -62,7 +95,7 @@
                             
                     <div class="tab-pane fade {% if not visite and taches is empty %}in active{% endif %}" id="infos">    
                         <div class="row">   
-                            <div class="col-md-12">
+                            <div class="col-lg-12">
                                 <!-- View ruche -->
                                 {% include 'KGBeekeepingManagementBundle:Ruche:includeView.html.twig' with {'ruche' : ruche} only %} 
                             </div>

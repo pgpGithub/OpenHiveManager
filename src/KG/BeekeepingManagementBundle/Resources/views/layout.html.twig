@@ -149,9 +149,11 @@
                                                                         {% for emplacement in rucher.emplacements %}
                                                                             {% if emplacement.ruche %}
                                                                                 {% if emplacement.ruche.id %}
-                                                                                    <li>
-                                                                                        <a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}"><i class="fa fa-archive"></i> {{ emplacement.ruche.nom }}</a>
-                                                                                    </li>
+                                                                                    {% if not emplacement.ruche.colonie.morte %}
+                                                                                        <li>
+                                                                                            <a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}"><i class="fa fa-archive"></i> {{ emplacement.ruche.nom }}</a>
+                                                                                        </li>
+                                                                                    {% endif %}    
                                                                                 {% endif %}
                                                                             {% endif %}
                                                                         {% endfor %}

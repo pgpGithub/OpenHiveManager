@@ -115,7 +115,7 @@ class ColonieController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('La mort de la colonie a bien été enregistrée');
 
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));                                            
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $colonie->getRuche()->getId())));                                            
         }
         
         return $this->render('KGBeekeepingManagementBundle:Colonie:tuer.html.twig', 
