@@ -14,9 +14,5 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  #}
+{% include 'KGBeekeepingManagementBundle:Rucher:form.html.twig' with {'title' : 'Modification', 'rucher' : rucher, 'form' : form } only %}          
 
-{% include 'KGBeekeepingManagementBundle:Rucher:form.html.twig' with {'title' : 'Modification', 'form' : form } only %}
-
-{% block cover %}
-    {% include 'KGBeekeepingManagementBundle:Rucher:cover.html.twig' with {'rucher' : rucher} only %} 
-{% endblock %}           

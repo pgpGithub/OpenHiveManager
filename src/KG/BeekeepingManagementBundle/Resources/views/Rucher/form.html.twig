@@ -37,8 +37,15 @@
         '@KGBeekeepingManagementBundle/Resources/public/js/rucher/add.js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
-{% endblock %}        
-    
+{% endblock %}    
+
+{% block cover %}
+    {% if title == 'Création' %}
+    {% elseif title == 'Modification' %}    
+        {% include 'KGBeekeepingManagementBundle:Rucher:cover.html.twig' with {'rucher' : rucher} only %} 
+    {% endif %}
+{% endblock %} 
+
 {% block body %}
 <!-- 2 columns form -->
     {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
