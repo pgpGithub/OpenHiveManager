@@ -49,16 +49,18 @@
                         </div>                                                                     
                     {% endif %}   
                     
-                    <div class="tab-pane fade {% if not visite %}in active{% endif %}" id="taches">             
-                        <div class="row">
-                            <div class="col-md-12">
-                                <!-- Tasks grid -->
-                                {% include 'KGBeekeepingManagementBundle:Tache:includeView.html.twig' with {'taches' : taches} only %}                                
-                            </div>    
-                        </div>       
-                    </div> 
-                    
-                    <div class="tab-pane fade" id="infos">    
+                    {% if taches %}
+                        <div class="tab-pane fade {% if not visite %}in active{% endif %}" id="taches">             
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- Tasks grid -->
+                                    {% include 'KGBeekeepingManagementBundle:Tache:includeView.html.twig' with {'taches' : taches} only %}                                
+                                </div>    
+                            </div>       
+                        </div> 
+                    {% endif %}
+                            
+                    <div class="tab-pane fade {% if not visite and taches is empty %}in active{% endif %}" id="infos">    
                         <div class="row">   
                             <div class="col-md-12">
                                 <!-- View ruche -->

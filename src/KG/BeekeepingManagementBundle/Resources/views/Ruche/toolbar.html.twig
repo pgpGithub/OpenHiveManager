@@ -28,8 +28,11 @@
                 <a href="#lastvisite" data-toggle="tab"><i class="icon-clipboard position-left"></i> Dernière visite</a></li>
                 <li>                   
             {% endif %}
-            <a href="#taches" data-toggle="tab"><i class="fa fa-tasks position-left"></i> Tâches</a></li>
-            <li><a href="#infos" data-toggle="tab"><i class="icon-profile position-left"></i> Détails</a></li>
+            {% if colonie.taches is not empty %}
+                <a href="#taches" data-toggle="tab"><i class="fa fa-tasks position-left"></i> Tâches</a></li>
+                <li>
+            {% endif %}
+            <a href="#infos" data-toggle="tab"><i class="icon-profile position-left"></i> Détails</a></li>
         </ul>             
 
         <div class="navbar-right">
