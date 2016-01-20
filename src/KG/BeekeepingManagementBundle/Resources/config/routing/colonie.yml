@@ -41,14 +41,14 @@ kg_beekeeping_management_view_taches:
         colonie_id: \d+
         
 kg_beekeeping_management_view_recoltes:
-    path:      /{colonie_id}/afficher-recoltes/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Recolte:viewAll, page: 1 }
+    path:      /{colonie_id}/afficher-recoltes
+    defaults:  { _controller: KGBeekeepingManagementBundle:Recolte:viewAll }
     requirements:
         colonie_id: \d+
         
 kg_beekeeping_management_view_remerages:
-    path:      /{colonie_id}/afficher-remerages/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:viewAll, page: 1 }
+    path:      /{colonie_id}/afficher-remerages
+    defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:viewAll }
     requirements:
         colonie_id: \d+
                

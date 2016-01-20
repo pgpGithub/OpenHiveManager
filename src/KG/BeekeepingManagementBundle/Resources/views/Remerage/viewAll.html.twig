@@ -17,35 +17,44 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Remérages de la ruche{% endblock %}
-
-{% block menu %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menu %}
-
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Historique des remérages</h4>
-        </div>
-    </div>
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?uglifyjs2'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/tables/datatables/datatables.min.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/remerage/viewAll.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
 {% endblock %}
 
-{% block panel_body %}       
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonie.ruche} only %} 
+{% endblock %}  
+
+{% block body %}
     <div class="row">
-        <div class=" col-md-12"> 
-            <div class="table-responsive">
-                <table id="mytable" class="table table-bordred table-striped">
-                    <thead>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Race</th>
-                        <th>Année de la reine</th>
-                        <th>Colonie mère</th>
-                        <th>Colonies filles</th>
-                    </thead>
-                    <tbody>
-                        {% for remerage in pagination %}
+        <div class="col-lg-12">
+            <!-- Media library -->
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h6 class="panel-title text-semibold">Historique des remérages</h6>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped media-library table-lg">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Race</th>
+                                <th>Année de la reine</th>
+                                <th>Colonie mère</th>
+                                <th>Colonies filles</th>            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for remerage in colonie.remerages %}
                             <tr>
                                 <td>{{ remerage.date|date('d/m/Y') }}</td>
                                 <td>{% if remerage.naturel %}Naturel{% else %}Artificiel{% endif %}</td>
@@ -58,16 +67,13 @@
                                     {% endfor %}
                                 </td>
                             </tr>
-
-                        {% endfor %}
-                    </tbody>
-                </table>
+                            {% endfor %}                                                  
+                        </tbody>
+                    </table>
+                </div>        
             </div>
-            <div class="row">
-                <div class="col-md-12 navigation" align="right">
-                    {{ knp_pagination_render(pagination) }}
-                </div> 
-            </div>                            
+            <!-- /media library -->   
         </div>
-    </div>                                    
+    </div>                                         
 {% endblock %}
+

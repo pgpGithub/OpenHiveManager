@@ -84,27 +84,14 @@ class RecolteController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    public function viewAllAction(Request $request, Colonie $colonie, $page)
+    public function viewAllAction(Colonie $colonie)
     {       
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || $page < 1  || $colonie->getRecoltes()->isEmpty()){
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation())){
             throw new NotFoundHttpException('Page inexistante.');
         }
- 
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Recolte')->getListByColonie($colonie);    
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            30,
-            array(
-                'defaultSortFieldName' => 'r.date',
-                'defaultSortDirection' => 'desc'
-            )  
-        );
         
         return $this->render('KGBeekeepingManagementBundle:Recolte:viewAll.html.twig', 
-                array(  'colonie'    => $colonie,
-                        'pagination' => $pagination));
+                array( 'colonie' => $colonie ));
     }
     
 }
