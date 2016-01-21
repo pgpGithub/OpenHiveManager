@@ -19,51 +19,62 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter='cssrewrite, ?uglifycss'
-        'css/bootstrap_switch/bootstrap-switch.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
     {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     {% javascripts filter='?uglifyjs2'
-        'js/bootstrap_switch/bootstrap-switch.js'
+        'assets/js/plugins/forms/styling/uniform.min.js'
         '@KGBeekeepingManagementBundle/Resources/public/js/rucher/qrcodes.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>       
     {% endjavascripts %}
     {{ form_javascript(form) }}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Rucher{% endblock %}
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Rucher:cover.html.twig' with {'rucher' : rucher} only %} 
+{% endblock %} 
 
-{% block header %}
-    {{ icon('qrcode') }} QR codes
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Rucher:toolbarBack.html.twig' with {'rucher' : rucher} only %}                  
 {% endblock %}
 
-{% block contain_body %}     
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }} 
-        {% for ruche in form.ruches %}
-            {% set index = ruche.vars.value %}
-            {% set entity = form.ruches.vars.choices[index].data %}
-            <div class="form-group">
-                {{ form_label(ruche, entity.nom, {'label_attr': {'class': 'col-md-5 control-label'}} ) }}
-                <div class="col-md-7">
-                    {{ form_widget(ruche, {'attr': {'class': 'form-control', 'checked': true, 'data-on-text': "Oui", 'data-off-text': 'Non'}}) }}
-                </div>
-            </div>
-        {% endfor %}
-                
-    {{ form_rest(form) }}
-
-    <div class="form-group">
+{% block body %}  
+    
+    <!-- Centered forms -->
+    <div class="row">
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('file-text-o') }} Générer les QR codes
-            </button>
-        </div>        
-    </div>
+            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Choix des QR codes à générer</h5>
+                            </div>
+                                
+                            <div class="panel-body">
+                                
+                                {% for ruche in form.ruches %}
+                                    {% set index = ruche.vars.value %}
+                                    {% set entity = form.ruches.vars.choices[index].data %}
+                                    <div class="form-group">
+                                        {{ form_label(ruche, entity.nom, {'label_attr': {'class': 'col-lg-8'}} ) }}
+                                        {{ form_widget(ruche, {'attr': {'class': 'col-lg-4 checkbox checkbox-right styled', 'checked': 'checked'}}) }}  
+                                        {{ form_errors(ruche) }}
+                                    </div>
+                                {% endfor %}
 
-    {{ form_end(form) }}                   
+                                {{ form_rest(form) }}
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Générer <i class="icon-arrow-right14 position-right"></i></button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <!-- /form centered -->
 {% endblock %}

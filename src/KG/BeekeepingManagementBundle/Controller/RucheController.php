@@ -71,7 +71,7 @@ class RucheController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}}) 
     */    
-    public function viewAction(Request $request, Ruche $ruche, $page)
+    public function viewAction(Ruche $ruche)
     {        
         if( !$this->getUser()->canDisplayExploitation($ruche->getRucher()->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
