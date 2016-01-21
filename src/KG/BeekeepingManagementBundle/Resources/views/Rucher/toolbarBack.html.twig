@@ -15,16 +15,19 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  #}
 
-{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block cover %}
-    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : visite.colonie.ruche} only %}
-{% endblock %}
+<div class="navbar navbar-default navbar-xs content-group">
+    <ul class="nav navbar-nav visible-xs-block">
+        <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+    </ul>
 
-{% block toolbar %}
-    {% include 'KGBeekeepingManagementBundle:Ruche:toolbarBack.html.twig' with {'ruche' : visite.colonie.ruche} only %}                  
-{% endblock %}
-
-{% block body %}
-    {% include 'KGBeekeepingManagementBundle:Visite:includeView.html.twig' with {'visite' : visite} only %}
-{% endblock %}
+    <div class="navbar-collapse collapse" id="navbar-filter">
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">  
+                <li class="dropdown">
+                    <a href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-arrow-circle-left"></i> Retour au rucher</a> 
+                </li>                           
+            </ul>
+        </div>
+    </div>
+</div>                      

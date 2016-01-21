@@ -46,6 +46,10 @@
     {% endif %}
 {% endblock %} 
 
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Rucher:toolbarBack.html.twig' with {'rucher' : rucher} only %}                  
+{% endblock %}
+
 {% block body %}
 <!-- 2 columns form -->
     {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}

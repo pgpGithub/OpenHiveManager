@@ -21,6 +21,10 @@
     {% include 'KGBeekeepingManagementBundle:Rucher:cover.html.twig' with {'rucher' : emplacement.rucher} only %}     
 {% endblock %}  
 
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Rucher:toolbarBack.html.twig' with {'rucher' : emplacement.rucher} only %}                  
+{% endblock %}
+
 {% block body %}
 
     <!-- Centered forms -->

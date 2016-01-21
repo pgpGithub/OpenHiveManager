@@ -36,6 +36,10 @@
     {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonie.ruche} only %}
 {% endblock %} 
 
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:toolbarBack.html.twig' with {'ruche' : colonie.ruche} only %}                  
+{% endblock %}
+
 {% block body %}
 
     <!-- Centered forms -->

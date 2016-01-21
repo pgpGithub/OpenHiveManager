@@ -36,64 +36,68 @@
 {% endblock %} 
 
 {% block body %}
-    {% if ruche.colonie.morte %}
-        <div class="row">
-            <div class="col-lg-12">        
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h5><i class="fa fa-heartbeat"></i> Cette colonie est morte le {{ ruche.colonie.dateMort|date("d/m/Y") }}</h5>
-                    </div>
-      
-                    <div class="panel-body">   
-                        <div class="row">
-                            <div class="col-lg-12"> 
-                                Causes de la mort :
-                                {% for cause in ruche.colonie.causes %}
-                                    {% if not loop.first %}
-                                        - 
-                                    {% endif %}
-                                    {{ cause.libelle }}
-                                {% endfor %}
-
-                                {% if ruche.colonie.causes is not empty and ruche.colonie.autreCause %}
-                                    -
-                                {% endif %}
-                                {{ ruche.colonie.autreCause }}
-                            </div> 
-                        </div> 
-                    </div> 
-                </div>             
-            </div> 
-        </div>             
-    {% endif %} 
-
     <div class="row">
         <div class="col-lg-12">
             <div class="tabbable">
                 <div class="tab-content">  
-                    {% if visite %}
-                        <div class="tab-pane fade in active" id="lastvisite">
-                            <div class="row">
-                                <div class="col-lg-12">
+                    <div class="tab-pane fade in active" id="lastvisite">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% if visite %}
                                     <!-- View visite -->
                                     {% include 'KGBeekeepingManagementBundle:Visite:includeView.html.twig' with {'visite' : visite} only %}                            
-                                </div>
+                                {% else %}
+                                    <div class="well"><center>Aucune</center> </div>
+                                {% endif %}    
                             </div>
-                        </div>                                                                     
-                    {% endif %}   
+                        </div>
+                    </div>                                                                     
                     
-                    {% if taches %}
-                        <div class="tab-pane fade {% if not visite %}in active{% endif %}" id="taches">             
-                            <div class="row">
-                                <div class="col-lg-12">
+                    
+                    <div class="tab-pane fade" id="taches">             
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% if taches %}
                                     <!-- Tasks grid -->
                                     {% include 'KGBeekeepingManagementBundle:Tache:includeView.html.twig' with {'taches' : taches} only %}                                
-                                </div>    
-                            </div>       
-                        </div> 
-                    {% endif %}
+                                {% else %}
+                                    <div class="well"><center>Aucune</center></div>
+                                {% endif %}
+                            </div>    
+                        </div>       
+                    </div>                    
                             
-                    <div class="tab-pane fade {% if not visite and taches is empty %}in active{% endif %}" id="infos">    
+                    <div class="tab-pane fade" id="infos"> 
+                        {% if ruche.colonie.morte %}
+                            <div class="row">
+                                <div class="col-lg-12">        
+                                    <div class="panel panel-danger">
+                                        <div class="panel-heading">
+                                            <h5><i class="fa fa-heartbeat"></i> Cette colonie est morte le {{ ruche.colonie.dateMort|date("d/m/Y") }}</h5>
+                                        </div>
+
+                                        <div class="panel-body">   
+                                            <div class="row">
+                                                <div class="col-lg-12"> 
+                                                    Causes de la mort :
+                                                    {% for cause in ruche.colonie.causes %}
+                                                        {% if not loop.first %}
+                                                            - 
+                                                        {% endif %}
+                                                        {{ cause.libelle }}
+                                                    {% endfor %}
+
+                                                    {% if ruche.colonie.causes is not empty and ruche.colonie.autreCause %}
+                                                        -
+                                                    {% endif %}
+                                                    {{ ruche.colonie.autreCause }}
+                                                </div> 
+                                            </div> 
+                                        </div> 
+                                    </div>             
+                                </div> 
+                            </div>             
+                        {% endif %}                         
                         <div class="row">   
                             <div class="col-lg-12">
                                 <!-- View ruche -->

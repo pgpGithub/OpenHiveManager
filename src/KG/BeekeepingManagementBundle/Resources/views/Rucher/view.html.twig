@@ -99,7 +99,7 @@
                                                     <td>NA</td>
                                                 {% endif %}
                                                 {% if emplacement.ruche %}
-                                                    <td>{{ emplacement.ruche.nom }}</td>
+                                                    <td><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}" >{{ emplacement.ruche.nom }}</a></td>
                                                     <td>{{ emplacement.ruche.corps.type.libelle }} {{ emplacement.ruche.corps.nbcadres }}</td>
                                                     {% if emplacement.ruche.colonie %}
                                                         <td>{{ emplacement.ruche.colonie.remerages|last.reine.race.libelle }}</td>

@@ -32,6 +32,10 @@
     {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonie.ruche} only %} 
 {% endblock %}  
 
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:toolbarBack.html.twig' with {'ruche' : colonie.ruche} only %}                  
+{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="col-lg-12">

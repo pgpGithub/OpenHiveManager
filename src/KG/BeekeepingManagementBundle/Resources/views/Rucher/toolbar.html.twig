@@ -53,6 +53,8 @@
                         <li><a href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-pencil position-left"></i> Modifier le rucher</a></li> 
                         {% if rucher.canBeDeleted %}
                             <li><a href="{{ path('kg_beekeeping_management_delete_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-trash position-left"></i> Supprimer le rucher</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#"><i class="fa fa-trash position-left"></i> Supprimer le rucher</a></li>                        
                         {% endif %}
                     </ul>
                 </li>                
