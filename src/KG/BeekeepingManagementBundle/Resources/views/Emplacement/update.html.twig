@@ -15,47 +15,4 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  #}
 
-{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
-
-{% block cover %}
-    {% include 'KGBeekeepingManagementBundle:Rucher:cover.html.twig' with {'rucher' : emplacement.rucher} only %}     
-{% endblock %}  
-
-{% block toolbar %}
-    {% include 'KGBeekeepingManagementBundle:Rucher:toolbarBack.html.twig' with {'rucher' : emplacement.rucher} only %}                  
-{% endblock %}
-
-{% block body %}
-
-    <!-- Centered forms -->
-    <div class="row">
-        <div class="col-md-12">
-            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                        <div class="panel panel-flat">
-                            <div class="panel-heading">
-                                <h5 class="panel-title">Modification d'un emplacement</h5>
-                            </div>
-
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    {{ form_label(form.numero, "Numéro de l'emplacement :*", { 'label_attr': {'class': 'col-lg-4'} }) }}
-                                    <div class="col-lg-8">
-                                        {{ form_widget(form.numero) }}
-                                        {{ form_errors(form.numero) }}
-                                    </div>
-                                </div>                             
-                                {{ form_rest(form) }}
-                                <div class="text-right">
-                                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
-                                </div>  
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {{ form_end(form) }}
-        </div>
-    </div>
-    <!-- /form centered -->
-{% endblock %}
+{% include 'KGBeekeepingManagementBundle:Emplacement:form.html.twig' with {'title' : 'Modification', 'rucher' : emplacement.rucher, 'form' : form } only %}
