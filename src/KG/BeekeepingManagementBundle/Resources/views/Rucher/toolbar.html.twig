@@ -28,7 +28,20 @@
         </ul>            
 
         <div class="navbar-right">
-            <ul class="nav navbar-nav">   
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-wrench"></i>
+                        Action 
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
+                        <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
+                    </ul>
+                </li>  
+                
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-gear position-left"></i>
@@ -43,18 +56,18 @@
                         {% endif %}
                     </ul>
                 </li>                
+                
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-wrench"></i>
-                        Action 
+                        <i class="fa fa-history"></i>
+                        Historique 
                         <span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
-                        <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
+                        <li><a href="{{ path('kg_beekeeping_management_view_colonies_mortes', { 'rucher_id': rucher.id }) }}"><i class="fa fa-heartbeat"></i> Colonies mortes</a></li>  
                     </ul>
-                </li>  
+                </li>                      
             </ul>
         </div>
     </div>

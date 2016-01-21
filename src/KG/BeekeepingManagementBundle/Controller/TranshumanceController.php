@@ -34,27 +34,14 @@ class TranshumanceController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    public function viewAllAction(Request $request, Colonie $colonie, $page)
+    public function viewAllAction(Colonie $colonie)
     {       
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || $page < 1  || $colonie->getTranshumances()->isEmpty()){
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
- 
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Transhumance')->getListByColonie($colonie);    
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            30,
-            array(
-                'defaultSortFieldName' => 't.date',
-                'defaultSortDirection' => 'desc'
-            )  
-        );
         
         return $this->render('KGBeekeepingManagementBundle:Transhumance:viewAll.html.twig', 
-                array(  'colonie'    => $colonie,
-                        'pagination' => $pagination));
+                array( 'colonie' => $colonie ));
     }
     
     /**

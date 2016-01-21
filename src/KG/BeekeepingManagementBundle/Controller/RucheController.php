@@ -46,7 +46,7 @@ class RucheController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-                $form = $this->createForm(new UpdateRemerageType(), $ruche->getColonie()->getRemerages()->last());
+        $form = $this->createForm(new UpdateRemerageType(), $ruche->getColonie()->getRemerages()->last());
         
         if ($form->handleRequest($request)->isValid()){
                         

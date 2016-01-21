@@ -11,8 +11,8 @@ kg_beekeeping_management_delete_rucher:
         rucher_id: \d+
         
 kg_beekeeping_management_view_rucher:
-    path:      /{rucher_id}/afficher-rucher/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view, page: 1 }
+    path:      /{rucher_id}/afficher-rucher
+    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:view }
     requirements:
         rucher_id: \d+
 
@@ -23,8 +23,8 @@ kg_beekeeping_management_print_all_qr_code:
         rucher_id: \d+
         
 kg_beekeeping_management_view_colonies_mortes:
-    path:      /{rucher_id}/afficher-colonies-mortes/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:viewColoniesMortes, page: 1 }
+    path:      /{rucher_id}/afficher-colonies-mortes
+    defaults:  { _controller: KGBeekeepingManagementBundle:Rucher:viewColoniesMortes }
     requirements:
         rucher_id: \d+
         

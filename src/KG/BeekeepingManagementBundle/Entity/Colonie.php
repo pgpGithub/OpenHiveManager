@@ -28,7 +28,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\HasLifecycleCallbacks() 
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ColonieRepository")
+ * @ORM\Entity()
  */
 class Colonie
 {

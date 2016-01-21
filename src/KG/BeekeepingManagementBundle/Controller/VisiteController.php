@@ -156,30 +156,14 @@ class VisiteController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    public function viewAllAction(Request $request, Colonie $colonie, $page)
+    public function viewAllAction(Colonie $colonie)
     {       
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || $page < 1  || $colonie->getVisites()->isEmpty()){
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation())){
             throw new NotFoundHttpException('Page inexistante.');
-        }      
-        
-        if($colonie){    
-            $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Visite')->getListByColonie($colonie);    
-        }
-        
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            30,
-            array(
-                'defaultSortFieldName' => 'visite.date',
-                'defaultSortDirection' => 'desc'
-            )                
-        );        
+        }                 
         
         return $this->render('KGBeekeepingManagementBundle:Visite:viewAll.html.twig', 
-                array(  'colonie'    => $colonie,
-                        'pagination' => $pagination));
+                array( 'colonie' => $colonie ));
     }    
     
 }

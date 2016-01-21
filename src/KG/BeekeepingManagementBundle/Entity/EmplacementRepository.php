@@ -28,17 +28,7 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class EmplacementRepository extends EntityRepository
-{
-    public function getListByRucher($rucher)
-    {
-        return $this->createQueryBuilder('emplacement')
-                    ->leftJoin('emplacement.rucher','rucher')
-                    ->leftJoin('emplacement.ruche','ruche')
-                    ->where('rucher.id = :rucher')
-                    ->setParameter('rucher',$rucher->getId())
-                    ->getQuery();
-    } 
-    
+{    
     public function queryfindByRucherId($rucher)
     {
         return $this->createQueryBuilder('emplacement')

@@ -23,20 +23,20 @@ kg_beekeeping_management_add_tache:
         colonie_id: \d+
         
 kg_beekeeping_management_view_transhumances:
-    path:      /{colonie_id}/afficher-transhumances/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Transhumance:viewAll, page: 1 }
+    path:      /{colonie_id}/afficher-transhumances
+    defaults:  { _controller: KGBeekeepingManagementBundle:Transhumance:viewAll }
     requirements:
         colonie_id: \d+
 
 kg_beekeeping_management_view_visites:
-    path:      /{colonie_id}/afficher-visites/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Visite:viewAll, page: 1 }
+    path:      /{colonie_id}/afficher-visites
+    defaults:  { _controller: KGBeekeepingManagementBundle:Visite:viewAll }
     requirements:
         colonie_id: \d+
 
 kg_beekeeping_management_view_taches:
-    path:      /{colonie_id}/afficher-taches/{page}
-    defaults:  { _controller: KGBeekeepingManagementBundle:Tache:viewAll, page: 1 }
+    path:      /{colonie_id}/afficher-taches
+    defaults:  { _controller: KGBeekeepingManagementBundle:Tache:viewAll }
     requirements:
         colonie_id: \d+
         

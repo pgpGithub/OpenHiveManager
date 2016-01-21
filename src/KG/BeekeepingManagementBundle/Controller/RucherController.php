@@ -172,20 +172,17 @@ class RucherController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
-    public function viewAction(Request $request, Rucher $rucher, $page)
+    public function viewAction(Rucher $rucher)
     {        
         if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $apikey = $this->container->getParameter('apikey');
-        
-        $emplacements = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->getListByRucher($rucher)->getResult();    
+        $apikey = $this->container->getParameter('apikey');  
         
         return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', 
                 array(  'rucher'       => $rucher,
-                        'apikey'       => $apikey,
-                        'emplacements' => $emplacements
+                        'apikey'       => $apikey
                     )
             );        
     }
@@ -194,28 +191,14 @@ class RucherController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
-    public function viewColoniesMortesAction(Request $request, Rucher $rucher, $page)
+    public function viewColoniesMortesAction(Rucher $rucher)
     {        
-        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) || !$rucher->hasColonieMorte() ){
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
-        }
-        
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Colonie')->getListMortesByRucher($rucher);    
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            10,
-            array(
-                'defaultSortFieldName' => 'colonie.numero',
-            )                
-        );        
+        }      
         
         return $this->render('KGBeekeepingManagementBundle:Rucher:viewColoniesMortes.html.twig', 
-                array(  'rucher'     => $rucher,
-                        'pagination' => $pagination
-                    )
+                array( 'rucher' => $rucher )
             );        
     }
     
