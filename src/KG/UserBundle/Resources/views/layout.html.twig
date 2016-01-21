@@ -10,9 +10,9 @@
     {% endstylesheets %}        
 {% endblock %}
 
-{% block cover %}
-    {% include 'KGUserBundle::cover.html.twig' %} 
-{% endblock %} 
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Exploitation:toolbarBack.html.twig' with {'exploitation' : app.user.exploitations|first} only %}                                 
+{% endblock %}
 
 {% block body %}
     <div class="col-xs-12" id="body">

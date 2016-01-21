@@ -40,14 +40,17 @@
 {% endblock %}    
 
 {% block cover %}
-    {% if title == 'Création' %}
-    {% elseif title == 'Modification' %}    
+    {% if title == 'Modification' %}   
         {% include 'KGBeekeepingManagementBundle:Rucher:cover.html.twig' with {'rucher' : rucher} only %} 
-    {% endif %}
-{% endblock %} 
-
+    {% endif %}   
+{% endblock %}
+  
 {% block toolbar %}
-    {% include 'KGBeekeepingManagementBundle:Rucher:toolbarBack.html.twig' with {'rucher' : rucher} only %}                  
+    {% if title == 'Création' %}
+        {% include 'KGBeekeepingManagementBundle:Exploitation:toolbarBack.html.twig' with {'exploitation' : exploitation} only %}                   
+    {% elseif title == 'Modification' %}   
+        {% include 'KGBeekeepingManagementBundle:Rucher:toolbarBack.html.twig' with {'rucher' : rucher} only %}                  
+    {% endif %}   
 {% endblock %}
 
 {% block body %}
