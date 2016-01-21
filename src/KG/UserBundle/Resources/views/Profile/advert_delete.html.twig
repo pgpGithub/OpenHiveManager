@@ -1,21 +1,32 @@
 {# src/KG/SiteBundle/Resources/views/Accueil/index.html.twig #}
 
-{% extends "KGSiteBundle::layout.html.twig" %}
-
-{% block title %}{{ parent() }} - Supprimer le compte{% endblock %}
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
 {% block body %}
+    <!-- Centered forms -->
     <div class="row">
-        <div class="col-lg-12">
-            <h2 class="page-header">{{ icon('trash-o') }} Suppression de votre compte</h2>
-            
-            <h3>{{ icon('exclamation-triangle') }} La suppression est irréversible</h3>
-            <p>
-                Vous êtes sur le point de supprimer votre compte ainsi que toutes les données qui y sont liées.
-                Cette action est irréversible : conformément à notre CGU, les données seront effacées définitivement de notre base de données. 
-                En cas d'erreur de votre part, nous n'aurons aucun moyen de récupérer vos données. 
-            </p>
-            <a href="{{ path('kg_delete_user') }}" class="btn btn-xs btn-danger pull-right">{{ icon('trash-o') }} Supprimer mon compte</a>    
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Suppression de votre compte</h5>
+                        </div>
+
+                        <div class="panel-body">
+                            <strong>{{ icon('exclamation-triangle') }} La suppression est irréversible</strong>
+                            <p>
+                                Vous êtes sur le point de supprimer votre compte ainsi que toutes les données qui y sont liées.
+                                Cette action est irréversible : conformément à notre CGU, les données seront effacées définitivement de notre base de données. 
+                                En cas d'erreur de votre part, nous n'aurons aucun moyen de récupérer vos données. 
+                            </p>
+                            <a href="{{ path('kg_delete_user') }}" class="btn btn-xs btn-danger pull-right">{{ icon('trash-o') }} Je suis sûr de vouloir supprimer mon compte</a>    
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- /form centered -->    
+
 {% endblock %}

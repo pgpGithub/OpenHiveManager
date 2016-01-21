@@ -1,10 +1,27 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+<!-- Centered forms -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Modification du profil</h5>
+                    </div>
+
+                    <div class="panel-body">
+                        <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
+                            {{ form_widget(form) }}
+                            <div>
+                                <button type="submit" class="btn btn-primary">{{ 'profile.edit.submit'|trans }} <i class="icon-arrow-right14 position-right"></i></button>
+                            </div>
+                        </form>  
+                        <a href="{{ path('kg_advert_delete_user') }}" class="pull-right">{{ icon('trash-o') }} Supprimer mon compte</a>    
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</form>   
-    
-<a href="{{ path('kg_advert_delete_user') }}" class="btn btn-xs btn-danger pull-right">{{ icon('trash-o') }} Supprimer mon compte</a>    
+</div>
+<!-- /form centered -->
