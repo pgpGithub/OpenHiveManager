@@ -38,7 +38,11 @@
 
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
-                        <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
+                        {% if rucher.hasRuche %}
+                            <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
+                        {% endif %}
                     </ul>
                 </li>  
                 

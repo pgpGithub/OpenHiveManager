@@ -179,7 +179,8 @@ class Visite
         $this->setNbnourriture($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbnourriture());
         
         if( !$colonie->getVisites()->isEmpty() ){
-            $lastVisite = $colonie->getVisites()->last();  
+            $lastVisite = $colonie->getVisites()->last();
+            $this->setActivite($lastVisite->getActivite());
             $this->setEtat($lastVisite->getEtat());
             $this->setAgressivite($lastVisite->getAgressivite());
             $this->setPoids($lastVisite->getPoids());
