@@ -20,6 +20,7 @@
     {% stylesheets filter='cssrewrite, ?uglifycss'
             '@KGSiteBundle/Resources/public/minify/rgen_min.css'
             '@KGSiteBundle/Resources/public/css/custom.css'
+            '@KGSiteBundle/Resources/public/css/forkme.css'
             'assets/css/icons/fontawesome/styles.min.css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
@@ -42,10 +43,12 @@
         <section class="intro-section intro-section-7" style="outline-offset: -3px;">
             <div class="info-wrp bg-tc bg-cover" data-bg="{{ asset('header.jpg') }}" style="outline-offset: -3px; background-image: url('{{ asset('header.jpg') }}'); background-color: rgb(38, 50, 56);" data-bg-align="center-center-cover">
                 <div class="content">
-                    <div class="row"><div class="col-md-10 col-md-offset-1">
-                        <img id="logo" class="img-responsive img-center" src="{{ asset('logo.png') }}" alt="OpenHiveManager">
-                    </div></div>
-                    <h2 class="main-text">Le premier logiciel participatif de gestion apicole</h2>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <img id="logo" class="img-responsive img-center" src="{{ asset('logo.png') }}" alt="OpenHiveManager">
+                        </div>
+                    </div>
+                        <h2 class="main-text"><small style="color: rgb(245, 245, 245);">Le premier logiciel participatif de gestion apicole</small></h2>
                     <a href="{{ path('kg_beekeeping_management_home') }}" class="btn btn-default btn1">Démarrer</a>
                 </div><!-- /.container -->
             </div>
@@ -219,4 +222,10 @@
             </div>
         </section><!-- ./Footer section -->
     </div>
+                    
+    <div class="github-fork-ribbon-wrapper right">
+        <div class="github-fork-ribbon">
+            <a title="Fork me on Github" target="_blank" href="https://github.com/Keverg/OpenHiveManager.git">Fork me on Github</a>
+        </div>
+    </div>                
 {% endblock %}
