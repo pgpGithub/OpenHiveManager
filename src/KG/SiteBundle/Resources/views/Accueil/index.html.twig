@@ -1,122 +1,222 @@
-{# src/KG/SiteBundle/Resources/views/Accueil/index.html.twig #}
-
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
 {% extends "KGSiteBundle::layout.html.twig" %}
 
 {% block stylesheets %}
-    {{ parent() }}
     {% stylesheets filter='cssrewrite, ?uglifycss'
-        '@KGSiteBundle/Resources/public/css/business-frontpage.css'
-        '@KGSiteBundle/Resources/public/css/forkme.css'%}
+            '@KGSiteBundle/Resources/public/minify/rgen_min.css'
+            '@KGSiteBundle/Resources/public/css/custom.css'
+            'assets/css/icons/fontawesome/styles.min.css'
+        %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
+    {% endstylesheets %}
+    	<link href="//fonts.googleapis.com/css?family=Rancho|Open+Sans:400,300,300italic,400italic,600,600italic,700,800italic,700italic,800" rel="stylesheet">
 {% endblock %}
 
-{% block header %}
-    <header>
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                {% include 'BraincraftedBootstrapBundle::flash.html.twig' %}
+{% block javascripts %}
+    {% javascripts filter='?uglifyjs2'
+            '@KGSiteBundle/Resources/public/minify/rgen_min.js'
+            '@KGSiteBundle/Resources/public/js/rgen.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>          		
+    {% endjavascripts %}
+    {{ parent() }}
+{% endblock %} 
+        
+{% block pagecontainer %}
+    <div id="page">
+        <section class="intro-section intro-section-7" style="outline-offset: -3px;">
+            <div class="info-wrp bg-tc bg-cover" data-bg="{{ asset('header.jpg') }}" style="outline-offset: -3px; background-image: url('{{ asset('header.jpg') }}'); background-color: rgb(38, 50, 56);" data-bg-align="center-center-cover">
+                <div class="content">
+                    <div class="row"><div class="col-md-10 col-md-offset-1">
+                        <img id="logo" class="img-responsive img-center" src="{{ asset('logo.png') }}" alt="OpenHiveManager">
+                    </div></div>
+                    <h2 class="main-text">Le premier logiciel participatif de gestion apicole</h2>
+                    <a href="{{ path('kg_beekeeping_management_home') }}" class="btn btn-default btn1">Démarrer</a>
+                </div><!-- /.container -->
             </div>
-            <div class="col-md-6 col-md-offset-3">
-                <img id="logo" class="img-responsive img-center" src="{{ asset('logo.png') }}" alt="OpenHiveManager">
-            </div>
-            <div class="col-md-8 col-md-offset-2">
-                <h1><small>Le premier logiciel participatif de gestion apicole</small></h1>                
-            </div>    
-        </div>    
-    </header> 
-{% endblock %}    
+            <img src="{{ asset('macbook-pro1.png') }}" class="intro-img img-responsive">
+        </section><!-- /.intro-section --><!-- Content -->
 
-{% block body %}
-    <!-- Marketing Icons Section -->
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4>{{ icon('linux') }} Libre &amp; Open Source</h4>
+        <section class="content-section dark align-c content-section-9" style="outline-offset: -3px; background-color: rgb(55, 71, 79);" data-bg="" data-bg-align="center-center-cover">
+            <div class="container">
+                <h2 class="title">Par vous, pour vous...</h2>
+                <div class="row eqh gt40 fs-equalize-element">
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-linux" style="color: rgb(245, 245, 245);" id="ui-id-43"></i></div>
+                            <div class="info">
+                                <h2 class="hd">Libre</h2>
+                                <p class="sub-txt" style="margin-top: 0px; margin-bottom: 10px; color: rgba(255, 255, 255, 0.6); font-size: 13px; font-weight: 400; font-style: normal;">OpenHiveManager est développé sous licence GNU GPLv3 et son code source est disponible sur Github</p>
+                            </div>
+                        </div>	
+                    </div>
+
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-lock" style="color: rgb(245, 245, 245);" id="ui-id-44"></i></div>
+                            <div class="info">
+                                <h2 class="hd">Privé</h2>
+                                <p class="sub-txt">Vous seuls êtes maîtres de vos données. Elles sont privées et ne sont pas utilisées à votre insu</p>
+                            </div>
+                        </div>	
+                    </div>
+
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-code-fork" style="color: rgb(245, 245, 245);" id="ui-id-45"></i></div>
+                            <div class="info">
+                                <h2 class="hd">Collaboratif</h2>
+                                <p class="sub-txt">Vous êtes au coeur du processus d'études des besoins et chacune de vos remarques est prise en compte</p>
+                            </div>
+                        </div>	
+                    </div>
+
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-heart-o" style="color: rgb(245, 245, 245);" id="ui-id-46"></i></div>
+                                <div class="info">
+                                    <h2 class="hd">Participatif</h2>
+                                    <p class="sub-txt">OpenHiveManager n'est pas payant. Vous êtes libre de participer à son développement à travers des dons.</p>
+                                </div>
+                            </div>	
+                        </div>
+                    </div>
+            </div><!-- /.container -->
+        </section><!-- /.content-section --><!-- Content -->
+
+        <section class="content-section align-c content-section-9">
+            <div class="container">
+                <h2 class="title" style="margin-top: 0px; margin-bottom: 60px; color: rgb(55, 71, 79); font-size: 50px; font-weight: 300; font-style: normal;">Exemples de fonctionnalités</h2>
+                <div class="row eqh gt40 fs-equalize-element">
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-cloud" id="ui-id-47" style="color: rgb(38, 166, 154);"></i></div>
+                            <div class="info">
+                                <h2 class="hd" style="margin-top: 0px; margin-bottom: 20px; color: rgb(55, 71, 79); font-size: 24px; font-weight: 300; font-style: normal;">Météo</h2>
+                                <p class="sub-txt">Suivez les conditions météorologiques liées à vos rucher</p>
+                            </div>
+                        </div>	
+                    </div>
+
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-clipboard" id="ui-id-48" style="color: rgb(38, 166, 154);"></i></div>
+                            <div class="info">
+                                <h2 class="hd" style="margin-top: 0px; margin-bottom: 20px; color: rgb(55, 71, 79); font-size: 24px; font-weight: 300; font-style: normal;">Visites</h2>
+                                <p class="sub-txt">Visitez vos ruches et archivez vos fiches de visites</p>
+                            </div>
+                        </div>	
+                    </div>
+
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-exchange" id="ui-id-49" style="color: rgb(38, 166, 154);"></i></div>
+                            <div class="info">
+                                <h2 class="hd" style="margin-top: 0px; margin-bottom: 20px; color: rgb(55, 71, 79); font-size: 24px; font-weight: 300; font-style: normal;">Transhumances</h2>
+                                <p class="sub-txt">Transhumez et archivez les transhumances de vos ruches</p>
+                            </div>
+                        </div>	
+                    </div>
+
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-sitemap" id="ui-id-50" style="color: rgb(38, 166, 154);"></i></div>
+                            <div class="info">
+                                <h2 class="hd" style="margin-top: 0px; margin-bottom: 20px; color: rgb(55, 71, 79); font-size: 24px; font-weight: 300; font-style: normal;">Lignées</h2>
+                                <p class="sub-txt">Remérez et divisez vos colonies tout en gardant un suivi précis de leur lignée</p>
+                            </div>
+                        </div>	
+                    </div>
+
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-upload" id="ui-id-51" style="color: rgb(38, 166, 154);"></i></div>
+                            <div class="info">
+                                <h2 class="hd" style="margin-top: 0px; margin-bottom: 20px; color: rgb(55, 71, 79); font-size: 24px; font-weight: 300; font-style: normal;">Récoltes</h2>
+                                <p class="sub-txt">Récoltez partiellement ou entièrement vos hausses en fonction du type de miel qu'elles contiennent</p>
+                            </div>
+                        </div>	
+                    </div>
+
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-qrcode" id="ui-id-52" style="color: rgb(38, 166, 154);"></i></div>
+                            <div class="info">
+                                <h2 class="hd" style="margin-top: 0px; margin-bottom: 20px; color: rgb(55, 71, 79); font-size: 24px; font-weight: 300; font-style: normal;">QR codes</h2>
+                                <p class="sub-txt">Générez des QR codes et accédez à vos ruches en quelques secondes</p>
+                            </div>
+                        </div>	
+                    </div>
+
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-tasks" id="ui-id-53" style="color: rgb(38, 166, 154);"></i></div>
+                            <div class="info">
+                                <h2 class="hd" style="margin-top: 0px; margin-bottom: 20px; color: rgb(55, 71, 79); font-size: 24px; font-weight: 300; font-style: normal;">Tâches</h2>
+                                <p class="sub-txt">Notez les tâches à accomplir sur vos ruches et fixez vous des priorités et des dates</p>
+                            </div>
+                        </div>	
+                    </div>
+
+                    <div class="col-md-3" style="height: 266px;">
+                        <div class="info-box info-box7">
+                            <div class="img"><i class="fa fa-arrows-alt" id="ui-id-54" style="color: rgb(38, 166, 154);"></i></div>
+                            <div class="info">
+                                <h2 class="hd" style="margin-top: 0px; margin-bottom: 20px; color: rgb(55, 71, 79); font-size: 24px; font-weight: 300; font-style: normal;">Responsive</h2>
+                                <p class="sub-txt">Accédez à OpenHiveManager depuis n'importe quel smartphone, tablette ou ordinateur</p>
+                            </div>
+                        </div>	
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <p>Parce que nous souhaitons que tout le monde soit libre d'utiliser OpenHiveManager ou de la modifier à sa guise, l'application est développée sous licence GNU GPLv3 et le code source est disponible sur FramaGit.</p>
-                    <a title="Licence GNU GPLv3" href="https://www.gnu.org/licenses/quick-guide-gplv3.html" class="btn btn-warning pull-right">Licence GNU GPLv3</a>
-                </div>
+            </div><!-- /.container -->
+        </section><!-- /.content-section --><!-- Slider -->
+
+        <section class="slider-section slider-section-2" data-bg="" data-bg-align="center-center-cover" style="background-color: rgb(55, 71, 79);">
+            <div class="carousel-widget zoom-carousel ctrl-1" id="carousel-widget" data-nav="true" data-pager="true" data-itemrange="0,1|420,1|600,2|768,3|992,4|1200,6" data-margin="0" data-hauto="false" data-center="true">
+                <div class="owl-carousel">
+                    <div class="item">
+                        <div class="content anim"><img src="{{ asset('app-img1.jpg') }}"></div>
+                    </div><!-- /.item -->
+                </div><!-- /.owl-carousel -->
+            </div><!-- /.carousel-widget -->
+        </section><!-- /.slider-section --><!-- Footer section -->
+
+        <section class="footer-section footer-section-8" data-bg="" data-bg-align="center-center-cover" style="background-color: rgb(255, 255, 255);">
+            <div class="container">
+                <div class="link-list">
+                    <a href="{{ path('kg_beekeeping_management_home') }}"><i class="fa fa-home"></i> Manager</a>
+                    <a href="{{ path('kg_site_cgu') }}"><i class="fa fa-book"></i> CGU</a>
+                    <a href="{{ path('kg_site_contact') }}"><i class="fa fa-envelope"></i> Contact</a>
+                    <a href="{{ path('kg_site_participer') }}"><i class="fa fa-heart"></i> Participez</a>
+                </div><!-- /.link-list -->
+
+                <!--<div class="social-links">
+                    <a href="#" data-selector="Footer"><i class="fa fa-facebook-square" style="color: rgb(38, 166, 154);" id="ui-id-17" data-selector=".fa"></i></a>
+                    <a href="#" data-selector="Footer"><i class="fa fa-twitter" style="color: rgb(38, 166, 154);" id="ui-id-18" data-selector=".fa"></i></a>
+                    <a href="#" data-selector="Footer"><i class="fa fa-github" style="color: rgb(38, 166, 154);" id="ui-id-19" data-selector=".fa"></i></a>
+                </div><!-- /Social -->
+
+                <hr>
+                <p class="copyright">
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
+                    Ce <a href="http://www.openhivemanager.org" property="cc:attributionName" rel="cc:attributionURL">site</a> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">licence Creative Commons Attribution - Pas d&#39;Utilisation Commerciale - Pas de Modification 4.0 International</a>.
+                </p>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4>{{ icon('code-fork') }} Développement collaboratif</h4>
-                </div>
-                <div class="panel-body">
-                    <p>Parce que notre priorité est que chacun trouve dans OpenHiveManager les outils dont il a besoin, nous faisons tout notre possible pour vous intégrer dans notre processus d'évaluation des besoins et nous serons toujours à votre écoute.</p>
-                    <a title="Contactez-nous" href="{{ path('kg_site_contact') }}" class="btn btn-warning pull-right">Contactez-nous</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4>{{ icon('heart') }} Financement participatif</h4>
-                </div>
-                <div class="panel-body">
-                    <p>Parce que nous avons besoin d'argent pour assurer la pérennité et l'évolutivité d'OpenHiveManager et que nous nous refusons à tout autre mode de financement, comme la publicité, par exemple. </p>
-                    <a title="Participez" href="{{ path('kg_site_participer') }}" class="btn btn-warning pull-right">Participez</a>
-                </div>
-            </div>
-        </div>
+        </section><!-- ./Footer section -->
     </div>
-    <!-- /.row -->
-
-    <!-- Features Section -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="page-header">Fonctionnalités</h2>
-        </div>
-        <div class="col-md-6">
-            <p><strong>OpenHiveManager intègre les fonctionnalités suivantes :</strong></p>
-            <ul>   
-                <li>Suivi des conditions météorologique de vos ruchers</li>
-                <li>Archivage des visites de vos ruches</li>
-                <li>Archivage des transhumances de vos ruches</li>
-                <li>Archivage de la ligné de vos colonies</li>   
-                <li>Archivage des récoltes de vos ruches</li>
-                <li>Accès aux données d'une ruche par QR Code</li>
-                <li>Numérotation (facultative) de vos emplacements de ruche</li>
-                <li>Compatibilité tablettes et smartphones, tous systèmes d'exploitation</li>
-            </ul>
-            <p><strong>D'autres fonctionnalités sont en phase de développement :</strong></p>
-            <ul>
-                <li>Traduction du site dans plusieurs langues</li>
-                <li>Mode collaboratif pour travailler à plusieurs sur une exploitation</li>
-                <li>Editabilité des fiches de visites</li>
-                <li>Statistiques par colonies, ruches, ruchers, exploitation ...</li>
-                <li>Inventaire du matériel</li>
-                <li><strong>Et plein d'autres encore...</strong></li>
-            </ul>
-        </div>
-        <div class="col-md-6">
-            <img class="img-responsive" src="{{ asset("screen.png") }}" alt="Aperçu">
-        </div>
-    </div>
-    <!-- /.row -->
-
-    <hr>
-
-    <!-- Call to Action Section -->
-    <div class="well">
-        <div class="row">
-            <div class="col-md-8">
-                <p>OpenHiveManager est une application conçue par les apiculteurs, pour les apiculteurs. Vous souhaitez utiliser un outil répondant à vos besoins et fondé sur le partage et la collaboration? Alors n'hésitez plus!</p>
-            </div>
-            <div class="col-md-4">
-                <a title="Inscrivez-vous" class="btn btn-lg btn-success btn-block" href="{{ path('fos_user_registration_register') }}">Inscrivez-vous!</a>
-            </div>
-        </div>
-    </div>
-                
-    <div class="github-fork-ribbon-wrapper right-bottom">
-        <div class="github-fork-ribbon">
-            <a title="Fork me on Framagit" target="_blank" href="https://git.framasoft.org/jack12/OpenHiveManager.git">Fork me on Framagit</a>
-        </div>
-    </div>
-
 {% endblock %}

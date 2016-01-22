@@ -14,236 +14,201 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  #}
+{% extends "KGSiteBundle::layout.html.twig" %}
 
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        
-        <meta property="og:locale" content="fr_FR" />
-        <meta property="og:title" content="OpenHiveManager" />
-        <meta property="og:type" content="article" />
-        <meta property="og:description" content="La première application participative de gestion appicole" />
-        <meta property="og:url" content="http://www.openhivemanager.org" />
-        <meta property="og:site_name" content="OpenHiveManager" />
-        <meta property="og:image" content="http://www.openhivemanager.org/logo_ogpng" /> 
-        <meta property="og:image:width" content="200" />
-        
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-	<title>OpenHiveManager - Manager</title>
+{% block sitetitle %}
+    <title>OpenHiveManager - Manager</title>
+{% endblock %}
 
-        <!-- Global stylesheets -->
-        {% block stylesheets %}
-            {% stylesheets filter='cssrewrite, ?uglifycss'
-                    'assets/css/icons/icomoon/styles.css'
-                    'assets/css/icons/fontawesome/styles.min.css'
-                    'assets/css/bootstrap.css'
-                    'assets/css/core.css'
-                    'assets/css/components.css'
-                    'assets/css/colors.css'
-                %}
-                <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-            {% endstylesheets %}
-            <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-        {% endblock %}
-        <!-- /global stylesheets -->
-        
-    </head>
+{% block stylesheets %}
+    {% stylesheets filter='cssrewrite, ?uglifycss'
+            'assets/css/icons/icomoon/styles.css'
+            'assets/css/icons/fontawesome/styles.min.css'
+            'assets/css/bootstrap.css'
+            'assets/css/core.css'
+            'assets/css/components.css'
+            'assets/css/colors.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+{% endblock %}
 
-    <body class="layout-boxed">
+{% block javascripts %}
+    {% javascripts filter='?uglifyjs2'
+            'assets/js/plugins/loaders/pace.min.js' 
+            'assets/js/core/libraries/jquery.min.js'
+            'assets/js/core/libraries/bootstrap.min.js'
+            'assets/js/plugins/loaders/blockui.min.js'
+            'assets/js/plugins/ui/nicescroll.min.js'
+            'assets/js/pages/layout_fixed_custom.js'
+            'assets/js/core/app.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>          		
+    {% endjavascripts %}
+    {{ parent() }}
+{% endblock %} 
+     
+{% block classbody %}
+class="layout-boxed"    
+{% endblock %}    
 
-	<!-- Main navbar -->
-	<div class="navbar navbar-inverse">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{{ path('kg_site_home') }}">OpenHiveManager</a>
+{% block mainnavbar %}
+    <div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ path('kg_site_home') }}">OpenHiveManager</a>
 
-                <ul class="nav navbar-nav pull-right visible-xs-block">
-                    <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
-                    <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
-                </ul>
-            </div>
+            <ul class="nav navbar-nav pull-right visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+            </ul>
+        </div>
 
-            <div class="navbar-collapse collapse" id="navbar-mobile">
-                <ul class="nav navbar-nav">
-                    <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
-                </ul>
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+            <ul class="nav navbar-nav">
+                <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+            </ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown dropdown-user">
-                        <a class="dropdown-toggle" data-toggle="dropdown">
-                            <!--<img src="assets/images/image.png" alt="">-->
-                            <span>{{ app.user.username }}</span>
-                            <i class="caret"></i>
-                        </a>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown dropdown-user">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <!--<img src="assets/images/image.png" alt="">-->
+                        <span>{{ app.user.username }}</span>
+                        <i class="caret"></i>
+                    </a>
 
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="{{ path('fos_user_profile_edit') }}"><i class="icon-user-plus"></i> Mon profil</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{{ path('fos_user_change_password') }}"><i class="icon-key"></i> Mot de passe</a></li>
-                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-switch2"></i> Déconnexion</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-	</div>
-	<!-- /main navbar -->
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="{{ path('fos_user_profile_edit') }}"><i class="icon-user-plus"></i> Mon profil</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ path('fos_user_change_password') }}"><i class="icon-key"></i> Mot de passe</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-switch2"></i> Déconnexion</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
 
+{% block pagecontainer %}
+    <div class="page-container">
 
-	<!-- Page container -->
-	<div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
 
-            <!-- Page content -->
-            <div class="page-content">
+            <!-- Main sidebar -->
+            <div class="sidebar sidebar-main">
+                <div class="sidebar-content">
 
-                <!-- Main sidebar -->
-                <div class="sidebar sidebar-main">
-                    <div class="sidebar-content">
-
-                        <!-- User menu -->
-                        <div class="sidebar-user">
-                            <div class="category-content">
-                                <div class="media">
-                                    <!--<a href="#" class="media-left"><img src="assets/images/image.png" class="img-circle img-sm" alt=""></a>-->
-                                    <div class="media-body">
-                                        <span class="media-heading text-semibold">{{ app.user.exploitations|first.nom }}</span>
-                                        <!--<div class="text-size-mini text-muted">
-                                            <i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
-                                        </div>-->
-                                    </div>
-
-                                    <!--{#<div class="media-right media-middle">
-                                        <ul class="icons-list">
-                                            <li>
-                                                <a href="{{ path('kg_beekeeping_management_update_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="icon-cog3"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>#}-->
+                    <!-- User menu -->
+                    <div class="sidebar-user">
+                        <div class="category-content">
+                            <div class="media">
+                                <!--<a href="#" class="media-left"><img src="assets/images/image.png" class="img-circle img-sm" alt=""></a>-->
+                                <div class="media-body">
+                                    <span class="media-heading text-semibold">{{ app.user.exploitations|first.nom }}</span>
+                                    <!--<div class="text-size-mini text-muted">
+                                        <i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
+                                    </div>-->
                                 </div>
-                            </div>
-                        </div>
-                        <!-- /user menu -->
 
-
-                        <!-- Main navigation -->
-                        <div class="sidebar-category sidebar-category-visible">
-                            <div class="category-content no-padding">
-                                <ul class="navigation navigation-main navigation-accordion">
-
-                                    <!-- Main -->
-                                    <li class="navigation-header"><span>Menu Principal</span> <i class="icon-menu" title="Main pages"></i></li>
-                                    <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="fa fa-tachometer"></i> <span>Panneau de contrôle</span></a></li>
-                                    <li>
-                                        <a href="#"><i class="icon-lan2"></i> <span>Ruchers</span></a>
-                                            <ul>
-                                                {% for rucher in app.user.exploitations|first.ruchers %}
-                                                    <li>
-                                                        <a href="#"><i class="fa fa-building"></i> {{ rucher.nom }}<span class="fa arrow"></span></a>
-                                                        <ul class="nav nav-second-level">
-                                                            <li><a title="Ouvrir le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-folder-open-o"></i> Ouvrir</a></li>
-                                                            {% if rucher.hasRuche %}
-                                                                <li>
-                                                                    <a href="#"><i class="fa fa-list fa-fw"></i>Ruches <span class="fa arrow"></span></a>
-                                                                    <ul>
-                                                                        {% for emplacement in rucher.emplacements %}
-                                                                            {% if emplacement.ruche %}
-                                                                                {% if emplacement.ruche.id %}
-                                                                                    {% if not emplacement.ruche.colonie.morte %}
-                                                                                        <li>
-                                                                                            <a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}"><i class="fa fa-archive"></i> {{ emplacement.ruche.nom }}</a>
-                                                                                        </li>
-                                                                                    {% endif %}    
-                                                                                {% endif %}
-                                                                            {% endif %}
-                                                                        {% endfor %}
-                                                                    </ul>
-                                                                </li>
-                                                            {% endif %}
-                                                        </ul>
-                                                    </li>
-                                                {% endfor %}    
-                                            </ul>
+                                <!--{#<div class="media-right media-middle">
+                                    <ul class="icons-list">
+                                        <li>
+                                            <a href="{{ path('kg_beekeeping_management_update_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="icon-cog3"></i></a>
                                         </li>
-                                        <!-- /main -->
-
-                                </ul>
+                                    </ul>
+                                </div>#}-->
                             </div>
                         </div>
-                        <!-- /main navigation -->
-
                     </div>
-                </div>
-                <!-- /main sidebar -->
+                    <!-- /user menu -->
 
 
-                <!-- Main content -->
-                <div class="content-wrapper">
- 
-                    <!-- Cover area -->
-                    {% block cover %}
-                    {% endblock %}    
-                    <!-- /cover area -->                    
-                    
-                    <!-- Toolbar -->
-                    {% block toolbar %}
-                    {% endblock %}
-                    <!-- /toolbar -->                    
+                    <!-- Main navigation -->
+                    <div class="sidebar-category sidebar-category-visible">
+                        <div class="category-content no-padding">
+                            <ul class="navigation navigation-main navigation-accordion">
 
-                    <!-- Content area -->
-                    <div class="content">
-                            {% include 'BraincraftedBootstrapBundle::flash.html.twig' %} 
-                            {% block body %}
+                                <!-- Main -->
+                                <li class="navigation-header"><span>Menu Principal</span> <i class="icon-menu" title="Main pages"></i></li>
+                                <li><a href="{{ path('kg_beekeeping_management_view_exploitation', { 'exploitation_id': app.user.exploitations|first.id }) }}"><i class="fa fa-tachometer"></i> <span>Panneau de contrôle</span></a></li>
+                                <li>
+                                    <a href="#"><i class="icon-lan2"></i> <span>Ruchers</span></a>
+                                        <ul>
+                                            {% for rucher in app.user.exploitations|first.ruchers %}
+                                                <li>
+                                                    <a href="#"><i class="fa fa-building"></i> {{ rucher.nom }}<span class="fa arrow"></span></a>
+                                                    <ul class="nav nav-second-level">
+                                                        <li><a title="Ouvrir le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-folder-open-o"></i> Ouvrir</a></li>
+                                                        {% if rucher.hasRuche %}
+                                                            <li>
+                                                                <a href="#"><i class="fa fa-list fa-fw"></i>Ruches <span class="fa arrow"></span></a>
+                                                                <ul>
+                                                                    {% for emplacement in rucher.emplacements %}
+                                                                        {% if emplacement.ruche %}
+                                                                            {% if emplacement.ruche.id %}
+                                                                                {% if not emplacement.ruche.colonie.morte %}
+                                                                                    <li>
+                                                                                        <a title="Afficher la ruche" href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}"><i class="fa fa-archive"></i> {{ emplacement.ruche.nom }}</a>
+                                                                                    </li>
+                                                                                {% endif %}    
+                                                                            {% endif %}
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </li>
+                                            {% endfor %}    
+                                        </ul>
+                                    </li>
+                                    <!-- /main -->
 
-                            {% endblock %}
-
-                            <!-- Footer -->
-                            <div class="footer text-muted">
-                                OpenHiveManager n'est pas une application gratuite. C'est une application participative. <a title="Participez" href="{{ path('kg_site_participer') }}">Pour la faire vivre, participez! </a>
-                            </div>
-                            <!-- /footer -->
-
+                            </ul>
+                        </div>
                     </div>
-                    <!-- /content area -->
+                    <!-- /main navigation -->
 
                 </div>
-                <!-- /main content -->
+            </div>
+            <!-- /main sidebar -->
+
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Cover area -->
+                {% block cover %}
+                {% endblock %}    
+                <!-- /cover area -->                    
+
+                <!-- Toolbar -->
+                {% block toolbar %}
+                {% endblock %}
+                <!-- /toolbar -->                    
+
+                <!-- Content area -->
+                <div class="content">
+                        {% include 'BraincraftedBootstrapBundle::flash.html.twig' %} 
+                        {% block body %}
+
+                        {% endblock %}
+
+                        <!-- Footer -->
+                        <div class="footer text-muted">
+                            OpenHiveManager n'est pas une application gratuite. C'est une application participative. <a title="Participez" href="{{ path('kg_site_participer') }}">Pour la faire vivre, participez! </a>
+                        </div>
+                        <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
 
             </div>
-            <!-- /page content -->
+            <!-- /main content -->
 
-	</div>
-	<!-- /page container -->
-               
-        {% block javascripts %}
-            {% javascripts filter='?uglifyjs2'
-                    'assets/js/plugins/loaders/pace.min.js' 
-                    'assets/js/core/libraries/jquery.min.js'
-                    'assets/js/core/libraries/bootstrap.min.js'
-                    'assets/js/plugins/loaders/blockui.min.js'
-                    'assets/js/plugins/ui/nicescroll.min.js'
-                    'assets/js/pages/layout_fixed_custom.js'
-                    'assets/js/core/app.js'
-            %}
-                <script src="{{ asset_url }}" type="text/javascript"></script>          		
-            {% endjavascripts %}
-        
-            <!-- Piwik -->
-            <script type="text/javascript">
-              var _paq = _paq || [];
-              _paq.push(['trackPageView']);
-              _paq.push(['enableLinkTracking']);
-              (function() {
-                    var u="//analytics.openhivemanager.org/";
-                    _paq.push(['setTrackerUrl', u+'piwik.php']);
-                    _paq.push(['setSiteId', 1]);
-                    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-              })();
-            </script>
-            <noscript><p><img src="//analytics.openhivemanager.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
-            <!-- End Piwik Code -->	           
-        {% endblock %}    
-    </body>
-    
-</html>
+        </div>
+        <!-- /page content -->
+
+    </div>
+{% endblock %}
