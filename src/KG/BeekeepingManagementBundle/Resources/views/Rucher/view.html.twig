@@ -131,10 +131,6 @@
                                                                     <li><a href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-trash"></i> Supprimer l'emplacement</a></li>
                                                                 {% endif %}
 
-                                                                {% if not emplacement.ruche or rucher.numerotation %}
-                                                                    <li class="divider"></li>
-                                                                {% endif %}
-
                                                                 {% if emplacement.ruche %}
                                                                     <li><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}"><i class="fa fa-folder-open-o"></i> Ouvrir la ruche</a></li>
 

@@ -18,11 +18,11 @@
     <div class="row">
         {% for tache in taches %}
             {% if tache.priorite.id == 1 %}
-                {% set couleur = 'danger' %}  
+                {% set couleur = 'success' %}  
             {% elseif tache.priorite.id == 2 %}
                 {% set couleur = 'primary' %}   
             {% elseif tache.priorite.id == 3 %}
-                {% set couleur = 'success' %}      
+                {% set couleur = 'danger' %}      
             {% endif %}                                              
 
             <div class="col-md-6">
