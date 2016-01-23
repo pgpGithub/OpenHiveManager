@@ -1,52 +1,123 @@
-{# src/KG/SiteBundle/Resources/views/Accueil/index.html.twig #}
+{# src/KG/SiteBundle/Resources/views/Accueil/contact.html.twig #}
 
 {% extends "KGSiteBundle::layout.html.twig" %}
 
 {% block stylesheets %}
-    {{ parent() }}
+    {% stylesheets filter='cssrewrite, ?uglifycss'
+            'assets/css/icons/icomoon/styles.css'
+            'assets/css/icons/fontawesome/styles.min.css'
+            'assets/css/bootstrap.css'
+            'assets/css/core.css'
+            'assets/css/components.css'
+            'assets/css/colors.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 {% endblock %}
 
-{% block body %}
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="page-header">{{ icon('heart') }} Faites vivre OpenHiveManager</h2>    
-                
-            <div class="well well-sm" align='center'>
-                <p>Nous préférons une participation modeste et régulière (à la manière d'un abonnement) plutôt qu'une participation conséquente mais ponctuelle.</p>     
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick">
-                    <input type="hidden" name="hosted_button_id" value="YJTQ7EP5L2VGQ">
-                    <button type="submit" class="btn btn-lg btn-warning">
-                        {{ icon('heart') }} Participez
-                    </button>
-                </form> 
-            </div>
+{% block javascripts %}
+    {% javascripts filter='?uglifyjs2'
+            'assets/js/plugins/loaders/pace.min.js' 
+            'assets/js/core/libraries/jquery.min.js'
+            'assets/js/core/libraries/bootstrap.min.js'
+            'assets/js/plugins/loaders/blockui.min.js'
+            'assets/js/plugins/ui/nicescroll.min.js'
+            'assets/js/pages/layout_fixed_custom.js'
+            'assets/js/core/app.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>          		
+    {% endjavascripts %}
+    {{ parent() }}
+{% endblock %} 
 
-            <h3>Libre ne veut pas dire gratuit</h3>
-            <p>
-               OpenHiveManager est un logiciel libre mais cela ne veut pas dire qu'il est gratuit. 
-               En effet, le développement d'un tel projet nécessite beaucoup de temps et de travail, qu'il est tout à fait normal de rémunérer.
-               Enfin, l'hébergement de l'application à également un coût qu'il faut financer.
-            </p>
-            
-            <h3>Contre la publicité</h3>
-            <p>               
-                Contrairement à beaucoup de sites ou logiciels gratuits, nous ne vivrons jamais de la publicité.<br/>
-                Les raisons sont simples :
-                <ul>
-                    <li>La publicité allourdie le contenu des pages, ralentie leur chargement et gêne les utilisateurs</li>
-                    <li>La publicité pousse à la consommation et participe à la destruction de l'environnement</li>
-                    <li>Nous refusons de traiter nos utilisateurs comme des produits</li>
-                    <li>Nous souhaitons rester libres et indépendants</li>
-                </ul>        
-            </p> 
-            
-            <h3>Accessible à tous</h3>
-            <p>
-                Il serait injuste de faire payer le même montant à chaque utilisateur alors qu'aucun n'utilise l'application de la même façon et qu'aucun ne dispose des mêmes moyens financiers.
-                Il serait tout aussi injuste de priver certains utilisateurs de l'utilisation de l'application sous prétexte qu'ils ne disposent pas des moyens financiers suffisants pour s'en servir.
-                C'est pourquoi nous laissons chaque utilisateur libre de participer ou non au financement d'OpenHiveManager.
-            </p>                         
+{% block sitetitle %}{{ parent() }} - Contact{% endblock %}
+
+{% block mainnavbar %}
+    {% include 'KGSiteBundle::mainnavbar.html.twig' %}
+{% endblock %}
+
+{% block pagecontainer %}
+    <div class="page-container login-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Content area -->
+                <div class="content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <!-- Simple panel -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h2 class="panel-title">Faites vivre OpenHiveManager</h2>
+                                        </div>
+
+                                        <div class="panel-body">    
+                                            <div class="well well-sm" align='center'>
+                                                <p>Nous préférons une participation modeste et régulière (à la manière d'un abonnement) plutôt qu'une participation conséquente mais ponctuelle.</p>     
+                                                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                                    <input type="hidden" name="cmd" value="_s-xclick">
+                                                    <input type="hidden" name="hosted_button_id" value="YJTQ7EP5L2VGQ">
+                                                    <button type="submit" class="btn btn-lg btn-warning">
+                                                        {{ icon('heart') }} Participez
+                                                    </button>
+                                                </form> 
+                                            </div>
+
+                                            <h3>Libre ne veut pas dire gratuit</h3>
+                                            <p>
+                                               OpenHiveManager est un logiciel libre mais cela ne veut pas dire qu'il est gratuit. 
+                                               En effet, le développement d'un tel projet nécessite beaucoup de temps et de travail, qu'il est tout à fait normal de rémunérer.
+                                               Enfin, l'hébergement de l'application à également un coût qu'il faut financer.
+                                            </p>
+
+                                            <h3>Contre la publicité</h3>
+                                            <p>               
+                                                Contrairement à beaucoup de sites ou logiciels gratuits, nous ne vivrons jamais de la publicité.<br/>
+                                                Les raisons sont simples :
+                                                <ul>
+                                                    <li>La publicité allourdie le contenu des pages, ralentie leur chargement et gêne les utilisateurs</li>
+                                                    <li>La publicité pousse à la consommation et participe à la destruction de l'environnement</li>
+                                                    <li>Nous refusons de traiter nos utilisateurs comme des produits</li>
+                                                    <li>Nous souhaitons rester libres et indépendants</li>
+                                                </ul>        
+                                            </p> 
+
+                                            <h3>Accessible à tous</h3>
+                                            <p>
+                                                Il serait injuste de faire payer le même montant à chaque utilisateur alors qu'aucun n'utilise l'application de la même façon et qu'aucun ne dispose des mêmes moyens financiers.
+                                                Il serait tout aussi injuste de priver certains utilisateurs de l'utilisation de l'application sous prétexte qu'ils ne disposent pas des moyens financiers suffisants pour s'en servir.
+                                                C'est pourquoi nous laissons chaque utilisateur libre de participer ou non au financement d'OpenHiveManager.
+                                            </p>
+                                        </div>    
+                                    </div>
+                                    <!-- /simple panel -->
+                                </div>
+                            </div>                                        
+                        </div>
+                    </div>
+                                            
+                    <!-- Footer -->
+                    <div class="footer text-muted">
+                            {% include 'KGSiteBundle::footer.html.twig' %} 
+                    </div>
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
         </div>
-    </div>             
+        <!-- /page content -->
+
+    </div> 
 {% endblock %}

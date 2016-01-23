@@ -34,9 +34,7 @@
             <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 	{% endblock %}
         
-        {% block sitetitle %}
-            <title>OpenHiveManager</title>
-        {% endblock %}
+        <title>OpenHiveManager{% block sitetitle %}{% endblock %}</title>
         
         <!-- Global stylesheets -->
         {% block stylesheets %}

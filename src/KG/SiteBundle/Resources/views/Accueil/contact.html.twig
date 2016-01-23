@@ -3,34 +3,99 @@
 {% extends "KGSiteBundle::layout.html.twig" %}
 
 {% block stylesheets %}
-    {{ parent() }}
+    {% stylesheets filter='cssrewrite, ?uglifycss'
+            'assets/css/icons/icomoon/styles.css'
+            'assets/css/icons/fontawesome/styles.min.css'
+            'assets/css/bootstrap.css'
+            'assets/css/core.css'
+            'assets/css/components.css'
+            'assets/css/colors.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block javascripts %}
+    {% javascripts filter='?uglifyjs2'
+            'assets/js/plugins/loaders/pace.min.js' 
+            'assets/js/core/libraries/jquery.min.js'
+            'assets/js/core/libraries/bootstrap.min.js'
+            'assets/js/plugins/loaders/blockui.min.js'
+            'assets/js/plugins/ui/nicescroll.min.js'
+            'assets/js/pages/layout_fixed_custom.js'
+            'assets/js/core/app.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>          		
+    {% endjavascripts %}
     {{ parent() }}
+{% endblock %} 
+
+{% block sitetitle %}{{ parent() }} - Contact{% endblock %}
+
+{% block mainnavbar %}
+    {% include 'KGSiteBundle::mainnavbar.html.twig' %}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Contact{% endblock %}
+{% block pagecontainer %}
+    <div class="page-container login-container">
 
-{% block body %}
-    <div class="row">
-        <div class="col-lg-12">  
-            <h2 class="page-header">{{ icon('envelope') }} Contactez-nous</h2>            
+        <!-- Page content -->
+        <div class="page-content">
 
-            <h3>{{ icon('info-circle') }} La parole est à vous</h3>
-            <p>
-                Une idée, une remarque, un conseil, un soutien ? N'hésitez pas à nous écrire à <a href="mailto:contact@openhivemanager.org">contact@openhivemanager.org</a>, nous prendrons toujours le temps de vous répondre.
-            </p>
-            <h3>{{ icon('question-circle') }} Nous sommes là pour vous aider</h3>
-            <p>
-                Vous rencontrez une anomalie ou avez besoin d'aide ? Ecrivez nous à <a href="mailto:support@openhivemanager.org">support@openhivemanager.org</a> en détaillant un maximum votre problème avec, si nécessaire :
-                <ul>
-                    <li>Des copies d'écran</li>
-                    <li>Les étapes pour reproduire l'anomalie</li>
-                    <li>L'url de la page</li>
-                    <li>Le ou les messages d'erreurs</li>
-                </ul>
-            </p>
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Content area -->
+                <div class="content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <!-- Simple panel -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h2 class="panel-title">Contactez-nous</h2>
+                                        </div>
+
+                                        <div class="panel-body">              
+                                            <h3>La parole est à vous</h3>
+                                            <p>
+                                                Une idée, une remarque, un conseil, un soutien ? N'hésitez pas à nous écrire à <a href="mailto:contact@openhivemanager.org">contact@openhivemanager.org</a>, nous prendrons toujours le temps de vous répondre.
+                                            </p>
+                                            <h3>Nous sommes là pour vous aider</h3>
+                                            <p>
+                                                Vous rencontrez une anomalie ou avez besoin d'aide ? Ecrivez nous à <a href="mailto:support@openhivemanager.org">support@openhivemanager.org</a> en détaillant un maximum votre problème avec, si nécessaire :
+                                                <ul>
+                                                    <li>Des copies d'écran</li>
+                                                    <li>Les étapes pour reproduire l'anomalie</li>
+                                                    <li>L'url de la page</li>
+                                                    <li>Le ou les messages d'erreurs</li>
+                                                </ul>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- /simple panel -->
+                                </div>
+                            </div>                                        
+                        </div>
+                    </div>
+                                            
+                    <!-- Footer -->
+                    <div class="footer text-muted">
+                            {% include 'KGSiteBundle::footer.html.twig' %} 
+                    </div>
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
         </div>
-    </div>      
+        <!-- /page content -->
+
+    </div> 
 {% endblock %}

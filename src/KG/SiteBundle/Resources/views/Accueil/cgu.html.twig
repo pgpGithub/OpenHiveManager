@@ -3,122 +3,186 @@
 {% extends "KGSiteBundle::layout.html.twig" %}
 
 {% block stylesheets %}
-    {{ parent() }}
     {% stylesheets filter='cssrewrite, ?uglifycss'
-        '@KGSiteBundle/Resources/public/css/business-frontpage.css'%}
+            'assets/css/icons/icomoon/styles.css'
+            'assets/css/icons/fontawesome/styles.min.css'
+            'assets/css/bootstrap.css'
+            'assets/css/core.css'
+            'assets/css/components.css'
+            'assets/css/colors.css'
+        %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
+    {% endstylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 {% endblock %}
 
-{% block title %}{{ parent() }} - CGU{% endblock %}
+{% block javascripts %}
+    {% javascripts filter='?uglifyjs2'
+            'assets/js/plugins/loaders/pace.min.js' 
+            'assets/js/core/libraries/jquery.min.js'
+            'assets/js/core/libraries/bootstrap.min.js'
+            'assets/js/plugins/loaders/blockui.min.js'
+            'assets/js/plugins/ui/nicescroll.min.js'
+            'assets/js/pages/layout_fixed_custom.js'
+            'assets/js/core/app.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>          		
+    {% endjavascripts %}
+    {{ parent() }}
+{% endblock %} 
 
-{% block body %}
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="page-header">{{ icon('book') }} CGU OpenHiveManager</h2>
-            <h3>Article 1 : Objet</h3>
-            <p>
-                Les présentes « conditions générales d'utilisation » ont pour objet l'encadrement juridique des modalités de mise à disposition des services du site OpenHiveManager et leur utilisation par « l'Utilisateur ».
-            </p>
-            <p>
-                Les conditions générales d'utilisation doivent être acceptées par tout Utilisateur souhaitant accéder au site. Elles constituent le contrat entre le site et l'Utilisateur. L’accès au site par l’Utilisateur signifie son acceptation des présentes conditions générales d’utilisation.
-                En cas de non-acceptation des conditions générales d'utilisation stipulées dans le présent contrat, l'Utilisateur se doit de renoncer à l'accès des services proposés par le site.
-            </p>
-            <p>
-                OpenHiveManager se réserve le droit de modifier unilatéralement et à tout moment le contenu des présentes conditions générales d'utilisation.
-            </p>
+{% block sitetitle %}{{ parent() }} - CGU{% endblock %}
 
-            <h3>Article 2 : Mentions légales</h3>
-            <p>
-                L'édition et la publication du site OpenHiveManager est assurée par l'auto-entrepreneur <a title="CV Kévin Grenèche" href="http://www.doyoubuzz.com/kevin-greneche">Kévin Grenèche</a> dont le siège social est situé au 16 impasse de Borderouge 31200 Toulouse FRANCE.
-            </p>
-            <p>
-                L'hébergeur du site OpenHiveManager est l'association <a title="Web4all" href="http://web4all.fr">Web4all</a> dont le siège social est situé au 161 boulevard Charles de Gaulle 92700 Colombes FRANCE.                
-            </p>    
-            
-            <h3>Article 3 : Définitions</h3>
-            <p>
-                La présente clause a pour objet de définir les différents termes essentiels du contrat :
-                <ul>
-                    <li>Utilisateur : ce terme désigne toute personne qui utilise le site ou l'un des services proposés par le site.</li>
-                    <li>Contenu utilisateur : ce sont les données transmises par l'Utilisateur au sein du site.</li>
-                    <li>Membre : l'Utilisateur devient membre lorsqu'il est identifié sur le site.</li>
-                    <li>Identifiant et mot de passe : c'est l'ensemble des informations nécessaires à l'identification d'un Utilisateur sur le site. L'identifiant et le mot de passe permettent à l'Utilisateur d'accéder à des services réservés aux membres du site. Le mot de passe est confidentiel.</li>
-                </ul>
-            </p>
-            
-            <h3>Article 4 : Accès aux services</h3>
-            <p>
-                Le site permet à l'Utilisateur un accès libre à l'application OpenHiveManager.
-                Le site est accessible gratuitement en tout lieu à tout Utilisateur ayant un accès à Internet. Tous les frais supportés par l'Utilisateur pour accéder au service (matériel informatique, logiciels, connexion Internet, etc.) sont à sa charge.
-                L’Utilisateur non membre n'a pas accès aux services réservés aux membres. Pour cela, il doit s'identifier à l'aide de son identifiant et de son mot de passe.
-            </p>
-            <p>
-                Le site met en œuvre tous les moyens mis à sa disposition pour assurer un accès de qualité à ses services. L'obligation étant de moyens, le site ne s'engage pas à atteindre ce résultat.
-                Tout événement dû à un cas de force majeure ayant pour conséquence un dysfonctionnement du réseau ou du serveur n'engage pas la responsabilité d'OpenHiveManager.
-                L'accès aux services du site peut à tout moment faire l'objet d'une interruption, d'une suspension, d'une modification sans préavis pour une maintenance ou pour tout autre cas. L'Utilisateur s'oblige à ne réclamer aucune indemnisation suite à l'interruption, à la suspension ou à la modification du présent contrat.
-                L'Utilisateur a la possibilité de contacter le site par messagerie électronique à l’adresse contact@openhivemanager.org.            
-            <p>
-                
-            <h3>Article 5 : Propriété intellectuelle</h3>
-            <p>             
-                Le site openhivemanager.org est divisé en deux parties :
-                <ul>
-                    <li>Une partie applicative, qui englobe toutes les pages situées sous le répertoire "manager", correspondant à l'application de gestion apicole.</li>
-                    <li>Une partie informative, qui regroupe le reste des pages du site</li>
-                </ul>  
-                La partie applicative est publiée sous <a title="GNU GPLv3" href="https://www.gnu.org/licenses/quick-guide-gplv3.html">licence GNU GPLv3</a> et son code source est situé <a title="Code source OpenHiveManager" href="https://git.framasoft.org/jack12/OpenHiveManager.git">ici</a>.<br />
-                La partie informative est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">licence Creative Commons Attribution - Pas d&#39;Utilisation Commerciale - Pas de Modification 4.0 International</a>.
-            </p>
-            <p>
-                Tout contenu mis en ligne par l'Utilisateur est de sa seule responsabilité. L'Utilisateur s'engage à ne pas mettre en ligne de contenus pouvant porter atteinte aux intérêts de tierces personnes. Tout recours en justice engagé par un tiers lésé contre le site sera pris en charge par l'Utilisateur.
-                Le contenu de l'Utilisateur peut être à tout moment et pour n'importe quelle raison supprimé ou modifié par le site. L'Utilisateur ne reçoit aucune justification et notification préalablement à la suppression ou à la modification du contenu Utilisateur.                
-            </p>   
-            
-            <h3>Article 6 : Données personnelles</h3>
-            <p>
-                Les informations demandées à l’inscription au site sont nécessaires et obligatoires pour la création du compte de l'Utilisateur. En particulier, l'adresse électronique pourra être utilisée par le site pour l'administration, la gestion et l'animation du service.
-            </p>
-            <p>
-                Le site assure à l'Utilisateur une collecte et un traitement d'informations personnelles dans le respect de la vie privée conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés. 
-                Le site se réserve le droit d'utiliser <a title="Piwik" href="https://fr.piwik.org/blog/2015/02/la-cnil-recommande-piwik-pour-respecter-les-lois-sur-la-protection-des-donnees/">Piwik</a> pour produire des statistiques sur sa fréquentation. 
-            </p>
-            <p>
-                Le site est déclaré à la CNIL sous le numéro 1900744.
-            </p>
-            <p>
-                En vertu des articles 39 et 40 de la loi en date du 6 janvier 1978, l'Utilisateur dispose d'un droit d'accès, de rectification, de suppression et d'opposition de ses données personnelles. L'Utilisateur exerce ce droit depuis son espace "Profil".
-            </p>
-            
-            <h3>Article 7 : Responsabilité et force majeur</h3>
-            <p>
-                L'Utilisateur assume les risques liés à l'utilisation de son identifiant et mot de passe. Le site décline toute responsabilité.
-                Tout usage du service par l'Utilisateur ayant directement ou indirectement pour conséquence des dommages doit faire l'objet d'une indemnisation au profit du site.
-                Une garantie optimale de la sécurité et de la confidentialité des données transmises n'est pas assurée par le site. Toutefois, le site s'engage à mettre en œuvre tous les moyens nécessaires afin de garantir au mieux la sécurité et la confidentialité des données.
-                La responsabilité du site ne peut être engagée en cas de force majeure ou du fait imprévisible et insurmontable d'un tiers.                   
-            </p> 
-            
-            <h3>Article 8 : Liens hypertextes</h3>
-            <p>
-                De nombreux liens hypertextes sortants sont présents sur le site, cependant les pages web où mènent ces liens n'engagent en rien la responsabilité d'OpenHiveManager qui n'a pas le contrôle de ces liens.
-                L'Utilisateur s'interdit donc à engager la responsabilité du site concernant le contenu et les ressources relatives à ces liens hypertextes sortants.                
-            </p>
-            
-            <h3>Article 9 : Evolution du contrat</h3>
-            <p>
-                Le site se réserve à tout moment le droit de modifier les clauses stipulées dans le présent contrat.                
-            </p>
-            
-            <h3>Article 10 : Durée</h3>
-            <p>
-                La durée du présent contrat est indéterminée. Le contrat produit ses effets à l'égard de l'Utilisateur à compter de l'utilisation du service.                
-            </p> 
-            
-            <h3>Article 11 : Droit applicable et juridiction compétente</h3>
-            <p>
-                La législation française s'applique au présent contrat. En cas d'absence de résolution amiable d'un litige né entre les parties, seuls les tribunaux de la ville de Toulouse sont compétents.               
-            </p>
+{% block mainnavbar %}
+    {% include 'KGSiteBundle::mainnavbar.html.twig' %}
+{% endblock %}
+
+{% block pagecontainer %}
+    <div class="page-container login-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Content area -->
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <!-- Simple panel -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h2 class="panel-title">Conditions générales d'utilisation d'OpenHiveManager</h2>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <h3>Article 1 : Objet</h3>
+                                            <p>
+                                                Les présentes « conditions générales d'utilisation » ont pour objet l'encadrement juridique des modalités de mise à disposition des services du site OpenHiveManager et leur utilisation par « l'Utilisateur ».
+                                            </p>
+                                            <p>
+                                                Les conditions générales d'utilisation doivent être acceptées par tout Utilisateur souhaitant accéder au site. Elles constituent le contrat entre le site et l'Utilisateur. L’accès au site par l’Utilisateur signifie son acceptation des présentes conditions générales d’utilisation.
+                                                En cas de non-acceptation des conditions générales d'utilisation stipulées dans le présent contrat, l'Utilisateur se doit de renoncer à l'accès des services proposés par le site.
+                                            </p>
+                                            <p>
+                                                OpenHiveManager se réserve le droit de modifier unilatéralement et à tout moment le contenu des présentes conditions générales d'utilisation.
+                                            </p>
+
+                                            <h3>Article 2 : Mentions légales</h3>
+                                            <p>
+                                                L'édition et la publication du site OpenHiveManager est assurée par l'auto-entrepreneur <a title="CV Kévin Grenèche" href="http://www.doyoubuzz.com/kevin-greneche">Kévin Grenèche</a> dont le siège social est situé au 16 impasse de Borderouge 31200 Toulouse FRANCE.
+                                            </p>
+                                            <p>
+                                                L'hébergeur du site OpenHiveManager est l'association <a title="Web4all" href="http://web4all.fr">Web4all</a> dont le siège social est situé au 161 boulevard Charles de Gaulle 92700 Colombes FRANCE.                
+                                            </p>    
+
+                                            <h3>Article 3 : Définitions</h3>
+                                            <p>
+                                                La présente clause a pour objet de définir les différents termes essentiels du contrat :
+                                                <ul>
+                                                    <li>Utilisateur : ce terme désigne toute personne qui utilise le site ou l'un des services proposés par le site.</li>
+                                                    <li>Contenu utilisateur : ce sont les données transmises par l'Utilisateur au sein du site.</li>
+                                                    <li>Membre : l'Utilisateur devient membre lorsqu'il est identifié sur le site.</li>
+                                                    <li>Identifiant et mot de passe : c'est l'ensemble des informations nécessaires à l'identification d'un Utilisateur sur le site. L'identifiant et le mot de passe permettent à l'Utilisateur d'accéder à des services réservés aux membres du site. Le mot de passe est confidentiel.</li>
+                                                </ul>
+                                            </p>
+
+                                            <h3>Article 4 : Accès aux services</h3>
+                                            <p>
+                                                Le site permet à l'Utilisateur un accès libre à l'application OpenHiveManager.
+                                                Le site est accessible gratuitement en tout lieu à tout Utilisateur ayant un accès à Internet. Tous les frais supportés par l'Utilisateur pour accéder au service (matériel informatique, logiciels, connexion Internet, etc.) sont à sa charge.
+                                                L’Utilisateur non membre n'a pas accès aux services réservés aux membres. Pour cela, il doit s'identifier à l'aide de son identifiant et de son mot de passe.
+                                            </p>
+                                            <p>
+                                                Le site met en œuvre tous les moyens mis à sa disposition pour assurer un accès de qualité à ses services. L'obligation étant de moyens, le site ne s'engage pas à atteindre ce résultat.
+                                                Tout événement dû à un cas de force majeure ayant pour conséquence un dysfonctionnement du réseau ou du serveur n'engage pas la responsabilité d'OpenHiveManager.
+                                                L'accès aux services du site peut à tout moment faire l'objet d'une interruption, d'une suspension, d'une modification sans préavis pour une maintenance ou pour tout autre cas. L'Utilisateur s'oblige à ne réclamer aucune indemnisation suite à l'interruption, à la suspension ou à la modification du présent contrat.
+                                                L'Utilisateur a la possibilité de contacter le site par messagerie électronique à l’adresse contact@openhivemanager.org.            
+                                            <p>
+
+                                            <h3>Article 5 : Propriété intellectuelle</h3>
+                                            <p>             
+                                                Le site openhivemanager.org est divisé en deux parties :
+                                                <ul>
+                                                    <li>Une partie applicative, qui englobe toutes les pages situées sous le répertoire "manager", correspondant à l'application de gestion apicole.</li>
+                                                    <li>Une partie informative, qui regroupe le reste des pages du site</li>
+                                                </ul>  
+                                                La partie applicative est publiée sous <a title="GNU GPLv3" href="https://www.gnu.org/licenses/quick-guide-gplv3.html">licence GNU GPLv3</a> et son code source est situé <a title="Code source OpenHiveManager" href="https://git.framasoft.org/jack12/OpenHiveManager.git">ici</a>.<br />
+                                                La partie informative est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">licence Creative Commons Attribution - Pas d&#39;Utilisation Commerciale - Pas de Modification 4.0 International</a>.
+                                            </p>
+                                            <p>
+                                                Tout contenu mis en ligne par l'Utilisateur est de sa seule responsabilité. L'Utilisateur s'engage à ne pas mettre en ligne de contenus pouvant porter atteinte aux intérêts de tierces personnes. Tout recours en justice engagé par un tiers lésé contre le site sera pris en charge par l'Utilisateur.
+                                                Le contenu de l'Utilisateur peut être à tout moment et pour n'importe quelle raison supprimé ou modifié par le site. L'Utilisateur ne reçoit aucune justification et notification préalablement à la suppression ou à la modification du contenu Utilisateur.                
+                                            </p>   
+
+                                            <h3>Article 6 : Données personnelles</h3>
+                                            <p>
+                                                Les informations demandées à l’inscription au site sont nécessaires et obligatoires pour la création du compte de l'Utilisateur. En particulier, l'adresse électronique pourra être utilisée par le site pour l'administration, la gestion et l'animation du service.
+                                            </p>
+                                            <p>
+                                                Le site assure à l'Utilisateur une collecte et un traitement d'informations personnelles dans le respect de la vie privée conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés. 
+                                                Le site se réserve le droit d'utiliser <a title="Piwik" href="https://fr.piwik.org/blog/2015/02/la-cnil-recommande-piwik-pour-respecter-les-lois-sur-la-protection-des-donnees/">Piwik</a> pour produire des statistiques sur sa fréquentation. 
+                                            </p>
+                                            <p>
+                                                Le site est déclaré à la CNIL sous le numéro 1900744.
+                                            </p>
+                                            <p>
+                                                En vertu des articles 39 et 40 de la loi en date du 6 janvier 1978, l'Utilisateur dispose d'un droit d'accès, de rectification, de suppression et d'opposition de ses données personnelles. L'Utilisateur exerce ce droit depuis son espace "Profil".
+                                            </p>
+
+                                            <h3>Article 7 : Responsabilité et force majeur</h3>
+                                            <p>
+                                                L'Utilisateur assume les risques liés à l'utilisation de son identifiant et mot de passe. Le site décline toute responsabilité.
+                                                Tout usage du service par l'Utilisateur ayant directement ou indirectement pour conséquence des dommages doit faire l'objet d'une indemnisation au profit du site.
+                                                Une garantie optimale de la sécurité et de la confidentialité des données transmises n'est pas assurée par le site. Toutefois, le site s'engage à mettre en œuvre tous les moyens nécessaires afin de garantir au mieux la sécurité et la confidentialité des données.
+                                                La responsabilité du site ne peut être engagée en cas de force majeure ou du fait imprévisible et insurmontable d'un tiers.                   
+                                            </p> 
+
+                                            <h3>Article 8 : Liens hypertextes</h3>
+                                            <p>
+                                                De nombreux liens hypertextes sortants sont présents sur le site, cependant les pages web où mènent ces liens n'engagent en rien la responsabilité d'OpenHiveManager qui n'a pas le contrôle de ces liens.
+                                                L'Utilisateur s'interdit donc à engager la responsabilité du site concernant le contenu et les ressources relatives à ces liens hypertextes sortants.                
+                                            </p>
+
+                                            <h3>Article 9 : Evolution du contrat</h3>
+                                            <p>
+                                                Le site se réserve à tout moment le droit de modifier les clauses stipulées dans le présent contrat.                
+                                            </p>
+
+                                            <h3>Article 10 : Durée</h3>
+                                            <p>
+                                                La durée du présent contrat est indéterminée. Le contrat produit ses effets à l'égard de l'Utilisateur à compter de l'utilisation du service.                
+                                            </p> 
+
+                                            <h3>Article 11 : Droit applicable et juridiction compétente</h3>
+                                            <p>
+                                                La législation française s'applique au présent contrat. En cas d'absence de résolution amiable d'un litige né entre les parties, seuls les tribunaux de la ville de Toulouse sont compétents.               
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- /simple panel -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div class="footer text-muted">
+                        {% include 'KGSiteBundle::footer.html.twig' %}
+                    </div>
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
         </div>
-    </div>        
+        <!-- /page content -->
 
+    </div> 
 {% endblock %}

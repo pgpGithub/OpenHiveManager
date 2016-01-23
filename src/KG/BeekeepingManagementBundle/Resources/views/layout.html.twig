@@ -16,9 +16,7 @@
  #}
 {% extends "KGSiteBundle::layout.html.twig" %}
 
-{% block sitetitle %}
-    <title>OpenHiveManager - Manager</title>
-{% endblock %}
+{% block sitetitle %}{{ parent() }}- Manager{% endblock %}
 
 {% block stylesheets %}
     {% stylesheets filter='cssrewrite, ?uglifycss'

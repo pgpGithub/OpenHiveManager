@@ -1,0 +1,35 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+<div class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="{{ path('kg_site_home') }}">OpenHiveManager</a>
+
+        <ul class="nav navbar-nav pull-right visible-xs-block">
+            <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbar-mobile">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ path('kg_beekeeping_management_home') }}"><i class="fa fa-home position-left"></i> Manager</a></li>                            
+            <li><a href="{{ path('kg_site_cgu') }}"><i class="fa fa-book position-left"></i> CGU</a></li>
+            <li><a href="{{ path('kg_site_contact') }}"><i class="fa fa-envelope position-left"></i> Contact</a></li>                  
+            <li><a href="{{ path('kg_site_participer') }}"><strong><i class="fa fa-heart position-left"></i> Participez</strong></a></li> 
+        </ul>
+    </div>
+</div>
