@@ -2,27 +2,97 @@
 
 {% extends "KGSiteBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+    {% stylesheets filter='cssrewrite, ?uglifycss'
+            'assets/css/icons/icomoon/styles.css'
+            'assets/css/icons/fontawesome/styles.min.css'
+            'assets/css/bootstrap.css'
+            'assets/css/core.css'
+            'assets/css/components.css'
+            'assets/css/colors.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts filter='?uglifyjs2'
+            'assets/js/plugins/loaders/pace.min.js' 
+            'assets/js/core/libraries/jquery.min.js'
+            'assets/js/core/libraries/bootstrap.min.js'
+            'assets/js/plugins/loaders/blockui.min.js'
+            'assets/js/plugins/ui/nicescroll.min.js'
+            'assets/js/pages/layout_fixed_custom.js'
+            'assets/js/core/app.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>          		
+    {% endjavascripts %}
+    {{ parent() }}
+{% endblock %} 
+
+{% block mainnavbar %}
+    {% include 'KGSiteBundle::mainnavbar.html.twig' %}
+{% endblock %}
+
 {% block sitetitle %}{{ parent() }} - {{ status_text }}{% endblock %}
 
 {% block pagecontainer %}
- <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">{{ icon('exclamation-triangle ') }} Bzzzz! Une erreur vient de se produire</h1>
+    <div class="page-container login-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Content area -->
+                <div class="content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <!-- Simple panel -->
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h2 class="panel-title">Bzzzz! Une erreur vient de se produire</h2>
+                                        </div>
+
+                                        <div class="panel-body">              
+                                           <h2>Le serveur a retourné l'erreur suivante : "{{ status_code }} {{ status_text }}"</h2>
+                                            <p>
+                                                Cela signifie que la page que vous souhaitez afficher n'a pas été trouvée. Il peut y avoir plusieurs raison à cet échec : 
+                                            </p>                
+                                            <ul>
+                                                <li>La page n'existe plus</li>
+                                                <li>Une erreur inexpliquée s'est produite</li>
+                                                <li>Vous n'avez pas le droit d'afficher cette page</li>
+                                            </ul>
+
+                                            Si vous pensez ne pas être concerné par la dernière possibilité, merci de <a title="Contacter le support" href="{{ path('kg_site_contact') }}">contacter le support.</a>
+                                        </div>
+                                    </div>
+                                    <!-- /simple panel -->
+                                </div>
+                            </div>                                        
+                        </div>
+                    </div>
+                                            
+                    <!-- Footer -->
+                    <div class="footer text-muted">
+                        {% include 'KGSiteBundle::footer.html.twig' %} 
+                    </div>
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
         </div>
-        <div class="col-lg-12">
-            <div class="jumbotron">
-                <h2>Le serveur a retourné l'erreur suivante : "{{ status_code }} {{ status_text }}"</h2>
-                <p>
-                    Cela signifie que la page que vous souhaitez afficher n'a pas été trouvée. Il peut y avoir plusieurs raison à cet échec : 
-                </p>                
-                <ul>
-                    <li>La page n'existe plus</li>
-                    <li>Une erreur inexpliquée s'est produite</li>
-                    <li>Vous n'avez pas le droit d'afficher cette page</li>
-                </ul>
-                
-                Si vous pensez ne pas être concerné par la dernière possibilité, merci de <a title="Contacter le support" href="{{ path('kg_site_contact') }}">contacter le support.</a>
-            </div>            
-        </div>
-    </div>  
+        <!-- /page content -->
+
+    </div>   
 {% endblock %}
