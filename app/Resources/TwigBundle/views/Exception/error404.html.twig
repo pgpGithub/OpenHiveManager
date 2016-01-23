@@ -2,9 +2,9 @@
 
 {% extends "KGSiteBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - {{ status_text }}{% endblock %}
+{% block sitetitle %}{{ parent() }} - {{ status_text }}{% endblock %}
 
-{% block body %}
+{% block pagecontainer %}
  <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">{{ icon('exclamation-triangle ') }} Bzzzz! Une erreur vient de se produire</h1>
