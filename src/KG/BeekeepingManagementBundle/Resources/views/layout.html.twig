@@ -69,10 +69,11 @@ class="layout-boxed"
                 <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">                                                     
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <!--<img src="assets/images/image.png" alt="">-->
+                        <i class="icon-user"></i>
                         <span>{{ app.user.username }}</span>
                         <i class="caret"></i>
                     </a>
@@ -84,6 +85,9 @@ class="layout-boxed"
                         <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-switch2"></i> Déconnexion</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ path('kg_site_cgu') }}"><i class="fa fa-book position-left"></i> CGU</a></li>
+                <li><a href="{{ path('kg_site_contact') }}"><i class="fa fa-envelope position-left"></i> Contact</a></li>                      
+                <li><a href="{{ path('kg_site_participer') }}"><strong><i class="fa fa-heart position-left"></i> Participez</strong></a></li>  
             </ul>
         </div>
     </div>
