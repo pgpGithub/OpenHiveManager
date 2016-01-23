@@ -1,64 +1,73 @@
-{% extends 'KGUserBundle::layout.html.twig' %}
+{% extends 'KGUserBundle::layout_log.html.twig' %}
 {% trans_default_domain 'FOSUserBundle' %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets filter='cssrewrite, ?uglifycss'
-        '@KGUserBundle/Resources/public/css/login/login_panel.css'%}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}
-{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     {% javascripts filter='?uglifyjs2' 
-        '@KGUserBundle/Resources/public/js/login/login_panel.js' %}
+        '@KGUserBundle/Resources/public/js/login/login.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
 {% endblock %}
 
 {% block fos_user_content %}
     {% if error %}
-        <div class="alert alert-danger">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
+        <div class='row'>
+            <div class='col-sm-4 col-sm-offset-4'>
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            </div>
         </div>
     {% endif %}
 
-    <div class="row" style="margin-top:80px">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form action="{{ path("fos_user_security_check") }}" method="post">
-                <fieldset>
-                    <h2>Veuillez vous identifier</h2>
-                    <hr class="colorgraph">
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <!-- Advanced login -->
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        
+        <div class="panel panel-body login-form">
+            <div class="text-center">
+                <h5 class="content-group-lg">Identifiez vous à votre compte <small class="display-block">Entrez vos identifiants</small></h5>
+            </div>
 
-                    <div class="form-group">
-                        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control input-lg" placeholder="{{ 'security.login.username'|trans }}" />
+            <div class="form-group has-feedback has-feedback-left">
+                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" placeholder="{{ 'security.login.username'|trans }}" />
+                <div class="form-control-feedback">
+                    <i class="icon-user text-muted"></i>
+                </div>
+            </div>
+
+            <div class="form-group has-feedback has-feedback-left">
+                <input type="password" id="password" name="_password" required="required" class="form-control" placeholder="{{ 'security.login.password'|trans }}"/>
+                <div class="form-control-feedback">
+                    <i class="icon-lock2 text-muted"></i>
+                </div>
+            </div>
+
+            <div class="form-group login-options">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="_remember_me" id="remember_me" checked="checked" class="styled">
+                            {{ 'security.login.remember_me'|trans }}
+                        </label>
                     </div>
+                </div>
+            </div>           
 
-                    <div class="form-group">
-                        <input type="password" id="password" name="_password" required="required" class="form-control input-lg" placeholder="{{ 'security.login.password'|trans }}"/>
-                    </div>
+            <div class="form-group">
+                <button type="submit" id="_submit" name="_submit" class="btn bg-blue btn-block">{{ 'security.login.submit'|trans }} <i class="icon-arrow-right14 position-right"></i></button>
+            </div>
 
-                    <span class="button-checkbox">
-                        <button type="button" class="btn" data-color="info">{{ 'security.login.remember_me'|trans }}</button>
-                        <input type="checkbox" name="_remember_me" id="remember_me" checked="checked" class="hidden">
-                        <a href="{{ path('fos_user_resetting_request') }}" class="btn btn-link pull-right">Mot de passe oublié?</a>
-                    </span>
-
-                    <hr class="colorgraph">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">                
-                            <input type="submit" id="_submit" name="_submit" class="btn btn-lg btn-success btn-block" value="{{ 'security.login.submit'|trans }}" />
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <a href="{{ path('fos_user_registration_register') }}" class="btn btn-lg btn-primary btn-block">S'enregistrer</a>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
+            <div class="form-group">
+                <span class="help-block text-center no-margin"><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a></span> 
+            </div> 
+                        
+            <div class="content-divider text-muted form-group"><span>Vous n'avez pas de compte ?</span></div>
+            <a href="{{ path('fos_user_registration_register') }}" class="btn btn-default btn-block content-group">Inscrivez-vous!</a>
+            <span class="help-block text-center no-margin">En poursuivant, vous confirmez avoir lu nos <a href="{{ path('kg_site_cgu') }}">Conditions générales d'utilisation</a></span>
         </div>
-    </div>            
+    </form>
+    <!-- /advanced login -->           
 {% endblock fos_user_content %}
                                                     
 
