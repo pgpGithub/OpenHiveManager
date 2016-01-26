@@ -25,7 +25,7 @@
             <li class="disabled"><a href="#"><i class="fa fa-pencil"></i> Modifier la tâche</a></li>
         {% endif %}
         {% if tache.canBeDeleted %}
-            <li><a href="{{ path('kg_beekeeping_management_delete_tache', { 'tache_id': tache.id }) }}"><i class="fa fa-trash"></i> Supprimer la tâche</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#modal_warning_tache_{{ tache.id }}"><i class="fa fa-trash"></i> Supprimer la tâche</a></li>
         {% else %}
             <li class="disabled"><a href="#"><i class="fa fa-trash"></i> Supprimer la tâche</a></li>        
         {% endif %}    

@@ -46,7 +46,7 @@ class ColonieController extends Controller
         $em->flush();
 
         $flash = $this->get('braincrafted_bootstrap.flash');
-        $flash->success('Colonie supprimée avec succès');
+        $flash->success('Ruche supprimée avec succès');
         
         return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRuche()->getRucher()->getId())));            
     }

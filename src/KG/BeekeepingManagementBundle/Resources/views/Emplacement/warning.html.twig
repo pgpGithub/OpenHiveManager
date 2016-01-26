@@ -1,0 +1,22 @@
+<!-- Warning modal -->
+<div id="modal_warning_emplacement_{{ emplacement.id }}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Confirmation de suppression</h6>
+            </div>
+
+            <div class="modal-body">
+                <h6 class="text-semibold">Êtes vous sûr de vouloir supprimer cet emplacement ?</h6>
+                <p>Si vous validez la suppression, vous ne pourrez plus le récupérer !</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Annuler</button>
+                <a href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id': emplacement.id }) }}" class="btn btn-warning"><i class="fa fa-trash-o"></i> Supprimer</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /warning modal -->

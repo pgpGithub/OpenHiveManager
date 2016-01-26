@@ -17,6 +17,7 @@
 {% if taches is not empty %}       
     <div class="row">
         {% for tache in taches %}
+            {% include 'KGBeekeepingManagementBundle:Tache:warning.html.twig' with {'tache' : tache } only %}
             {% if tache.priorite.id == 1 %}
                 {% set couleur = 'success' %}  
             {% elseif tache.priorite.id == 2 %}

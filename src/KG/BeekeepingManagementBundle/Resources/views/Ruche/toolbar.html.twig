@@ -85,7 +85,7 @@
                             <li class="disabled"><a href="#"><i class="fa fa-pencil"></i> Modifier la ruche</a></li>                        
                         {% endif %}    
                         {% if not colonie.hasFille %}
-                            <li><a href="{{ path('kg_beekeeping_management_delete_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-trash"></i> Supprimer la ruche</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#modal_warning_ruche"><i class="fa fa-trash"></i> Supprimer la ruche</a></li>
                         {% else %}
                             <li class="disabled"><a href="#"><i class="fa fa-trash"></i> Supprimer la ruche</a></li>                        
                         {% endif %}
@@ -111,3 +111,5 @@
         </div>
     </div>
 </div>                      
+
+{% include 'KGBeekeepingManagementBundle:Ruche:warning.html.twig' with {'colonie' : colonie } only %}

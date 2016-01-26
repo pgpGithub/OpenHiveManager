@@ -75,6 +75,7 @@
                                     </thead>
                                     <tbody>
                                         {% for emplacement in rucher.emplacements %}
+                                            {% include 'KGBeekeepingManagementBundle:Emplacement:warning.html.twig' with {'emplacement' : emplacement } only %}       
                                             <tr>
                                                 <td>
                                                     {% if emplacement.ruche %}
@@ -128,7 +129,7 @@
                                                                 {% endif %}
 
                                                                 {% if not emplacement.ruche %}
-                                                                    <li><a href="{{ path('kg_beekeeping_management_delete_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-trash"></i> Supprimer l'emplacement</a></li>
+                                                                    <li><a href="#" data-toggle="modal" data-target="#modal_warning_emplacement_{{ emplacement.id }}"><i class="fa fa-trash"></i> Supprimer l'emplacement</a></li>
                                                                 {% endif %}
 
                                                                 {% if emplacement.ruche %}
@@ -214,5 +215,5 @@
                 </div>
             </div>
         </div>
-    </div>                                         
+    </div>                                                                                                              
 {% endblock %}
