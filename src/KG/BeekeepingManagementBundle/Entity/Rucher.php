@@ -403,4 +403,16 @@ class Rucher
         
         return $permitted;        
     }
+
+    public function canBeTranshumance(){
+        foreach ($this->getExploitation()->getRuchers() as $rucher) {
+            if( $this->getId() != $rucher->getId() ){
+                foreach ($rucher->getEmplacements() as $emplacement) {
+                    if( !$emplacement->getRuche() ){
+                        return true;
+                    }
+                }
+            }
+        }                       
+    }    
 }

@@ -58,12 +58,12 @@
                             <li class="disabled"><a href="#"><i class="fa fa-upload"></i> Récolter</a></li>
                         {% endif %}
                         
-                        {% if not colonie.morte and colonie.ruche.rucher.exploitation.getNbEmplacementsVides > 0 %}
+                        {% if not colonie.morte and colonie.ruche.rucher.canBeTranshumance %}
                             <li><a href="{{ path('kg_beekeeping_management_add_transhumance', { 'colonie_id': colonie.id }) }}"><i class="fa fa-exchange"></i> Transhumer</a></li>
                         {% else %}
                             <li class="disabled"><a href="#"><i class="fa fa-exchange"></i> Transhumer</a></li>                        
                         {% endif %}
-                        {% if colonie.canBeDivisee %}
+                        {% if colonie.canBeDivisee and colonie.ruche.rucher.exploitation.getNbEmplacementsVides > 0 %}
                             <li><a href="{{ path('kg_beekeeping_management_diviser_colonie', { 'colonie_id': colonie.id }) }}"><i class="fa fa-scissors"></i> Diviser</a></li>
                         {% else %}
                             <li class="disabled"><a href="#"><i class="fa fa-scissors"></i> Diviser</a></li>                        

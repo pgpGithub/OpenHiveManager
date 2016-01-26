@@ -175,8 +175,8 @@ class Visite
     public function __construct(Colonie $colonie)
     {
         $this->colonie = $colonie;
-        $this->setNbcouvain($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbcouvain());
-        $this->setNbnourriture($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbnourriture());
+        $this->setNbcouvain($colonie->getRuche()->getCorps()->getNbcouvain());
+        $this->setNbnourriture($colonie->getRuche()->getCorps()->getNbnourriture());
         
         if( !$colonie->getVisites()->isEmpty() ){
             $lastVisite = $colonie->getVisites()->last();
