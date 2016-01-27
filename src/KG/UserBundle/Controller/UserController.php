@@ -56,7 +56,6 @@ class UserController extends Controller
         
         $em->flush();
         
-        $this->get('session')->getFlashBag()->add('success', 'Le compte de l\'utilisateur ' . $this->getUser()->getUsername() . ' a été intégralement supprimé');
         return $this->redirect($this->generateUrl('kg_site_home'));
     }
 }

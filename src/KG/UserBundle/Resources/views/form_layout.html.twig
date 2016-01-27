@@ -1,0 +1,88 @@
+{# src/KG/UserBundle/Resources/views/layout.html.twig #}
+
+{% extends "KGSiteBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {% stylesheets filter='cssrewrite, ?uglifycss'
+	'assets/css/icons/icomoon/styles.css'
+        'assets/css/icons/fontawesome/styles.min.css'
+	'assets/css/bootstrap.css'
+	'assets/css/core.css'
+	'assets/css/components.css'
+	'assets/css/colors.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}        
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts filter='?uglifyjs2'
+	'assets/js/plugins/loaders/pace.min.js'
+	'assets/js/core/libraries/jquery.min.js'
+	'assets/js/core/libraries/bootstrap.min.js'
+	'assets/js/plugins/loaders/blockui.min.js'
+	'assets/js/plugins/forms/styling/uniform.min.js'
+	'assets/js/core/app.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>          		
+    {% endjavascripts %}
+    {{ parent() }}
+{% endblock %} 
+
+{% block mainnavbar %}
+    {% include 'KGSiteBundle::mainnavbar.html.twig' %}
+{% endblock %}
+
+{% block pagecontainer %}
+    <!-- Page container -->
+    <div class="page-container login-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Content area -->
+                <div class="content">
+                    {# On affiche les messages flash que définissent les contrôleurs du bundle #}
+                    {% for key, messages in app.session.flashbag.all %}
+                        {% for message in messages %}
+                            {% if loop.first %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-{{ key }}" role="alert">
+                            {% endif %}
+                                            {{ message|trans({}, 'FOSUserBundle') }}
+                            {% if loop.last %}        
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}    
+                    {% endfor %}
+
+                    {% block form_error %}{% endblock %}
+
+                    {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
+                    {% block fos_user_content %}
+                    {% endblock fos_user_content %}
+
+                    <!-- Footer -->
+                    <div class="footer text-muted">
+                       {% include 'KGSiteBundle::footer.html.twig' %} 
+                    </div>
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+{% endblock %}
