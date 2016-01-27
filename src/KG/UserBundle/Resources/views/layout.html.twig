@@ -45,6 +45,25 @@
 
                 <!-- Content area -->
                 <div class="content">
+                    {# On affiche les messages flash que définissent les contrôleurs du bundle #}
+                    {% for key, messages in app.session.flashbag.all %}
+                        {% for message in messages %}
+                            {% if loop.first %}
+                                <div class="row">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <div class="alert alert-{{ key }}" role="alert">
+                            {% endif %}
+                                            {{ message|trans({}, 'FOSUserBundle') }}
+                            {% if loop.last %}        
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}    
+                    {% endfor %}
+
+                    {% block form_error %}{% endblock %}
+
                     {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
                     <!-- Centered forms -->
                     <div class="row">
@@ -53,25 +72,6 @@
                                 <div class="col-md-6 col-md-offset-3">
                                     <div class="panel panel-flat">
                                         <div class="panel-body">
-                                            {# On affiche les messages flash que définissent les contrôleurs du bundle #}
-                                            {% for key, messages in app.session.flashbag.all %}
-                                                {% for message in messages %}
-                                                    {% if loop.first %}
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="alert alert-{{ key }}" role="alert">
-                                                    {% endif %}
-                                                                    {{ message|trans({}, 'FOSUserBundle') }}
-                                                    {% if loop.last %}        
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    {% endif %}
-                                                {% endfor %}    
-                                            {% endfor %}
-
-                                            {% block form_error %}{% endblock %}
-                    
                                            {% block fos_user_content %}
                                             {% endblock fos_user_content %}
                                         </div>
