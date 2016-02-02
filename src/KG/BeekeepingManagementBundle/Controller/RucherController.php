@@ -38,18 +38,8 @@ class RucherController extends Controller
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
     public function printQRCodeAction(Request $request, Rucher $rucher)
-    {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
               
@@ -182,55 +172,17 @@ class RucherController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
-    public function viewAction(Request $request, Rucher $rucher, $page)
-    {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    public function viewAction(Rucher $rucher)
+    {        
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $apikey = $this->container->getParameter('apikey');
-        
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Emplacement')->getListByRucher($rucher);    
-
-        $paginator  = $this->get('knp_paginator');
-        
-        if( $rucher->getNumerotation() ){
-            $pagination = $paginator->paginate(
-                $query,
-                $request->query->getInt('page', $page),
-                10,
-                array(
-                    'defaultSortFieldName' => 'e.numero',
-                    'defaultSortDirection' => 'asc'
-                )                
-            );              
-        }else{
-            $pagination = $paginator->paginate(
-                $query,
-                $request->query->getInt('page', $page),
-                10,
-                array(
-                    'defaultSortFieldName' => 'ruche.nom',
-                    'defaultSortDirection' => 'asc'
-                )                
-            );               
-        }
-      
+        $apikey = $this->container->getParameter('apikey');  
         
         return $this->render('KGBeekeepingManagementBundle:Rucher:view.html.twig', 
-                array(  'rucher'     => $rucher,
-                        'apikey'     => $apikey,
-                        'pagination' => $pagination
+                array(  'rucher'       => $rucher,
+                        'apikey'       => $apikey
                     )
             );        
     }
@@ -239,38 +191,14 @@ class RucherController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}})  
     */    
-    public function viewColoniesMortesAction(Request $request, Rucher $rucher, $page)
-    {
-        $apiculteurExploitations = $rucher->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    public function viewColoniesMortesAction(Rucher $rucher)
+    {        
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
-        }
-        
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Colonie')->getListMortesByRucher($rucher);    
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            10,
-            array(
-                'defaultSortFieldName' => 'colonie.numero',
-            )                
-        );        
+        }      
         
         return $this->render('KGBeekeepingManagementBundle:Rucher:viewColoniesMortes.html.twig', 
-                array(  'rucher'     => $rucher,
-                        'pagination' => $pagination
-                    )
+                array( 'rucher' => $rucher )
             );        
     }
     
@@ -279,28 +207,8 @@ class RucherController extends Controller
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}}) 
     */    
     public function deleteAction(Rucher $rucher)
-    {
-        $exploitation = $rucher->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( !$not_permitted ){
-            foreach ( $rucher->getEmplacements() as $emplacement){
-                if( $emplacement->getRuche() || !$emplacement->getTranshumancesfrom()->isEmpty() || !$emplacement->getTranshumancesto()->isEmpty() ){
-                    $not_permitted = true;
-                    break;                
-                }
-            }
-        }
-        
-        if( $not_permitted ){
+    {        
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) || !$rucher->canBeDeleted() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -319,17 +227,8 @@ class RucherController extends Controller
     * @ParamConverter("exploitation", options={"mapping": {"exploitation_id" : "id"}}) 
     */    
     public function addAction(Exploitation $exploitation, Request $request)
-    {
-        $not_permitted = true;
-        
-        foreach ( $exploitation->getApiculteurExploitations() as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    {        
+        if( !$this->getUser()->canDisplayExploitation($exploitation) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -359,17 +258,8 @@ class RucherController extends Controller
     * @ParamConverter("rucher", options={"mapping": {"rucher_id" : "id"}}) 
     */    
     public function updateAction(Rucher $rucher, Request $request)
-    {
-        $not_permitted = true;
-        
-        foreach ( $rucher->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    {        
+        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

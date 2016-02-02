@@ -1,99 +1,65 @@
-<!DOCTYPE html>
-<html>
-    <head>        
-        <meta property="og:locale" content="fr_FR" />
-        <meta property="og:title" content="OpenHiveManager" />
-        <meta property="og:type" content="article" />
-        <meta property="og:description" content="La première application participative de gestion appicole" />
-        <meta property="og:url" content="http://www.openhivemanager.org" />
-        <meta property="og:site_name" content="OpenHiveManager" />
-        <meta property="og:image" content="http://www.openhivemanager.org/logo_ogpng" /> 
-        <meta property="og:image:width" content="200" />
-       
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-        <title>{% block title %}OpenHiveManager{% endblock %}</title>
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
 
-        {% block stylesheets %}
-            {% stylesheets filter='cssrewrite, ?uglifycss'
-                'css/bootstrap.css'
-                'css/font-awesome.min.css'   
-                '@KGSiteBundle/Resources/public/css/layout.css'%}
-                <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-            {% endstylesheets %}
-        {% endblock %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        {% block meta %}
+            <meta property="og:locale" content="fr_FR" />
+            <meta property="og:title" content="OpenHiveManager" />
+            <meta property="og:type" content="article" />
+            <meta property="og:description" content="Le premier logiciel participatif de gestion apicole" />
+            <meta property="og:url" content="http://www.openhivemanager.org" />
+            <meta property="og:site_name" content="OpenHiveManager" />
+            <meta property="og:image" content="http://www.openhivemanager.org/logo_ogpng" /> 
+            <meta property="og:image:width" content="200" />
+
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+	{% endblock %}
         
-        {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+        <title>OpenHiveManager{% block sitetitle %}{% endblock %}</title>
+        
+        <!-- Global stylesheets -->
+        {% block stylesheets %}
+
+        {% endblock %}
+        <!-- /global stylesheets -->
+        
     </head>
 
-    <body>
-        
-        <div id="top-nav" class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-ex1-collapse" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ path('kg_site_home') }}">
-                    <img alt="OpenHiveManager" src="{{ asset('logo_navbar.png') }}">
-                </a>
-          </div>   
-          <div class="navbar-collapse collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav pull-right">    
-                <li><a href="{{ path('kg_beekeeping_management_home') }}">{{ icon('home') }} Manager</a></li>                            
-                <li><a href="{{ path('kg_site_cgu') }}">{{ icon('book') }} CGU</a></li>
-                <li><a href="{{ path('kg_site_contact') }}">{{ icon('envelope') }} Contact</a></li>  
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <li class="dropdown">
-                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
-                    <strong>{{ icon('user') }} {{ app.user.username }}</strong> <span class="caret"></span></a>
-                    <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                        <li><a href="{{ path('fos_user_profile_edit') }}">{{ icon
-('gear') }} Profil</a></li>
-                        <li><a href="{{ path('fos_user_change_password') }}">{{ icon('key') }} Mot de passe</a></li>
-                        <li role="separator" class="divider"></li>     
-                        <li><a href="{{ path('fos_user_security_logout') }}">{{ icon('sign-out') }} Déconnexion</a></li>
-                    </ul>
-                </li>
-                {% else %}
-                <li><a href="{{ path('fos_user_security_login') }}">{{ icon('sign-in') }} Connexion</a></li>
-                {% endif %}
-                <li><a href="{{ path('kg_site_participer') }}"><strong>{{ icon('heart') }} Participez</strong></a></li>  
-            </ul>
-          </div>
-        </div>
+    <body {% block classbody %}{% endblock %}>
 
-        {% block header %}
+	<!-- Main navbar -->
+        {% block mainnavbar %}
+
         {% endblock %}
-        
-        <!-- Main -->
-        <div class="container">
-            {% block body %}
+	<!-- /main navbar -->
 
-            {% endblock %} 
-            
-            {% block footer %}
-                <footer>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
-                            Ce <a href="http://www.openhivemanager.org" property="cc:attributionName" rel="cc:attributionURL">site</a> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">licence Creative Commons Attribution - Pas d&#39;Utilisation Commerciale - Pas de Modification 4.0 International</a>.
-                        </div>                                                      
-                    </div>
-                </footer>            
-            {% endblock %}             
-        </div>
-        <!-- /Main -->                
-            
-    {% block javascripts %}
-        {% javascripts filter='?uglifyjs2' 
-            'js/jquery.js'
-            'js/bootstrap.js'%}
-            <script src="{{ asset_url }}" type="text/javascript"></script>  
+
+	<!-- Page container -->
+        {% block pagecontainer %}
+
+        {% endblock %}
+	<!-- /page container -->
+               
+        {% block javascripts %}       
             <!-- Piwik -->
             <script type="text/javascript">
               var _paq = _paq || [];
@@ -108,8 +74,8 @@
               })();
             </script>
             <noscript><p><img src="//analytics.openhivemanager.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
-            <!-- End Piwik Code -->			
-        {% endjavascripts %}
-    {% endblock %}       
+            <!-- End Piwik Code -->	           
+        {% endblock %}    
     </body>
+    
 </html>

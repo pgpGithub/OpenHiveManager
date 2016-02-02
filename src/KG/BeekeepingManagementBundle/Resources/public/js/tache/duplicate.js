@@ -15,4 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$("[name='kg_beekeepingmanagementbundle_dupliquertache[ruches][]']").bootstrapSwitch();
+$(function() {
+
+    // Styled form components
+    // ------------------------------
+
+    // Checkboxes, radios
+    $(".styled").uniform({ radioClass: 'choice' });
+ 
+});
+
+

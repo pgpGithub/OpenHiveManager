@@ -28,7 +28,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\HasLifecycleCallbacks() 
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\ColonieRepository")
+ * @ORM\Entity()
  */
 class Colonie
 {
@@ -638,5 +638,135 @@ class Colonie
     public function getTaches()
     {
         return $this->taches;
-    }      
+    }   
+    
+    public function canBeDeleted()
+    {
+        $permitted = true;
+        
+        foreach ( $this->getRemerages() as $remerage ){
+            if( !$remerage->getReine()->getReinesFilles()->isEmpty() ){
+                $permitted = false;
+                break;
+            }
+        }
+        
+        return $permitted;
+    }
+    
+    public function canBeUpdated()
+    {
+        $permitted = true;
+        
+        if( $this->getMorte()){
+            $permitted = false;
+        }
+        
+        return $permitted;
+    }
+    
+    public function canBeDivisee()
+    {
+        $permitted = true;
+        
+        if( $this->getMorte() || $this->getRuche()->getCorps()->getNbcouvain() < 2){
+            $permitted = false;
+        }
+        
+        return $permitted;
+    }
+    
+    public function canBeTuee()
+    {
+        $permitted = true;
+        
+        if( $this->getMorte()){
+            $permitted = false;
+        }
+        
+        return $permitted;        
+    }
+
+    public function canBeRemeree()
+    {
+        $permitted = true;
+        
+        if( $this->getMorte()){
+            $permitted = false;
+        }
+        
+        return $permitted;        
+    }    
+    
+    public function canBeRecoltee()
+    {
+        $permitted = true;
+        
+        if( $this->getMorte()){
+            $permitted = false;
+        }
+        elseif( $this->getRuche()->getHausses()->isEmpty() ){
+            $permitted = false;
+        }
+        
+        return $permitted;
+    }  
+    
+    public function canHaveNewTache()
+    {
+        $permitted = true;
+        
+        if( $this->getMorte()){
+            $permitted = false;
+        }
+        
+        return $permitted;        
+    }
+
+    public function canHaveNewTranshumance()
+    {
+        $permitted = true;
+        
+        if( $this->getMorte()){
+            $permitted = false;
+        }
+        
+        return $permitted;        
+    }
+    
+    public function canHaveNewVisite()
+    {
+        $permitted = true;
+        
+        if( $this->getMorte()){
+            $permitted = false;
+            return $permitted; 
+        }
+
+        $today = new \DateTime();
+        $today->setTime('00', '00', '00');
+        
+        $lastVisite = $this->getVisites()->last();
+        if ( $lastVisite ){
+            if ( $lastVisite->getDate() >= $today ){
+                $permitted = false;
+            }
+        }
+        
+        return $permitted;        
+    }   
+    
+    public function hasFille(){
+        
+        $fille = false;
+        
+        foreach( $this->getRemerages() as $remerage ){
+            if( !$remerage->getReine()->getReinesFilles()->isEmpty() ){
+                $fille = true;
+                break;
+            }
+        }  
+            
+        return $fille;
+    }
 }

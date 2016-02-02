@@ -1,0 +1,111 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">Visite du {{ visite.date|date('d/m/Y') }}</h5>             
+    </div>
+    <div class="panel-body">   
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="text-semibold"><i class="fa fa-stethoscope position-left"></i> Etat général</h6>
+                <div class="well">
+                    <dl class="dl-horizontal">     
+                        <dt>Activité</dt>
+                        <dd>{{ visite.activite.libelle }}</dd>
+                        <dt>Pollen entrant</dt>
+                        <dd>{% if visite.pollen %}Oui{% else %}Non{% endif %}</dd>
+                        <dt>Reine vue</dt>
+                        <dd>{% if visite.reine %}Oui{% else %}Non{% endif %}</dd>
+                        <dt>Cellules royales</dt>
+                        <dd>{% if visite.celroyales %}Oui{% else %}Non{% endif %}</dd>
+                        <dt>Etat</dt>
+                        <dd>{{ visite.etat.libelle }}</dd>
+                        <dt>Agressivité</dt>
+                        <dd>{{ visite.agressivite.libelle }}</dd>
+                        <dt>Cadres de nourriture</dt>
+                        <dd>{{ visite.nbnourriture }}</dd>
+                        <dt>Cadres de couvain</dt>
+                        <dd>{{ visite.nbcouvain }}</dd>  
+                        <dt>Poids (kg)</dt>
+                        <dd>{{ visite.poids|number_format(3, ',', ' ') }}</dd> 
+                    </dl>
+                </div>
+            </div>
+
+            <div class="col-md-6"> 
+                <h6 class="text-semibold"><i class="fa fa-info position-left"></i> Informations complémentaires</h6>
+                <div class="well">
+                    {% if visite.nourrissement or visite.traitement or visite.observations %}
+                        <dl class="dl-horizontal">  
+                            {% if visite.nourrissement %}
+                                <dt>Nourrissement</dt>
+                                <dd>{{ visite.nourrissement }}</dd>                                    
+                            {% endif %}
+                            {% if visite.traitement %}
+                                <dt>Traitement</dt>
+                                <dd>{{ visite.traitement }}</dd>
+                            {% endif %}
+                            {% if visite.observations %}
+                                <dt>Observations</dt>
+                                <dd>{{ visite.observations }}<dd>
+                            {% endif %}         
+                        </dl>
+                    {% else %}
+                        <center>Aucune</center>
+                    {% endif %}
+                </div>                                                                                          
+            </div>   
+        </div>
+
+        <div class="row"> 
+            <div class="col-md-12">
+                <h6 class="text-semibold"><i class="fa fa-download position-left"></i> Hausses</h6>
+                <div class="well">
+                    {% if visite.hausses is not empty %}
+                        {% for hausse in visite.hausses %}
+                            <div class="row"> 
+                                <div class="col-md-12"> 
+                                    <div class="content-group-sm">
+                                        <p class="text-semibold"><strong>Hausse n°{{ loop.index }}</strong></p>
+                                        <div class="progress progress-lg">
+                                            {% set pourcent = ( hausse.nbplein * 100 ) / ( hausse.nbcadres ) %}
+                                            <div class="progress-bar bg-teal" style="width: {{ pourcent }}%">
+                                                {{ hausse.nbplein }}/{{ hausse.nbcadres }}
+                                            </div>
+                                        </div>
+                                    </div>                                
+                                </div>
+                            </div>                
+                        {% endfor %}  
+                    {% else %}
+                        <center>Aucune</center> 
+                    {% endif %}    
+                </div>       
+            </div> 
+        </div>        
+        <div class="row"> 
+            <div class="col-md-12">
+                <h6 class="text-semibold"><i class="fa fa-tasks position-left"></i> Tâches effectuées</h6>
+                <div class="well">
+                    <!-- Tasks grid -->
+                    {% include 'KGBeekeepingManagementBundle:Tache:includeView.html.twig' with {'taches' : visite.taches} only%}                                      
+                </div>
+            </div>                                                                                                     
+        </div>       
+    </div>
+</div>

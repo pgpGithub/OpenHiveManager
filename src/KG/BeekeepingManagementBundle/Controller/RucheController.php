@@ -23,9 +23,9 @@ use KG\BeekeepingManagementBundle\Entity\Hausse;
 use KG\BeekeepingManagementBundle\Entity\Emplacement;
 use KG\BeekeepingManagementBundle\Entity\Ruche;
 use KG\BeekeepingManagementBundle\Entity\Remerage;
-use KG\BeekeepingManagementBundle\Form\Type\UpdateRucheType;
+use KG\BeekeepingManagementBundle\Form\Type\UpdateRemerageType;
 use KG\BeekeepingManagementBundle\Form\Type\TranshumerType;
-use KG\BeekeepingManagementBundle\Form\Type\AddRucheType;
+use KG\BeekeepingManagementBundle\Form\Type\RucheType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,22 +41,12 @@ class RucheController extends Controller
     * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}})  
     */    
     public function updateAction(Ruche $ruche, Request $request)
-    {
-        $apiculteurExploitations = $ruche->getRucher()->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $ruche->getColonie()->getMorte() ){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($ruche->getRucher()->getExploitation()) || !$ruche->canBeUpdated() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
-        $form = $this->createForm(new UpdateRucheType, $ruche);
+        $form = $this->createForm(new UpdateRemerageType(), $ruche->getColonie()->getRemerages()->last());
         
         if ($form->handleRequest($request)->isValid()){
                         
@@ -81,39 +71,17 @@ class RucheController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("ruche", options={"mapping": {"ruche_id" : "id"}}) 
     */    
-    public function viewAction(Request $request, Ruche $ruche, $page)
-    {
-        $apiculteurExploitations = $ruche->getRucher()->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    public function viewAction(Ruche $ruche)
+    {        
+        if( !$this->getUser()->canDisplayExploitation($ruche->getRucher()->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
 
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Tache')->getListByColonie($ruche->getColonie());    
-
-        $paginator  = $this->get('knp_paginator');
-        
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            10,
-            array(
-                'defaultSortFieldName' => 'tache.date',
-                'defaultSortDirection' => 'desc'
-            )                
-        );        
+        $taches = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Tache')->getListByColonie($ruche->getColonie())->getResult();         
         
         return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig',
                 array(  'ruche' => $ruche,
-                        'pagination' => $pagination
+                        'taches' => $taches
                 ));        
     }  
 
@@ -123,22 +91,12 @@ class RucheController extends Controller
     */    
     public function addAction(Emplacement $emplacement, Request $request)
     {
-        $apiculteurExploitations = $emplacement->getRucher()->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $emplacement->getRuche() ){
+        if( !$this->getUser()->canDisplayExploitation($emplacement->getRucher()->getExploitation()) || !$emplacement->isEmpty() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
         $ruche = new Ruche($emplacement);
-        $form = $this->createForm(new AddRucheType, $ruche);
+        $form = $this->createForm(new RucheType, $ruche);
         
         if ($form->handleRequest($request)->isValid()){
                     

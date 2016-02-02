@@ -34,38 +34,14 @@ class TranshumanceController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    public function viewAllAction(Request $request, Colonie $colonie, $page)
-    {
-        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $page < 1  || $colonie->getTranshumances()->isEmpty()){
+    public function viewAllAction(Colonie $colonie)
+    {       
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
- 
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Transhumance')->getListByColonie($colonie);    
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            30,
-            array(
-                'defaultSortFieldName' => 't.date',
-                'defaultSortDirection' => 'desc'
-            )  
-        );
         
         return $this->render('KGBeekeepingManagementBundle:Transhumance:viewAll.html.twig', 
-                array(  'colonie'    => $colonie,
-                        'pagination' => $pagination));
+                array( 'colonie' => $colonie ));
     }
     
     /**
@@ -74,18 +50,7 @@ class TranshumanceController extends Controller
     */    
     public function addAction(Colonie $colonie, Request $request)
     {
-        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-
-        if( $not_permitted || $colonie->getMorte()){
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canHaveNewTranshumance()){
             throw new NotFoundHttpException('Page inexistante.');
         }       
          

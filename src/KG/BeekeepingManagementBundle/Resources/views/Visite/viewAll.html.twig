@@ -17,37 +17,50 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Transhumances{% endblock %}
-
-{% block menu %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menu %}
-
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Historique des visites</h4>
-        </div>
-    </div>
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?uglifyjs2'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/tables/datatables/datatables.min.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/visite/viewAll.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
 {% endblock %}
 
-{% block panel_body %}       
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonie.ruche} only %} 
+{% endblock %}  
+
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:toolbarBack.html.twig' with {'ruche' : colonie.ruche} only %}                  
+{% endblock %}
+
+{% block body %}
     <div class="row">
-        <div class=" col-md-12"> 
-            <div class="table-responsive">
-                <table id="mytable" class="table table-bordred table-striped">
-                    <thead>
-                        <th>Date</th>
-                        <th>Activite</th>
-                        <th>Etat</th>
-                        <th>Cadres nourriture</th>
-                        <th>Cadres couvain</th>
-                        <th>Cellules royales</th>
-                        <th>Nourrissement</th>
-                        <th>Traitement</th>
-                    </thead>
-                    <tbody> 
-                        {% for visite in pagination %}
+        <div class="col-lg-12">
+            <!-- Media library -->
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h6 class="panel-title text-semibold">Historique des visites</h6>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped media-library table-lg">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Activite</th>
+                                <th>Etat</th>
+                                <th>Cadres nourriture</th>
+                                <th>Cadres couvain</th>
+                                <th>Cellules royales</th>
+                                <th>Nourrissement</th>
+                                <th>Traitement</th>      
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for visite in colonie.visites %}
                             <tr>
                                 <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
                                 <td>{{ visite.activite.libelle }}</td>
@@ -58,15 +71,13 @@
                                 <td>{% if visite.nourrissement %}Oui{% else %}Non{% endif %}</td>
                                 <td>{% if visite.traitement %}Oui{% else %}Non{% endif %}</td>
                             </tr>    
-                        {% endfor %}
-                    </tbody>
-                </table>  
+                        {% endfor %}                                              
+                        </tbody>
+                    </table>
+                </div>        
             </div>
-            <div class="row">
-                <div class="col-md-12 navigation" align="right">
-                    {{ knp_pagination_render(pagination) }}
-                </div> 
-            </div>                            
+            <!-- /media library -->   
         </div>
-    </div>                                    
+    </div>                                         
 {% endblock %}
+

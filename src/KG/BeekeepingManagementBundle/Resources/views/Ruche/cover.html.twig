@@ -1,0 +1,51 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+<div class="profile-cover">
+    {% if ruche.rucher.image is not null %}
+        <div class="profile-cover-img" style="background-image: url({{ asset(ruche.rucher.image.webPath) }})"></div>
+    {% else %}
+        <div class="profile-cover-img" style="background-image: url({{ asset("img/rucher.jpg") }})"></div>
+    {% endif %}    
+    <div class="media">
+        <div class="media-left">
+            <a href="#" class="profile-thumb">
+                {% if ruche.image is not null %}
+                    <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-circle">
+                {% else %}
+                    <img src="{{ asset('img/ruche/' ~ ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-circle">
+                {% endif %}                       
+            </a>
+        </div>
+
+        <div class="media-body">
+            <h1>Rucher {{ ruche.rucher.nom }} <small class="display-block">Ruche {{ ruche.nom }}</small></h1>
+        </div>
+
+        <div class="media-right media-middle">
+            <ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
+                {% if ruche.colonie.canHaveNewVisite %}
+                    <li><a href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id': ruche.colonie.id }) }}" class="btn btn-default"><i class="fa fa-plus"></i> Créer une visite</a></li>
+                {% endif %}
+
+                {% if ruche.colonie.canHaveNewTache %}
+                    <li><a href="{{ path('kg_beekeeping_management_add_tache', { 'colonie_id': ruche.colonie.id }) }}" class="btn btn-default"><i class="fa fa-plus"></i> Créer une tâche</a></li>
+                {% endif %}                    
+            </ul>
+        </div>            
+    </div>
+</div>

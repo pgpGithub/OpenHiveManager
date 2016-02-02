@@ -225,6 +225,39 @@ class Emplacement
     {
         return $this->transhumancesto;
     }
+
+    public function isEmpty()
+    {
+        $empty = true;
+
+        if( $this->getRuche() ){
+            $empty = false;
+        }
+        
+        return $empty;         
+    }    
+    
+    public function canBeDeleted()
+    {
+        $permitted = true;
+        
+        if( $this->getRuche() ){
+            $permitted = false;
+        }
+        
+        return $permitted;        
+    }
+
+    public function canBeUpdated()
+    {
+        $permitted = true;
+        
+        if( !$this->getRucher()->getNumerotation() ){
+            $permitted = false;
+        }
+        
+        return $permitted;        
+    }
     
    /**
    * @Assert\Callback

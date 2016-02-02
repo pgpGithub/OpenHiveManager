@@ -1,0 +1,101 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?uglifyjs2'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/forms/styling/uniform.min.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>  
+    {% endjavascripts %}
+    {{ form_javascript(form) }}
+{% endblock %}
+
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonie.ruche} only %}
+{% endblock %} 
+
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:toolbarBack.html.twig' with {'ruche' : colonie.ruche} only %}                  
+{% endblock %}
+
+{% block body %}
+
+    <!-- Centered forms -->
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">{{ title }} d'une tâche</h5>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    {{ form_label(form.date, "A faire le :*", { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                    <div class="col-lg-8">
+                                        {{ form_widget(form.date) }}
+                                    </div>
+                                    {{ form_errors(form.date) }}
+                                </div>    
+                                    
+                                <div class="form-group">
+                                    {{ form_label(form.priorite, "Priorité :*", { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                    <div class="col-lg-8">
+                                        {{ form_widget(form.priorite) }}
+                                        {{ form_errors(form.priorite) }}
+                                    </div>
+                                </div> 
+
+                                <div class="form-group">
+                                    {{ form_label(form.resume, "Résumé :*", { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                    <div class="col-lg-8">
+                                        {{ form_widget(form.resume) }}
+                                        {{ form_errors(form.resume) }}
+                                    </div>
+                                </div> 
+                                    
+                                <div class="form-group">
+                                    {{ form_label(form.description, "Description :", { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                    <div class="col-lg-8">
+                                        {{ form_widget(form.description) }}
+                                        {{ form_errors(form.description) }}
+                                    </div>
+                                </div> 
+                                    
+                                {{ form_rest(form) }}
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <!-- /form centered -->
+{% endblock %}

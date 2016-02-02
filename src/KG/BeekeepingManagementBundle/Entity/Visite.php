@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Visite
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\VisiteRepository")
+ * @ORM\Entity()
  */
 class Visite
 {
@@ -175,11 +175,12 @@ class Visite
     public function __construct(Colonie $colonie)
     {
         $this->colonie = $colonie;
-        $this->setNbcouvain($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbcouvain());
-        $this->setNbnourriture($colonie->getRuche()->getEmplacement()->getRuche()->getCorps()->getNbnourriture());
+        $this->setNbcouvain($colonie->getRuche()->getCorps()->getNbcouvain());
+        $this->setNbnourriture($colonie->getRuche()->getCorps()->getNbnourriture());
         
         if( !$colonie->getVisites()->isEmpty() ){
-            $lastVisite = $colonie->getVisites()->last();  
+            $lastVisite = $colonie->getVisites()->last();
+            $this->setActivite($lastVisite->getActivite());
             $this->setEtat($lastVisite->getEtat());
             $this->setAgressivite($lastVisite->getAgressivite());
             $this->setPoids($lastVisite->getPoids());
@@ -190,7 +191,7 @@ class Visite
         $this->taches = new \Doctrine\Common\Collections\ArrayCollection();
         
         foreach ($colonie->getRuche()->getHausses() as $hausse) {
-            $this->addHauss(new HausseVisite($this, $hausse->getNbplein()));
+            $this->addHauss(new HausseVisite($this, $hausse->getNbplein(), $hausse->getNbcadres()));
         }
     }
 
@@ -639,4 +640,15 @@ class Visite
     {
         return $this->taches;
     }      
+    
+    public function canBeUpdated()
+    {
+        $permitted = true;
+        
+        if( $this != $this->getColonie()->getVisites()->last() || $this->getColonie()->getMorte() ){
+            $permitted = false;
+        }
+        
+        return $permitted;
+    }
 }

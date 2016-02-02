@@ -1,17 +1,9 @@
-{% extends 'KGUserBundle::layout.html.twig' %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets filter='cssrewrite, ?uglifycss'
-        '@KGUserBundle/Resources/public/css/register/register_panel.css'%}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}
-{% endblock %}
+{% extends 'KGUserBundle::form_layout.html.twig' %}
 
 {% block javascripts %}
     {{ parent() }}
     {% javascripts filter='?uglifyjs2' 
-        '@KGUserBundle/Resources/public/js/register/register_panel.js' %}
+        '@KGUserBundle/Resources/public/js/register/register.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>  
     {% endjavascripts %}
 {% endblock %}

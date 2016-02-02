@@ -20,7 +20,6 @@
 namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Colonie;
-use KG\BeekeepingManagementBundle\Form\Type\UpdateRemerageType;
 use KG\BeekeepingManagementBundle\Form\Type\DiviserType;
 use KG\BeekeepingManagementBundle\Form\Type\CauseType;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,51 +35,9 @@ class ColonieController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    public function viewAction(Colonie $colonie)
-    {
-        $apiculteurExploitations = $colonie->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-       
-        return $this->render('KGBeekeepingManagementBundle:Colonie:view.html.twig', 
-                array(  'colonie' => $colonie ));
-    }
-
-    /**
-    * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
-    */    
     public function deleteAction(Colonie $colonie)
-    {
-        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        foreach ( $colonie->getRemerages() as $remerage ){
-            if( !$remerage->getReine()->getReinesFilles()->isEmpty() ){
-                $not_permitted = true;
-                break;
-            }
-        }
-        
-        if( $not_permitted ){
+    {               
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canBeDeleted()){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -89,66 +46,19 @@ class ColonieController extends Controller
         $em->flush();
 
         $flash = $this->get('braincrafted_bootstrap.flash');
-        $flash->success('Colonie supprimée avec succès');
+        $flash->success('Ruche supprimée avec succès');
         
         return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRuche()->getRucher()->getId())));            
     }
     
     /**
     * @Security("has_role('ROLE_USER')")
-    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}}) 
-    */    
-    public function updateAction(Colonie $colonie, Request $request)
-    {
-        $not_permitted = true;
-        
-        foreach ( $colonie->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $colonie->getMorte() ){
-            throw new NotFoundHttpException('Page inexistante.');
-        }
-                
-        $form = $this->createForm(new UpdateRemerageType(), $colonie->getRemerages()->last());
-        
-        if ($form->handleRequest($request)->isValid()){
-                
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($colonie);
-            $em->flush();
-
-            $flash = $this->get('braincrafted_bootstrap.flash');
-            $flash->success('Colonie mise à jour avec succès');
-
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));
-        }
-
-        return $this->render('KGBeekeepingManagementBundle:Colonie:update.html.twig', 
-                             array('form'     => $form->createView(),
-                                   'colonie' => $colonie 
-                            ));
-    } 
-
-    /**
-    * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonieMere", options={"mapping": {"colonie_id" : "id"}}) 
     */    
     public function diviserAction(Colonie $colonieMere, Request $request)
     {
-        $not_permitted = true;
         
-        foreach ( $colonieMere->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations() as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $colonieMere->getMorte() || $colonieMere->getRuche()->getCorps()->getNbcouvain() < 2 ){
+        if( !$this->getUser()->canDisplayExploitation($colonieMere->getRuche()->getRucher()->getExploitation()) || !$colonieMere->canBeDivisee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -187,19 +97,8 @@ class ColonieController extends Controller
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
     public function tuerAction(Colonie $colonie, Request $request)
-    {
-        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $colonie->getMorte() ){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canBeTuee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
 
@@ -216,7 +115,7 @@ class ColonieController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('La mort de la colonie a bien été enregistrée');
 
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_colonie', array('colonie_id' => $colonie->getId())));                                            
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_ruche', array('ruche_id' => $colonie->getRuche()->getId())));                                            
         }
         
         return $this->render('KGBeekeepingManagementBundle:Colonie:tuer.html.twig', 

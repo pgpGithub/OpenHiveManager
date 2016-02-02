@@ -132,18 +132,13 @@ class VisiteType extends AbstractType
                                 'prepend' => '.icon-calendar'
                             ))                      
                         ))
-                ->add('hausses', 'bootstrap_collection', array(
+                ->add('hausses', 'collection', array(
                     'type' => new HausseType($builder->getData()), 
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'add_button_text'    => '.icon-plus Ajouter hausse',
-                    'delete_button_text' => '.icon-trash',
-                    'sub_widget_col'     => 8,
-                    'button_col'         => 4,
-                    'options'            => array(
-                        'attr' => array('style' => 'inline')
-                    )                    
-                ))
+                    'label' => false
+                ))                    
+                
                 ->add('taches', 'entity', array(	 
                     'class'        => 'KGBeekeepingManagementBundle:Tache',
                     'choice_label' => null,

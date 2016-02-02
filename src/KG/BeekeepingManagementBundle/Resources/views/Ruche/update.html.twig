@@ -17,36 +17,98 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Modifier une ruche{% endblock %}
-
-{% block menu %}
-    {% set colonie = ruche.colonie %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menu %}
-
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Modification de la ruche</h4>
-        </div>
-    </div>
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?uglifyjs2'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        'assets/js/plugins/uploaders/fileinput.min.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/ruche/update.js'%}
+        <script src="{{ asset_url }}" type="text/javascript"></script>  
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>                   
+    {% endjavascripts %}
 {% endblock %}
 
-{% block panel_body %}
-                          
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-        {{ form_row(form.nom, {'label': 'Nom :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.image.file, {'label': 'Photo :', 'label_col': 4, 'widget_col': 5})  }}
-    {{ form_rest(form) }}
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : ruche} only %}
+{% endblock %}
 
-    <div class="form-group">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('floppy-o') }} Sauvegarder
-            </button>
-        </div>        
-    </div>
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:toolbarBack.html.twig' with {'ruche' : ruche} only %}                  
+{% endblock %}
 
-    {{ form_end(form) }}         
+{% block body %}
+    <!-- 2 columns form -->
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Modification d'une ruche</h5>
+            </div>
 
+            <div class="panel-body"> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-archive position-left"></i> Ruche</legend>
+                            
+                            <div class="form-group">
+                                {{ form_label(form.colonie.ruche.nom, 'Nom :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.colonie.ruche.nom) }}
+                                    {{ form_errors(form.colonie.ruche.nom) }}
+                                </div>
+                            </div>  
+                                
+                            <div class="form-group">
+                                {{ form_label(form.colonie.ruche.image.file, 'Photo :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.colonie.ruche.image.file, { 'attr': {'class': 'file-input-custom', 'data-show-caption': 'true', 'data-show-upload': 'true', 'accept': 'image/*'} }) }}
+                                    {{ form_errors(form.colonie.ruche.image.file) }}
+                                </div>                                
+                            </div>                                
+                            
+                        </fieldset>
+                    </div>
+
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-users position-left"></i> Colonie</legend>                              
+
+                            <div class="form-group">
+                                {{ form_label(form.colonie.affectation, 'Affectation :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.colonie.affectation) }}
+                                    {{ form_errors(form.colonie.affectation) }}
+                                </div>
+                            </div>      
+                        </fieldset>
+
+                        <fieldset>
+                            <legend class="text-semibold"><i class="icon-crown position-left"></i> Reine</legend>
+                                <div class="form-group pt-15">
+                                    <div class="col-lg-6">                 
+                                        {{ form_widget(form.reine.marquage, {'attr': {'class': 'checkbox styled'}}) }} 
+                                        {{ form_label(form.reine.marquage, 'Marquée') }}
+                                        {{ form_errors(form.reine.marquage) }}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        {{ form_widget(form.reine.clippage, {'attr': {'class': 'checkbox checkbox-right styled'}}) }}        
+                                        {{ form_label(form.reine.clippage, 'Clippée') }}
+                                        {{ form_errors(form.reine.clippage) }}
+                                    </div>
+                                </div>                                                                                               
+                        </fieldset>                                
+                    </div>
+                </div>
+                                                                                                                     
+                {{ form_rest(form) }}
+                
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+    <!-- /2 columns form -->          
 {% endblock %}

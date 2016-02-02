@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Transhumance
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="KG\BeekeepingManagementBundle\Entity\TranshumanceRepository")
+ * @ORM\Entity()
  */
 class Transhumance
 {

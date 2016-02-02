@@ -17,119 +17,96 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Ruche{% endblock %}
-
-{% block menu %}
-    {% set colonie = ruche.colonie %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menu %}
-
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Données de la ruche</h4>
-        </div>
-    </div>
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?uglifyjs2'
+        'assets/js/plugins/loaders/progressbar.min.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>          
+    {% endjavascripts %}
 {% endblock %}
-{% block panel_body %}         
-    <div class="row">
-        <div class="col-sm-4" align="center"> 
-            {% if ruche.image is not null %}
-                <img src="{{ asset(ruche.image.webPath) }}" alt="{{ ruche.image.alt }}" class="img-thumbnail img-responsive">
-            {% else %}
-                <img src="{{ asset('img/ruche/' ~ ruche.corps.type.libelle ~'.jpg') }}" alt="Photo par défaut" class="img-thumbnail img-responsive">
-            {% endif %}       
-        </div>         
-        <div class="col-sm-8">
-            <table class="table">  
-                <tbody>                               
-                    <tr>
-                        <td><strong>Type</strong></td>
-                        <td>{{ ruche.corps.type.libelle }} {{ ruche.corps.nbcadres }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Matière</strong></td>
-                        <td>{{ ruche.matiere.libelle }}</td>
-                    </tr>
-                    {% if ruche.emplacement and ruche.rucher.numerotation %}
-                    <tr>
-                        <td><strong>Numéro emplacement</strong></td>
-                        <td>{{ ruche.emplacement.numero }}</td>
-                    </tr>
-                    {% endif %}
-                    <tr>
-                        <td><strong>Affectation</strong></td>
-                        <td>{{ ruche.colonie.affectation.libelle }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cadres nourriture</strong></td>
-                        <td>{{ ruche.corps.nbnourriture }}</td>
-                    </tr>                    
-                    <tr>
-                        <td><strong>Cadres couvain</strong></td>
-                        <td>{{ ruche.corps.nbcouvain }}</td>
-                    </tr>
-                    {% if ruche.colonie.visites is not empty %}
-                    <tr>
-                        <td><strong>Poids (kg)</strong></td>
-                        <td>{{ ruche.colonie.visites|last.poids|number_format(3, ',', ' ') }}</td>
-                    </tr>
-                    {% endif %}
-                    {% for hausse in ruche.hausses %}
-                    <tr>
-                        <td><strong>Hausse n°{{ loop.index }}</strong> (cadres pleins/nombre cadres)</td>
-                        <td>({{ hausse.nbplein }}/{{ hausse.nbcadres }})</td>
-                    </tr>                        
-                    {% endfor %}    
-                </tbody>
-            </table>
-        </div>                 
-    </div>  
-                    
-                                   
-    <hr>
 
-    <h4>Tâches à faire :</h4>
-    {% if pagination is not empty %}       
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : ruche} only %}
+{% endblock %}
+    
+{% set visite = ruche.colonie.visites|last %}
+    
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:toolbar.html.twig' with {'colonie' : ruche.colonie} only %}    
+{% endblock %} 
+
+{% block body %}
     <div class="row">
-        <div class=" col-md-12"> 
-            <div class="table-responsive">
-                <table id="mytable" class="table table-bordred table-striped">
-                    <thead>
-                        <th>
-                            {{ knp_pagination_sortable(pagination, 'Date prévisionnelle', 'tache.date') }}
-                            {% if pagination.isSorted('tache.date') %}
-                                 {{ icon('sort-' ~ pagination.direction('tache.date')) }}
-                            {% endif %}   
-                        </th>
-                        <th>Priorité</th>
-                        <th>Résumé</th>
-                        <th>Afficher</th>
-                    </thead>
-                    <tbody>
-                        {% for tache in pagination %}
-                            <tr>
-                                <td>{{ tache.date|date('d/m/Y') }}</td>
-                                <td>{{ tache.priorite.libelle }}</td>
-                                <td>{{ tache.resume }}</td>
-                                <td><a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}" class="btn btn-success btn-xs">{{ icon('eye') }}</a></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="col-lg-12">
+            <div class="tabbable">
+                <div class="tab-content">  
+                    <div class="tab-pane fade in active" id="lastvisite">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% if visite %}
+                                    <!-- View visite -->
+                                    {% include 'KGBeekeepingManagementBundle:Visite:includeView.html.twig' with {'visite' : visite} only %}                            
+                                {% else %}
+                                    <div class="well"><center>Aucune</center> </div>
+                                {% endif %}    
+                            </div>
+                        </div>
+                    </div>                                                                     
+                    
+                    
+                    <div class="tab-pane fade" id="taches">             
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% if taches %}
+                                    <!-- Tasks grid -->
+                                    {% include 'KGBeekeepingManagementBundle:Tache:includeView.html.twig' with {'taches' : taches} only %}                                
+                                {% else %}
+                                    <div class="well"><center>Aucune</center></div>
+                                {% endif %}
+                            </div>    
+                        </div>       
+                    </div>                    
+                            
+                    <div class="tab-pane fade" id="infos"> 
+                        {% if ruche.colonie.morte %}
+                            <div class="row">
+                                <div class="col-lg-12">        
+                                    <div class="panel panel-danger">
+                                        <div class="panel-heading">
+                                            <h5><i class="fa fa-heartbeat"></i> Cette colonie est morte le {{ ruche.colonie.dateMort|date("d/m/Y") }}</h5>
+                                        </div>
+
+                                        <div class="panel-body">   
+                                            <div class="row">
+                                                <div class="col-lg-12"> 
+                                                    Causes de la mort :
+                                                    {% for cause in ruche.colonie.causes %}
+                                                        {% if not loop.first %}
+                                                            - 
+                                                        {% endif %}
+                                                        {{ cause.libelle }}
+                                                    {% endfor %}
+
+                                                    {% if ruche.colonie.causes is not empty and ruche.colonie.autreCause %}
+                                                        -
+                                                    {% endif %}
+                                                    {{ ruche.colonie.autreCause }}
+                                                </div> 
+                                            </div> 
+                                        </div> 
+                                    </div>             
+                                </div> 
+                            </div>             
+                        {% endif %}                         
+                        <div class="row">   
+                            <div class="col-lg-12">
+                                <!-- View ruche -->
+                                {% include 'KGBeekeepingManagementBundle:Ruche:includeView.html.twig' with {'ruche' : ruche} only %} 
+                            </div>
+                        </div>                                    
+                    </div>
+                </div>                           
             </div>
-            <div class="row">
-                <div class="col-md-12 navigation" align="right">
-                    {{ knp_pagination_render(pagination) }}
-                </div> 
-            </div>                            
-        </div>
-    </div>    
-    {% else %}    
-    <div class="row">
-        <div class="col-md-12" align="center">      
-            Pas de tâche en attente.
-        </div>
-    </div>          
-    {% endif %}                     
+        </div>    
+    </div>                                                                       
 {% endblock %}

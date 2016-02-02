@@ -38,18 +38,8 @@ class RecolteController extends Controller
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
     public function addAction(Colonie $colonie, Request $request)
-    {
-        $apiculteurExploitations = $colonie->getRuche()->getRucher()->getExploitation()->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $colonie->getRuche()->getHausses()->isEmpty()){
+    {       
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canBeRecoltee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -94,38 +84,14 @@ class RecolteController extends Controller
     * @Security("has_role('ROLE_USER')")
     * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
     */    
-    public function viewAllAction(Request $request, Colonie $colonie, $page)
-    {
-        $exploitation = $colonie->getRuche()->getRucher()->getExploitation();
-        $apiculteurExploitations = $exploitation->getApiculteurExploitations();
-        $not_permitted = true;
-        
-        foreach ( $apiculteurExploitations as $apiculteurExploitation ){
-            if( $apiculteurExploitation->getApiculteur()->getId() == $this->getUser()->getId() ){
-                $not_permitted = false;
-                break;
-            }
-        }
-        
-        if( $not_permitted || $page < 1  || $colonie->getRecoltes()->isEmpty()){
+    public function viewAllAction(Colonie $colonie)
+    {       
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation())){
             throw new NotFoundHttpException('Page inexistante.');
         }
- 
-        $query = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Recolte')->getListByColonie($colonie);    
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', $page),
-            30,
-            array(
-                'defaultSortFieldName' => 'r.date',
-                'defaultSortDirection' => 'desc'
-            )  
-        );
         
         return $this->render('KGBeekeepingManagementBundle:Recolte:viewAll.html.twig', 
-                array(  'colonie'    => $colonie,
-                        'pagination' => $pagination));
+                array( 'colonie' => $colonie ));
     }
     
 }

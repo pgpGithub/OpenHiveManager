@@ -15,48 +15,4 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  #}
 
-{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    {{ form_stylesheet(form) }}
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {{ form_javascript(form) }}
-{% endblock %}
-
-{% block title %}{{ parent() }} - Modifier une tâche{% endblock %}
-
-{% block menu %}
-    {% include 'KGBeekeepingManagementBundle::menuTache.html.twig' %}
-{% endblock menu %}
-
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Modification d'une tâche</h4>
-        </div>
-    </div>
-{% endblock %}
-    
-{% block panel_body %}            
-    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'md' }) }}
-        {{ form_row(form.date, {'label': 'A faire le :', 'label_col': 4, 'widget_col': 5})  }} 
-        {{ form_row(form.priorite, {'label': 'Priorité :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.resume, {'label': 'Résumé :', 'label_col': 4, 'widget_col': 5})  }}
-        {{ form_row(form.description, {'label': 'Description :', 'label_col': 4, 'widget_col': 5})  }}                         
-
-    {{ form_rest(form) }}
-
-    <div class="form-group">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary pull-right">
-                {{ icon('floppy-o') }} Sauvegarder
-            </button>
-        </div>        
-    </div>
-
-    {{ form_end(form) }}     
-{% endblock %}
+{% include 'KGBeekeepingManagementBundle:Tache:form.html.twig' with {'title' : 'Modification', 'colonie' : tache.colonie, 'form' : form } only %}

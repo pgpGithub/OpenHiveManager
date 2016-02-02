@@ -17,56 +17,64 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Tâches{% endblock %}
-
-{% block menu %}
-    {% include 'KGBeekeepingManagementBundle::menuRuche.html.twig' %}
-{% endblock menu %}
-
-{% block panel_title %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Historique des tâches</h4>
-        </div>
-    </div>
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?uglifyjs2'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/tables/datatables/datatables.min.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/tache/viewAll.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
 {% endblock %}
 
-{% block panel_body %}       
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonie.ruche} only %} 
+{% endblock %}  
+
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:toolbarBack.html.twig' with {'ruche' : colonie.ruche} only %}                  
+{% endblock %}
+
+{% block body %}
     <div class="row">
-        <div class=" col-md-12"> 
-            <div class="table-responsive">
-                <table id="mytable" class="table table-bordred table-striped">
-                    <thead>
-                        <th>Date de réalisation</th>
-                        <th>Date prévisionnelle</th>
-                        <th>Priorité</th>
-                        <th>Résumé</th>
-                        <th>Afficher</th>
-                    </thead>
-                    <tbody> 
-                        {% for tache in pagination %}
+        <div class="col-lg-12">
+            <!-- Media library -->
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h6 class="panel-title text-semibold">Historique des tâches</h6>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped media-library table-lg">
+                        <thead>
                             <tr>
-                                <td>
-                                    {% if tache.visite %}
-                                        <a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': tache.visite.id }) }}">{{ tache.visite.date|date('d/m/Y') }}</a>
-                                    {% else %}
-                                        En attente
-                                    {% endif %}
-                                </td>
-                                <td>{{ tache.date|date('d/m/Y') }}</td>
-                                <td>{{ tache.priorite.libelle }}</td>
-                                <td>{{ tache.resume }}</td>
-                                <td><a title="Afficher la tâche" href="{{ path('kg_beekeeping_management_view_tache', { 'tache_id': tache.id }) }}" class="btn btn-success btn-xs">{{ icon('eye') }}</a></td>                                
-                            </tr>    
-                        {% endfor %}
-                    </tbody>
-                </table>  
+                                <th>Date de réalisation</th>
+                                <th>Date prévisionnelle</th>
+                                <th>Priorité</th>
+                                <th>Résumé</th>       
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tache in colonie.taches %}
+                                <tr>
+                                    <td>
+                                        {% if tache.visite %}
+                                            <a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': tache.visite.id }) }}">{{ tache.visite.date|date('d/m/Y') }}</a>
+                                        {% else %}
+                                            En attente
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ tache.date|date('d/m/Y') }}</td>
+                                    <td>{{ tache.priorite.libelle }}</td>
+                                    <td>{{ tache.resume }}</td>                            
+                                </tr>    
+                            {% endfor %}                                                
+                        </tbody>
+                    </table>
+                </div>        
             </div>
-            <div class="row">
-                <div class="col-md-12 navigation" align="right">
-                    {{ knp_pagination_render(pagination) }}
-                </div> 
-            </div>                            
+            <!-- /media library -->   
         </div>
-    </div>                                    
+    </div>                                         
 {% endblock %}

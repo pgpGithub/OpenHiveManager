@@ -3,38 +3,120 @@
 {% extends "KGSiteBundle::layout.html.twig" %}
 
 {% block stylesheets %}
-    {{ parent() }}
     {% stylesheets filter='cssrewrite, ?uglifycss'
-        'css/bootstrap_switch/bootstrap-switch.css'%}
+            'assets/css/icons/icomoon/styles.css'
+            'assets/css/icons/fontawesome/styles.min.css'
+            'assets/css/bootstrap.css'
+            'assets/css/core.css'
+            'assets/css/components.css'
+            'assets/css/colors.css'
+        %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}  
+    {% endstylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block javascripts %}
+    {% javascripts filter='?uglifyjs2'
+            'assets/js/plugins/loaders/pace.min.js' 
+            'assets/js/core/libraries/jquery.min.js'
+            'assets/js/core/libraries/bootstrap.min.js'
+            'assets/js/plugins/loaders/blockui.min.js'
+            'assets/js/plugins/ui/nicescroll.min.js'
+            'assets/js/pages/layout_fixed_custom.js'
+            'assets/js/core/app.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}    
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        <div id="fb-root"></div>
+        <script>
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+            (document, 'script', 'facebook-jssdk'));
+        </script>
     {{ parent() }}
-    {% javascripts filter='?uglifyjs2' 
-        'js/bootstrap_switch/bootstrap-switch.js'
-        '@KGSiteBundle/Resources/public/js/contact/add.js'%}
-        <script src="{{ asset_url }}" type="text/javascript"></script>  
-    {% endjavascripts %}
+{% endblock %} 
+
+{% block sitetitle %}{{ parent() }} - Contact{% endblock %}
+
+{% block mainnavbar %}
+    {% include 'KGSiteBundle::mainnavbar.html.twig' %}
 {% endblock %}
 
-{% block title %}{{ parent() }} - Contact{% endblock %}
+{% block pagecontainer %}
+    <div class="page-container login-container">
 
-{% block body %}
-    <h2 class="page-header">{{ icon('envelope') }} Contactez-nous</h2>
-    <h3>{{ icon('info-circle') }} La parole est à vous</h3>
-    <p>
-        Une idée, une remarque, un conseil, un soutien ? N'hésitez pas à nous écrire à <a href="mailto:contact@openhivemanager.org">contact@openhivemanager.org</a>, nous prendrons toujours le temps de vous répondre.
-    </p>
-    <h3>{{ icon('question-circle') }} Nous sommes là pour vous aider</h3>
-    <p>
-        Vous rencontrez une anomalie ou avez besoin d'aide ? Ecrivez nous à <a href="mailto:support@openhivemanager.org">support@openhivemanager.org</a> en détaillant un maximum votre problème avec, si nécessaire :
-        <ul>
-            <li>Des copies d'écran</li>
-            <li>Les étapes pour reproduire l'anomalie</li>
-            <li>L'url de la page</li>
-            <li>Le ou les messages d'erreurs</li>
-        </ul>
-    </p>
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Content area -->
+                <div class="content">
+
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <!-- Simple panel -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Contactez-nous</h2>
+                                </div>
+
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p><strong>N'hésitez pas à nous contacter, nous serons toujours là pour vous répondre !</strong><p>
+                                            <h3>Support</h3>
+                                            <p>
+                                                Pour les demandes de support, écrivez nous à <a href="mailto:support@openhivemanager.org">support@openhivemanager.org</a> en détaillant un maximum votre problème avec, si nécessaire :
+                                                <ul>
+                                                    <li>Des copies d'écran</li>
+                                                    <li>Les étapes pour reproduire l'anomalie</li>
+                                                    <li>L'url de la page</li>
+                                                    <li>Le ou les messages d'erreurs</li>
+                                                </ul>                                                
+                                            </p>
+                                            <h3>Autres demandes</h3>
+                                            <p>Pour tout autre demande, nous sommes joignables par mail, à l'adresse <a href="mailto:contact@openhivemanager.org">contact@openhivemanager.org</a>, ou via Twitter ou Facebook (ci-dessous ou depuis votre page personnelle).</p>
+                                        </div>
+                                    </div>    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>Twitter</h4>
+                                            <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/openhivemanager" data-widget-id="692345637002698754">Tweets de @openhivemanager</a>   
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4>Facebook</h4>
+                                           <div class="fb-page" data-href="https://www.facebook.com/openhivemanager/" data-tabs="messages, timeline, events" data-width="500" data-hide-cta="true" data-small-header="false" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/openhivemanager/"><a href="https://www.facebook.com/openhivemanager/">Openhivemanager</a></blockquote></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /simple panel -->                                     
+                        </div>
+                    </div>
+                                            
+                    <!-- Footer -->
+                    <div class="footer text-muted">
+                        {% include 'KGSiteBundle::footer.html.twig' %} 
+                    </div>
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div> 
 {% endblock %}

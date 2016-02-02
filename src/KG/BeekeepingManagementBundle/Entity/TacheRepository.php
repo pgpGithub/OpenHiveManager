@@ -29,16 +29,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class TacheRepository extends EntityRepository
 {
-    public function getAllListByColonie($colonie)
-    {
-        return $this->createQueryBuilder('tache')
-                    ->leftJoin('tache.colonie','colonie')
-                    ->leftJoin('tache.visite','visite')
-                    ->where('colonie.id = :id')
-                    ->setParameter('id',$colonie->getId())
-                    ->getQuery();
-    }   
-    
     public function getListByColonie($colonie, $visite = null)
     {
         $result = $this->createQueryBuilder('tache')
