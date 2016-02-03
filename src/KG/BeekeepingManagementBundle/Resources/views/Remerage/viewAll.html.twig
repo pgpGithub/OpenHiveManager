@@ -64,10 +64,10 @@
                                 <td>{% if remerage.naturel %}Naturel{% else %}Artificiel{% endif %}</td>
                                 <td>{{ remerage.reine.race.libelle }}</td>
                                 <td>{% if remerage.reine.anneeReine %}{{ remerage.reine.anneeReine|date("Y") }}{% else %} Inconnue {% endif %}</td>
-                                <td>{% if remerage.reine.reineMere %}<a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': remerage.reine.reineMere.remerage.colonie.id }) }}">{{ remerage.reine.reineMere.remerage.colonie.numero }}</a>{% endif %}</td>
+                                <td>{% if remerage.reine.reineMere %}<a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': remerage.reine.reineMere.remerage.colonie.ruche.id }) }}">{{ remerage.reine.reineMere.remerage.colonie.numero }}</a>{% endif %}</td>
                                 <td>
                                     {% for reineFille in remerage.reine.reinesFilles %}
-                                        <a title="Afficher la colonie" href="{{ path('kg_beekeeping_management_view_colonie', { 'colonie_id': reineFille.remerage.colonie.id }) }}">{{ reineFille.remerage.colonie.numero }}</a>
+                                        <a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': reineFille.remerage.colonie.ruche.id }) }}">{{ reineFille.remerage.colonie.numero }}</a>
                                     {% endfor %}
                                 </td>
                             </tr>
