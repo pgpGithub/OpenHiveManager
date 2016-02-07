@@ -1,24 +1,8 @@
 {% set ruchers = tache.colonie.ruche.rucher.exploitation.ruchers %}
 
 <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
-    <ul class="dropdown-menu dropdown-menu-right">       
-        {% set first = true %}
-        {% for rucher in ruchers %}
-            {% if rucher.hasRuche %}
-                {% if first == true %}
-                    <li class="dropdown-submenu">
-                        <a href="#"><i class="fa fa-files-o"></i>Dupliquer</a>
-                        <ul class="dropdown-menu">     
-                    {% set first = false %}        
-                {% endif %}    
-                <li><a href="{{ path('kg_beekeeping_management_duplicate_tache', { 'tache_id': tache.id, 'rucher_id' : rucher.id }) }}"><i class="fa fa-long-arrow-right"></i> Vers {{ rucher.nom }}</a></li>               
-            {% endif %}    
-        {% endfor %}
-        {% if first == false %}
-                </ul>
-            </li>        
-        {% endif %}
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> Option <span class="caret"></span></a>
+    <ul class="dropdown-menu">       
         {% if tache.canBeUpdated %}
             <li><a href="{{ path('kg_beekeeping_management_update_tache', { 'tache_id': tache.id }) }}"><i class="fa fa-pencil"></i> Modifier la tâche</a></li>
         {% else %}
@@ -30,4 +14,20 @@
             <li class="disabled"><a href="#"><i class="fa fa-trash"></i> Supprimer la tâche</a></li>        
         {% endif %}    
     </ul>
+</li>
+<li class="dropdown">    
+    {% set first = true %}
+    {% for rucher in ruchers %}
+        {% if rucher.hasRuche %}
+            {% if first == true %}
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-files-o"></i> Dupliquer <span class="caret"></span></a>
+                <ul class="dropdown-menu">     
+                {% set first = false %}        
+            {% endif %}    
+            <li><a href="{{ path('kg_beekeeping_management_duplicate_tache', { 'tache_id': tache.id, 'rucher_id' : rucher.id }) }}"><i class="fa fa-long-arrow-right"></i> Vers {{ rucher.nom }}</a></li>               
+        {% endif %}    
+    {% endfor %}
+    {% if first == false %}
+        </ul>     
+    {% endif %}    
 </li>
