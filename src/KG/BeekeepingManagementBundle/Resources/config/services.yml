@@ -1,4 +1,5 @@
 services:
-#    kg_beekeeping_management.example:
-#        class: KG\BeekeepingManagementBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    kg_beekeeping_management.twig.trie_emplacement_par_ruche_extension:
+        class: KG\BeekeepingManagementBundle\Twig\Extension\TrieEmplacementParRuche
+        tags:
+            -  { name: twig.extension }

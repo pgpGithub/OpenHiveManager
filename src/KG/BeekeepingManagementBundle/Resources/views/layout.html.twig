@@ -147,7 +147,7 @@ class="layout-boxed"
                                                             <li>
                                                                 <a href="#"><i class="fa fa-list fa-fw"></i>Ruches <span class="fa arrow"></span></a>
                                                                 <ul>
-                                                                    {% for emplacement in rucher.emplacements %}
+                                                                    {% for emplacement in rucher.emplacements | trie_emplacement_par_ruche %}
                                                                         {% if emplacement.ruche %}
                                                                             {% if emplacement.ruche.id %}
                                                                                 {% if not emplacement.ruche.colonie.morte %}
