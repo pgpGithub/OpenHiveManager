@@ -60,15 +60,19 @@
                                 <h6 class="panel-title text-semibold">Ruches</h6>
                             </div>
 
-                            <div class="table-responsive">
+                            <div id="table" class="table-responsive" data-numerotation="{{ rucher.numerotation }}">
                                 <table class="table table-striped media-library table-lg">
                                     <thead>
                                         <tr>
                                             <th>Aperçu</th>
-                                            <th>Emplacement</th>
+                                            {% if rucher.numerotation %}
+                                                <th>Emplacement</th>
+                                            {% endif %}
                                             <th>Ruche</th>
-                                            <th>Type</th>
                                             <th>Race</th>
+                                            <th>Poids</th>
+                                            <th>Nourrissement</th>
+                                            <th>Tâches</th>
                                             <th>Hausses</th>                    
                                             <th class="text-center">Actions</th>
                                         </tr>
@@ -96,19 +100,34 @@
                                                 </td>
                                                 {% if rucher.numerotation %}
                                                     <td>{{ emplacement.numero }}</td> 
-                                                {% else %}
-                                                    <td>NA</td>
                                                 {% endif %}
                                                 {% if emplacement.ruche %}
                                                     <td><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}" >{{ emplacement.ruche.nom }}</a></td>
-                                                    <td>{{ emplacement.ruche.corps.type.libelle }} {{ emplacement.ruche.corps.nbcadres }}</td>
                                                     {% if emplacement.ruche.colonie %}
                                                         <td>{{ emplacement.ruche.colonie.remerages|last.reine.race.libelle }}</td>
                                                     {% endif %}
+                                                    {% if emplacement.ruche.colonie.visites is not empty %}
+                                                        <td>{{ emplacement.ruche.colonie.visites|last.poids|number_format(3, ',', ' ') }}</td>
+                                                        {% if emplacement.ruche.colonie.visites|last.nourrissement %}
+                                                            <td>En cours</td>
+                                                        {% else %}
+                                                            <td>Non</td>
+                                                        {% endif %}    
+                                                    {% else %}
+                                                        <td>Inconnu</td>
+                                                        <td>Non</td>
+                                                    {% endif %}
+                                                    {% if emplacement.ruche.colonie.taches is not empty %}
+                                                        <td>{{ emplacement.ruche.colonie.taches|length }}</td>
+                                                    {% else %}
+                                                        <td>0</td>
+                                                    {% endif %}
                                                     <td>{{ emplacement.ruche.hausses|length }}</td>
-                                                {% else %}                                    
+                                                {% else %}                                                       
                                                     <td>Emplacement vide</td>                                      
-                                                    <td></td>   
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
                                                     <td></td>   
                                                     <td></td> 
                                                 {% endif %}   

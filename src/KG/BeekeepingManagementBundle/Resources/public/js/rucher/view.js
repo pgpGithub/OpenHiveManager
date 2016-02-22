@@ -21,6 +21,15 @@ $(function() {
     // Table setup
     // ------------------------------
 
+    var numerotation = $('#table').data('numerotation');
+    var col_action = 8;
+    var col_ruche = 2;
+    
+    if(numerotation == false){
+        col_action = col_action - 1;
+        col_ruche = col_ruche - 1;
+    }
+
     // Setting datatable defaults
     $.extend( $.fn.dataTable.defaults, {
         autoWidth: false,
@@ -33,10 +42,10 @@ $(function() {
             { 
                 orderable: false,
                 width: '90px',
-                targets: 6
+                targets: col_action
             }
         ],
-        order: [[ 2, "asc" ]],
+        order: [[ col_ruche, "asc" ]],
         lengthMenu: [ 25, 50, 75, 100 ],
         displayLength: 25,
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
