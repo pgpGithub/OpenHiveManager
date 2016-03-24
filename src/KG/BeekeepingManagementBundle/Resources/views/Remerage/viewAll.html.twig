@@ -60,7 +60,7 @@
                         <tbody>
                             {% for remerage in colonie.remerages %}
                             <tr>
-                                <td>{{ remerage.date|date('d/m/Y') }}</td>
+                                <td>{{ remerage.date|date('Y/m/d') }}</td>
                                 <td>{% if remerage.naturel %}Naturel{% else %}Artificiel{% endif %}</td>
                                 <td>{{ remerage.reine.race.libelle }}</td>
                                 <td>{% if remerage.reine.anneeReine %}{{ remerage.reine.anneeReine|date("Y") }}{% else %} Inconnue {% endif %}</td>

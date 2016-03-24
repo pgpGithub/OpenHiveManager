@@ -57,7 +57,7 @@
                         <tbody>
                             {% for recolte in colonie.recoltes %}
                                 <tr>
-                                    <td>{{ recolte.date|date('d/m/Y') }}</td>
+                                    <td>{{ recolte.date|date('Y/m/d') }}</td>
                                     <td>{{ recolte.typemiel }}</td>
                                     <td>{{ recolte.nbcadres }}</td>
                                 </tr>

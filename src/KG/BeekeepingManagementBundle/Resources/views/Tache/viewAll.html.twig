@@ -60,12 +60,12 @@
                                 <tr>
                                     <td>
                                         {% if tache.visite %}
-                                            <a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': tache.visite.id }) }}">{{ tache.visite.date|date('d/m/Y') }}</a>
+                                            <a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': tache.visite.id }) }}">{{ tache.visite.date|date('Y/m/d') }}</a>
                                         {% else %}
                                             En attente
                                         {% endif %}
                                     </td>
-                                    <td>{{ tache.date|date('d/m/Y') }}</td>
+                                    <td>{{ tache.date|date('Y/m/d') }}</td>
                                     <td>{{ tache.priorite.libelle }}</td>
                                     <td>{{ tache.resume }}</td>                            
                                 </tr>    

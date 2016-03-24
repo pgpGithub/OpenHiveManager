@@ -62,7 +62,7 @@
                         <tbody>
                         {% for visite in colonie.visites %}
                             <tr>
-                                <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('d/m/Y') }}</a></td>
+                                <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('Y/m/d') }}</a></td>
                                 <td>{{ visite.activite.libelle }}</td>
                                 <td>{{ visite.etat.libelle }}</td>
                                 <td>{{ visite.nbnourriture }}</td>

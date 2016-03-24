@@ -59,7 +59,7 @@
                         <tbody>
                             {% for transhumance in colonie.transhumances %}
                                 <tr>
-                                    <td>{{ transhumance.date|date('d/m/Y') }}</td>
+                                    <td>{{ transhumance.date|date('Y/m/d') }}</td>
                                     <td><a title="Afficher le rucher" href="{{ path('kg_beekeeping_management_view_rucher', { 'rucher_id': transhumance.rucherfrom.id }) }}">{{ transhumance.rucherfrom.nom }}</a></td>
                                     <td>
                                         {% if transhumance.rucherfrom.numerotation and transhumance.emplacementfrom %}

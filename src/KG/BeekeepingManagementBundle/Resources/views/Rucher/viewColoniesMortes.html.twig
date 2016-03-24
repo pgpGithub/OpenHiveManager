@@ -59,7 +59,7 @@
                                 {% if ruche.colonie.morte %}  
                                     <tr>
                                         <td><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': ruche.id }) }}">{{ ruche.colonie.numero }}</a></td>                                    
-                                        <td>{{ ruche.colonie.dateMort|date('d/m/Y') }}</td>
+                                        <td>{{ ruche.colonie.dateMort|date('Y/m/d') }}</td>
                                         <td>
                                             {% for cause in ruche.colonie.causes %}
                                                 {% if not loop.first %}
