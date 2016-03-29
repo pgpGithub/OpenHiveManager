@@ -78,10 +78,12 @@ class RucheController extends Controller
         }
 
         $taches = $this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Tache')->getListByColonie($ruche->getColonie())->getResult();         
+        $chart = $this->get('app.chart');
         
         return $this->render('KGBeekeepingManagementBundle:Ruche:view.html.twig',
                 array(  'ruche' => $ruche,
-                        'taches' => $taches
+                        'taches' => $taches,
+                        'getPoidsParVisite' => $chart->getChartPoidsParVisite( $ruche ),
                 ));        
     }  
 

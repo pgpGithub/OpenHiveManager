@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "66031082e027091423c739b2540cccb3",
+    "hash": "bd32ac4370a9ca734d52f3879189a1d3",
+    "content-hash": "112712ed34870b51a74ef84fc6d18bb8",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -17,7 +18,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/braincrafted/bootstrap-bundle/zipball/dd53559cfe15428f07ac3681826573fab1557bd9",
+                "url": "https://api.github.com/repos/braincrafted/bootstrap-bundle/zipball/23ae42061668d0fdc999b63db55c264265e037ab",
                 "reference": "dd53559cfe15428f07ac3681826573fab1557bd9",
                 "shasum": ""
             },
@@ -65,6 +66,46 @@
                 "bootstrap"
             ],
             "time": "2015-04-15 11:59:36"
+        },
+        {
+            "name": "cmen/google-charts-bundle",
+            "version": "dev-master",
+            "target-dir": "CMEN/GoogleChartsBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cmen/CMENGoogleChartsBundle.git",
+                "reference": "a937a14deaaa8edb14519f7a6f7b0c40858e02b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cmen/CMENGoogleChartsBundle/zipball/a937a14deaaa8edb14519f7a6f7b0c40858e02b1",
+                "reference": "a937a14deaaa8edb14519f7a6f7b0c40858e02b1",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "~2.3|~3.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "CMEN\\GoogleChartsBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Meneses"
+                }
+            ],
+            "description": "Symfony bundle that ease the use of Google Charts.",
+            "keywords": [
+                "charts",
+                "google"
+            ],
+            "time": "2016-03-05 10:04:21"
         },
         {
             "name": "doctrine/annotations",
@@ -581,7 +622,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/86d2b1c9c195c12175551d02a475067977c0afcf",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/c0a2f5d069e56e2ac7a42719dfda63fd996a39ed",
                 "reference": "86d2b1c9c195c12175551d02a475067977c0afcf",
                 "shasum": ""
             },
@@ -900,7 +941,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/ac14003ffc6b4a99b0d64d72c0c63278f72a8c71",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/f97ab41d187553e86abb8c7f6c057c9c0b88de58",
                 "reference": "ac14003ffc6b4a99b0d64d72c0c63278f72a8c71",
                 "shasum": ""
             },
@@ -948,7 +989,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/e481171a0826e9372bfec28acd6bf5fb50c4106a",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/25d0117093a845dee96d1dc439656cbf3714ea09",
                 "reference": "e481171a0826e9372bfec28acd6bf5fb50c4106a",
                 "shasum": ""
             },
@@ -1007,7 +1048,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/45d6f40178216a840885b4ca6d7de9e67068568a",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/16b04c49af05dd3fb381e4abe04f0e5e231ac76d",
                 "reference": "45d6f40178216a840885b4ca6d7de9e67068568a",
                 "shasum": ""
             },
@@ -1415,124 +1456,6 @@
             "time": "2015-09-20 08:23:47"
         },
         {
-            "name": "knplabs/knp-menu-bundle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
-                "reference": "675a8f87d972713b1abec06e5ed63043e7fd5aec"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/675a8f87d972713b1abec06e5ed63043e7fd5aec",
-                "reference": "675a8f87d972713b1abec06e5ed63043e7fd5aec",
-                "shasum": ""
-            },
-            "require": {
-                "knplabs/knp-menu": "~2.1",
-                "symfony/framework-bundle": "~2.3|~3.0"
-            },
-            "require-dev": {
-                "symfony/expression-language": "~2.4|~3.0",
-                "symfony/phpunit-bridge": "~2.7|~3.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Knp\\Bundle\\MenuBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christophe Coevoet",
-                    "email": "stof@notk.org"
-                },
-                {
-                    "name": "Knplabs",
-                    "homepage": "http://knplabs.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://github.com/KnpLabs/KnpMenuBundle/contributors"
-                }
-            ],
-            "description": "This bundle provides an integration of the KnpMenu library",
-            "keywords": [
-                "menu"
-            ],
-            "time": "2015-11-13 10:51:46"
-        },
-        {
-            "name": "knplabs/knp-paginator-bundle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "5147740faff4d32e6f42acf64475314c35320fa4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/5147740faff4d32e6f42acf64475314c35320fa4",
-                "reference": "5147740faff4d32e6f42acf64475314c35320fa4",
-                "shasum": ""
-            },
-            "require": {
-                "knplabs/knp-components": "~1.2",
-                "php": ">=5.3.3",
-                "symfony/framework-bundle": "~2.3|~3.0",
-                "twig/twig": "~1.12|~2"
-            },
-            "require-dev": {
-                "symfony/expression-language": "~2.4|~3.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Knp\\Bundle\\PaginatorBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "KnpLabs Team",
-                    "homepage": "http://knplabs.com"
-                },
-                {
-                    "name": "Symfony2 Community",
-                    "homepage": "http://github.com/KnpLabs/KnpPaginatorBundle/contributors"
-                }
-            ],
-            "description": "Paginator bundle for Symfony2 to automate pagination and simplify sorting and other features",
-            "homepage": "http://github.com/KnpLabs/KnpPaginatorBundle",
-            "keywords": [
-                "Symfony2",
-                "bundle",
-                "knp",
-                "knplabs",
-                "pager",
-                "pagination",
-                "paginator"
-            ],
-            "time": "2015-11-23 17:51:40"
-        },
-        {
             "name": "kriswallsmith/assetic",
             "version": "v1.3.2",
             "source": {
@@ -1660,7 +1583,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikMaintenanceBundle/zipball/4967701a108aa8262fc92790414e3113d7d32d93",
+                "url": "https://api.github.com/repos/lexik/LexikMaintenanceBundle/zipball/01c2763f1f2012958d4b43bbb87daf96b0316706",
                 "reference": "4967701a108aa8262fc92790414e3113d7d32d93",
                 "shasum": ""
             },
@@ -1717,7 +1640,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/misd-service-development/phone-number-bundle/zipball/df7d550e7f0ecde8a313f65a1198c5a4194c9484",
+                "url": "https://api.github.com/repos/misd-service-development/phone-number-bundle/zipball/845897f415fcba0018c180d667c1a6b03028d94c",
                 "reference": "df7d550e7f0ecde8a313f65a1198c5a4194c9484",
                 "shasum": ""
             },
@@ -2312,7 +2235,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stephanecollot/DatetimepickerBundle/zipball/733e4d1896aba5ee7c0b924d0ce25bca179b47ef",
+                "url": "https://api.github.com/repos/stephanecollot/DatetimepickerBundle/zipball/66af9beb84703785592a866f54da0a5b7f5e399a",
                 "reference": "733e4d1896aba5ee7c0b924d0ce25bca179b47ef",
                 "shasum": ""
             },
@@ -3319,14 +3242,13 @@
         "friendsofsymfony/user-bundle": 20,
         "friendsofsymfony/jsrouting-bundle": 20,
         "braincrafted/bootstrap-bundle": 20,
-        "knplabs/knp-paginator-bundle": 20,
-        "knplabs/knp-menu-bundle": 20,
         "fortawesome/font-awesome": 20,
         "misd/phone-number-bundle": 20,
         "lexik/maintenance-bundle": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "phpoffice/phpword": 20,
-        "sgk/barcode-bundle": 20
+        "sgk/barcode-bundle": 20,
+        "cmen/google-charts-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

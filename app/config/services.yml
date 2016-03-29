@@ -7,3 +7,10 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.chart.data:
+        class: KG\BeekeepingManagementBundle\Chart\ChartData
+        arguments: ['@security.context']
+
+    app.chart:
+        class: KG\BeekeepingManagementBundle\Chart\Chart
+        arguments: ['@app.chart.data']

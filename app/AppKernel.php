@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new SGK\BarcodeBundle\SGKBarcodeBundle(),
+            new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
