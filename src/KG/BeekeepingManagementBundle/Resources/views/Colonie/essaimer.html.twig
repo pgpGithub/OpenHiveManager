@@ -1,0 +1,162 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?uglifyjs2'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        'assets/js/plugins/uploaders/fileinput.min.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/colonie/diviser.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>  
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    {% endjavascripts %} 
+    {{ form_javascript(form) }}
+{% endblock %}
+
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonieMere.ruche} only %} 
+{% endblock %} 
+
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:toolbarBack.html.twig' with {'ruche' : colonieMere.ruche} only %}                  
+{% endblock %}
+
+{% block body %}
+    <!-- 2 columns form -->
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Essaimage de la colonie</h5>
+            </div>
+
+            <div class="panel-body"> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-plane position-left"></i> Destination de l'essaim</legend>
+                        
+                            <div class="form-group">
+                                {{ form_label(form.ruche.rucher, 'Rucher :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.ruche.rucher) }}
+                                    {{ form_errors(form.ruche.rucher) }}
+                                </div>
+                            </div>  
+
+                            <div class="form-group" id="numerotation">
+                                {{ form_label(form.ruche.emplacement, 'Emplacement :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.ruche.emplacement) }}
+                                    {{ form_errors(form.ruche.emplacement) }}
+                                </div>
+                            </div>                                   
+                        </fieldset>
+                    </div>
+                </div>  
+                                
+                <div class="row">
+                    <div class="col-md-6">               
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-archive position-left"></i> Ruche</legend>                          
+                            <div class="form-group">
+                                {{ form_label(form.ruche.nom, 'Nom :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.ruche.nom) }}
+                                    {{ form_errors(form.ruche.nom) }}
+                                </div>
+                            </div>                                                           
+                                
+                            <div class="form-group">
+                                {{ form_label(form.ruche.matiere, 'Matière :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.ruche.matiere) }}
+                                    {{ form_errors(form.ruche.matiere) }}
+                                </div>
+                            </div>                                   
+
+                            <div class="form-group">
+                                {{ form_label(form.ruche.corps.type, 'Type :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.ruche.corps.type) }}
+                                    {{ form_errors(form.ruche.corps.type) }}
+                                </div>
+                            </div>  
+                                
+                            <div class="form-group">
+                                {{ form_label(form.ruche.corps.nbcadres, 'Nombre de cadres :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.ruche.corps.nbcadres) }}
+                                    {{ form_errors(form.ruche.corps.nbcadres) }}
+                                </div>
+                            </div> 
+                                
+                            <div class="form-group">
+                                {{ form_label(form.ruche.image.file, 'Photo :', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.ruche.image.file, { 'attr': {'class': 'file-input-custom', 'data-show-caption': 'true', 'data-show-upload': 'true', 'accept': 'image/*'} }) }}
+                                    {{ form_errors(form.ruche.image.file) }}
+                                </div>
+                            </div> 
+    
+                        </fieldset>                           
+                    </div>
+                                
+                    <div class="col-md-6">                               
+                        <fieldset>
+                            <legend class="text-semibold"><i class="fa fa-users position-left"></i> Colonie</legend>
+                            <div class="form-group">
+                                {{ form_label(form.dateColonie, "Date de l'essaimage :*", { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        {{ form_widget(form.dateColonie) }}                                        
+                                    </div>
+                                    {{ form_errors(form.dateColonie) }}
+                                </div>
+                            </div>                                       
+
+                            <div class="form-group">
+                                {{ form_label(form.affectation, 'Affectation :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.affectation) }}        
+                                    {{ form_errors(form.affectation) }}
+                                </div>
+                            </div>                                                              
+                        </fieldset> 
+                    </div>
+                </div>
+                                                                                                                     
+                {{ form_rest(form) }}
+                
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Essaimer <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+    <!-- /2 columns form -->      
+
+{% endblock %}

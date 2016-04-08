@@ -21,6 +21,7 @@ namespace KG\BeekeepingManagementBundle\Controller;
 
 use KG\BeekeepingManagementBundle\Entity\Colonie;
 use KG\BeekeepingManagementBundle\Form\Type\DiviserType;
+use KG\BeekeepingManagementBundle\Form\Type\EssaimerType;
 use KG\BeekeepingManagementBundle\Form\Type\CauseType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -91,6 +92,54 @@ class ColonieController extends Controller
                                    'colonieMere' => $colonieMere
                             ));        
     }
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("colonieMere", options={"mapping": {"colonie_id" : "id"}}) 
+    */    
+    public function essaimerAction(Colonie $colonieMere, Request $request)
+    {
+        
+        if( !$this->getUser()->canDisplayExploitation($colonieMere->getRuche()->getRucher()->getExploitation()) || !$colonieMere->canBeEssaimee() ){
+            throw new NotFoundHttpException('Page inexistante.');
+        }
+        
+        $colonie = $colonieMere->essaimer($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Essaimage"));        
+        $form = $this->createForm(new EssaimerType($colonieMere), $colonie);
+        
+        if ($form->handleRequest($request)->isValid()){
+
+            // La date du remérage est la même que celle de la création de la colonie
+            $colonie->getRemerages()[0]->setDate($colonie->getDateColonie());
+            
+            // La date de la reine est la même que celle de la création de la colonie
+            $colonie->getRemerages()[0]->getReine()->setAnneeReine($colonie->getDateColonie());        
+            
+            $rucheFille = $colonie->getRuche();   
+            $rucheMere  = $colonieMere->getRuche();
+            
+            // La colonie fille est la colonie restant dans la ruche
+            $colonie->setRuche($rucheMere);           
+            
+            // La colonie mère est celle qui essaime et qui est placée dans la nouvelle ruche (via le formulaire) 
+            $colonieMere->setRuche($rucheFille);  
+            
+            $em = $this->getDoctrine()->getManager();      
+            $em->persist($colonieMere);              
+            $em->persist($colonie);       
+            $em->flush();
+        
+            $flash = $this->get('braincrafted_bootstrap.flash');
+            $flash->success('Colonie essaimée avec succès');
+        
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_rucher', array('rucher_id' => $colonie->getRuche()->getRucher()->getId())));  
+        }
+
+        return $this->render('KGBeekeepingManagementBundle:Colonie:essaimer.html.twig', 
+                             array('form'        => $form->createView(),
+                                   'colonieMere' => $colonieMere
+                            ));        
+    }    
     
     /**
     * @Security("has_role('ROLE_USER')")

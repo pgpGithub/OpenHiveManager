@@ -64,6 +64,12 @@ kg_beekeeping_management_diviser_colonie:
     requirements:
         colonie_id: \d+
 
+kg_beekeeping_management_essaimer_colonie:
+    path:      /{colonie_id}/essaimer-colonie
+    defaults:  { _controller: KGBeekeepingManagementBundle:Colonie:essaimer }
+    requirements:
+        colonie_id: \d+
+
 kg_beekeeping_management_add_remerage:
     path:      /{colonie_id}/ajouter-remerage
     defaults:  { _controller: KGBeekeepingManagementBundle:Remerage:add }

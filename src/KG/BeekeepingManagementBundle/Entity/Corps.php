@@ -71,7 +71,7 @@ class Corps
      * )
      * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres de couvain présents dans la ruche")
      */
-    private $nbcouvain;    
+    private $nbcouvain = 0;    
 
     /**
      * @var integer
@@ -83,7 +83,7 @@ class Corps
      * )
      * @Assert\NotBlank(message="Veuillez indiquer le nombre de cadres de nourriture présents dans la ruche")
      */
-    private $nbnourriture;      
+    private $nbnourriture = 0;      
     
     /**
      * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", mappedBy="corps")

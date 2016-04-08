@@ -425,6 +425,25 @@ class Colonie
                 
         return $colonie;
     }
+
+    /**
+     * essaimer
+     *
+     * @param var $origine
+     * @return Colonie
+     */
+    public function essaimer($origine)
+    {
+        $reineMere  = $this->remerages->last()->getReine();
+        
+        $colonie = new Colonie();
+        $colonie->setOrigineColonie($origine);
+        
+        $colonie->remerages->last()->getReine()->setRace($reineMere->getRace());
+        $colonie->remerages->last()->getReine()->setReineMere($reineMere);
+                
+        return $colonie;
+    }    
     
     /**
      * remerer
@@ -675,6 +694,17 @@ class Colonie
         
         return $permitted;
     }
+
+    public function canBeEssaimee()
+    {
+        $permitted = true;
+        
+        if( $this->getMorte() ){
+            $permitted = false;
+        }
+        
+        return $permitted;
+    }    
     
     public function canBeTuee()
     {
