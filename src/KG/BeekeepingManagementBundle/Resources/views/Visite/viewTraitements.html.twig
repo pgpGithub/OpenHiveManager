@@ -23,7 +23,7 @@
         'assets/js/plugins/forms/styling/uniform.min.js'
         'assets/js/plugins/forms/selects/select2.min.js'
         'assets/js/plugins/tables/datatables/datatables.min.js'
-        '@KGBeekeepingManagementBundle/Resources/public/js/visite/viewNourrissement.js' %}
+        '@KGBeekeepingManagementBundle/Resources/public/js/visite/viewTraitements.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
 {% endblock %}
@@ -42,7 +42,7 @@
             <!-- Media library -->
             <div class="panel panel-white">
                 <div class="panel-heading">
-                    <h6 class="panel-title text-semibold">Historique des nourrissements</h6>
+                    <h6 class="panel-title text-semibold">Historique des traitements</h6>
                 </div>
 
                 <div class="table-responsive">
@@ -50,15 +50,15 @@
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Nourriture</th>   
+                                <th>Traitement</th>   
                             </tr>
                         </thead>
                         <tbody>
                         {% for visite in colonie.visites %}
-                            {% if visite.nourrissement %}
+                            {% if visite.traitement %}
                                 <tr>
                                     <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('Y/m/d') }}</a></td>
-                                    <td>{{ visite.nourrissement }}</td>
+                                    <td>{{ visite.traitement }}</td>
                                 </tr>   
                             {% endif %}
                         {% endfor %}                                              

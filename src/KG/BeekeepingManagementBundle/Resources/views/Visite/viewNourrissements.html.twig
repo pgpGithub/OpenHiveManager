@@ -1,0 +1,73 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?uglifyjs2'
+        'assets/js/plugins/forms/styling/uniform.min.js'
+        'assets/js/plugins/forms/selects/select2.min.js'
+        'assets/js/plugins/tables/datatables/datatables.min.js'
+        '@KGBeekeepingManagementBundle/Resources/public/js/visite/viewNourrissements.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block cover %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:cover.html.twig' with {'ruche' : colonie.ruche} only %} 
+{% endblock %}  
+
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Ruche:toolbarBack.html.twig' with {'ruche' : colonie.ruche} only %}                  
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Media library -->
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h6 class="panel-title text-semibold">Historique des nourrissements</h6>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped media-library table-lg">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Nourriture</th>   
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for visite in colonie.visites %}
+                            {% if visite.nourrissement %}
+                                <tr>
+                                    <td><a title="Afficher la visite" href="{{ path('kg_beekeeping_management_view_visite', { 'visite_id': visite.id }) }}">{{ visite.date|date('Y/m/d') }}</a></td>
+                                    <td>{{ visite.nourrissement }}</td>
+                                </tr>   
+                            {% endif %}
+                        {% endfor %}                                              
+                        </tbody>
+                    </table>
+                </div>        
+            </div>
+            <!-- /media library -->   
+        </div>
+    </div>                                         
+{% endblock %}
+

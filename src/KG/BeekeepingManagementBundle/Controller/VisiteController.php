@@ -176,7 +176,22 @@ class VisiteController extends Controller
             throw new NotFoundHttpException('Page inexistante.');
         }                 
         
-        return $this->render('KGBeekeepingManagementBundle:Visite:viewNourrissement.html.twig', 
+        return $this->render('KGBeekeepingManagementBundle:Visite:viewNourrissements.html.twig', 
                 array( 'colonie' => $colonie ));
     }      
+
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
+    */    
+    public function viewTraitementsAction(Colonie $colonie)
+    {       
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation())){
+            throw new NotFoundHttpException('Page inexistante.');
+        }                 
+        
+        return $this->render('KGBeekeepingManagementBundle:Visite:viewTraitements.html.twig', 
+                array( 'colonie' => $colonie ));
+    }      
+    
 }
