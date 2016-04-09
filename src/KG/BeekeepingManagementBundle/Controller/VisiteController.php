@@ -166,4 +166,17 @@ class VisiteController extends Controller
                 array( 'colonie' => $colonie ));
     }    
     
+    /**
+    * @Security("has_role('ROLE_USER')")
+    * @ParamConverter("colonie", options={"mapping": {"colonie_id" : "id"}})  
+    */    
+    public function viewNourrissementsAction(Colonie $colonie)
+    {       
+        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation())){
+            throw new NotFoundHttpException('Page inexistante.');
+        }                 
+        
+        return $this->render('KGBeekeepingManagementBundle:Visite:viewNourrissement.html.twig', 
+                array( 'colonie' => $colonie ));
+    }      
 }
