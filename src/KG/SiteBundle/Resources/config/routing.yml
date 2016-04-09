@@ -9,9 +9,5 @@ kg_site_cgu:
 kg_site_contact:
     path:      /contact
     defaults:  { _controller: KGSiteBundle:Accueil:contact }
-
-kg_site_participer:
-    path:      /participer
-    defaults:  { _controller: KGSiteBundle:Accueil:participer }
         
     
