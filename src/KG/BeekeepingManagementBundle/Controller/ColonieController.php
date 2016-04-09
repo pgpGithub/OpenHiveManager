@@ -103,29 +103,31 @@ class ColonieController extends Controller
         if( !$this->getUser()->canDisplayExploitation($colonieMere->getRuche()->getRucher()->getExploitation()) || !$colonieMere->canBeEssaimee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
+
+        $colonie = new Colonie();
         
-        $colonie = $colonieMere->essaimer($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Essaimage"));        
+        // L'origine de la nouvelle colonie est l'essaimage
+        $colonie->setOrigineColonie($this->getDoctrine()->getRepository('KGBeekeepingManagementBundle:Origine')->findOneByLibelle("Essaimage"));
+        
         $form = $this->createForm(new EssaimerType($colonieMere), $colonie);
         
         if ($form->handleRequest($request)->isValid()){
 
-            // La date du remérage est la même que celle de la création de la colonie
-            $colonie->getRemerages()[0]->setDate($colonie->getDateColonie());
-            
-            // La date de la reine est la même que celle de la création de la colonie
-            $colonie->getRemerages()[0]->getReine()->setAnneeReine($colonie->getDateColonie());        
-            
-            $rucheFille = $colonie->getRuche();   
+            $em = $this->getDoctrine()->getManager(); 
+          
+            // On garde en mémoire la ruche de départ
             $rucheMere  = $colonieMere->getRuche();
             
-            // La colonie fille est la colonie restant dans la ruche
-            $colonie->setRuche($rucheMere);           
+            // La colonie mère est celle qui essaime et qui est placée dans la nouvelle ruche
+            $colonieMere->setRuche($colonie->getRuche());  
             
-            // La colonie mère est celle qui essaime et qui est placée dans la nouvelle ruche (via le formulaire) 
-            $colonieMere->setRuche($rucheFille);  
+            // On sauvegarde pour casser le lien entre ruche et colonie sinon problème car la ruche sera affectée à deux colonies
+            $em->persist($colonieMere); 
+            $em->flush();
             
-            $em = $this->getDoctrine()->getManager();      
-            $em->persist($colonieMere);              
+            // On lie la nouvelle colonie à l'ancienne ruche et à la colonie mère
+            $colonie->essaimer($rucheMere, $colonieMere);           
+              
             $em->persist($colonie);       
             $em->flush();
         

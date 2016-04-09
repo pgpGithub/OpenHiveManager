@@ -85,7 +85,7 @@ class Colonie
     private $remerages;
     
      /**
-     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="colonie", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="KG\BeekeepingManagementBundle\Entity\Ruche", inversedBy="colonie", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid() 
      */
@@ -432,17 +432,20 @@ class Colonie
      * @param var $origine
      * @return Colonie
      */
-    public function essaimer($origine)
+    public function essaimer($rucheMere, $colonieMere)
     {
-        $reineMere  = $this->remerages->last()->getReine();
-        
-        $colonie = new Colonie();
-        $colonie->setOrigineColonie($origine);
-        
-        $colonie->remerages->last()->getReine()->setRace($reineMere->getRace());
-        $colonie->remerages->last()->getReine()->setReineMere($reineMere);
-                
-        return $colonie;
+        // La colonie fille est la colonie restant dans la ruche mère
+        $this->setRuche($rucheMere); 
+
+        $reineMere  = $colonieMere->getRemerages()->last()->getReine();
+        $this->getRemerages()->last()->getReine()->setRace($reineMere->getRace());
+        $this->getRemerages()->last()->getReine()->setReineMere($reineMere);            
+
+        // La date du remérage est la même que celle de la création de la colonie
+        $this->getRemerages()[0]->setDate($this->getDateColonie());
+
+        // La date de la reine est la même que celle de la création de la colonie
+        $this->getRemerages()[0]->getReine()->setAnneeReine($this->getDateColonie());    
     }    
     
     /**
