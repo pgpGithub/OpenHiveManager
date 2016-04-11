@@ -802,4 +802,19 @@ class Colonie
             
         return $fille;
     }
+    
+    public function getNbTachesToDo(){
+        
+        $nbTachesToDo = 0;
+        
+        foreach ( $this->taches as $tache )
+        {
+            if ( ! $tache->getVisite() )
+            {
+                $nbTachesToDo++;
+            }
+        }
+        
+        return $nbTachesToDo;
+    }
 }

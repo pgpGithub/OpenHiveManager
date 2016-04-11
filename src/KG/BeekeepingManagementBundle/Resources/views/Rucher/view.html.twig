@@ -117,11 +117,7 @@
                                                         <td>Inconnu</td>
                                                         <td>Non</td>
                                                     {% endif %}
-                                                    {% if emplacement.ruche.colonie.taches is not empty %}
-                                                        <td>{{ emplacement.ruche.colonie.taches|length }}</td>
-                                                    {% else %}
-                                                        <td>0</td>
-                                                    {% endif %}
+                                                    <td>{{ emplacement.ruche.colonie.nbTachesToDo }}</td>
                                                     <td>{{ emplacement.ruche.hausses|length }}</td>
                                                 {% else %}                                                       
                                                     <td>Emplacement vide</td>                                      
