@@ -24,8 +24,10 @@
         'assets/js/plugins/loaders/progressbar.min.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>      
         <script type="text/javascript">
-            {{ gc_draw(getPoidsParVisite, 'div_linechart') }}
-        </script>           
+            $("a[href='#poids']").on('shown.bs.tab', function (e) {
+                {{ gc_draw(getPoidsParVisite, 'div_linechart') }}
+            });
+        </script>
     {% endjavascripts %}
 {% endblock %}
 
@@ -110,7 +112,7 @@
                         </div>                                    
                     </div>
                             
-                    <div class="tab-pane fade in active" id="poids">
+                    <div class="tab-pane fade" id="poids">
                         <!-- Simple line chart -->
                         <div class="panel panel-flat">
                             <div class="panel-heading">
