@@ -2027,7 +2027,7 @@
 
         var collection = $('#'+selector),
             list = collection.find('> ul'),
-            count = list.find('> li').size()
+            count = list.find('> li').length
         ;
 
         var newWidget = collection.attr('data-prototype');
@@ -2036,7 +2036,7 @@
         // If it does, increase the count by one and try again
         var newName = newWidget.match(/id="(.*?)"/);
         var re = new RegExp(prototypeName, "g");
-        while ($('#' + newName[1].replace(re, count)).size() > 0) {
+        while ($('#' + newName[1].replace(re, count)).length > 0) {
             count++;
         }
         newWidget = newWidget.replace(re, count);
@@ -2048,13 +2048,16 @@
 
     CollectionRemove.prototype.removeField = function (e) {
         var $this = $(this),
-            selector = $this.attr('data-field')
+            selector = $this.attr('data-field'),
+            parent = $this.closest('li').parent()
         ;
 
         e && e.preventDefault();
 
         $this.trigger('bc-collection-field-removed');
+        $this.trigger('bc-collection-field-removed-before');
         var listElement = $this.closest('li').remove();
+        parent.trigger('bc-collection-field-removed-after');
     }
 
 

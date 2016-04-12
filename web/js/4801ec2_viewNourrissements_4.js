@@ -21,31 +21,10 @@ $(function() {
     // Table setup
     // ------------------------------
 
-    var numerotation = $('#table').data('numerotation');
-    var col_action = 8;
-    var col_ruche = 2;
-    
-    if(numerotation == false){
-        col_action = col_action - 1;
-        col_ruche = col_ruche - 1;
-    }
-
     // Setting datatable defaults
     $.extend( $.fn.dataTable.defaults, {
         autoWidth: false,
-        columnDefs: [
-            {
-            	orderable: false,
-                width: '20px',
-                targets: 0
-            },
-            { 
-                orderable: false,
-                width: '90px',
-                targets: col_action
-            }
-        ],
-        order: [[ col_ruche, "asc" ]],
+        order: [[ 0, "asc" ]],
         lengthMenu: [ 25, 50, 75, 100 ],
         displayLength: 25,
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
@@ -79,12 +58,6 @@ $(function() {
 
     // External table additions
     // ------------------------------
-
-    // Lightbox
-    $('[data-popup="lightbox"]').fancybox({
-        padding: 3
-    });
-
     // Add placeholder to the datatable filter option
     $('.dataTables_filter input[type=search]').attr('placeholder','Type to filter...');
 

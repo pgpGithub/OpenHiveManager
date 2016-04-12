@@ -919,11 +919,7 @@
     table-layout: fixed;
   }
 }
-@-moz-document url-prefix() {
-  .page-container {
-    height: 1px;
-  }
-}
+
 @media (min-width: 769px) {
   .page-content {
     display: table-row;

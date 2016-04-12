@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "hash": "bd32ac4370a9ca734d52f3879189a1d3",
+    "content-hash": "112712ed34870b51a74ef84fc6d18bb8",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
