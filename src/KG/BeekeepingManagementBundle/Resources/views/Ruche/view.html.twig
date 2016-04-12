@@ -17,6 +17,14 @@
 
 {% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite, ?uglifycss'
+        '@KGBeekeepingManagementBundle/Resources/public/css/ruche/view.css'  %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {% endstylesheets %}
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     {% javascripts filter='?uglifyjs2'
@@ -24,9 +32,7 @@
         'assets/js/plugins/loaders/progressbar.min.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>      
         <script type="text/javascript">
-            $("a[href='#poids']").on('shown.bs.tab', function (e) {
-                {{ gc_draw(getPoidsParVisite, 'div_linechart') }}
-            });
+            {{ gc_draw(getPoidsParVisite, 'div_linechart') }};
         </script>
     {% endjavascripts %}
 {% endblock %}
