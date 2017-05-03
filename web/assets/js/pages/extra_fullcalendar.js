@@ -236,6 +236,28 @@ $(function() {
         defaultDate: '2014-11-12',
         defaultView: 'agendaWeek',
         editable: true,
+        businessHours: true,
+        events: events
+    });
+
+
+    // List view
+    $('.fullcalendar-list').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'listDay,listWeek,listMonth'
+        },
+        views: {
+            listDay: { buttonText: 'Day' },
+            listWeek: { buttonText: 'Week' },
+            listMonth: { buttonText: 'Month' }
+        },
+        defaultView: 'listMonth',
+        defaultDate: '2014-11-12',
+        navLinks: true, // can click day/week names to navigate views
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
         events: events
     });
 

@@ -1,0 +1,81 @@
+{#  
+  Copyright (C) 2015 Kévin Grenèche < kevin.greneche at openhivemanager.org >
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #}
+
+{% extends "KGBeekeepingManagementBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}    
+  
+{% block toolbar %}
+    {% include 'KGBeekeepingManagementBundle:Exploitation:toolbarBack.html.twig' with {'exploitation' : exploitation} only %}                   
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">{{ title }} d'un collaborateur</h5>
+            </div>
+
+            <div class="panel-body"> 
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="alert alert-info alert-styled-left alert-bordered">
+                            Le rôle "Apiculteur" permet de faire toutes les tâches d'apicultures dans l'exploitation sauf :
+                            <ul>
+                                <li>Modifier ou supprimer l'exploitation</li>
+                                <li>Créer, modifier ou supprimer un rucher</li>
+                            </ul>
+                            Le rôle "Visiteur" ne permet aucune action de création, de modification ou de suppression. Il permet seulement de visualiser les données de l'exploitation.
+                        </div>
+                        
+                        <fieldset>
+                            {% if title == 'Création' %} 
+                            <div class="form-group">
+                                {{ form_label(form.mail, 'Email du collaborateur :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.mail) }}
+                                    {{ form_errors(form.mail) }}
+                                </div>
+                            </div> 
+                            {% endif %}    
+
+                            <div class="form-group">
+                                {{ form_label(form.role, 'Rôle :*', { 'label_attr': {'class': 'col-lg-4'} }) }}
+                                <div class="col-lg-8">
+                                    {{ form_widget(form.role) }}
+                                    {{ form_errors(form.role) }}
+                                </div>
+                            </div>                                                            
+                        </fieldset>
+                    </div>
+                </div>
+                          
+                {{ form_rest(form) }}
+                
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Sauvegarder <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}       
+{% endblock %}

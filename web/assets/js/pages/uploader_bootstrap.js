@@ -4,27 +4,88 @@
 *
 *  Specific JS code additions for uploader_bootstrap.html page
 *
-*  Version: 1.1
-*  Latest update: Dec 11, 2015
+*  Version: 1.3
+*  Latest update: Mar 20, 2017
 *
 * ---------------------------------------------------------------------------- */
 
 $(function() {
 
+    //
+    // Define variables
+    //
+
+    // Modal template
+    var modalTemplate = '<div class="modal-dialog modal-lg" role="document">\n' +
+        '  <div class="modal-content">\n' +
+        '    <div class="modal-header">\n' +
+        '      <div class="kv-zoom-actions btn-group">{toggleheader}{fullscreen}{borderless}{close}</div>\n' +
+        '      <h6 class="modal-title">{heading} <small><span class="kv-zoom-title"></span></small></h6>\n' +
+        '    </div>\n' +
+        '    <div class="modal-body">\n' +
+        '      <div class="floating-buttons btn-group"></div>\n' +
+        '      <div class="kv-zoom-body file-zoom-content"></div>\n' + '{prev} {next}\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '</div>\n';
+
+    // Buttons inside zoom modal
+    var previewZoomButtonClasses = {
+        toggleheader: 'btn btn-default btn-icon btn-xs btn-header-toggle',
+        fullscreen: 'btn btn-default btn-icon btn-xs',
+        borderless: 'btn btn-default btn-icon btn-xs',
+        close: 'btn btn-default btn-icon btn-xs'
+    };
+
+    // Icons inside zoom modal classes
+    var previewZoomButtonIcons = {
+        prev: '<i class="icon-arrow-left32"></i>',
+        next: '<i class="icon-arrow-right32"></i>',
+        toggleheader: '<i class="icon-menu-open"></i>',
+        fullscreen: '<i class="icon-screen-full"></i>',
+        borderless: '<i class="icon-alignment-unalign"></i>',
+        close: '<i class="icon-cross3"></i>'
+    };
+
+    // File actions
+    var fileActionSettings = {
+        zoomClass: 'btn btn-link btn-xs btn-icon',
+        zoomIcon: '<i class="icon-zoomin3"></i>',
+        dragClass: 'btn btn-link btn-xs btn-icon',
+        dragIcon: '<i class="icon-three-bars"></i>',
+        removeClass: 'btn btn-link btn-icon btn-xs',
+        removeIcon: '<i class="icon-trash"></i>',
+        indicatorNew: '<i class="icon-file-plus text-slate"></i>',
+        indicatorSuccess: '<i class="icon-checkmark3 file-icon-large text-success"></i>',
+        indicatorError: '<i class="icon-cross2 text-danger"></i>',
+        indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>'
+    };
+
+
+    //
     // Basic example
+    //
+
     $('.file-input').fileinput({
         browseLabel: 'Browse',
         browseIcon: '<i class="icon-file-plus"></i>',
         uploadIcon: '<i class="icon-file-upload2"></i>',
         removeIcon: '<i class="icon-cross3"></i>',
         layoutTemplates: {
-            icon: '<i class="icon-file-check"></i>'
+            icon: '<i class="icon-file-check"></i>',
+            modal: modalTemplate
         },
-        initialCaption: "No file selected"
+        initialCaption: "No file selected",
+        previewZoomButtonClasses: previewZoomButtonClasses,
+        previewZoomButtonIcons: previewZoomButtonIcons,
+        fileActionSettings: fileActionSettings
     });
 
 
+    //
     // Custom layout
+    //
+
     $('.file-input-custom').fileinput({
         previewFileType: 'image',
         browseLabel: 'Select',
@@ -36,14 +97,21 @@ $(function() {
         uploadClass: 'btn bg-teal-400',
         uploadIcon: '<i class="icon-file-upload position-left"></i> ',
         layoutTemplates: {
-            icon: '<i class="icon-file-check"></i>'
+            icon: '<i class="icon-file-check"></i>',
+            modal: modalTemplate
         },
         initialCaption: "Please select image",
-        mainClass: 'input-group'
+        mainClass: 'input-group',
+        previewZoomButtonClasses: previewZoomButtonClasses,
+        previewZoomButtonIcons: previewZoomButtonIcons,
+        fileActionSettings: fileActionSettings
     });
 
 
+    //
     // Template modifications
+    //
+
     $('.file-input-advanced').fileinput({
         browseLabel: 'Browse',
         browseClass: 'btn btn-default',
@@ -55,22 +123,29 @@ $(function() {
         layoutTemplates: {
             icon: '<i class="icon-file-check"></i>',
             main1: "{preview}\n" +
-            "<div class='input-group {class}'>\n" +
-            "   <div class='input-group-btn'>\n" +
-            "       {browse}\n" +
-            "   </div>\n" +
-            "   {caption}\n" +
-            "   <div class='input-group-btn'>\n" +
-            "       {upload}\n" +
-            "       {remove}\n" +
-            "   </div>\n" +
-            "</div>"
+                "<div class='input-group {class}'>\n" +
+                "   <div class='input-group-btn'>\n" +
+                "       {browse}\n" +
+                "   </div>\n" +
+                "   {caption}\n" +
+                "   <div class='input-group-btn'>\n" +
+                "       {upload}\n" +
+                "       {remove}\n" +
+                "   </div>\n" +
+                "</div>",
+            modal: modalTemplate
         },
-        initialCaption: "No file selected"
+        initialCaption: "No file selected",
+        previewZoomButtonClasses: previewZoomButtonClasses,
+        previewZoomButtonIcons: previewZoomButtonIcons,
+        fileActionSettings: fileActionSettings
     });
 
 
+    //
     // Custom file extensions
+    //
+
     $(".file-input-extensions").fileinput({
         browseLabel: 'Browse',
         browseClass: 'btn btn-primary',
@@ -79,44 +154,111 @@ $(function() {
         uploadIcon: '<i class="icon-file-upload2"></i>',
         removeIcon: '<i class="icon-cross3"></i>',
         layoutTemplates: {
-            icon: '<i class="icon-file-check"></i>'
+            icon: '<i class="icon-file-check"></i>',
+            modal: modalTemplate
         },
         maxFilesNum: 10,
-        allowedFileExtensions: ["jpg", "gif", "png", "txt"]
+        allowedFileExtensions: ["jpg", "gif", "png", "txt"],
+        initialCaption: "No file selected",
+        previewZoomButtonClasses: previewZoomButtonClasses,
+        previewZoomButtonIcons: previewZoomButtonIcons,
+        fileActionSettings: fileActionSettings
     });
 
 
+    //
     // Always display preview
+    //
+
     $(".file-input-preview").fileinput({
         browseLabel: 'Browse',
         browseIcon: '<i class="icon-file-plus"></i>',
         uploadIcon: '<i class="icon-file-upload2"></i>',
         removeIcon: '<i class="icon-cross3"></i>',
         layoutTemplates: {
-            icon: '<i class="icon-file-check"></i>'
+            icon: '<i class="icon-file-check"></i>',
+            modal: modalTemplate
         },
         initialPreview: [
-            "<img src='assets/images/placeholder.jpg' class='file-preview-image' alt=''>",
-            "<img src='assets/images/placeholder.jpg' class='file-preview-image' alt=''>",
+            "assets/images/placeholder.jpg",
+            "assets/images/placeholder.jpg",
         ],
+        initialPreviewConfig: [
+            {caption: "Jane.jpg", size: 930321, key: 1, url: '{$url}', showDrag: false},
+            {caption: "Anna.jpg", size: 1218822, key: 2, url: '{$url}', showDrag: false}
+        ],
+        initialPreviewAsData: true,
         overwriteInitial: false,
-        maxFileSize: 100
+        maxFileSize: 100,
+        previewZoomButtonClasses: previewZoomButtonClasses,
+        previewZoomButtonIcons: previewZoomButtonIcons,
+        fileActionSettings: fileActionSettings
     });
 
 
+    //
     // Display preview on load
+    //
+
     $(".file-input-overwrite").fileinput({
         browseLabel: 'Browse',
         browseIcon: '<i class="icon-file-plus"></i>',
         uploadIcon: '<i class="icon-file-upload2"></i>',
         removeIcon: '<i class="icon-cross3"></i>',
+        layoutTemplates: {
+            icon: '<i class="icon-file-check"></i>',
+            modal: modalTemplate
+        },
         initialPreview: [
-            "<img src='assets/images/placeholder.jpg' class='file-preview-image' alt=''>",
-            "<img src='assets/images/placeholder.jpg' class='file-preview-image' alt=''>",
+            "assets/images/placeholder.jpg",
+            "assets/images/placeholder.jpg"
         ],
-        overwriteInitial: true
+        initialPreviewConfig: [
+            {caption: "Jane.jpg", size: 930321, key: 1, url: '{$url}'},
+            {caption: "Anna.jpg", size: 1218822, key: 2, url: '{$url}'}
+        ],
+        initialPreviewAsData: true,
+        overwriteInitial: true,
+        previewZoomButtonClasses: previewZoomButtonClasses,
+        previewZoomButtonIcons: previewZoomButtonIcons,
+        fileActionSettings: fileActionSettings
     });
 
+
+    //
+    // AJAX upload
+    //
+
+    $(".file-input-ajax").fileinput({
+        uploadUrl: "http://localhost", // server upload action
+        uploadAsync: true,
+        maxFileCount: 5,
+        initialPreview: [],
+        fileActionSettings: {
+            removeIcon: '<i class="icon-bin"></i>',
+            removeClass: 'btn btn-link btn-xs btn-icon',
+            uploadIcon: '<i class="icon-upload"></i>',
+            uploadClass: 'btn btn-link btn-xs btn-icon',
+            zoomIcon: '<i class="icon-zoomin3"></i>',
+            zoomClass: 'btn btn-link btn-xs btn-icon',
+            indicatorNew: '<i class="icon-file-plus text-slate"></i>',
+            indicatorSuccess: '<i class="icon-checkmark3 file-icon-large text-success"></i>',
+            indicatorError: '<i class="icon-cross2 text-danger"></i>',
+            indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>',
+        },
+        layoutTemplates: {
+            icon: '<i class="icon-file-check"></i>',
+            modal: modalTemplate
+        },
+        initialCaption: "No file selected",
+        previewZoomButtonClasses: previewZoomButtonClasses,
+        previewZoomButtonIcons: previewZoomButtonIcons
+    });
+
+
+    //
+    // Misc
+    //
 
     // Disable/enable button
     $("#btn-modify").on("click", function() {
@@ -130,25 +272,6 @@ $(function() {
             $("#file-input-methods").fileinput("enable");
             $btn.html("Disable file input");
             alert("Hurray! I have reverted back the input to enabled with the upload button.");
-        }
-    });
-
-
-    // AJAX upload
-    $(".file-input-ajax").fileinput({
-        uploadUrl: "http://localhost", // server upload action
-        uploadAsync: true,
-        maxFileCount: 5,
-        initialPreview: [],
-        fileActionSettings: {
-            removeIcon: '<i class="icon-bin"></i>',
-            removeClass: 'btn btn-link btn-xs btn-icon',
-            uploadIcon: '<i class="icon-upload"></i>',
-            uploadClass: 'btn btn-link btn-xs btn-icon',
-            indicatorNew: '<i class="icon-file-plus text-slate"></i>',
-            indicatorSuccess: '<i class="icon-checkmark3 file-icon-large text-success"></i>',
-            indicatorError: '<i class="icon-cross2 text-danger"></i>',
-            indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>',
         }
     });
 

@@ -50,7 +50,9 @@ class VisiteController extends Controller
     */    
     public function addAction(Colonie $colonie, Request $request)
     {
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation())|| !$colonie->canHaveNewVisite() ){
+        if( !( $this->getUser()->isResponsable($colonie()->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($colonie()->getRuche()->getRucher()->getExploitation()))
+            || !$colonie->canHaveNewVisite() ){
             throw new NotFoundHttpException('Page inexistante.');
         }       
  
@@ -107,7 +109,9 @@ class VisiteController extends Controller
         
         $em = $this->getDoctrine()->getManager();
                     
-        if( !$this->getUser()->canDisplayExploitation($visite->getColonie()->getRuche()->getRucher()->getExploitation()) || !$visite->canBeUpdated() ){
+        if( !( $this->getUser()->isResponsable($visite->getColonie()->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($visite->getColonie()->getRuche()->getRucher()->getExploitation()))
+            || !$visite->canBeUpdated() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

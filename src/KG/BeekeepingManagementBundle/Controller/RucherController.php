@@ -39,7 +39,8 @@ class RucherController extends Controller
     */    
     public function printQRCodeAction(Request $request, Rucher $rucher)
     {       
-        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
+        if( !( $this->getUser()->isResponsable($rucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($rucher()->getExploitation())) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
               
@@ -208,9 +209,12 @@ class RucherController extends Controller
     */    
     public function deleteAction(Rucher $rucher)
     {        
-        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) || !$rucher->canBeDeleted() ){
+        if( !( $this->getUser()->isResponsable($rucher()->getExploitation())) 
+           || !$rucher->canBeDeleted() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
+        
+        $exploitation = $rucher->getExploitation();
         
         $em = $this->getDoctrine()->getManager();
         $em->remove($rucher);
@@ -219,7 +223,7 @@ class RucherController extends Controller
         $flash = $this->get('braincrafted_bootstrap.flash');
         $flash->success('Rucher supprimé avec succès');
         
-        return $this->redirect($this->generateUrl('kg_beekeeping_management_home'));
+        return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation', array('exploitation_id' => $exploitation->getId())));
     }
     
     /**
@@ -228,7 +232,7 @@ class RucherController extends Controller
     */    
     public function addAction(Exploitation $exploitation, Request $request)
     {        
-        if( !$this->getUser()->canDisplayExploitation($exploitation) ){
+        if( !$this->getUser()->isResponsable($exploitation)){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -245,7 +249,7 @@ class RucherController extends Controller
             $flash = $this->get('braincrafted_bootstrap.flash');
             $flash->success('Rucher créé avec succès');
         
-            return $this->redirect($this->generateUrl('kg_beekeeping_management_home'));
+            return $this->redirect($this->generateUrl('kg_beekeeping_management_view_exploitation', array('exploitation_id' => $exploitation->getId())));
         }
         return $this->render('KGBeekeepingManagementBundle:Rucher:add.html.twig', 
                              array('form'         => $form->createView(),
@@ -259,7 +263,7 @@ class RucherController extends Controller
     */    
     public function updateAction(Rucher $rucher, Request $request)
     {        
-        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation()) ){
+        if( !( $this->getUser()->isResponsable($rucher()->getExploitation()))){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

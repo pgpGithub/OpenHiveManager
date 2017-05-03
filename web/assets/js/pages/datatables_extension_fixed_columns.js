@@ -11,7 +11,6 @@
 
 $(function() {
 
-
     // Table setup
     // ------------------------------
 
@@ -25,6 +24,7 @@ $(function() {
         dom: '<"datatable-header"fl><"datatable-scroll datatable-scroll-wrap"t><"datatable-footer"ip>',
         language: {
             search: '<span>Filter:</span> _INPUT_',
+            searchPlaceholder: 'Type to filter...',
             lengthMenu: '<span>Show:</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
         }
@@ -130,8 +130,13 @@ $(function() {
     });
 
 
+    //
     // Fixed column with complex headers
-    $('.datatable-fixed-complex').DataTable({
+    //
+    
+    // Initialize
+    var table = $('.datatable-fixed-complex').DataTable({
+        autoWidth: false,
         columnDefs: [
             { 
                 orderable: false,
@@ -157,20 +162,20 @@ $(function() {
         scrollX: true,
         scrollY: '350px',
         scrollCollapse: true,
-        fixedColumns: {
-            leftColumns: 1,
-            rightColumns: 0
-        }
+        fixedColumns: true
     });
+
+    // Adjust columns on window resize
+    setTimeout(function() {
+        $(window).on('resize', function () {
+            table.columns.adjust();
+        });
+    }, 100);
 
 
 
     // External table additions
     // ------------------------------
-
-    // Add placeholder to the datatable filter option
-    $('.dataTables_filter input[type=search]').attr('placeholder','Type to filter...');
-
 
     // Enable Select2 select for the length option
     $('.dataTables_length select').select2({

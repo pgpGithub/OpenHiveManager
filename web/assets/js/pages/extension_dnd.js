@@ -129,8 +129,7 @@ $(function() {
 
     // File input
     $(".file-styled").uniform({
-        fileButtonHtml: '<i class="icon-googleplus5"></i>',
-        wrapperClass: 'bg-warning'
+        fileButtonClass: 'action btn bg-warning-400'
     });
 
 });

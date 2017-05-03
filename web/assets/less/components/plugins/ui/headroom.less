@@ -4,8 +4,8 @@
  *
  *  Hide BS navbar component on page scroll
  *
- *  Version: 1.0
- *  Latest update: Sep 1, 2015
+ *  Version: 1.1
+ *  Latest update: Mar 10, 2016
  *
  * ---------------------------------------------------------------------------- */
 
@@ -20,17 +20,45 @@
 }
 
 // Top position
-.headroom-top-pinned {
-	top: 0;
-}
-.headroom-top-unpinned {
-	top: -(@navbar-height + 2); // If you're using optional navbar height class, specify it here
+.navbar {
+	&.headroom-top-pinned {
+		top: 0;
+	}
+	&.headroom-top-unpinned {
+		top: -(@navbar-height + 2);
+		.box-shadow(none);
+
+		// Sizes
+		.navbar-lg& {
+			top: -(@navbar-height-large + 2);
+		}
+		.navbar-sm& {
+			top: -(@navbar-height-small + 2);
+		}
+		.navbar-xs& {
+			top: -(@navbar-height-mini + 2);
+		}
+	}
 }
 
 // Bottom position
-.headroom-bottom-pinned {
-	bottom: -(@navbar-height + 2); // If you're using optional navbar height class, specify it here
-}
-.headroom-bottom-unpinned {
-	bottom:  0;
+.navbar {
+	&.headroom-bottom-pinned {
+		bottom: -(@navbar-height + 2);
+		.box-shadow(none);
+
+		// Sizes
+		.navbar-lg& {
+			bottom: -(@navbar-height-large + 2);
+		}
+		.navbar-sm& {
+			bottom: -(@navbar-height-small + 2);
+		}
+		.navbar-xs& {
+			bottom: -(@navbar-height-mini + 2);
+		}
+	}
+	&.headroom-bottom-unpinned {
+		bottom:  0;
+	}
 }

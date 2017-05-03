@@ -28,17 +28,17 @@
 		width: @sidebar-base-width;
 	}
 
-	// Main sidebar
+	// Main z-index
 	&-main {
 		z-index: 99;
 	}
 
-	// Secondary sidebar
+	// Secondary z-index
 	&-secondary {
 		z-index: 98;
 	}
 
-	// Opposite sidebar
+	// Opposite z-index
 	&-opposite {
 		display: none;
 		z-index: 97;
@@ -53,6 +53,12 @@
 	// Add 1px border if both sidebars are dark
 	&:not(.sidebar-default) + &:not(.sidebar-default) {
 		border-left: 1px solid fade(#fff, 10%)
+	}
+
+	// Scrollable box
+	.has-scroll {
+		max-height: 192px;
+		overflow-y: auto;
 	}
 }
 
@@ -76,6 +82,7 @@
 // Sidebar content
 .sidebar-content {
 	position: relative;
+	padding-bottom: (@line-height-computed - @navigation-padding-base-vertical);
 }
 
 
@@ -111,7 +118,7 @@
 .category-title {
 	position: relative;
 	margin: 0;
-	padding: @content-padding-small @content-padding-large;
+	padding: @navigation-padding-base-vertical @content-padding-large;
 	padding-right: (@content-padding-large + @content-padding-small + @icon-font-size);
 	border-bottom: 1px solid fade(#fff, 10%);
 
@@ -175,7 +182,7 @@
 	  display: none;
 	}
 
-	// All items
+	// All level nav items
 	li {
 		position: relative;
 
@@ -191,16 +198,15 @@
 
 		// All level links
 		a {
-			color: fade(#fff, 75%);
+			color: @navigation-dark-color;
 			display: block;
-			@transition: background 0.15s linear, color 0.15s linear;
-			.transition(@transition); // Add minor animation to all level links
+			.transition(~"background 0.15s linear, color 0.15s linear"); // Add minor animation to all level links
 
 			// Hover state
 			&:hover,
 			&:focus {
-				background-color: fade(#000, 10%);
-				color: #fff;
+				background-color: @navigation-dark-hover-bg;
+				color: @navigation-dark-hover-color;
 			}
 
 			// Left icons
@@ -260,7 +266,7 @@
 
 		// Divider
 		&.navigation-divider {
-			margin: (@list-spacing * 2) 0;
+			margin: (@line-height-computed / 2) 0;
 			height: 1px;
 			background-color: fade(#fff, 10%);
 
@@ -268,12 +274,6 @@
 			.sidebar-default & {
 				background-color: @gray-lighter;
 			}
-		}
-
-		// Transparent labels
-		&:not(.active) .label-transparent {
-			color: fade(#fff, 50%);
-			font-weight: 400;
 		}
 	}
 
@@ -285,6 +285,13 @@
 			padding: @navigation-padding-base-vertical @navigation-padding-base-horizontal;
 			min-height: (@line-height-computed + (@navigation-padding-base-vertical * 2));
 			font-weight: 500;
+
+			// Animate label
+			.label,
+			.badge {
+				@label-transition: background-color ease-in-out 0.15s, border-color ease-in-out 0.15s;
+				.transition(@label-transition);
+			}
 		}
 
 		// Active state links
@@ -296,21 +303,19 @@
 				&:hover,
 				&:focus {
 					background-color: @navigation-dark-active-bg;
-					color: #fff;
+					color: @navigation-dark-active-color;
 				}
 
 				// Make all texts white
 				> [class*=text-] {
-					color: #fff;
+					color: @navigation-dark-active-color;
 				}
 
 				// No color dependency - make all labela and badges white
 				.label,
 				.badge {
-					background-color: transparent;
+					background-color: fade(#000, 35%);
 					border-color: transparent;
-					color: #fff;
-					.transition(background-color ease-in-out 0.2s);
 				}
 			}
 		}
@@ -326,9 +331,9 @@
 			// Nav items
 			li {
 				a {
-					padding: 10px @content-padding-large;
+					padding: @content-padding-small @content-padding-large;
 					padding-left: (@content-padding-large + @content-padding-base + @icon-font-size);
-					min-height: (@line-height-computed + 20);				
+					min-height: (@line-height-computed + @content-padding-large);				
 				}
 			}
 
@@ -444,11 +449,24 @@
 		}
 	}
 
+	// Scrollspy navigation
+	&.nav {
+		> .active > .hidden-ul {
+			display: block;
+		}
+
+		// Display children lists
+		@media (max-width: @grid-float-breakpoint-max) {
+			> li > .hidden-ul {
+				display: block;
+			}
+		}
+	}
+
 	// Labels and badges
 	.label,
 	.badge {
 		float: right;
-		margin-top: 1px;
 	}
 }
 
@@ -459,11 +477,11 @@
 		// All levels
 		li {
 			> a {
-				color: @text-color;
+				color: @navigation-light-color;
 
 				&:hover,
 				&:focus {
-					background-color: @dropdown-link-hover-bg;
+					background-color: @navigation-light-hover-bg;
 				}
 			}
 
@@ -473,8 +491,13 @@
 					&,
 					&:hover,
 					&:focus {
-						background-color: @dropdown-link-hover-bg;
-						color: @text-color;
+						background-color: @navigation-light-active-bg;
+						color: @navigation-light-active-color;
+					}
+
+					// Make all texts dark
+					> [class*=text-] {
+						color: @navigation-light-active-color;
 					}
 				}
 			}
@@ -492,8 +515,7 @@
 
 			// Transparent labels
 			.label-transparent {
-				color: @text-muted;
-				font-weight: 400;
+				color: @text-color;
 			}
 		}
 
@@ -510,12 +532,12 @@
 					&:hover,
 					&:focus {
 						background-color: @navigation-light-active-bg;
-						color: #fff;
+						color: @navigation-light-active-color;
 					}
 
 					// Make transparent labels white
 					.label-transparent {
-						color: #fff;
+						color: @navigation-light-active-color;
 					}
 				}
 			}
@@ -567,9 +589,6 @@
 		// Headers
 		&.navigation-header {
 			background-color: fade(#000, 10%);
-			padding-top: @navigation-padding-base-vertical;
-			padding-bottom: @navigation-padding-base-vertical;
-			line-height: 1;
 		}
 
 		// Remove 1px spacing
@@ -838,7 +857,7 @@
 	@media (min-width: @grid-float-breakpoint) {
 		display: block;
 		position: relative;
-		margin-bottom: 0;
+		margin-bottom: @line-height-computed;
 
 		// Light sidebar
 		> .sidebar-default {
@@ -858,6 +877,7 @@
 			position: fixed;
 			top: @line-height-computed;
 			bottom: @line-height-computed;
+			.transition(bottom ease-in-out 0.15s);
 
 			> .sidebar {
 				max-height: 100%;
@@ -867,13 +887,54 @@
 
 		// Avoid footer overlap
 		&.fixed-sidebar-space {
-			bottom: (@line-height-computed * 3);
+			bottom: (@line-height-computed * 4);
+
+			// If footer is navbar
+			.navbar-bottom & {
+				bottom: ((@line-height-computed * 2) + @navbar-height);
+			}
+			.navbar-bottom-lg & {
+				bottom: ((@line-height-computed * 2) + @navbar-height-large);
+			}
+			.navbar-bottom-sm & {
+				bottom: ((@line-height-computed * 2) + @navbar-height-small);
+			}
+			.navbar-bottom-xs & {
+				bottom: ((@line-height-computed * 2) + @navbar-height-mini);
+			}
+		}
+
+		// Add top spacing if navbar is fixed
+		.navbar-fixed & {
+			top: (@navbar-height + (@line-height-computed * 2));
+		}
+		.navbar-fixed-lg & {
+			top: (@navbar-height-large + (@line-height-computed * 2));
+		}
+		.navbar-fixed-sm & {
+			top: (@navbar-height-small + (@line-height-computed * 2));
+		}
+		.navbar-fixed-xs & {
+			top: (@navbar-height-mini + (@line-height-computed * 2));
 		}
 	}
 }
 
 // With separate categories
 .sidebar-separate {
+
+	// Remove extra bottom padding from sidebar content container
+	.sidebar-content {
+		padding-bottom: 0;
+
+		// If panels are used, remove bottom margin from last one
+		.panel:last-child,
+		.sidebar-category:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	// Desktop view
 	@media (min-width: @grid-float-breakpoint) {
 		background-color: transparent;
 
@@ -909,7 +970,7 @@
 @media (min-width: @grid-float-breakpoint) {
 	.sidebar-xs {
 
-		// Inside main sidebar
+		// Works only in main sidebar
 		.sidebar-main {
 			width: @sidebar-mini-width;
 
@@ -942,10 +1003,10 @@
 				.icons-list {
 					position: static;
 				    text-align: center;
-				    padding-top: @content-padding-small;
-				    padding-bottom: @content-padding-small;
-					margin-top: (((@line-height-computed - @icon-font-size) / 2) + 1);
-					margin-bottom: (((@line-height-computed - @icon-font-size) / 2) + 1);
+					margin-top: 0;
+					padding-top: @content-padding-small + ((@line-height-computed - @icon-font-size) / 2) + (@font-size-base - @font-size-mini);
+					padding-bottom: @content-padding-small + ((@line-height-computed - @icon-font-size) / 2) + (@font-size-base - @font-size-mini);
+
 
 				    // Stack items
 				    > li {
@@ -958,10 +1019,26 @@
 				    	}
 				    }
 				}
+
+				// H6 heading
+				&.h6 {
+					.icons-list {
+					    padding-top: @content-padding-large + (((@headings-line-height * @font-size-h6) - @icon-font-size) / 2);
+					    padding-bottom: @content-padding-large + (((@headings-line-height * @font-size-h6) - @icon-font-size) / 2);
+					}
+				}
+
+				// H5 heading
+				&.h5 {
+					.icons-list {
+					    padding-top: @content-padding-large + (((@headings-line-height * @font-size-h5) - @icon-font-size) / 2);
+					    padding-bottom: @content-padding-large + (((@headings-line-height * @font-size-h5) - @icon-font-size) / 2);
+					}
+				}
 			}
 
 			// Main navigation
-			.navigation-main {
+			.navigation {
 
 				// Navigation items
 				> li {
@@ -977,38 +1054,20 @@
 							position: absolute;
 							top: 0;
 							right: -(@sidebar-base-width);
-							background-color: @navigation-dark-active-bg;
-							border-color: @navigation-dark-active-bg;
-							padding: inherit;
-							padding-left: @content-padding-large;
-							padding-right: @content-padding-large;
+							background-color: @navigation-dark-active-label-bg;
+							border: 1px solid @navigation-dark-active-border;
+							padding: (@navigation-padding-base-vertical - 1) @navigation-padding-base-horizontal;
 							width: @sidebar-base-width;
 							text-align: left;
-							color: #fff;
+							color: @navigation-dark-active-label-color;
+							cursor: pointer;
 							.border-right-radius(@border-radius-base);
 
-							// Arrow
-							&:after {
-								@arrow-size: 5px; // Use inline variable
-								content: "";
-								width: 0;
-								height: 0;
-								border-right: @arrow-size solid;
-								border-top: @arrow-size solid transparent;
-								border-bottom: @arrow-size solid transparent;
-								border-right-color: inherit;
-								position: absolute;
-								left: -(@arrow-size);
-								top: 50%;
-								margin-top: -@arrow-size;
-							}
-
-							// No color dependency - make all labela and badges white
+							// Label/badge
 							.label,
 							.badge {
-								background-color: transparent;
+								background-color: fade(#000, 35%);
 								border-color: transparent;
-								color: #fff;
 							}
 						}
 
@@ -1030,6 +1089,7 @@
 					.has-ul {
 						> span {
 							border-radius: 0 @border-radius-base 0 0;
+							cursor: default;
 						}
 					}
 
@@ -1062,7 +1122,6 @@
 						> a {
 							> span {
 								display: block;
-								cursor: default;
 							}
 						}
 
@@ -1087,7 +1146,11 @@
 						> li {
 							> a {
 								padding-left: @content-padding-large;
-								padding-right: @content-padding-large;
+
+								// Not if level has child levels
+								&:not(.has-ul) {
+									padding-right: @content-padding-large;
+								}
 							}
 
 							> ul > li {
@@ -1101,7 +1164,6 @@
 									}
 								}
 							}
-
 						}
 					}
 				}
@@ -1182,25 +1244,34 @@
 		}
 
 		// Inside light sidebar
-		.sidebar-default {
-			.navigation-main {
-				> li {
-					> a > span {
-						background-color: @navigation-light-active-bg;
-						border-color: @navigation-light-active-bg;
-					}
+		.sidebar-main {
+			&.sidebar-default {
+				.navigation {
+					> li {
+						> a > span {
+							background-color: @navigation-light-active-bg;
+							border-color: @navigation-light-active-border;
+							color: @navigation-light-active-label-color;
+							
+							// Label/badge
+							.label,
+							.badge {
+								color: @navigation-light-active-label-color;
+							}
+						}
+						
+						> ul {
+							background-color: @sidebar-light-bg;
+							border: 1px solid @panel-default-border;
+							border-top: 0;
+						}
 
-					> ul {
-						background-color: @sidebar-light-bg;
-						border: 1px solid @panel-default-border;
-						border-top: 0;
-					}
-
-					// Keep item highlighted on hover (light sidebar)
-					&:hover {						
-						&:not(.active) > a {
-							background-color: @dropdown-link-hover-bg;
-							color: @text-color;
+						// Keep item highlighted on hover (light sidebar)
+						&:hover {						
+							&:not(.active) > a {
+								background-color: @dropdown-link-hover-bg;
+								color: @text-color;
+							}
 						}
 					}
 				}

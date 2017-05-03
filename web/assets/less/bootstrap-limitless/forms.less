@@ -4,8 +4,8 @@
 *
 *  Overrides for bootstrap form related components
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.1
+*  Latest update: Mar 10, 2015
 *
 * ---------------------------------------------------------------------------- */
 
@@ -43,7 +43,7 @@ legend {
 
 // Label
 label {
-    margin-bottom: 6px;
+    margin-bottom: @padding-base-vertical;
     font-weight: 400;
 }
 
@@ -176,6 +176,36 @@ textarea {
 }
 
 
+// Floating labels
+// -------------------------
+
+.form-group-material {
+
+    // Labels
+    > .control-label {
+        position: relative;
+        top: @padding-base-vertical;
+        .opacity(0);
+
+        // Top spacing for contextual icon
+        ~ .form-control-feedback {
+            top: (@line-height-computed + @padding-base-vertical);
+        }
+    }
+
+    // Display label
+    > .control-label.is-visible {
+        top: 0;
+        .opacity(1);
+    }
+
+    // Label animation
+    > .control-label.animate {
+        .transition(all linear 0.1s);
+    }
+}
+
+
 // Checkboxes and radios
 // -------------------------
 
@@ -189,7 +219,7 @@ textarea {
 
     // Inner label element
     label {
-        padding-left: (@checkbox-size + 10);
+        padding-left: (@checkbox-size + @content-padding-small);
     }
 }
 
@@ -273,33 +303,18 @@ textarea {
 
 // XLarge
 .input-xlg {
-    .input-size(@input-height-xlarge; @padding-xlarge-vertical; @padding-large-horizontal; @font-size-large; @line-height-large; @input-border-radius-large);
+    .input-size(@input-height-xlarge; @padding-xlarge-vertical; @padding-xlarge-horizontal; @font-size-xlarge; @line-height-xlarge; @input-border-radius-large);
 }
 .form-group-xlg {
     .form-control {
-        .input-size(@input-height-large + 4; @padding-large-vertical + 2; @padding-large-horizontal; @font-size-large; @line-height-large; @input-border-radius-large);
+        .input-size(@input-height-xlarge; @padding-xlarge-vertical; @padding-xlarge-horizontal; @font-size-xlarge; @line-height-xlarge; @input-border-radius-large);
     }
     .form-control-static {
-        height: @input-height-large;
-        padding: @padding-large-vertical @padding-large-horizontal;
-        font-size: @font-size-large;
-        line-height: @line-height-large;
-    }
-}
-
-// Small
-.input-sm {
-    font-size: @font-size-base;
-    line-height: @line-height-base;
-}
-.form-group-sm {
-    .form-control {
-        font-size: @font-size-base;
-        line-height: @line-height-base;
-    }
-    .form-control-static {
-        font-size: @font-size-base;
-        line-height: @line-height-base;
+        height: @input-height-xlarge;
+        min-height: (@line-height-computed + @font-size-xlarge);
+        padding: @padding-xlarge-vertical @padding-xlarge-horizontal;
+        font-size: @font-size-xlarge;
+        line-height: @line-height-xlarge;
     }
 }
 
@@ -313,6 +328,7 @@ textarea {
     }
     .form-control-static {
         height: @input-height-mini;
+        min-height: (@line-height-computed + @font-size-small);
         padding: @padding-xs-vertical @padding-xs-horizontal;
         font-size: @font-size-small;
         line-height: @line-height-small;
@@ -356,7 +372,9 @@ textarea {
 .form-control-feedback {
     width: @input-height-base + 2;
     color: @input-color;
+    z-index: 3;
 
+    // Change color if comes after colored input
     input[class*=bg-] + & {
         color: #fff;
     }
@@ -428,6 +446,20 @@ textarea {
 }
 
 
+//
+// Feedback states
+//
+
+.has-success,
+.has-warning,
+.has-error {
+    .form-control:focus {
+        .box-shadow(none);
+    }
+}
+
+
+
 // Help text
 // -------------------------
 
@@ -444,8 +476,8 @@ textarea {
     display: inline-block;
     color: @text-muted;
     font-size: @font-size-small;
-    margin-top: @padding-base-vertical;
-    margin-bottom: @padding-base-vertical;
+    margin-top: (@padding-base-vertical + 1);
+    margin-bottom: (@padding-base-vertical + 1);
 
     // Remove gutter if inside column
     .form-horizontal .form-group > div[class*="col-"] + & {
@@ -456,13 +488,9 @@ textarea {
     // Inline help works only on large screens
     @media (min-width: @screen-md) {
         display: inline-block;
-        margin-top: (@padding-base-vertical + 1); // vertical padding + 1px border
+        margin-top: (@padding-base-vertical + 1);
+        margin-bottom: (@padding-base-vertical + 1);
         vertical-align: top;
-
-        // Inline label helper
-        &.label {
-            margin-top: (@padding-base-vertical + 2); // vertical padding + 2px height difference
-        }
 
         // Inline text helper
         &:not(.label) {
@@ -471,29 +499,17 @@ textarea {
 
         // In large group
         .form-group-lg & {
-            margin-top: 10px;
-
-            &.label {
-                margin-top: 11px;
-            }
+            margin-top: (@padding-large-vertical + 1);
         }
 
         // In small group
         .form-group-sm & {
-            margin-top: 7px;
-
-            &.label {
-                margin-top: 8px;
-            }
+            margin-top: (@padding-small-vertical + 1);
         }
 
         // In mini group
         .form-group-xs & {
-            margin-top: 6px;
-
-            &.label {
-                margin-top: 7px;
-            }
+            margin-top: (@padding-xs-vertical + 1);
         }
     }
 }
@@ -544,7 +560,7 @@ textarea {
     // Control label
     @media (min-width: @screen-sm-min) {
         .control-label {
-            padding-bottom: 6px;
+            padding-bottom: @padding-base-vertical;
             padding-top: 0;
 
             &:not(.text-right) {
@@ -606,7 +622,7 @@ textarea {
     .form-group-xlg {
         @media (min-width: @screen-sm-min) {
             .control-label {
-                font-size: @font-size-large;
+                font-size: @font-size-xlarge;
                 padding-top: (@padding-xlarge-vertical + 1);
             }
         }
@@ -616,7 +632,6 @@ textarea {
     .form-group-lg {
         @media (min-width: @screen-sm-min) {
             .control-label {
-                font-size: @font-size-large;
                 padding-top: (@padding-large-vertical + 1);
             }
         }
@@ -635,6 +650,7 @@ textarea {
     .form-group-xs {
         @media (min-width: @screen-sm-min) {
             .control-label {
+                font-size: @font-size-small;
                 padding-top: (@padding-xs-vertical + 1);
             }
         }

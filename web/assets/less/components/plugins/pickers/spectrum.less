@@ -75,12 +75,13 @@
     top: 0;
     left: 0;
     display: inline-block;
-    z-index: 9999994;
-    background-color: #fafafa;
+    z-index: @zindex-dropdown;
+    background-color: @dropdown-bg;
     border: 1px solid @dropdown-border;
     border-radius: @border-radius-base;
     overflow: hidden;
     .box-sizing(content-box);
+    .box-shadow(0 1px 3px fade(#000, 10%));
 
     &.sp-flat {
         position: relative;
@@ -574,20 +575,36 @@
 
 // Button states
 .sp-cancel,
-.sp-palette-toggle,
+.sp-palette-toggle {
+    border: 1px solid transparent;
+
+    // Hover state
+    &:hover,
+    &:focus {
+        .box-shadow(0 0 0 100px fade(#000, 1%) inset);
+    }
+
+    // Active state
+    &:active {
+        .box-shadow(0 0 0 100px fade(#000, 3%) inset);
+    }
+}
+
+// Choose button
 .sp-choose {
     border: 1px solid transparent;
 
     // Hover state
     &:hover,
     &:focus {
-        .box-shadow(0 0 0 100px fade(#000, 2%) inset);
+        .box-shadow(0 0 0 100px fade(#000, 5%) inset);
     }
 
     // Active state
     &:active {
-        .box-shadow(0 0 0 100px fade(#000, 4%) inset)
+        .box-shadow(0 0 0 100px fade(#000, 10%) inset);
     }
+
 }
 
 // Cancel and palette toggle buttons

@@ -36,12 +36,13 @@
         "layouts": {
             "main": "Варианты макетов",
             "current": "<span class='label bg-warning-400'>Текущий</span>",
-            "next": "<span class='label'>Скоро</span>",
+            "next": "<span class='label label-default'>Скоро</span>",
             "layout1": "Вариант 1",
             "layout2": "Вариант 2",
             "layout3": "Вариант 3",
             "layout4": "Вариант 4",
-            "layout5": "Вариант 5"
+            "layout5": "Вариант 5",
+            "layout6": "Вариант 6"
         },
 
         "colors": {
@@ -89,7 +90,7 @@
         },
 
         "changelog": {
-            "main": "История версий <span class='label bg-blue-400'>1.2.1</span>"
+            "main": "История версий <span class='label bg-blue-400'>1.4</span>"
         },
 
         "rtl": {
@@ -103,6 +104,7 @@
             "checkers": "Переключатели",
             "groups": "Группы",
             "extended": "Расширенные компоненты",
+            "labels": "Плавающий текст",
             "selects": {
                 "main": "Выпадающие списки",
                 "select2": "Select2 меню",
@@ -115,6 +117,20 @@
             "editable": "Редактируемые элементы",
             "validation": "Валидация",
             "grid": "Сетка элементов формы"
+        },
+
+        "alpaca": {
+            "main": "JSON формы",
+            "basic": "Базовые компоненты",
+            "advanced": "Расширенные компоненты",
+            "controls": "Управление",
+            "tables": "Таблицы",
+            "editor": "CKEditor",
+            "code": "Редактор кода",
+            "pickers": "Выбор",
+            "media": "Карты & картинки",
+            "binding": "Формы",
+            "validation": "Валидация"
         },
 
         "wizard": {
@@ -172,6 +188,7 @@
             "main": "Отображение контента",
             "panels": "Панели",
             "heading": "Элементы заголовка панели",
+            "footer": "Элементы низа",
             "draggable": "Перетаскиваемые панели",
             "text": "Стили текста",
             "typo": "Оформление",
@@ -187,7 +204,8 @@
             "session": "Индикатор сессии",
             "idle": "Индикатор простоя",
             "tree": "Дерево данных",
-            "context": "Контекстное меню"
+            "context": "Контекстное меню",
+            "fab": "Плавающее меню"
         },
 
         "animations": {

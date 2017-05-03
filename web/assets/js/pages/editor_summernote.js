@@ -52,15 +52,14 @@ $(function() {
     // ------------------------------
 
     // Styled checkboxes/radios
-    $(".note-modal-form input[type=checkbox], .note-modal-form input[type=radio]").uniform({
+    $(".link-dialog input[type=checkbox], .note-modal-form input[type=radio]").uniform({
         radioClass: 'choice'
     });
 
 
     // Styled file input
     $(".note-image-input").uniform({
-        wrapperClass: 'bg-blue',
-        fileButtonHtml: '<i class="icon-googleplus5"></i>'
+        fileButtonClass: 'action btn bg-warning-400'
     });
 
 });

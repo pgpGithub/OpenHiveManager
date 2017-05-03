@@ -4,8 +4,8 @@
 *
 *  An open source rich text editor based on HTML5 technology
 *
-*  Version: 1.0
-*  Latest update: Mar 10, 2015
+*  Version: 1.2
+*  Latest update: Jun 8, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -15,17 +15,18 @@
 
 // Base
 .wysihtml5 {
-    width: 100%;
-    height: auto;
-    min-height: 350px;
     max-height: 450px;
     resize: vertical;
     background-color: #fff;
-    border: 1px solid @panel-inner-border;
-    padding: @panel-body-padding;
-    overflow: scroll;
+    overflow: auto;
+    padding: @content-padding-large;
     outline: 0;
-    .border-bottom-radius(@border-radius-base);
+}
+
+// Editor area
+.wysihtml5-editor {
+    border-width: 0;
+    padding: 0;
 }
 
 // Container
@@ -45,13 +46,14 @@
 // Toolbar
 // ----------------------------------------
 
+// Base
 .wysihtml5-toolbar {
     margin: 0;
-    padding: (@panel-body-padding - 5) @panel-body-padding;
+    padding: @content-padding-base @content-padding-large;
     padding-bottom: 0;
     display: block;
     background-color: @panel-footer-bg;
-    border: 1px solid @panel-inner-border;
+    border: 1px solid @panel-default-border;
     border-bottom: 0;
     .border-top-radius(@border-radius-base);
 
@@ -59,7 +61,7 @@
     > li {
         display: inline-block;
         list-style: none;
-        margin: 0 (@panel-body-padding - 5) (@panel-body-padding - 5) 0;
+        margin: 0 @content-padding-base @content-padding-base 0;
     }
 
     // Dropdown menu
@@ -145,58 +147,57 @@
     div[data-wysihtml5-command-value="navy"] { background: navy !important }
     div[data-wysihtml5-command-value="blue"] { background: blue !important }
     div[data-wysihtml5-command-value="orange"] { background: orange !important }
+}
 
-
-    // Define colors
-    .wysiwyg-color-black {
-        color: black;
-    }
-    .wysiwyg-color-silver {
-        color: silver;
-    }
-    .wysiwyg-color-gray {
-        color: gray;
-    }
-    .wysiwyg-color-white {
-        color: white;
-    }
-    .wysiwyg-color-maroon {
-        color: maroon;
-    }
-    .wysiwyg-color-red {
-        color: red;
-    }
-    .wysiwyg-color-purple {
-        color: purple;
-    }
-    .wysiwyg-color-fuchsia {
-        color: fuchsia;
-    }
-    .wysiwyg-color-green {
-        color: green;
-    }
-    .wysiwyg-color-lime {
-        color: lime;
-    }
-    .wysiwyg-color-olive {
-        color: olive;
-    }
-    .wysiwyg-color-yellow {
-        color: yellow;
-    }
-    .wysiwyg-color-navy {
-        color: navy;
-    }
-    .wysiwyg-color-blue {
-        color: blue;
-    }
-    .wysiwyg-color-teal {
-        color: teal;
-    }
-    .wysiwyg-color-aqua {
-        color: aqua;
-    }
-    .wysiwyg-color-orange {
-        color: orange;
-    }
+// Define colors
+.wysiwyg-color-black {
+    color: black;
+}
+.wysiwyg-color-silver {
+    color: silver;
+}
+.wysiwyg-color-gray {
+    color: gray;
+}
+.wysiwyg-color-white {
+    color: white;
+}
+.wysiwyg-color-maroon {
+    color: maroon;
+}
+.wysiwyg-color-red {
+    color: red;
+}
+.wysiwyg-color-purple {
+    color: purple;
+}
+.wysiwyg-color-fuchsia {
+    color: fuchsia;
+}
+.wysiwyg-color-green {
+    color: green;
+}
+.wysiwyg-color-lime {
+    color: lime;
+}
+.wysiwyg-color-olive {
+    color: olive;
+}
+.wysiwyg-color-yellow {
+    color: yellow;
+}
+.wysiwyg-color-navy {
+    color: navy;
+}
+.wysiwyg-color-blue {
+    color: blue;
+}
+.wysiwyg-color-teal {
+    color: teal;
+}
+.wysiwyg-color-aqua {
+    color: aqua;
+}
+.wysiwyg-color-orange {
+    color: orange;
 }

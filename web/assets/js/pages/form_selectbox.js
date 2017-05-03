@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for form_select_box_it.html page
 *
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
+*  Version: 1.1
+*  Latest update: Feb 5, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -26,8 +26,8 @@ $(function() {
         autoWidth: false,
         theme: "bootstrap"
     });
-
-
+    
+    
     // Allow copying classes to container
     $(".selectbox-container").selectBoxIt({
         autoWidth: false,

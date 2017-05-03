@@ -144,11 +144,13 @@ $(function() {
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%'
             }
         ],
@@ -219,15 +221,14 @@ $(function() {
         {type: 'numeric', data: 'car'},
         {type: 'numeric', data: 'model'},
         {type: 'date', data: 'date'},
-        {type: 'numeric', data: 'price', format: '0,0.00 $'},
-        {type: 'numeric', data: 'share', format: '0%'}
+        {type: 'numeric', data: 'price', className: 'htLeft', format: '0,0.00 $'},
+        {type: 'numeric', data: 'share', className: 'htLeft', format: '0%'}
     ];
 
     // Initialize with options
     var hot_change_type = new Handsontable(hot_change_type,{
         data: car_data,
         colHeaders: true,
-        //type: 'numeric',
         stretchH: 'all',
         columns: columns,
         afterGetColHeader: function(col, TH) {
@@ -386,16 +387,19 @@ $(function() {
             },
             {
                 data: 'year',
-                type: 'numeric'
+                type: 'numeric',
+                className: 'htLeft',
             },
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             },
             {
                 data: 'available',
                 type: 'checkbox',
+                className: 'htCenter',
                 width: 20
             }
         ]
@@ -450,11 +454,13 @@ $(function() {
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%',
                 width: 30
             }
@@ -499,17 +505,20 @@ $(function() {
             },
             {
                 data: 'year',
-                type: 'numeric'
+                type: 'numeric',
+                className: 'htLeft',
             },
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             },
             {
                 data: 'available',
                 type: 'checkbox',
                 checkedTemplate: 'yes',
+                className: 'htCenter',
                 uncheckedTemplate: 'no',
                 width: 20
             }

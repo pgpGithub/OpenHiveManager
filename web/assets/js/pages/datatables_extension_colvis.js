@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for datatable_extension_colvis.html page
 *
-*  Version: 1.1
-*  Latest update: Nov 10, 2015
+*  Version: 1.2
+*  Latest update: Mar 6, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -21,6 +21,7 @@ $(function() {
         dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
         language: {
             search: '<span>Filter:</span> _INPUT_',
+            searchPlaceholder: 'Type to filter...',
             lengthMenu: '<span>Show:</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
         }
@@ -92,26 +93,24 @@ $(function() {
     // Column groups
     $('.datatable-colvis-group').DataTable({
         buttons: {
-            dom: {
-                button: {
-                    className: 'btn btn-default'
-                }
-            },
             buttons: [
                 {
                     extend: 'colvisGroup',
                     text: 'Office info',
+                    className: 'btn btn-default',
                     show: [0, 1, 2],
                     hide: [3, 4, 5]
                 },
                 {
                     extend: 'colvisGroup',
+                    className: 'btn btn-default',
                     text: 'HR info',
                     show: [3, 4, 5],
                     hide: [0, 1, 2]
                 },
                 {
                     extend: 'colvisGroup',
+                    className: 'btn btn-default',
                     text: 'Show all',
                     show: ':hidden'
                 }
@@ -128,11 +127,6 @@ $(function() {
     $('.ColVis_Button').addClass('btn btn-primary btn-icon').on('click mouseover', function() {
         $('.ColVis_collection input').uniform();
     });
-
-
-    // Add placeholder to the datatable filter option
-    $('.dataTables_filter input[type=search]').attr('placeholder', 'Type to filter...');
-
 
     // Enable Select2 select for the length option
     $('.dataTables_length select').select2({

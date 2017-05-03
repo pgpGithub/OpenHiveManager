@@ -102,8 +102,7 @@ $(function() {
 
     // File input
     $(".file-styled").uniform({
-        wrapperClass: 'bg-green-600',
-        fileButtonHtml: '<i class="icon-cloud-upload2"></i>'
+        fileButtonClass: 'action btn bg-green'
     });
 
 

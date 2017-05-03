@@ -24,7 +24,7 @@
 			classHeader		: 'dd-header',
 			eventType		: 'click',
 			hoverDelay		: 300,
-			speed       	: 2000,
+			speed       	: 0,
 			saveState		: false,
 			showCount		: false,
 			classCount		: 'dd-count',

@@ -4,8 +4,8 @@
 *
 *  Overrides for panels bootstrap component
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.1
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -17,6 +17,32 @@
     margin-bottom: @line-height-computed;
     border-color: @panel-default-border;
     color: @text-color;
+
+    // Scrollable panel
+    &.has-scroll {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    // Panel with background pattern
+    &.has-bg-image {
+        background-image: url(../images/backgrounds/panel_bg.png);
+    }
+}
+
+
+// Flat panel
+// -------------------------
+
+.panel-flat {
+    > .panel-heading {
+
+        // Add top border if table is after panel body
+        + .table,
+        + .table-responsive {
+            border-top: 1px solid @panel-inner-border;
+        }
+    }
 }
 
 
@@ -38,11 +64,6 @@
     // Panel heading in flat panel
     &.panel-flat > .panel-heading {
         border-bottom-color: transparent;
-    }
-
-    // Panel body inherits bg color
-    > .panel-body {
-        background-color: inherit;
     }
 
     // Apply white color to panel title
@@ -98,8 +119,39 @@
 .panel-body {
     position: relative;
 
+    // Inside flat panel
     .panel-flat > .panel-heading + & {
         padding-top: 0;
+    }
+
+    // Add top border if panel has multiple bodies
+    // or table comes after body
+    // or use .has-top-border class in .panel-body container
+    + .panel-body,
+    + .table,
+    + .table-responsive,
+    &.has-top-border {
+        border-top: 1px solid @panel-inner-border;
+    }
+
+    // ... and change top border in coloured panel
+    .panel[class*=bg-] & {
+        + .panel-body,
+        + .table,
+        + .table-responsive,
+        &.has-top-border {
+            border-top-color: fade(#fff, 50%);
+        }
+    }
+
+    // Slightly darker body
+    &-accent {
+        background-color: #fcfcfc;
+
+        // Inside colored panel
+        .panel[class*=bg-] & {
+            background-color: fade(#000, 10%);
+        }
     }
 }
 
@@ -110,6 +162,7 @@
 // Base class
 .panel-heading {
     position: relative;
+    .border-top-radius(@border-radius-base);
 
     // Bordered panel
     .panel-bordered > & {
@@ -121,6 +174,12 @@
         padding-top: @content-padding-large;
         padding-bottom: @content-padding-large;
         background-color: @panel-bg;
+
+        // Add extra vertical spacing for title
+        > .panel-title {
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
     }
 
     // Inherit bg color in solid color panel
@@ -150,6 +209,19 @@
 .panel-title {
     position: relative;
     font-size: @font-size-base;
+
+    // Allow font size classes
+    &.text-size {
+        &-mini {
+            font-size: @font-size-mini;
+        }
+        &-small {
+            font-size: @font-size-small;
+        }
+        &-large {
+            font-size: @font-size-large;
+        }
+    }
 
     // Display links as a block element
     a& {
@@ -251,6 +323,9 @@
 // Base styles
 .panel-footer {
     position: relative;
+    padding-left: 0;
+    padding-right: 0;
+    .border-bottom-radius(@border-radius-base);
 
     // Clearing floats
     &:after {
@@ -258,76 +333,28 @@
         display: table;
         clear: both;
     }
-
-    // List 
-    > ul {
-        margin: 0;
-        padding: 0;
-        font-size: 0;
-        list-style: none;
-        float: left;
-        margin-left: @content-padding-base;
-
-        &:first-child {
-            margin-left: 0;
-        }
-
-        > li {
-            display: inline-block;
-            font-size: @font-size-base;
-            padding-top: (@padding-base-vertical + 1);
-            padding-bottom: (@padding-base-vertical + 1);
-
-            & + li {
-                margin-left: @content-padding-base;
-            }
-
-            > a {
-                color: @text-color;
-            }
-
-            .dropdown-menu {
-                margin-top: 0;
-                margin-bottom: 0;
-            }
-        }
-    }
-
-    // Setup mobile view
-    @media (max-width: @screen-xs) {
-        text-align: center;
-
-        ul,
-        .pull-right {
-            margin-left: 0;
-            float: none!important;
-        }
-
-        > ul > li,
-        .dropdown,
-        .dropup,
-        .btn-group {
-            position: static;
-        }
-
-        .dropdown-menu {
-            left: 0;
-            right: 0;
-        }
-    }
 }
 
-// Detached panel footer
+// Transparent panel footer
 .panel-footer-transparent {
     background-color: transparent;
     border-top: 0;
+    padding-top: 0;
+    padding-bottom: @content-padding-large - ((@input-height-base - @line-height-computed) / 2);
+}
 
-    // List items
-    > ul > li {
-        padding-top: 0;
-        padding-bottom: 0;
-        margin-bottom: @panel-body-padding;
-    }
+// Condensed panel footer
+.panel-footer-condensed {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+// Bordered panel footer
+.panel-footer-bordered {
+    background-color: @panel-bg;
+    padding-right: 0;
+    margin-left: @content-padding-large;
+    margin-right: @content-padding-large;
 }
 
 

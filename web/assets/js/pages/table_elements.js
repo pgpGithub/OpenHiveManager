@@ -195,16 +195,11 @@ $(function() {
     // Multiple files uploader
     $('.bootstrap-uploader').fileinput({
         browseLabel: 'Browse',
-        browseClass: 'btn btn-primary',
-        removeLabel: '',
-        uploadLabel: '',
-        browseIcon: '',
-        uploadIcon: '<i class="icon-upload"></i> ',
-        removeClass: 'btn btn-danger btn-icon',
-        uploadClass: 'btn btn-default btn-icon',
-        removeIcon: '<i class="icon-remove3"></i> ',
+        browseIcon: '<i class="icon-file-plus"></i>',
+        uploadIcon: '<i class="icon-file-upload2"></i>',
+        removeIcon: '<i class="icon-cross3"></i>',
         layoutTemplates: {
-            caption: '<div tabindex="-1" class="form-control file-caption {class}">\n' + '<span class="icon-file-plus kv-caption-icon"></span><div class="file-caption-name"></div>\n' + '</div>'
+            icon: '<i class="icon-file-check"></i>'
         },
         initialCaption: "No file selected"
     });
@@ -226,8 +221,7 @@ $(function() {
 
     // Styled file input
     $('.file-styled').uniform({
-        wrapperClass: 'bg-warning',
-        fileButtonHtml: '<i class="icon-googleplus5"></i>'
+        fileButtonClass: 'action btn bg-warning-400'
     });
     
 });

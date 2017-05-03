@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for picker_date.html page
 *
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
+*  Version: 1.1
+*  Latest update: Aug 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -91,11 +91,11 @@ $(function() {
         opens: "left",
         ranges: {
             'Сегодня': [moment(), moment()],
-            'Вчера': [moment().subtract('days', 1), moment().subtract('days', 1)],
-            'Последние 7 дней': [moment().subtract('days', 6), moment()],
-            'Последние 30 дней': [moment().subtract('days', 29), moment()],
+            'Вчера': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Последние 7 дней': [moment().subtract(6, 'days'), moment()],
+            'Последние 30 дней': [moment().subtract(29, 'days'), moment()],
             'Этот месяц': [moment().startOf('month'), moment().endOf('month')],
-            'Прошедший месяц': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+            'Прошедший месяц': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         },
         locale: {
             applyLabel: 'Вперед',
@@ -117,18 +117,18 @@ $(function() {
     // Initialize with options
     $('.daterange-predefined').daterangepicker(
         {
-            startDate: moment().subtract('days', 29),
+            startDate: moment().subtract(29, 'days'),
             endDate: moment(),
             minDate: '01/01/2014',
             maxDate: '12/31/2016',
             dateLimit: { days: 60 },
             ranges: {
                 'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                'Last 7 Days': [moment().subtract('days', 6), moment()],
-                'Last 30 Days': [moment().subtract('days', 29), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
             opens: 'left',
             applyClass: 'btn-small bg-slate',
@@ -141,7 +141,7 @@ $(function() {
     );
 
     // Display date format
-    $('.daterange-predefined span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + moment().format('MMMM D, YYYY'));
+    $('.daterange-predefined span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + moment().format('MMMM D, YYYY'));
 
 
     //
@@ -151,18 +151,18 @@ $(function() {
     // Initialize with options
     $('.daterange-ranges').daterangepicker(
         {
-            startDate: moment().subtract('days', 29),
+            startDate: moment().subtract(29, 'days'),
             endDate: moment(),
             minDate: '01/01/2012',
             maxDate: '12/31/2016',
             dateLimit: { days: 60 },
             ranges: {
                 'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                'Last 7 Days': [moment().subtract('days', 6), moment()],
-                'Last 30 Days': [moment().subtract('days', 29), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
             opens: 'left',
             applyClass: 'btn-small bg-slate-600',
@@ -174,7 +174,7 @@ $(function() {
     );
 
     // Display date format
-    $('.daterange-ranges span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + moment().format('MMMM D, YYYY'));
+    $('.daterange-ranges span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + moment().format('MMMM D, YYYY'));
 
 
     
@@ -234,8 +234,21 @@ $(function() {
 
 
     // Editable input
-    $('.pickadate-editable').pickadate({
-        editable: true
+    var $input_date = $('.pickadate-editable').pickadate({
+        editable: true,
+        onClose: function() {
+            $('.datepicker').focus();
+        }
+    });
+
+    var picker_date = $input_date.pickadate('picker');
+    $input_date.on('click', function(event) { // register events (https://github.com/amsul/pickadate.js/issues/542)
+        if (picker_date.get('open')) {
+            picker_date.close();
+        } else {
+            picker_date.open();
+        }                        
+        event.stopPropagation();
     });
 
 
@@ -343,8 +356,21 @@ $(function() {
 
 
     // Editable input
-    $('.pickatime-editable').pickatime({
-        editable: true
+    var $input_time = $('.pickatime-editable').pickatime({
+        editable: true,
+        onClose: function() {
+            $('.datepicker').focus();
+        }
+    });
+
+    var picker_time = $input_time.pickatime('picker');
+    $input_time.on('click', function(event) { // register events (https://github.com/amsul/pickadate.js/issues/542)
+        if (picker_time.get('open')) {
+            picker_time.close();
+        } else {
+            picker_time.open();
+        }                        
+        event.stopPropagation();
     });
 
 

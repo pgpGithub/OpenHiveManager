@@ -4,8 +4,8 @@
  *
  *  Styles for all user profile layouts
  *
- *  Version: 1.0
- *  Latest update: May 25, 2015
+ *  Version: 1.1
+ *  Latest update: Mar 6, 2016
  *
  * ---------------------------------------------------------------------------- */
 
@@ -14,7 +14,12 @@
 // ------------------------------
 
 .profile-cover {
-  position: relative;
+	position: relative;
+
+  	// Add extra spacing to navbar
+	& + .navbar {
+		margin-bottom: (@line-height-computed * 2);
+	}
 
 	// Cover details
 	.media {
@@ -73,6 +78,7 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 350px;
+	.border-top-radius(@border-radius-base);
 
 	@media (max-width: @screen-xs-max) {
 		height: 320px;

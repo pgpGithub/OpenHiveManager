@@ -3,3 +3,9 @@ services:
         class: KG\BeekeepingManagementBundle\Twig\Extension\TrieEmplacementParRuche
         tags:
             -  { name: twig.extension }
+    kg_beekeeping_management.validator.checkmail:
+        class: KG\BeekeepingManagementBundle\Validator\CheckMailValidator
+        arguments:
+            entityManager: @doctrine.orm.entity_manager
+        tags:
+            -  { name: validator.constraint_validator, alias: kg_beekeeping_management_checkmail } 

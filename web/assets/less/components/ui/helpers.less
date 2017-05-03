@@ -4,14 +4,33 @@
 *
 *  Custom helper classes
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.2
+*  Latest update: Mar 20, 2017
 *
 * ---------------------------------------------------------------------------- */
 
 
 // Content helpers
 // -------------------------
+
+// Shadow
+.no-shadow {
+    .box-shadow(none);
+}
+
+// Opacity
+.opacity-75 {
+    .opacity(0.75);
+}
+.opacity-50 {
+    .opacity(0.5);
+}
+.opacity-25 {
+    .opacity(0.25);
+}
+.opacity-0 {
+    .opacity(0);
+}
 
 // Edges
 .no-edge-top {
@@ -25,6 +44,28 @@
 }
 .no-edge-right {
     right: 0;
+}
+
+// Aligning elements right on different screens
+.text-right-lg {
+    @media (min-width: @screen-lg-min) {
+        text-align: right;
+    }
+}
+.text-right-md {
+    @media (min-width: @screen-md-min) {
+        text-align: right;
+    }
+}
+.text-right-sm {
+    @media (min-width: @screen-sm-min) {
+        text-align: right;
+    }
+}
+.text-right-xs {
+    @media (min-width: @screen-xs-min) {
+        text-align: right;
+    }
 }
 
 // Pulling elements right on different screens
@@ -353,6 +394,23 @@ label.display-block {
     .border-right-radius(0);
 }
 
+// Add border radius
+.border-radius {
+    border-radius: @border-radius-base;
+}
+.border-radius-top {
+    .border-top-radius(@border-radius-base);
+}
+.border-radius-bottom {
+    .border-bottom-radius(@border-radius-base);
+}
+.border-radius-left {
+    .border-left-radius(@border-radius-base);
+}
+.border-radius-right {
+    .border-right-radius(@border-radius-base);
+}
+
 
 // Add borders
 .border-top {
@@ -464,6 +522,12 @@ label.display-block {
 .img-lg {
     width: 44px!important;
     height: 44px!important;
+}
+
+// Medium
+.img-md {
+    width: 40px!important;
+    height: 40px!important;
 }
 
 // Small

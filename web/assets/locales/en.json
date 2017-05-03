@@ -37,12 +37,13 @@
         "layouts": {
             "main": "Layouts",
             "current": "<span class='label bg-warning-400'>Current</span>",
-            "next": "<span class='label'>Coming soon</span>",
+            "next": "<span class='label label-default'>Coming soon</span>",
             "layout1": "Layout 1",
             "layout2": "Layout 2",
             "layout3": "Layout 3",
             "layout4": "Layout 4",
-            "layout5": "Layout 5"
+            "layout5": "Layout 5",
+            "layout6": "Layout 6"
         },
 
         "colors": {
@@ -90,7 +91,7 @@
         },
 
         "changelog": {
-            "main": "Changelog <span class='label bg-blue-400'>1.2.1</span>"
+            "main": "Changelog <span class='label bg-blue-400'>1.4</span>"
         },
 
         "rtl": {
@@ -104,6 +105,7 @@
             "checkers": "Checkboxes &amp; radios",
             "groups": "Input groups",
             "extended": "Extended controls",
+            "labels": "Floating labels",
             "selects": {
                 "main": "Selects",
                 "select2": "Select2 selects",
@@ -116,6 +118,20 @@
             "editable": "Editable forms",
             "validation": "Validation",
             "grid": "Inputs grid"
+        },
+
+        "alpaca": {
+            "main": "JSON forms",
+            "basic": "Basic inputs",
+            "advanced": "Advanced inputs",
+            "controls": "Controls",
+            "tables": "Tables",
+            "editor": "CKEditor",
+            "code": "Code editor",
+            "pickers": "Pickers",
+            "media": "Maps & images",
+            "binding": "Form binding",
+            "validation": "Validation"
         },
 
         "wizard": {
@@ -173,6 +189,7 @@
             "main": "Content appearance",
             "panels": "Content panels",
             "heading": "Panel heading elements",
+            "footer": "Panel footer elements",
             "draggable": "Draggable panels",
             "text": "Text styling",
             "typo": "Typography",
@@ -188,7 +205,8 @@
             "session": "Session timeout",
             "idle": "Idle timeout",
             "tree": "Dynamic tree views",
-            "context": "Context menu"
+            "context": "Context menu",
+            "fab": "Floating action buttons"
         },
 
         "animations": {

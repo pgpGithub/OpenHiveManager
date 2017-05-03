@@ -4,8 +4,8 @@
 *
 *  Styles for ION range slider plugin
 *
-*  Version: 1.0
-*  Latest update: Nov 25, 2015
+*  Version: 1.1
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -17,7 +17,7 @@
 .irs {
     position: relative;
     display: block;
-    height: 50px;
+    height: @tooltip-arrow-width + (@padding-xs-vertical * 2) + @font-size-mini + (@slider-base-size * 3) + @slider-base-size;
     -webkit-touch-callout: none;
     .user-select(none);
 }
@@ -53,8 +53,8 @@
     overflow: hidden;
     outline: none;
     height: @slider-base-size;
-    top: 32px;
-    background-color: #eee;
+    top: @tooltip-arrow-width + (@padding-xs-vertical * 3) + @font-size-mini + (@slider-base-size);
+    background-color: @gray-lighter;
     border-radius: 100px;
 }
 
@@ -94,7 +94,7 @@
 .irs-bar {
     position: absolute;
     display: block;
-    top: 32px;
+    top: @tooltip-arrow-width + (@padding-xs-vertical * 3) + @font-size-mini + (@slider-base-size);
     left: 0;
     width: 0;
     height: @slider-base-size;
@@ -116,7 +116,7 @@
 .irs-shadow {
     position: absolute;
     display: none;
-    top: 32px;
+    top: @tooltip-arrow-width + (@padding-xs-vertical * 3) + @font-size-mini + (@slider-base-size);
     left: 0;
     width: 0;
     height: @slider-base-size;
@@ -140,7 +140,7 @@
     background-color: #fcfcfc;
     border: 1px solid #bbb;
     cursor: pointer;
-    top: 26px;
+    top: (@tooltip-arrow-width + (@padding-xs-vertical * 3) + @font-size-mini + (@slider-base-size) - (((@slider-base-size * 3) - @slider-base-size) / 2));
     border-radius: 100px;
     cursor: pointer;
     z-index: 1;
@@ -201,8 +201,8 @@
     font-size: @font-size-mini;
     line-height: 1;
     top: 0;
-    padding: 5px;
-    background-color: #eee;
+    padding: @padding-xs-vertical;
+    background-color: @gray-lighter;
     border-radius: @border-radius-small;
 }
 .irs-min {
@@ -222,7 +222,7 @@
     color: #fff;
     font-size: @font-size-mini;
     line-height: 1;
-    padding: 5px;
+    padding: @padding-xs-vertical;
     top: 0;
     background-color: @tooltip-bg;
     border-radius: @border-radius-small;
@@ -232,12 +232,12 @@
         content: "";
         position: absolute;
         display: block;
-        bottom: -6px;
+        bottom: -(@tooltip-arrow-width * 2);
         left: 50%;
         width: 0; height: 0;
-        margin-left: -3px;
+        margin-left: -(@tooltip-arrow-width);
         overflow: hidden;
-        border: 3px solid transparent;
+        border: @tooltip-arrow-width solid transparent;
         border-top-color: @tooltip-bg;
     }
 }
@@ -259,7 +259,7 @@
 
 // If slider has grid
 .irs-with-grid {
-    height: 72px;
+    height: 75px;
 
     // Display grid
     .irs-grid {

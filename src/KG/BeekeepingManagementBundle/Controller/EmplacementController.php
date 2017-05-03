@@ -39,7 +39,9 @@ class EmplacementController extends Controller
     */    
     public function deleteAction(Emplacement $emplacement)
     {       
-        if( !$this->getUser()->canDisplayExploitation($emplacement->getRucher()->getExploitation()) || !$emplacement->canBeDeleted()){
+        if( !( $this->getUser()->isResponsable($emplacement->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($emplacement->getRucher()->getExploitation()))
+            || !$emplacement->canBeDeleted()){
             throw new NotFoundHttpException('Page inexistante.');
         }
 
@@ -70,7 +72,8 @@ class EmplacementController extends Controller
     */    
     public function addAction(Rucher $rucher, Request $request)
     {
-        if( !$this->getUser()->canDisplayExploitation($rucher->getExploitation())){
+        if(!( $this->getUser()->isResponsable($rucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($rucher()->getExploitation()))){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -99,7 +102,9 @@ class EmplacementController extends Controller
     */    
     public function updateAction(Emplacement $emplacement, Request $request)
     {       
-        if( !$this->getUser()->canDisplayExploitation($emplacement->getRucher()->getExploitation()) || !$emplacement->canBeUpdated() ){
+        if( !( $this->getUser()->isResponsable($emplacement->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($emplacement->getRucher()->getExploitation()))
+            || !$emplacement->canBeUpdated() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

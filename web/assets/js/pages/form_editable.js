@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for form_editable.html page
 *
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
+*  Version: 1.1
+*  Latest update: Mar 5, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -104,7 +104,7 @@ $(function() {
     // With helper text
     $('#text-field-help').editable();
     $('#text-field-help').on('shown', function(e, editable) {
-        $('<span class="help-block">This is a help block</div>').insertAfter(editable.input.$input);
+        $('<span class="help-block">This is a help block</span>').insertAfter(editable.input.$input);
     });
 
 
@@ -134,11 +134,11 @@ $(function() {
 
     // Elastic textarea
     $('#textarea-elastic').editable({
-        rows: 2,
         showbuttons: 'bottom'
     });
     $('#textarea-elastic').on('shown', function(e, editable) {
-        editable.input.$input.addClass('elastic').autosize();
+        editable.input.$input.addClass('elastic');
+        autosize($('.elastic'));
     });
 
 
@@ -558,7 +558,7 @@ $(function() {
 
     // Initialize plugin  and insert in editable popup on show
     $('#checkbox-unordered-list').on('shown', function(e, editable) {
-    editable.input.$input.uniform();
+        editable.input.$input.uniform();
     });
 
 
@@ -904,7 +904,7 @@ $(function() {
         editable.input.$input.inputmask({
             mask: '9999-9999-9999-9999'
         });
-        $('<span class="help-block">9999-9999-9999-9999</div>').insertAfter(editable.input.$input);
+        $('<span class="help-block">9999-9999-9999-9999</span>').insertAfter(editable.input.$input);
     });
 
 
@@ -923,7 +923,7 @@ $(function() {
         editable.input.$input.formatter({
             pattern: '{{99}}/{{99}}/{{9999}}'
         });
-        $('<span class="help-block">99/99/9999</div>').insertAfter(editable.input.$input);
+        $('<span class="help-block">99/99/9999</span>').insertAfter(editable.input.$input);
     });
 
 

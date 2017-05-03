@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for form_controls_extended.html page
 *
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
+*  Version: 1.2
+*  Latest update: Jul 4, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -88,16 +88,19 @@ $(function() {
     // ------------------------------
 
     // Basic example
-    $('.elastic').autosize();
+    autosize($('.elastic'));
 
     // Manual trigger
     $('.elastic-manual-trigger').on('click', function() {
-        $('.elastic-manual').val('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ultricies nibh, sed faucibus eros. Vivamus tristique fringilla ante, vitae pellentesque quam porta vel. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc vehicula gravida nisl non imperdiet. Mauris felis odio, vehicula et laoreet non, tempor non enim. Cras convallis sapien hendrerit nibh sagittis sollicitudin. Fusce nec ultricies justo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce ac urna in dui consequat cursus vel sit amet mauris. Proin nec bibendum arcu. Aenean sit amet nisi mi. Sed non leo nisl. Mauris leo odio, ultricies interdum ornare ac, posuere eu risus. Suspendisse adipiscing sapien sit amet gravida sollicitudin. Maecenas laoreet velit in dui adipiscing, vel fermentum tellus ullamcorper. Nullam et mi rhoncus, tempus nulla sit amet, varius ipsum.').trigger('autosize.resize');
+        var manual = autosize($('.elastic-manual'));
+        $('.elastic-manual').val('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed ultricies nibh, sed faucibus eros. Vivamus tristique fringilla ante, vitae pellentesque quam porta vel. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc vehicula gravida nisl non imperdiet. Mauris felis odio, vehicula et laoreet non, tempor non enim. Cras convallis sapien hendrerit nibh sagittis sollicitudin. Fusce nec ultricies justo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce ac urna in dui consequat cursus vel sit amet mauris. Proin nec bibendum arcu. Aenean sit amet nisi mi. Sed non leo nisl. Mauris leo odio, ultricies interdum ornare ac, posuere eu risus. Suspendisse adipiscing sapien sit amet gravida sollicitudin. Maecenas laoreet velit in dui adipiscing, vel fermentum tellus ullamcorper. Nullam et mi rhoncus, tempus nulla sit amet, varius ipsum.');
+        autosize.update(manual);
     });
 
     // Destroy method
+    var destroyAutosize = autosize($('.elastic-destroy'));
     $('.elastic-destroy-trigger').on('click', function() {
-        $('.elastic-destroy').trigger('autosize.destroy');
+        autosize.destroy(destroyAutosize);
     });
 
 
@@ -195,8 +198,8 @@ $(function() {
     $('.maxlength-options').maxlength({
         alwaysShow: true,
         threshold: 10,
-        warningClass: "label label-success",
-        limitReachedClass: "label label-danger",
+        warningClass: "text-success",
+        limitReachedClass: "text-danger",
         separator: ' of ',
         preText: 'You have ',
         postText: ' chars remaining.',
@@ -211,7 +214,6 @@ $(function() {
     // Label position
     $('.maxlength-label-position').maxlength({
         alwaysShow: true,
-        warningClass: "label label-danger",
         placement: 'top'
     });
 
@@ -391,7 +393,7 @@ $(function() {
                 'unable to find any Best Picture winners that match the current query',
                 '</div>'
             ].join('\n'),
-            suggestion: Handlebars.compile('<p><strong>{{value}}</strong> – {{year}}</p>')
+            suggestion: Handlebars.compile('<div><strong>{{value}}</strong> – {{year}}</div>')
         }
     });
 

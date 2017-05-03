@@ -29,39 +29,42 @@
 
         <div class="navbar-right">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-wrench"></i>
-                        Action 
-                        <span class="caret"></span>
-                    </a>
+                {% if app.user.isResponsable(rucher.exploitation) or app.user.isApiculteur(rucher.exploitation) %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-wrench"></i>
+                            Action 
+                            <span class="caret"></span>
+                        </a>
 
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
-                        {% if rucher.hasRuche %}
-                            <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
-                        {% else %}
-                            <li class="disabled"><a href="#"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
-                        {% endif %}
-                    </ul>
-                </li>  
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-gear position-left"></i>
-                        Option
-                        <span class="caret"></span>
-                    </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="{{ path('kg_beekeeping_management_add_emplacement', { 'rucher_id': rucher.id }) }}"><i class="fa fa-plus position-left"></i> Créer un emplacement</a></li>
+                            {% if rucher.hasRuche %}
+                                <li><a href="{{ path('kg_beekeeping_management_print_all_qr_code', { 'rucher_id': rucher.id }) }}"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
+                            {% else %}
+                                <li class="disabled"><a href="#"><i class="fa fa-qrcode position-left"></i> Générer QR codes</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>  
+                {% endif %}
+                {% if app.user.isResponsable(rucher.exploitation) %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-gear position-left"></i>
+                            Option
+                            <span class="caret"></span>
+                        </a>
 
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-pencil position-left"></i> Modifier le rucher</a></li> 
-                        {% if rucher.canBeDeleted %}
-                            <li><a href="#" data-toggle="modal" data-target="#modal_warning_rucher"><i class="fa fa-trash position-left"></i> Supprimer le rucher</a></li>
-                        {% else %}
-                            <li class="disabled"><a href="#"><i class="fa fa-trash position-left"></i> Supprimer le rucher</a></li>                        
-                        {% endif %}
-                    </ul>
-                </li>                
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="{{ path('kg_beekeeping_management_update_rucher', { 'rucher_id': rucher.id }) }}"><i class="fa fa-pencil position-left"></i> Modifier le rucher</a></li> 
+                            {% if rucher.canBeDeleted %}
+                                <li><a href="#" data-toggle="modal" data-target="#modal_warning_rucher"><i class="fa fa-trash position-left"></i> Supprimer le rucher</a></li>
+                            {% else %}
+                                <li class="disabled"><a href="#"><i class="fa fa-trash position-left"></i> Supprimer le rucher</a></li>                        
+                            {% endif %}
+                        </ul>
+                    </li>                
+                {% endif %}
                 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

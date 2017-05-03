@@ -4,8 +4,8 @@
  *
  *  Styles for bootstrap datepicker. Comes as a part of datepaginator.js plugin
  *
- *  Version: 1.1
- *  Latest update: Oct 20, 2015
+ *  Version: 1.2
+ *  Latest update: Mar 10, 2016
  *
  * ---------------------------------------------------------------------------- */
 
@@ -18,19 +18,12 @@
 		display: none;
 	}
 
-	// Periods
-	.datepicker-days,
-	.datepicker-months,
-	.datepicker-years {
-		max-width: 300px;
-	}
-
 	// Dropdown menu
 	&.datepicker-dropdown {
 		top: 0;
 		left: 0;
 		margin: 0;
-		padding: 5px;
+		padding: (@list-spacing * 2);
 	}
 }
 
@@ -155,6 +148,7 @@
 			cursor: pointer;
 			padding-top: @content-padding-base;
 			padding-bottom: @content-padding-base;
+			line-height: 1;
 		}
 		.cw {
 			width: 16px;
@@ -172,9 +166,16 @@
 		td,
 		th {
 			text-align: center;
-			padding: @padding-base-vertical @padding-base-horizontal;
+			padding: @content-padding-small;
 			border-radius: @border-radius-base;
 			border: 0;
+			line-height: 1;
+		}
+
+		// Days of the week
+		th.dow {
+			padding-top: (@list-spacing * 2);
+			color: @text-muted;
 		}
 	}
 

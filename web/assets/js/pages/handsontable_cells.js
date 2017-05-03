@@ -83,7 +83,7 @@ $(function() {
         },
         colHeaders: ['ID', 'First name', 'Last name', 'IP', 'E-mail'],
         columns: [
-            {data: 'id', type: 'numeric'},
+            {data: 'id', type: 'numeric', className: 'htLeft'},
             {data: 'name.first'},
             {data: 'name.last'},
             {data: 'ip', validator: ipValidatorRegexp, allowInvalid: true},

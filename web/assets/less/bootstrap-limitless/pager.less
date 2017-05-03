@@ -4,8 +4,8 @@
 *
 *  Overrides for pager bootstrap component
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.2
+*  Latest update: Aug 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -14,7 +14,9 @@
 // -------------------------
 
 .pager {
+    margin-top: 0;
     margin-bottom: 0;
+    font-size: 0;
 
     // Pager nav item
     li {
@@ -24,6 +26,7 @@
         > span {
             padding: @padding-base-vertical @padding-base-horizontal;
             color: @gray-dark;
+            font-size: @font-size-base;
         }
 
         // Hover/focus states
@@ -32,6 +35,11 @@
             border-color: @pager-hover-bg;
             color: #fff;
         }
+    }
+
+    // Add space between items
+    li + li {
+        margin-left: @content-padding-small;
     }
 
     // Disabled state
@@ -54,7 +62,6 @@
 }
 
 
-
 // Optional sizing
 // -------------------------
 
@@ -64,6 +71,7 @@
     li > span {
         padding: @padding-large-vertical @padding-large-horizontal;
         font-size: @font-size-large;
+        line-height: @line-height-large;
     }
 }
 
@@ -72,7 +80,8 @@
     li > a,
     li > span {
         padding: @padding-small-vertical @padding-small-horizontal;
-        font-size: @font-size-base;
+        font-size: @font-size-small;
+        line-height: @line-height-small;
     }
 }
 
@@ -85,7 +94,6 @@
         line-height: @line-height-small;
     }
 }
-
 
 
 // Optional styling

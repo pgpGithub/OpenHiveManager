@@ -4,8 +4,8 @@
 *
 *  The mobile-friendly, responsive, and lightweight jQuery date & time input picker
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.2
+*  Latest update: Jul 5, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -36,9 +36,12 @@
     border: 1px solid @dropdown-border;
     border-top-width: 0;
     border-bottom-width: 0;
-    max-width: 280px;
+    max-width: 290px;
     max-height: 0;
+    outline: 0;
     -webkit-overflow-scrolling: touch;
+    .border-bottom-radius(@border-radius-base);
+    .box-shadow(0 1px 3px fade(#000, 10%));
 
     // When the picker opens
     .picker--opened & {

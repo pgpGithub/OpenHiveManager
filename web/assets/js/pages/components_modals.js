@@ -4,12 +4,27 @@
 *
 *  Specific JS code additions for components_modals.html page
 *
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
+*  Version: 1.1
+*  Latest update: Jul 5, 2016
 *
 * ---------------------------------------------------------------------------- */
 
 $(function() {
+
+
+    // Basic modals
+    // ------------------------------
+
+    // Load remote content
+    $('#modal_remote').on('show.bs.modal', function() {
+        $(this).find('.modal-body').load('assets/demo_data/wizard/education.html', function() {
+
+            // Init Select2 when loaded
+            $('.select').select2({
+                minimumResultsForSearch: Infinity
+            });
+        });
+    });
 
 
     // Bootbox extension
@@ -38,6 +53,101 @@ $(function() {
         });
     });
 
+    // Prompt dialog with default value
+    $('#prompt_value').on('click', function() {
+        bootbox.prompt({
+            title: "What is your real name?",
+            value: "Eugene Kopyov",
+            callback: function(result) {
+                if (result === null) {
+                    bootbox.alert("Prompt dismissed");
+                }
+                else {
+                    bootbox.alert("Hi, <b>"+result+"</b>");
+                }
+            }
+        });
+    });
+
+    // Custom bootbox dialog
+    $('#bootbox_custom').on('click', function() {
+        bootbox.dialog({
+            message: "I am a custom dialog",
+            title: "Custom title",
+            buttons: {
+                success: {
+                    label: "Success!",
+                    className: "btn-success",
+                    callback: function() {
+                        bootbox.alert("great success");
+                    }
+                },
+                danger: {
+                    label: "Danger!",
+                    className: "btn-danger",
+                    callback: function() {
+                        bootbox.alert("uh oh, look out!");
+                    }
+                },
+                main: {
+                    label: "Click ME!",
+                    className: "btn-primary",
+                    callback: function() {
+                        bootbox.alert("Primary button");
+                    }
+                }
+            }
+        });
+    });
+
+    // Custom bootbox dialog with form
+    $('#bootbox_form').on('click', function() {
+        bootbox.dialog({
+                title: "This is a form in a modal.",
+                message: '<div class="row">  ' +
+                    '<div class="col-md-12">' +
+                        '<form class="form-horizontal">' +
+                            '<div class="form-group">' +
+                                '<label class="col-md-4 control-label">Name</label>' +
+                                '<div class="col-md-8">' +
+                                    '<input id="name" name="name" type="text" placeholder="Your name" class="form-control">' +
+                                    '<span class="help-block">Here goes your name</span>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="form-group">' +
+                                '<label class="col-md-4 control-label">How awesome is this?</label>' +
+                                '<div class="col-md-8">' +
+                                    '<div class="radio">' +
+                                        '<label>' +
+                                            '<input type="radio" name="awesomeness" id="awesomeness-0" value="Really awesome" checked="checked">' +
+                                            'Really awesomeness' +
+                                        '</label>' +
+                                    '</div>' +
+                                    '<div class="radio">' +
+                                        '<label>' +
+                                            '<input type="radio" name="awesomeness" id="awesomeness-1" value="Super awesome">' +
+                                            'Super awesome' +
+                                        '</label>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</form>' +
+                    '</div>' +
+                    '</div>',
+                buttons: {
+                    success: {
+                        label: "Save",
+                        className: "btn-success",
+                        callback: function () {
+                            var name = $('#name').val();
+                            var answer = $("input[name='awesomeness']:checked").val()
+                            bootbox.alert("Hello " + name + ". You've chosen <b>" + answer + "</b>");
+                        }
+                    }
+                }
+            }
+        );
+    });
 
 
     // Modal callbacks
@@ -71,7 +181,6 @@ $(function() {
         });
     });
     
-
 
     // Sweet Alert extension
     // ------------------------------
@@ -240,5 +349,4 @@ $(function() {
             }
         });
     });
-
 });

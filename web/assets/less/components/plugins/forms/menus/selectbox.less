@@ -4,8 +4,8 @@
 *
 *  Styles for selectbox.js - custom select boxes plugin
 *
-*  Version: 1.1
-*  Latest update: Oct 20, 2015
+*  Version: 1.2
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -19,6 +19,7 @@
     display: inline-block;
     vertical-align: middle;
     width: 100%;
+    border-radius: @border-radius-base;
 
     // All children elements
     * {
@@ -32,14 +33,11 @@
     .selectboxit {
         width: 100%;
         cursor: pointer;
-        margin: 0;
-        padding: 0;
         overflow: hidden;
+        text-overflow: ellipsis;
         position: relative;
-        height: @input-height-base;
-        padding: @padding-base-vertical @padding-base-horizontal;
-        padding-right: ((@padding-base-horizontal * 2) + 5);
 
+        // Remove outline
         &:focus {
             outline: 0;
         }
@@ -53,19 +51,12 @@
     // Options list
     .selectboxit-options {
         width: 100%;
-        min-width: 200px;
         max-height: 250px;
-        margin: 0;
-        padding: @list-spacing 1px;
-        list-style: none;
-        position: absolute;
+        padding: @list-spacing 0;
         overflow-x: hidden;
         overflow-y: auto;
-        cursor: pointer;
-        display: none;
         z-index: 999;
         text-align: left;
-        border-radius: @border-radius-base;
     }
 }
 
@@ -94,6 +85,15 @@
 .selectboxit-list {
     background-color: @dropdown-bg;
     border: 1px solid @dropdown-border;
+    margin: 2px 0 0;
+    width: 100%;
+    min-width: 200px;
+    list-style: none;
+    position: absolute;
+    cursor: pointer;
+    display: none;
+    border-radius: @border-radius-base;
+    .box-shadow(0 1px 3px fade(#000, 10%));
 
     // Link
     .selectboxit-option-anchor {
@@ -104,6 +104,13 @@
     > .selectboxit-focus > .selectboxit-option-anchor {
         display: block;
         background-color: @dropdown-link-hover-bg;
+        color: @dropdown-link-hover-color;
+    }
+
+    // Selected link
+    > .selectboxit-selected > .selectboxit-option-anchor {
+        background-color: @dropdown-link-active-bg;
+        color: @dropdown-link-active-color;
     }
 
     // Disabled link
@@ -142,6 +149,9 @@
     border: 1px solid @input-border;
     color: @input-color;
     border-radius: @input-border-radius;
+    height: @input-height-base;
+    padding: @padding-base-vertical @padding-base-horizontal;
+    padding-right: ((@padding-base-horizontal * 2) + 5);
 
     // When hovered
     &:hover {
@@ -151,7 +161,7 @@
     // When opened
     &.selectboxit-open,
     &:focus {
-        .box-shadow(0 0 0 100px fade(#000, 2%) inset);
+        .box-shadow(0 0 0 100px fade(#000, 3%) inset);
     }
 
     // Inherit colors if custom bg color
@@ -229,16 +239,6 @@
     }
 }
 
-// Image
-.selectboxit-option-icon-url {
-    border-radius: @border-radius-small;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: block;
-    margin-top: 3px;
-    margin-right: 10px;
-}
-
 
 // Options
 // ------------------------------
@@ -285,11 +285,17 @@
     text-align: right;
     line-height: 1;
 
+    // Remove top edge from arrow
     .selectboxit-arrow {
-        margin-top: 0;
-
         &[class*=icon-] {
             top: 0;
+        }
+    }
+
+    // Caret
+    .caret {
+        &:after {
+            text-align: right;
         }
     }
 }
@@ -300,16 +306,19 @@
 
     // Icon
     > [class*=icon-] {
-        margin-right: 10px;
+        margin-right: @content-padding-small;
         width: auto;
     }
 
     // Image
     .selectboxit-option-icon-url {
-        height: @icon-font-size;
-        width: @icon-font-size;
-        background-size: @icon-font-size @icon-font-size;
-        margin-top: 2px;
+        height: @line-height-computed;
+        width: @line-height-computed;
+        background-size: @line-height-computed @line-height-computed;
+        border-radius: 100px;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: block;
     }
 }
 

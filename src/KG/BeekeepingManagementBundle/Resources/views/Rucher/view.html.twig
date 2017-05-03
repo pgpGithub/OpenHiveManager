@@ -128,39 +128,44 @@
                                                     <td></td> 
                                                 {% endif %}   
                                                 <td class="text-center">
-                                                    <ul class="icons-list">
-                                                        <li class="dropdown">
-                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                                <i class="icon-menu9"></i>
-                                                            </a>
+                                                    {% if app.user.isResponsable(rucher.exploitation) or app.user.isApiculteur(rucher.exploitation) or emplacement.ruche %}
+                                                        <ul class="icons-list">
+                                                            <li class="dropdown">
+                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                    <i class="icon-menu9"></i>
+                                                                </a>
 
-                                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                                {% if not emplacement.ruche %}
-                                                                    <li><a href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" ><i class="fa fa-plus"></i> Créer une ruche</a>  
-                                                                {% endif %}
+                                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                                    {% if app.user.isResponsable(rucher.exploitation) or app.user.isApiculteur(rucher.exploitation) %}
+                                                                        {% if not emplacement.ruche %}
+                                                                            <li><a href="{{ path('kg_beekeeping_management_add_ruche', { 'emplacement_id': emplacement.id }) }}" ><i class="fa fa-plus"></i> Créer une ruche</a>  
+                                                                        {% endif %}
 
-                                                                {% if rucher.numerotation %}
-                                                                    <li><a href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-pencil"></i> Modifier l'emplacement</a></li>
-                                                                {% endif %}
+                                                                        {% if rucher.numerotation %}
+                                                                            <li><a href="{{ path('kg_beekeeping_management_update_emplacement', { 'emplacement_id': emplacement.id }) }}"><i class="fa fa-pencil"></i> Modifier l'emplacement</a></li>
+                                                                        {% endif %}
 
-                                                                {% if not emplacement.ruche %}
-                                                                    <li><a href="#" data-toggle="modal" data-target="#modal_warning_emplacement_{{ emplacement.id }}"><i class="fa fa-trash"></i> Supprimer l'emplacement</a></li>
-                                                                {% endif %}
-
-                                                                {% if emplacement.ruche %}
-                                                                    <li><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}"><i class="fa fa-folder-open-o"></i> Ouvrir la ruche</a></li>
-
-                                                                    {% if emplacement.ruche.colonie.canHaveNewVisite %}
-                                                                        <li><a href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id': emplacement.ruche.colonie.id }) }}"><i class="fa fa-plus"></i> Créer une visite</a></li>
+                                                                        {% if emplacement.canBeDeleted %}
+                                                                            <li><a href="#" data-toggle="modal" data-target="#modal_warning_emplacement_{{ emplacement.id }}"><i class="fa fa-trash"></i> Supprimer l'emplacement</a></li>
+                                                                        {% endif %}
                                                                     {% endif %}
+                                                                    {% if emplacement.ruche %}
+                                                                        <li><a href="{{ path('kg_beekeeping_management_view_ruche', { 'ruche_id': emplacement.ruche.id }) }}"><i class="fa fa-folder-open-o"></i> Ouvrir la ruche</a></li>
 
-                                                                    {% if emplacement.ruche.colonie.visites is not empty %}
-                                                                        <li><a href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id': emplacement.ruche.colonie.visites|last.id }) }}"><i class="fa fa-pencil"></i> Modifier la dernière visite</a></li>
-                                                                    {% endif %}
-                                                                {% endif %}    
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
+                                                                        {% if app.user.isResponsable(rucher.exploitation) or app.user.isApiculteur(rucher.exploitation) %}
+                                                                            {% if emplacement.ruche.colonie.canHaveNewVisite %}
+                                                                                <li><a href="{{ path('kg_beekeeping_management_add_visite', { 'colonie_id': emplacement.ruche.colonie.id }) }}"><i class="fa fa-plus"></i> Créer une visite</a></li>
+                                                                            {% endif %}
+
+                                                                            {% if emplacement.ruche.colonie.visites is not empty %}
+                                                                                <li><a href="{{ path('kg_beekeeping_management_update_visite', { 'visite_id': emplacement.ruche.colonie.visites|last.id }) }}"><i class="fa fa-pencil"></i> Modifier la dernière visite</a></li>
+                                                                            {% endif %}
+                                                                        {% endif %}
+                                                                    {% endif %}    
+                                                                </ul>
+                                                            </li>
+                                                        </ul>     
+                                                    {% endif %}            
                                                 </td>
                                             </tr>
                                         {% endfor %}

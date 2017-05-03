@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for form_input_basic.html page
 *
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
+*  Version: 1.1
+*  Latest update: Feb 5, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -13,14 +13,13 @@ $(function() {
 
 	// Default file input style
 	$(".file-styled").uniform({
-		fileButtonHtml: '<i class="icon-plus2"></i>'
+		fileButtonClass: 'action btn btn-default'
 	});
 
 
 	// Primary file input
 	$(".file-styled-primary").uniform({
-		wrapperClass: 'bg-warning',
-		fileButtonHtml: '<i class="icon-plus2"></i>'
+		fileButtonClass: 'action btn bg-blue'
 	});
 
 });

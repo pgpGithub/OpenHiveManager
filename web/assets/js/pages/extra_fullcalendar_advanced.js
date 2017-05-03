@@ -164,7 +164,7 @@ $(function() {
         editable: true,
         defaultDate: '2014-11-12',
         events: eventColors,
-        lang: 'en',
+        locale: 'en',
         droppable: true, // this allows things to be dropped onto the calendar
             drop: function() {
             if ($('#drop-remove').is(':checked')) { // is the "remove after drop" checkbox checked?
@@ -209,7 +209,7 @@ $(function() {
         defaultDate: '2014-11-12',
         editable: true,
         isRTL: true,
-        lang: 'ar',
+        locale: 'ar',
         events: events
     });
     

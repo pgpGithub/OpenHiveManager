@@ -4,8 +4,8 @@
  *
  *  Open source library that provides drag’n’drop file uploads with image previews
  *
- *  Version: 1.1
- *  Latest update: Oct 20, 2015
+ *  Version: 1.2
+ *  Latest update: Mar 10, 2016
  *
  * ---------------------------------------------------------------------------- */
 
@@ -15,11 +15,17 @@
 
 .dropzone {
 	position: relative;
-	border: 3px dashed @gray-lighter;
+	border: 2px dashed @panel-default-border;
 	min-height: 250px;
 	border-radius: @border-radius-small;
-	background-color: #fcfcfc;
+	background-color: #fff;
 	padding: 5px;
+
+	// If inside panel, give it grey background
+	.panel & {
+		background-color: #fcfcfc;
+		border-color: @gray-lighter;
+	}
 
 	// Clickable wrapper
 	&.dz-clickable {
@@ -126,7 +132,7 @@
 				font-size: @font-size-h6;
 				color: #bbb;
 				text-align: center;
-				margin-top: 120px;
+				margin-top: 140px;
 				display: block;
 				font-weight: 500;
 				text-shadow: 0 1px 1px #fff;
@@ -180,7 +186,7 @@
 		margin: 10px;
 		vertical-align: top;
 		border: 1px solid @panel-default-border;
-		padding: 6px;
+		padding: 8px;
 		border-radius: @border-radius-small;
 
 		// Hide thumbnail in file preview
@@ -190,10 +196,9 @@
 
 		// Details
 		.dz-details {
-			width: 120px;
-			height: 120px;
+			width: 140px;
 			position: relative;
-			background-color: #f5f5f5;
+			background-color: #fafafa;
 			padding: 8px;
 			margin-bottom: 25px;
 
@@ -206,14 +211,14 @@
 				position: absolute;
 				top: 0;
 				left: 0;
-				width: 120px;
-				height: 120px;
+				width: 140px;
+				height: 140px;
 			}
 
 			.dz-size {
 				position: absolute;
 				bottom: -26px;
-				left: 5px;
+				left: 0;
 			}
 		}
 		&:hover {
@@ -228,6 +233,7 @@
 			display: none;
 			position: absolute;
 			z-index: 9;
+			right: 8px;
 
 			&:after {
 				font-family: 'icomoon';

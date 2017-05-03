@@ -4,8 +4,8 @@
 *
 *  Overrides for labels bootstrap component
 *
-*  Version: 1.1
-*  Latest update: Oct 20, 2015
+*  Version: 1.2
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -16,7 +16,7 @@
 .label {
     display: inline-block;
     font-weight: 500;
-    padding: 1px 4px 0px 4px;
+    padding: 2px 5px 1px 5px;
     line-height: @line-height-base;
     border: 1px solid transparent;
     text-transform: uppercase;
@@ -189,6 +189,7 @@
     background-color: transparent;
     border-width: 2px;
     border-radius: 0;
+    padding: 1px 4px 0 4px;
 
     // Remove background color and shadow on hover
     &[href] {
@@ -208,6 +209,7 @@
 .label-icon {
     padding: @padding-base-vertical;
     border-radius: @btn-border-radius-small;
+    line-height: 1;
 
     // Remove top edge from icon
     > i {
@@ -265,8 +267,8 @@
 
     // Add extra horizontal space to rounded labels, but not for icons
     &:not(.label-icon) {
-        padding-left: 7px;
-        padding-right: 7px;
+        padding-left: @padding-base-vertical;
+        padding-right: @padding-base-vertical;
     }
 }
 

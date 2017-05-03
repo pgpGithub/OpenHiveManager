@@ -48,7 +48,8 @@ $(function() {
             },
             {
                 data: 'qty',
-                type: 'numeric'
+                type: 'numeric',
+                className: 'htLeft'
             },
             {
                 data: 'date',
@@ -66,6 +67,7 @@ $(function() {
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             }
         ]
@@ -93,6 +95,7 @@ $(function() {
             },
             {
                 data: 'qty',
+                className: 'htLeft',
                 type: 'numeric'
             },
             {
@@ -112,6 +115,7 @@ $(function() {
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             }
         ]
@@ -151,6 +155,7 @@ $(function() {
             },
             {
                 data: 'qty',
+                className: 'htLeft',
                 type: 'numeric'
             },
             {
@@ -182,6 +187,7 @@ $(function() {
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             }
         ]

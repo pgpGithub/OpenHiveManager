@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for datatable_extension_buttons_html5.html page
 *
-*  Version: 1.0
-*  Latest update: Nov 9, 2015
+*  Version: 1.1
+*  Latest update: Mar 6, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -21,6 +21,7 @@ $(function() {
         dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
         language: {
             search: '<span>Filter:</span> _INPUT_',
+            searchPlaceholder: 'Type to filter...',
             lengthMenu: '<span>Show:</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
         }
@@ -68,26 +69,24 @@ $(function() {
     // Column selectors
     $('.datatable-button-html5-columns').DataTable({
         buttons: {            
-            dom: {
-                button: {
-                    className: 'btn btn-default'
-                }
-            },
             buttons: [
                 {
                     extend: 'copyHtml5',
+                    className: 'btn btn-default',
                     exportOptions: {
                         columns: [ 0, ':visible' ]
                     }
                 },
                 {
                     extend: 'excelHtml5',
+                    className: 'btn btn-default',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'pdfHtml5',
+                    className: 'btn btn-default',
                     exportOptions: {
                         columns: [0, 1, 2, 5]
                     }
@@ -95,7 +94,7 @@ $(function() {
                 {
                     extend: 'colvis',
                     text: '<i class="icon-three-bars"></i> <span class="caret"></span>',
-                    className: 'btn-icon'
+                    className: 'btn bg-blue btn-icon'
                 }
             ]
         }
@@ -105,18 +104,15 @@ $(function() {
     // Tab separated values
     $('.datatable-button-html5-tab').DataTable({
         buttons: {            
-            dom: {
-                button: {
-                    className: 'btn btn-default'
-                }
-            },
             buttons: [
                 {
                     extend: 'copyHtml5',
+                    className: 'btn btn-default',
                     text: '<i class="icon-copy3 position-left"></i> Copy'
                 },
                 {
                     extend: 'csvHtml5',
+                    className: 'btn btn-default',
                     text: '<i class="icon-file-spreadsheet position-left"></i> CSV',
                     fieldSeparator: '\t',
                     extension: '.tsv'
@@ -129,10 +125,6 @@ $(function() {
 
     // External table additions
     // ------------------------------
-
-    // Add placeholder to the datatable filter option
-    $('.dataTables_filter input[type=search]').attr('placeholder','Type to filter...');
-
 
     // Enable Select2 select for the length option
     $('.dataTables_length select').select2({

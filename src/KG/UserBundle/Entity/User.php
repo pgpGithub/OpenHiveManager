@@ -103,7 +103,7 @@ class User extends BaseUser
         }
         
         return $exploitations;
-    }  
+    }   
     
   /**
    * Vérifie si l'utilisateur à le droit d'accéder à l'exploitation
@@ -142,5 +142,93 @@ class User extends BaseUser
                 ->atPath('plainPassword')
                 ->addViolation();  
         }
-    }        
+    }   
+      
+    /**
+     * Vérifie si l'utilisateur est invité à collaborer dans l'exploitation
+     *
+     * @param Exploitation $exploitation 
+     * @return bool
+     */
+    public function isInvite(Exploitation $exploitation)
+    {  
+        $invite = false;        
+        
+        foreach ( $exploitation->getApiculteurExploitations() as $apiculteurExploitation ){
+            if(    $apiculteurExploitation->getStatut()->getLibelle()  == 'En attente'
+                && $apiculteurExploitation->getApiculteur()->getId() == $this->getId() ){
+                $invite = true;
+                break;
+            }
+        }
+        
+        return $invite;
+    }     
+    
+    /**
+     * Vérifie si l'utilisateur est Responsable de l'exploitation
+     *
+     * @param Exploitation $exploitation 
+     * @return bool 
+     */
+    public function isResponsable(Exploitation $exploitation)
+    {  
+        $responsable = false;        
+        
+        foreach ( $exploitation->getApiculteurExploitations() as $apiculteurExploitation ){
+            if(    $apiculteurExploitation->getStatut()->getLibelle()  == 'Accepté'
+                && $apiculteurExploitation->getRole()->isResponsable()
+                && $apiculteurExploitation->getApiculteur()->getId() == $this->getId() ){
+                $responsable = true;
+                break;
+            }
+        }
+        
+        return $responsable;
+    }  
+ 
+    /**
+     * Vérifie si l'utilisateur est Visiteur de l'exploitation
+     *
+     * @param Exploitation $exploitation 
+     * @return bool 
+     */
+    public function isVisiteur(Exploitation $exploitation)
+    {  
+        $visiteur = false;        
+        
+        foreach ( $exploitation->getApiculteurExploitations() as $apiculteurExploitation ){
+            if(    $apiculteurExploitation->getStatut()->getLibelle()  == 'Accepté'
+                && $apiculteurExploitation->getRole()->isVisiteur()
+                && $apiculteurExploitation->getApiculteur()->getId() == $this->getId() ){
+                $visiteur = true;
+                break;
+            }
+        }
+        
+        return $visiteur;
+    }      
+    
+    /**
+     * Vérifie si l'utilisateur est Apiculteur de l'exploitation
+     *
+     * @param Exploitation $exploitation 
+     * @return bool 
+     */
+    public function isApiculteur(Exploitation $exploitation)
+    {  
+        $apiculteur = false;        
+        
+        foreach ( $exploitation->getApiculteurExploitations() as $apiculteurExploitation ){
+            if(    $apiculteurExploitation->getStatut()->getLibelle()  == 'Accepté'
+                && $apiculteurExploitation->getRole()->isApiculteur()
+                && $apiculteurExploitation->getApiculteur()->getId() == $this->getId() ){
+                $apiculteur = true;
+                break;
+            }
+        }
+        
+        return $apiculteur;
+    }      
+    
 }

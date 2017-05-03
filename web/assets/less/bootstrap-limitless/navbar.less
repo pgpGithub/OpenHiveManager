@@ -4,8 +4,8 @@
 *
 *  Overrides for navbar bootstrap component
 *
-*  Version: 1.2
-*  Latest update: Dec 2, 2015
+*  Version: 1.3
+*  Latest update: Aug 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -32,10 +32,16 @@
     margin-bottom: @line-height-computed;
     border-width: 1px;
 
+    // Inside page header
+    .page-header & {
+        margin-left: @grid-gutter-width;
+        margin-right: @grid-gutter-width;
+    }
+
     // Default navbar
     &.navbar-default {
         border-color: @panel-default-border;
-        background-color: #fff;
+        background-color: @panel-bg;
     }
 
     // First child border radius
@@ -49,22 +55,6 @@
     > .navbar-collapse:last-child > .navbar:last-child {
         .border-bottom-radius(@border-radius-base);
     }
-
-    @media (min-width: @grid-float-breakpoint) {
-        .navbar-collapse:first-child .navbar-nav,
-        .navbar-nav + .navbar-collapse .navbar-nav {
-
-            // Stick first nav to the left
-            &:first-child {
-                margin-left: 0;
-            }
-
-            // Stick last nav to the right
-            &:last-child {
-                margin-right: -(@navbar-padding-horizontal);
-            }
-        }
-    }
 }
 
 // Navbar with affix component
@@ -74,6 +64,11 @@
         z-index: @zindex-navbar-fixed;
         top: 0;
         width: 100%;
+
+        // Make it static on mobile
+        @media (max-width: @grid-float-breakpoint-max) {
+            position: static;
+        }
     }
 }
 
@@ -149,6 +144,87 @@
 }
 
 
+// Highlighted navbar header
+// -------------------------
+
+.header-highlight {
+
+    // Header
+    .navbar-header {
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        margin-top: -1px;
+        margin-bottom: -1px;
+
+        // Darken header
+        &:not([class*=bg-]) {
+            background-color: @sidebar-dark-bg;
+            @header-box-shadow: 0 0 0 1000px fade(#000, 10%) inset, 0 -1px 0 fade(#fff, 10%) inset;
+            .box-shadow(@header-box-shadow);
+        }
+
+        // Make links in navbar header as in inverse navbar
+        > .navbar-nav {
+            > li > a {
+                color: @navbar-inverse-link-color;
+
+                &:hover,
+                &:focus {
+                    color: @navbar-inverse-link-hover-color;
+                    background-color: @navbar-inverse-link-hover-bg;
+                }
+            }
+        }
+
+        // Desktop view setup
+        @media (min-width: @grid-float-breakpoint) {
+
+            // In mini sidebar
+            .sidebar-xs & {
+                min-width: 0;
+                width: @sidebar-mini-width;
+                padding-left: 0;
+
+                // Change logo
+                .navbar-brand {
+                    padding-left: 0;
+                    padding-right: 0;
+                    background: url(../images/logo_icon_light.png) no-repeat center center;
+                    background-size: auto 16px;
+                    float: none;
+                    display: block;
+
+                    > img {
+                        display: none;
+                    }
+                }
+            }
+
+            // Hide if main sidebar is hidden
+            .sidebar-main-hidden &,
+            .sidebar-all-hidden & {
+                display: none;
+            }
+        }
+    }
+
+    // If fixed sidebar is mini, when expanded
+    .sidebar-fixed-expanded & {
+        @media (min-width: @grid-float-breakpoint) {
+            .navbar-collapse {
+                margin-left: @sidebar-mini-width - 20;
+            }
+
+            // Make header fixed as sidebar
+            .navbar-header {
+                position: fixed;
+                z-index: 99;
+            }
+        }
+    }
+}
+
+
 
 // Fixed navbar setup
 // -------------------------
@@ -159,6 +235,7 @@
         position: static;
     }
 }
+
 
 // Fixed navbar vertical spacing
 @media (min-width: @grid-float-breakpoint) {
@@ -171,48 +248,34 @@
     .navbar-top-lg {
         padding-top: @navbar-height-large + 2;
 
-        // Sticky detached sidebar
-        .sidebar-detached.affix {
+        // Sticky fixed sidebar
+        .sidebar-fixed.affix {
             top: @navbar-height-large + @line-height-computed + 2;
         }
     }
     .navbar-top {
         padding-top: @navbar-height + 2;
 
-        // Sticky detached sidebar
-        .sidebar-detached.affix {
+        // Sticky fixed sidebar
+        .sidebar-fixed.affix {
             top: @navbar-height + @line-height-computed + 2;
         }
     }
     .navbar-top-sm {
         padding-top: @navbar-height-small + 2;
 
-        // Sticky detached sidebar
-        .sidebar-detached.affix {
+        // Sticky fixed sidebar
+        .sidebar-fixed.affix {
             top: @navbar-height-small + @line-height-computed + 2;
         }
     }
     .navbar-top-xs {
         padding-top: @navbar-height-mini + 2;
 
-        // Sticky detached sidebar
-        .sidebar-detached.affix {
+        // Sticky fixed sidebar
+        .sidebar-fixed.affix {
             top: @navbar-height-mini + @line-height-computed + 2;
         }
-    }
-
-    // Bottom
-    .navbar-bottom-lg {
-        padding-bottom: @navbar-height-large + 2;
-    }
-    .navbar-bottom {
-        padding-bottom: @navbar-height + 2;
-    }
-    .navbar-bottom-sm {
-        padding-bottom: @navbar-height-small + 2;
-    }
-    .navbar-bottom-xs {
-        padding-bottom: @navbar-height-mini + 2;
     }
 
 
@@ -220,7 +283,7 @@
     // Multiple navbars
     //
 
-    // Top navbars. Double navbar height + 4 vertical borders
+    // Top navbars. Double navbar height
     .navbar-top-lg-lg {
         padding-top: @navbar-height-large + @navbar-height-large + 4;
     }
@@ -251,38 +314,52 @@
     .navbar-top-xs-xs {
         padding-top: @navbar-height-mini + @navbar-height-mini + 4;
     }
+}
 
-    // Bottom navbars. Double navbar height + 4 vertical borders
-    .navbar-bottom-lg-lg {
-        padding-bottom: @navbar-height-large + @navbar-height-large + 4;
-    }
-    .navbar-bottom-lg-md,
-    .navbar-bottom-md-lg {
-        padding-bottom: @navbar-height + @navbar-height-large + 4;
-    }
-    .navbar-bottom-lg-sm,
-    .navbar-bottom-md-md,
-    .navbar-bottom-sm-lg {
-        padding-bottom: @navbar-height + @navbar-height + 4;
-    }
-    .navbar-bottom-lg-xs,
-    .navbar-bottom-md-sm,
-    .navbar-bottom-sm-md,
-    .navbar-bottom-xs-lg {
-        padding-bottom: @navbar-height + @navbar-height-small + 4;
-    }
-    .navbar-bottom-md-xs,
-    .navbar-bottom-sm-sm,
-    .navbar-bottom-xs-md {
-        padding-bottom: @navbar-height + @navbar-height-mini + 4;
-    }
-    .navbar-bottom-sm-xs,
-    .navbar-bottom-xs-sm {
-        padding-bottom: @navbar-height-small + @navbar-height-mini + 4;
-    }
-    .navbar-bottom-xs-xs {
-        padding-bottom: @navbar-height-mini + @navbar-height-mini + 4;
-    }
+// Bottom
+.navbar-bottom-lg {
+    padding-bottom: @navbar-height-large + 2;
+}
+.navbar-bottom {
+    padding-bottom: @navbar-height + 2;
+}
+.navbar-bottom-sm {
+    padding-bottom: @navbar-height-small + 2;
+}
+.navbar-bottom-xs {
+    padding-bottom: @navbar-height-mini + 2;
+}
+
+// Bottom navbars. Double navbar height vertical borders
+.navbar-bottom-lg-lg {
+    padding-bottom: @navbar-height-large + @navbar-height-large + 4;
+}
+.navbar-bottom-lg-md,
+.navbar-bottom-md-lg {
+    padding-bottom: @navbar-height + @navbar-height-large + 4;
+}
+.navbar-bottom-lg-sm,
+.navbar-bottom-md-md,
+.navbar-bottom-sm-lg {
+    padding-bottom: @navbar-height + @navbar-height + 4;
+}
+.navbar-bottom-lg-xs,
+.navbar-bottom-md-sm,
+.navbar-bottom-sm-md,
+.navbar-bottom-xs-lg {
+    padding-bottom: @navbar-height + @navbar-height-small + 4;
+}
+.navbar-bottom-md-xs,
+.navbar-bottom-sm-sm,
+.navbar-bottom-xs-md {
+    padding-bottom: @navbar-height + @navbar-height-mini + 4;
+}
+.navbar-bottom-sm-xs,
+.navbar-bottom-xs-sm {
+    padding-bottom: @navbar-height-small + @navbar-height-mini + 4;
+}
+.navbar-bottom-xs-xs {
+    padding-bottom: @navbar-height-mini + @navbar-height-mini + 4;
 }
 
 
@@ -320,20 +397,33 @@
         > .label,
         > .badge {
             position: absolute;
-            top: 1px;
-            right: 1px;
+            top: 0;
+            right: 0;
+        }
+        
+        // Status mark
+        > .status-mark {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+        }
+        // Left alignment
+        > .status-mark-left {
+            right: auto;
+            left: 8px;
         }
 
         // Left absolute
         > .label-left,
         > .badge-left {
             right: auto;
-            left: 1px;
+            left: 0;
         }
 
         // Inline
         > .label-inline,
-        > .badge-inline {
+        > .badge-inline,
+        > .status-mark-inline {
             position: static;
         }
     }
@@ -441,7 +531,6 @@
             .badge {
                 position: static;
                 float: right;
-                margin-top: 1px; // Half of 2px height difference
             }
         }
 
@@ -464,11 +553,6 @@
     // Uncollapse the nav
     @media (min-width: @grid-float-breakpoint) {
         margin-left: @navbar-padding-horizontal;
-
-        // Add colored line to active item in default navbar
-        .navbar-default & > .active > a {
-            .box-shadow(0 1px 0 0 @color-teal-400);
-        }
     }
 }
 
@@ -552,9 +636,13 @@
         padding: 0;
 
         // Set min width
-        .form-control,
-        .uploader {
+        .form-control {
             min-width: 200px;
+        }
+
+        // Single file uploader
+        .uploader {
+            width: 200px;
         }
 
         // Add left margin to form rows
@@ -607,11 +695,6 @@
 
 .navbar-btn {
     margin-left: @navbar-padding-horizontal;
-
-    // Remove left spacing in multiple buttons
-    + & {
-        margin-left: 0;
-    }
 
     // Sizing
     &,
@@ -726,7 +809,7 @@
 
     // Add class for darken default navbar
     &.navbar-default-secondary {
-        background-color: darken(@navbar-default-bg, 1.5%);
+        background-color: darken(@navbar-default-bg, 1%);
     }
 
     // After page header content
@@ -737,7 +820,12 @@
     // Bottom position
     &.navbar-fixed-bottom {
         border-top-color: @navbar-default-border;
-        border-bottom-color: transparent;
+        border-bottom-color: @navbar-default-bg;
+    }
+
+    // Add top border to the first navbar
+    .navbar-fixed-bottom > &:first-child {
+        border-top-color: @navbar-default-border;
     }
 
     // Dropdown menu items
@@ -1121,8 +1209,8 @@
     // Full width menu
     @media (min-width: @grid-float-breakpoint) {
         &.mega-menu-wide > .dropdown-menu {
-            left: @line-height-computed;
-            right: @line-height-computed;
+            left: @grid-gutter-width;
+            right: @grid-gutter-width;
 
             .layout-boxed & {
                 left: 0;

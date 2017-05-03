@@ -47,22 +47,26 @@ $(function() {
             },
             {
                 data: 'year',
-                type: 'numeric'
+                type: 'numeric',
+                className: 'htLeft'
             },
             {
                 data: 'price_usd',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '$0,0.00'
             },
             {
                 data: 'price_eur',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $',
-                language: 'de' // i18n: use this for EUR (German)
+                language: 'de-DE' // i18n: use this for EUR (German)
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%'
             }
         ]
@@ -113,12 +117,14 @@ $(function() {
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $',
-                language: 'de'
+                language: 'de-DE'
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%'
             }
         ]
@@ -150,11 +156,13 @@ $(function() {
             {
                 data: 'price_usd',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '$0,0.00'
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%'
             }
         ]
@@ -185,11 +193,13 @@ $(function() {
             {
                 data: 'price_usd',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '$0,0.00'
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%'
             }
         ]
@@ -250,11 +260,13 @@ $(function() {
             {
                 data: 'price_usd',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '$0,0.00'
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%'
             }
         ]

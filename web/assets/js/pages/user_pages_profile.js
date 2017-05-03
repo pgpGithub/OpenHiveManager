@@ -347,8 +347,7 @@ $(function() {
 
     // Styled file input
     $(".file-styled").uniform({
-        wrapperClass: 'bg-warning',
-        fileButtonHtml: '<i class="icon-googleplus5"></i>'
+        fileButtonClass: 'action btn bg-warning'
     });
 
 

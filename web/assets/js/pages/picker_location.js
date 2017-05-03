@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for picker_location.html page
 *
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
+*  Version: 1.1
+*  Latest update: Aug 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -93,6 +93,7 @@ $(function() {
     // Instantiate the typeahead UI
     $('#address').typeahead(null, {
         displayKey: 'description',
+        limit: 20,
         source: addressPicker.ttAdapter()
     });
 

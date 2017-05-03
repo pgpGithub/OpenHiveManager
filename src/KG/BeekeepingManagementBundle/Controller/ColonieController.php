@@ -38,7 +38,9 @@ class ColonieController extends Controller
     */    
     public function deleteAction(Colonie $colonie)
     {               
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canBeDeleted()){
+        if( !( $this->getUser()->isResponsable($colonie()->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($colonie()->getRuche()->getRucher()->getExploitation()))
+            || !$colonie->canBeDeleted()){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -59,7 +61,9 @@ class ColonieController extends Controller
     public function diviserAction(Colonie $colonieMere, Request $request)
     {
         
-        if( !$this->getUser()->canDisplayExploitation($colonieMere->getRuche()->getRucher()->getExploitation()) || !$colonieMere->canBeDivisee() ){
+        if( !( $this->getUser()->isResponsable($colonieMere()->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($colonieMere()->getRuche()->getRucher()->getExploitation()))
+            || !$colonieMere->canBeDivisee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -100,7 +104,9 @@ class ColonieController extends Controller
     public function essaimerAction(Colonie $colonieMere, Request $request)
     {
         
-        if( !$this->getUser()->canDisplayExploitation($colonieMere->getRuche()->getRucher()->getExploitation()) || !$colonieMere->canBeEssaimee() ){
+        if( !( $this->getUser()->isResponsable($colonieMere->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($colonieMere->getRuche()->getRucher()->getExploitation()))
+            || !$colonieMere->canBeEssaimee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
 
@@ -149,7 +155,9 @@ class ColonieController extends Controller
     */    
     public function tuerAction(Colonie $colonie, Request $request)
     {       
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canBeTuee() ){
+        if( !( $this->getUser()->isResponsable($colonie()->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($colonie()->getRuche()->getRucher()->getExploitation()))
+            || !$colonie->canBeTuee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
 

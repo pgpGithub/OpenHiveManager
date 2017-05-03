@@ -28,18 +28,18 @@ $(function() {
 
     $('.daterange-ranges').daterangepicker(
         {
-            startDate: moment().subtract('days', 29),
+            startDate: moment().subtract(29, 'days'),
             endDate: moment(),
             minDate: '01/01/2012',
             maxDate: '12/31/2016',
             dateLimit: { days: 60 },
             ranges: {
                 'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                'Last 7 Days': [moment().subtract('days', 6), moment()],
-                'Last 30 Days': [moment().subtract('days', 29), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
             opens: 'left',
             applyClass: 'btn-small bg-slate-600 btn-block',
@@ -51,7 +51,7 @@ $(function() {
         }
     );
 
-    $('.daterange-ranges span').html(moment().subtract('days', 29).format('MMMM D') + ' - ' + moment().format('MMMM D'));
+    $('.daterange-ranges span').html(moment().subtract(29, 'days').format('MMMM D') + ' - ' + moment().format('MMMM D'));
 
 
 
@@ -451,7 +451,7 @@ $(function() {
         $(window).on('resize', resizeStream);
 
         // Call function on sidebar width change
-        $('.sidebar-control').on('click', resizeStream);
+        $(document).on('click', '.sidebar-control', resizeStream);
 
         // Resize function
         // 
@@ -850,7 +850,7 @@ $(function() {
             $(window).on('resize', appSalesResize);
 
             // Call function on sidebar width change
-            $('.sidebar-control').on('click', appSalesResize);
+            $(document).on('click', '.sidebar-control', appSalesResize);
 
             // Resize function
             // 
@@ -1125,7 +1125,7 @@ $(function() {
             $(window).on('resize', resizeHeatmap);
 
             // Call function on sidebar width change
-            $('.sidebar-control').on('click', resizeHeatmap);
+            $(document).on('click', '.sidebar-control', resizeHeatmap);
 
             // Resize function
             // 
@@ -1462,7 +1462,7 @@ $(function() {
             $(window).on('resize', monthlySalesAreaResize);
 
             // Call function on sidebar width change
-            $('.sidebar-control').on('click', monthlySalesAreaResize);
+            $(document).on('click', '.sidebar-control', monthlySalesAreaResize);
 
             // Resize function
             // 
@@ -1634,7 +1634,7 @@ $(function() {
             $(window).on('resize', messagesAreaResize);
 
             // Call function on sidebar width change
-            $('.sidebar-control').on('click', messagesAreaResize);
+            $(document).on('click', '.sidebar-control', messagesAreaResize);
 
             // Resize function
             // 
@@ -1861,7 +1861,7 @@ $(function() {
         $(window).on('resize', resizeSparklines);
 
         // Call function on sidebar width change
-        $('.sidebar-control').on('click', resizeSparklines);
+        $(document).on('click', '.sidebar-control', resizeSparklines);
 
         // Resize function
         // 
@@ -2209,7 +2209,7 @@ $(function() {
         $(window).on('resize', revenueResize);
 
         // Call function on sidebar width change
-        $('.sidebar-control').on('click', revenueResize);
+        $(document).on('click', '.sidebar-control', revenueResize);
 
         // Resize function
         // 
@@ -3036,7 +3036,7 @@ $(function() {
         $(window).on('resize', barsResize);
 
         // Call function on sidebar width change
-        $('.sidebar-control').on('click', barsResize);
+        $(document).on('click', '.sidebar-control', barsResize);
 
         // Resize function
         // 
@@ -3437,7 +3437,7 @@ $(function() {
                         $(window).on('resize', resizeBulletsCore);
 
                         // Call function on sidebar width change
-                        $('.sidebar-control').on('click', resizeBulletsCore);
+                        $(document).on('click', '.sidebar-control', resizeBulletsCore);
 
                         // Resize function
                         // 
@@ -3691,7 +3691,7 @@ $(function() {
             $(window).on('resize', bulletResize);
 
             // Call function on sidebar width change
-            $('.sidebar-control').on('click', bulletResize);
+            $(document).on('click', '.sidebar-control', bulletResize);
 
             // Resize function
             // 

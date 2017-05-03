@@ -4,8 +4,8 @@
 *
 *  Basic styles for D3.js visualization library
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.1
+*  Latest update: Apr 25, 2017
 *
 * ---------------------------------------------------------------------------- */
 
@@ -411,4 +411,21 @@
     position: absolute;
     left: 50%;
     margin-left: -(@icon-font-size);
+}
+
+
+// Legend
+// ------------------------------
+
+.chart-widget-legend {
+    margin: @content-padding-small 0 0 0;
+    padding: 0;
+    font-size: @font-size-small;
+    text-align: center;
+    
+    li {
+        margin: 5px 10px 0;
+        padding: 7px 8px 5px;
+        display: inline-block;
+    }
 }

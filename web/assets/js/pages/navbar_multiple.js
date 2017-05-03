@@ -71,26 +71,39 @@ $(function() {
 
         // Secondary top (with affix)
         if (vals == 'secondary_top') {
+            $(window).on('resize', function() {
+                setTimeout(function() {                    
+                    if($(window).width() <= 768) {
 
-            // Add affix
-            $('#navbar-second').addClass('navbar-affix-xs');
-            $('.navbar-affix-xs').affix({
-                offset: {
-                    top: function() {
-                        return (this.top = $('body').children('.navbar').outerHeight(true))
+                        // Remove affix
+                        $('#navbar-second').removeClass('navbar-affix-xs');
+                        $(window).off('.affix');
+                        $('#navbar-second').removeData('bs.affix').removeClass('affix affix-top affix-bottom')
                     }
-                }
-            });
+                    else {
 
-            // When affixed
-            $('.navbar-affix-xs').on('affixed.bs.affix', function() {
-                $(this).next('.page-container').css('margin-top', $(this).outerHeight())
-            });
+                        // Add affix
+                        $('#navbar-second').addClass('navbar-affix-xs');
+                        $('.navbar-affix-xs').affix({
+                            offset: {
+                                top: function() {
+                                    return (this.top = $('body').children('.navbar').outerHeight(true))
+                                }
+                            }
+                        });
 
-            // When on top
-            $('.navbar-affix-xs').on('affixed-top.bs.affix', function() {
-                $(this).next('.page-container').css('margin-top', '')
-            });
+                        // When affixed
+                        $('.navbar-affix-xs').on('affixed.bs.affix', function() {
+                            $(this).next('.page-container').css('margin-top', $(this).outerHeight())
+                        });
+
+                        // When on top
+                        $('.navbar-affix-xs').on('affixed-top.bs.affix', function() {
+                            $(this).next('.page-container').css('margin-top', '')
+                        });
+                    }
+                }, 100);
+            }).resize();
         }
         else {
             $('#navbar-second').removeClass('navbar-affix-xs');
@@ -102,11 +115,13 @@ $(function() {
         // Main bottom
         if (vals == 'main_bottom') {
             $('#navbar-main').addClass('navbar-fixed-bottom');
-            $('body').addClass('navbar-bottom')
+            $('body').addClass('navbar-bottom');
+            $('.footer').hide();
         }
         else {
             $('#navbar-main').removeClass('navbar-fixed-bottom');
-            $('body').removeClass('navbar-bottom')
+            $('body').removeClass('navbar-bottom');
+            $('.footer').show();
         }
     });
 
@@ -146,11 +161,12 @@ $(function() {
         if (vals == 'multiple_bottom') {
             $('body').addClass('navbar-bottom-md-xs');
             $('#navbar-main, #navbar-second').wrapAll('<div class="navbar-fixed-bottom" />');
-            
+            $('.footer').hide();
         }
         else {
             $('body').removeClass('navbar-bottom-md-xs');
             $('body').children('.navbar-fixed-bottom').children().unwrap();
+            $('.footer').show();
         }
     });
 

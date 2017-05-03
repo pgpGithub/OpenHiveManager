@@ -52,7 +52,7 @@ $(function() {
 	// Resize detached sidebar vertically when bottom reached
     function resizeDetached() {
 		$(window).on('load scroll', function() {
-		  if ($(window).scrollTop() > $(document).height() - $(window).height() - 40) {
+		  if ($(window).scrollTop() > $(document).height() - $(window).height() - 60) {
 		    $('.sidebar-detached').addClass('fixed-sidebar-space');
 		    resizeScroll();
 		  }

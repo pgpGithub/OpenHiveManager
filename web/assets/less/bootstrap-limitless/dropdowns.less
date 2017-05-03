@@ -4,8 +4,8 @@
 *
 *  Overrides for dropdown menu bootstrap component
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.2
+*  Latest update: Aug 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -30,6 +30,7 @@
         font-family: 'icomoon';
         display: block;
         font-size: @icon-font-size;
+        width: @icon-font-size;
         line-height: 1;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -41,7 +42,7 @@
     min-width: 180px;
     padding: @list-spacing 0;
     color: @text-color;
-    .box-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+    .box-shadow(0 1px 3px fade(#000, 10%));
 
     // Dividers (basically an hr) within the dropdown
     .divider {
@@ -53,6 +54,7 @@
         position: relative;
         margin-bottom: 1px;
 
+        // Last item
         &:last-child {
             margin-bottom: 0;
         }
@@ -62,29 +64,44 @@
     > li > a {
         padding: (@padding-base-vertical + 1) @content-padding-base;
         outline: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-        // Icons
+    // Elements
+    > li > a,
+    > .dropdown-header {
+
+        // Icons and images
         > i,
         > img {
-            margin-right: @content-padding-small;
+            margin-right: @padding-base-horizontal;
+            float: left;
+            margin-top: ((@line-height-computed - @icon-font-size) / 2);
+            top: 0;
 
             // Right aligned icons
             &.pull-right {
                 margin-right: 0;
-                margin-left: @content-padding-small;
-                margin-top: (((@line-height-computed - @icon-font-size) / 2) + 1);
+                margin-left: @padding-base-horizontal;
+            }
+        }
+
+        // Labels and badges
+        > .label,
+        > .badge {
+            float: left;
+            margin-right: @padding-base-horizontal;
+
+            &.pull-right {
+                margin-right: 0;
+                margin-left: @padding-base-horizontal;
             }
         }
 
         // Image thumbs
         > img {
             max-height: @icon-font-size;
-        }
-
-        // Labels/badges
-        > .badge,
-        > .label {
-            margin-top: 1px;
         }
     }
 }
@@ -336,6 +353,8 @@
     > li > a {
         padding-top: @padding-small-vertical;
         padding-bottom: @padding-small-vertical;
+        font-size: @font-size-small;
+        line-height: @line-height-small;
     }
 }
 
@@ -360,7 +379,7 @@
 
         // Link
         > a {
-            padding-right: ((@content-padding-base * 2) + 8);
+            padding-right: ((@content-padding-base * 2) + (@icon-font-size / 2));
             position: relative;
 
             // Arrow icon
@@ -400,7 +419,9 @@
 
         // Display submenu on hover
         &:hover > .dropdown-menu {
-            display: block;
+            @media(min-width: @grid-float-breakpoint) {
+                display: block;
+            }
         }
 
         // Hide submenu if parent is disabled
@@ -515,12 +536,7 @@
     line-height: @line-height-mini;
     color: @text-muted;
     text-transform: uppercase;
-    margin-top: (@list-spacing * 2);
-
-    // Add top spacing for the first item
-    &:first-child {
-        margin-top: @list-spacing;
-    }
+    margin-top: @list-spacing;
 
     // Highlighted header
     &.highlight {
@@ -531,24 +547,12 @@
         // Add top spacing
         li + &,
         & + li {
-            margin-top: (@list-spacing + 1);
+            margin-top: @list-spacing;
         }
 
         // ... but remove from the first one
         &:first-child {
             margin-top: 0;
-        }
-    }
-
-    // Icons
-    > i {
-        margin-right: @content-padding-small;
-
-        // Right position
-        &.pull-right {
-            margin-top: (((@line-height-computed - @icon-font-size) / 2) + 1);
-            margin-right: 0;
-            margin-left: @content-padding-small;
         }
     }
 }

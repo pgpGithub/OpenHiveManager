@@ -4,8 +4,8 @@
 *
 *  Overrides for alerts bootstrap component
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.1
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -118,55 +118,53 @@
 .alert {
 
     // Icon variations
-    &[class*=alert-styled-],
-    .ui-pnotify[class*=alert-styled-] > & {
+    &[class*=alert-styled-] {
 
-    // Icon base
-    &:after {
-        content: '\e9a2';
-        font-family: 'icomoon';
-        color: #fff;
-        width: (((@alert-padding * 2) + @icon-font-size) - 2);
-        left: -(((@alert-padding * 2) + @icon-font-size) - 2);
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        margin-top: -(@icon-font-size / 2);
-        font-size: @icon-font-size;
-        font-weight: 400;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
+        // Icon base
+        &:after {
+            content: '\e9a2';
+            font-family: 'icomoon';
+            color: #fff;
+            width: (((@alert-padding * 2) + @icon-font-size) - 2);
+            left: -(((@alert-padding * 2) + @icon-font-size) - 2);
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            margin-top: -(@icon-font-size / 2);
+            font-size: @icon-font-size;
+            font-weight: 400;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-    // Danger icon
-    &.alert-danger:after,
-    &[class*=bg-danger]:after {
-        content: '\ed64';
-    }
+        // Danger icon
+        &.alert-danger:after,
+        &[class*=bg-danger]:after {
+            content: '\ed64';
+        }
 
-    // Success icon
-    &.alert-success:after,
-    &[class*=bg-success]:after {
-        content: '\ed6e';
-    }
+        // Success icon
+        &.alert-success:after,
+        &[class*=bg-success]:after {
+            content: '\ed6e';
+        }
 
-    // Warning icon
-    &.alert-warning:after,
-    &[class*=bg-warning]:after {
-        content: '\e9bd';
-    }
+        // Warning icon
+        &.alert-warning:after,
+        &[class*=bg-warning]:after {
+            content: '\e9bd';
+        }
 
-    // Info icon
-    &.alert-info:after,
-    &[class*=bg-info]:after {
-        content: '\e9b9';
-    }
+        // Info icon
+        &.alert-info:after,
+        &[class*=bg-info]:after {
+            content: '\e9b9';
+        }
     }
 
     // Right icon position
-    &.alert-styled-right,
-    .ui-pnotify.alert-styled-right > & {
+    &.alert-styled-right {
         &:after {
             left: auto;
             right: -(((@alert-padding * 2) + @icon-font-size) - 2);
@@ -174,8 +172,7 @@
     }
 
     // With custom icon
-    &.alert-styled-custom,
-    .ui-pnotify.alert-styled-custom > & {
+    &.alert-styled-custom {
         &:after {
             content: "\e81b"; // Change icon code for custom alert
         }
@@ -208,8 +205,8 @@
 .alert {
 
     // Left arrow
-    &[class*=alert-arrow-]:before,
-    .ui-pnotify[class*=alert-arrow-] > &:before {
+    &:not(.ui-pnotify)[class*=alert-arrow-]:before,
+    .ui-pnotify&[class*=alert-arrow-] > .brighttheme:before {
         content: "";
         display: inline-block;
         position: absolute;
@@ -223,45 +220,12 @@
     }
 
     // Right arrow
-    &.alert-arrow-right:before,
-    .ui-pnotify.alert-arrow-right > &:before {
+    &:not(.ui-pnotify).alert-arrow-right:before,
+    .ui-pnotify&.alert-arrow-right > .brighttheme:before {
         left: auto;
         right: 0;
         border-left: 0;
         border-right: 5px solid;
         border-right-color: inherit;
-    }
-}
-
-
-// Specific styling for PNotify notifications
-// -------------------------
-
-// Inherit colors
-.ui-pnotify[class*=alpha-] > & {
-    background-color: inherit;
-    border-color: inherit;
-    color: inherit;
-}
-
-// Left position
-.ui-pnotify.alert-styled-left {
-    > .alert {
-        &:extend(.alert.alert-styled-left);
-    }
-
-    &[class*=bg-] > .alert {
-        &:extend(.alert.alert-styled-left[class*=bg-]);
-    }
-}
-
-// Right position
-.ui-pnotify.alert-styled-right {
-    > .alert {
-        &:extend(.alert.alert-styled-right);
-    }
-
-    &[class*=bg-] > .alert {
-        &:extend(.alert.alert-styled-right[class*=bg-]);
     }
 }

@@ -4,8 +4,8 @@
  *
  *  Date range picker component for Bootstrap
  *
- *  Version: 1.1
- *  Latest update: Oct 20, 2015
+ *  Version: 1.2
+ *  Latest update: Mar 10, 2016
  *
  * ---------------------------------------------------------------------------- */
 
@@ -56,11 +56,15 @@
 
     // And remove floats in single picker
     &.single {
-        .ranges,
         .calendar {
             float: none;
             margin-left: 0;
             margin-right: 0;
+        }
+
+        // Hide range menu
+        .ranges {
+            display: none;
         }
     }
 
@@ -77,6 +81,7 @@
         border-radius: @border-radius-base;
         margin: @list-spacing;
         padding: (@list-spacing * 2);
+        .box-shadow(0 1px 3px fade(#000, 10%));
     }
 }
 
@@ -116,12 +121,10 @@
         color: @text-muted;
         font-weight: normal;
         font-size: @font-size-small;
-        min-width: (@icon-font-size + (@padding-xs-horizontal * 2));
 
         // Icons
         > i {
             top: 0;
-            color: @color-grey-400;
         }
 
         // Arrow buttons
@@ -134,9 +137,7 @@
         &.available {
             &:hover,
             &:focus {
-                > i {
-                    color: @text-color;
-                }
+                color: @text-color;
             }
         }
     }
@@ -144,6 +145,7 @@
     // Table content cells
     td {
 
+        // Available days
         &.available {
             &:hover,
             &:focus {
@@ -151,11 +153,13 @@
             }
         }
 
+        // Inactive days
         &.off,
         &.disabled {
             color: #ccc;
         }
 
+        // Disabled days
         &.disabled {
             cursor: @cursor-disabled;
         }
@@ -172,7 +176,7 @@
             &:focus {
                 background-color: @color-teal-400;
                 color: #fff;
-                border-radius: @border-radius-small;
+                border-radius: @border-radius-base;
             }
         }
     }
@@ -183,6 +187,11 @@
         tr > td {
             padding: @padding-xs-horizontal;
             line-height: 1;
+        }
+
+        // Add extra top padding to day names
+        thead tr:last-child th {
+            padding-top: (@list-spacing * 2);
         }
 
         // Month heading
@@ -236,7 +245,7 @@
             position: absolute;
             right: @padding-small-horizontal;
             top: auto;
-            bottom: ((@icon-font-size / 2) + 2); // half icon size + borders
+            bottom: ((@input-height-base - @icon-font-size) / 2);
             color: @text-muted;
         }
 
@@ -271,7 +280,8 @@
     border-radius: @border-radius-base;
     width: 200px;
     margin-top: @list-spacing;
-    
+    .box-shadow(0 1px 3px fade(#000, 10%));
+
     // Remove left margin if on right side
     .opensright & {
         margin-left: 0;

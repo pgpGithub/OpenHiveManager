@@ -1,16 +1,16 @@
 /* ------------------------------------------------------------------------------
- *
- *  # Uniform form inputs plugin
- *
- *  Styles for uniform.min.js - form components styling
- *
- *  Version: 1.0
- *  Latest update: Mar 10, 2015
- *
- * ---------------------------------------------------------------------------- */
+*
+*  # Uniform form inputs plugin
+*
+*  Styles for uniform.min.js - form components styling
+*
+*  Version: 1.2
+*  Latest update: Aug 10, 2016
+*
+* ---------------------------------------------------------------------------- */
 
 
-// Chckbox
+// Checkbox
 // ------------------------------
 
 // Base
@@ -35,12 +35,12 @@
 		display: inline-block;
 		text-align: center;
 		position: relative;
+		border-radius: @border-radius-small;
 
 		// Checkmark icon
 		&:after {
 			content: "\e600";
 			font-family: 'icomoon';
-			display: none;
 			font-size: @icon-font-size;
 			line-height: 1;
 			position: absolute;
@@ -48,12 +48,13 @@
 			left: (@checkbox-size - @icon-font-size - (@checkbox-border-width * 2)) / 2;
 			-webkit-font-smoothing: antialiased;
 			-moz-osx-font-smoothing: grayscale;
+			.opacity(0);
 		}
 
 		// Checked style
 		&.checked {
 			&:after {
-				display: block;
+				.opacity(1);
 			}
 		}
 	}
@@ -104,18 +105,6 @@
 	// States
 	//
 
-	// Active state
-	&.active,
-	.checkbox > label:active &,
-	.checkbox-inline:active & {
-		span {
-			&:after {
-				display: block;
-				.opacity(0.75);
-			}
-		}
-	}
-
 	// Disabled
 	&.disabled {
 		.opacity(0.5);
@@ -157,8 +146,12 @@
 // Update checker colors in dropdown variations
 .dropdown-menu > .active:not(.disabled),
 .dropdown-menu[class*=bg-],
-.navbar-inverse .navbar-form,
-.sidebar:not(.sidebar-default) .checkbox {
+.page-header-inverse .form-group > .checkbox,
+.page-header-inverse .form-group > .checkbox-inline,
+.navbar-inverse .navbar-form .form-group > .checkbox,
+.navbar-inverse .navbar-form .form-group > .checkbox-inline,
+.sidebar:not(.sidebar-default) .checkbox,
+.sidebar:not(.sidebar-default) .checkbox-inline {
 	.checker {
 		span {
 			border-color: #fff;
@@ -208,13 +201,13 @@
 			width: 0;
 			height: 0;
 			border-radius: 100%;
-			display: none;
+			.opacity(0);
 		}
 
 		// Checked style
 		&.checked {
 			&:after {
-				display: block;
+				.opacity(1);
 			}
 		}
 	}
@@ -253,18 +246,6 @@
 	//
 	// States
 	//
-
-	// Active state
-	&.active,
-	.radio > label:active &,
-	.radio-inline:active & {
-		span {
-			&:after {
-				display: block;
-				.opacity(0.75);
-			}
-		}
-	}
 
 	// Disabled
 	&.disabled {
@@ -308,8 +289,12 @@
 // Update checker colors in dropdown variations
 .dropdown-menu > .active,
 .dropdown-menu[class*=bg-],
-.navbar-inverse .navbar-form,
-.sidebar:not(.sidebar-default) .checkbox {
+.page-header-inverse .form-group > .radio,
+.page-header-inverse .form-group > .radio-inline,
+.navbar-inverse .navbar-form .form-group > .radio,
+.navbar-inverse .navbar-form .form-group > .radio-inline,
+.sidebar:not(.sidebar-default) .radio,
+.sidebar:not(.sidebar-default) .radio-inline {
 	.choice {
 		span {
 			border-color: #fff;
@@ -326,56 +311,58 @@
 .uploader {
 	width: 100%;
 	position: relative;
-	display: -moz-inline-box;
-	display: inline-block;
-	vertical-align: middle;
-	border-radius: (@input-border-radius + 1);
+	display: table;
 
 	// File name text
 	.filename {
 		color: @gray-light;
 		height: @input-height-base;
 		padding: @padding-base-vertical @padding-base-horizontal;
-		padding-right: (@input-height-base * 1.25);
 		cursor: pointer;
 		width: 100%;
-		float: left;
-		display: block;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+		display: table-cell;
 		cursor: default;
 		border: 1px solid @input-border;
-		background-color: #fff;
-		border-radius: @input-border-radius;
+		border-right: 0;
+		background-color: @input-bg;
 		text-align: left;
+		word-break: break-word;
+		.border-left-radius(@input-border-radius);
 	}
 
 	// Action button
 	.action {
-		position: absolute;
-		color: @text-color;
-		top: 0;
-		right: 0;
-		width: @input-height-base;
-		height: @input-height-base;
+		display: table-cell;
 		cursor: pointer;
 		z-index: 1;
-		border: 1px solid @input-border;
+		border-radius: 0;
 		.border-right-radius(@input-border-radius);
 
-		> i {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			margin-top: -(@icon-font-size / 2);
-			margin-left: -(@icon-font-size / 2);
+		// If normal button
+		&.btn {
+			margin-top: 0;
 		}
 	}
-	&[class*=bg-] .action {
-		background-color: inherit;
-		border-color: inherit;
-		color: inherit;
+
+	// Hover state
+	&:hover,
+	&:focus {
+		.action {
+			.box-shadow(0 0 0 100px fade(#000, 5%) inset);
+		}
+		.action.btn-default {
+			.box-shadow(0 0 0 100px fade(#000, 1%) inset);
+		}
+	}
+
+    // Active state
+	&:active {
+		.action {
+			.box-shadow(0 0 0 100px fade(#000, 10%) inset);
+		}
+		.action.btn-default {
+			.box-shadow(0 0 0 100px fade(#000, 3%) inset);
+		}
 	}
 
 	// Hide file input
@@ -395,9 +382,6 @@
 
 	// Disabled state
 	&.disabled {
-		.action {
-			.opacity(0.6);
-		}
 		.filename {
 			background-color: @input-bg-disabled;
 			cursor: @cursor-disabled;
@@ -418,14 +402,10 @@
 		height: @input-height-large;
 	}
 
-	.action {
-		width: @input-height-large;
-	}
-
 	.filename {
-		padding-top: @padding-large-vertical;
-		padding-bottom: @padding-large-vertical;
-		padding-right: (@input-height-large * 1.25);
+		padding: @padding-large-vertical @padding-large-horizontal;
+		font-size: @font-size-large;
+		line-height: @line-height-large;
 	}
 }
 
@@ -437,14 +417,10 @@
 		height: @input-height-small;
 	}
 
-	.action {
-		width: @input-height-small;
-	}
-
 	.filename {
-		padding-top: @padding-small-vertical;
-		padding-bottom: @padding-small-vertical;
-		padding-right: (@input-height-small * 1.25);
+		padding: @padding-small-vertical @padding-small-horizontal;
+		font-size: @font-size-small;
+		line-height: @line-height-small;
 	}
 }
 
@@ -456,13 +432,9 @@
 		height: @input-height-mini;
 	}
 
-	.action {
-		width: @input-height-mini;
-	}
-
 	.filename {
-		padding-top: @padding-xs-vertical;
-		padding-bottom: @padding-xs-vertical;
-		padding-right: (@input-height-small * 1.25);
+		padding: @padding-xs-vertical @padding-xs-horizontal;
+		font-size: @font-size-small;
+		line-height: @line-height-small;
 	}
 }

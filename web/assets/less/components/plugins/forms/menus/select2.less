@@ -4,8 +4,8 @@
 *
 *  Styles for select2.js - custom select plugin
 *
-*  Version: 1.2
-*  Latest update: Nov 20, 2015
+*  Version: 1.3
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -48,6 +48,7 @@
     // Allow custom background color
     &:not([class*=bg-]) {
         background-color: @input-bg;
+        color: @text-color;
 
         // Allow custom border color
         &:not([class*=border-]) {
@@ -91,12 +92,13 @@
 
     // Clear selection button
     .select2-selection__clear {
-        potision: relative;
+        position: relative;
         cursor: pointer;
         float: right;
         font-size: 0;
         line-height: 1;
         margin-top: ((@line-height-computed - @icon-font-size) / 2);
+        margin-left: 5px;
         .opacity(0.75);
 
         // Add hover state effect
@@ -203,7 +205,7 @@
         white-space: nowrap;
         list-style: none;
         margin: 0;
-        padding: 0 3px 3px 3px;
+        padding: 0 @tags-spacing @tags-spacing @tags-spacing;
         width: 100%;
     }
 
@@ -245,8 +247,8 @@
         border-radius: @border-radius-base;
         cursor: default;
         float: left;
-        margin-right: 3px;
-        margin-top: 3px;
+        margin-right: @tags-spacing;
+        margin-top: @tags-spacing;
         padding: @padding-base-vertical @padding-base-horizontal;
 
         // Icons
@@ -288,12 +290,12 @@
         // Search field
         .select2-search__field {
             font-size: 100%;
-            margin-top: 3px;
+            margin-top: @tags-spacing;
             padding: @padding-base-vertical 0;
             background-color: transparent;
             border: 0;
             outline: 0;
-            margin-left: 5px;
+            margin-left: @padding-base-vertical;
             -webkit-appearance: textfield;
 
             // Cancel button
@@ -311,15 +313,16 @@
 
 // Dropdown
 .select2-dropdown {
-    background-color: #fff;
-    color: @text-color;
-    border: 1px solid @input-border;
+    background-color: @dropdown-bg;
+    color: @dropdown-link-color;
+    border: 1px solid @dropdown-border;
     border-radius: @border-radius-base;
     display: block;
     position: absolute;
     left: -100000px;
     width: 100%;
     z-index: 9999;
+    .box-shadow(0 1px 3px fade(#000, 10%));
 }
 
 
@@ -509,7 +512,6 @@
 }
 
 
-
 //
 // Search inside dropdown
 //
@@ -608,6 +610,8 @@
     &.select2-selection--single {
         height: @input-height-small;
         padding: @padding-small-vertical 0;
+        font-size: @font-size-small;
+        line-height: @line-height-small;
 
         .select2-selection__rendered {
             padding-left: @padding-small-horizontal;
@@ -623,6 +627,8 @@
     &.select2-selection--multiple {
         .select2-selection__choice {
             padding: @padding-small-vertical @padding-small-horizontal;
+            font-size: @font-size-small;
+            line-height: @line-height-small;
         }
 
         .select2-search--inline .select2-search__field {
@@ -656,11 +662,13 @@
         .select2-selection__choice {
             padding: @padding-xs-vertical @padding-xs-horizontal;
             font-size: @font-size-small;
+            line-height: @line-height-small;
         }
 
         .select2-search--inline .select2-search__field {
             padding: @padding-xs-vertical 0;
             font-size: @font-size-small;
+            line-height: @line-height-small;
         }
     }
 }
@@ -749,7 +757,7 @@
 .select2-result-repository__avatar {
     float: left;
     width: 60px;
-    margin-right: 10px;
+    margin-right: @content-padding-base;
 
     img {
         width: 100%;
@@ -786,5 +794,5 @@
 // Add spacing for data
 .select2-result-repository__forks,
 .select2-result-repository__stargazers {
-    margin-right: 15px;
+    margin-right: @content-padding-base;
 }

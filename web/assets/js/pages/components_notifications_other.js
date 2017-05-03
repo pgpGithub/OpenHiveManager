@@ -171,7 +171,7 @@ $(function() {
     $('#jgrowl-custom-styled').on('click', function () {
         $.jGrowl('Notification with custom style', {
             header: 'Custom style',
-            theme: 'alert-styled-left alert-styled-custom border-lg alpha-teal text-teal-900'
+            theme: 'alert-styled-left alert-styled-custom alpha-teal text-teal-900'
         });
     });
 
@@ -179,7 +179,7 @@ $(function() {
     $('#jgrowl-styled-arrow').on('click', function () {
         $.jGrowl('Styled alert with arrow', {
             header: 'Styled with arrow',
-            theme: 'alert-styled-left alert-arrow-left alert-primary border-lg'
+            theme: 'alert-styled-left alert-arrow-left alert-primary'
         });
     });
 

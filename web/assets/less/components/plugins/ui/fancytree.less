@@ -5,8 +5,8 @@
 *  Tree plugin for jQuery with support for persistence, keyboard, checkboxes,
 *  tables (grid), drag'n'drop, and lazy loading
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.1
+*  Latest update: Jul 5, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -250,6 +250,7 @@ img.fancytree-icon {
     text-align: center;
     position: relative;
     cursor: pointer;
+    border-radius: @border-radius-small;
 
     // Add icons
     &:after,
@@ -486,4 +487,15 @@ img.fancytree-icon {
             }
         }
     }
+}
+
+
+// Child Counter extension
+// ----------------------------------------
+
+.fancytree-ext-childcounter .fancytree-childcounter {
+    position: absolute;
+    right: 0;
+    top: 4px;
+    color: @text-muted;
 }

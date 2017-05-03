@@ -57,11 +57,13 @@ $(function() {
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%',
                 width: 50
             }
@@ -115,11 +117,13 @@ $(function() {
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%',
                 width: 50
             }
@@ -168,11 +172,13 @@ $(function() {
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%',
                 width: 50
             }
@@ -224,11 +230,13 @@ $(function() {
             {
                 data: 'price',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0,0.00 $'
             },
             {
                 data: 'share',
                 type: 'numeric',
+                className: 'htLeft',
                 format: '0%',
                 width: 50
             }

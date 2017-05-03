@@ -94,15 +94,22 @@
     > li {
         padding: 0;
 
+        // Links
         > a {
             padding: 0;
 
+            // Label
             > label {
                 margin: 0;
                 height: 100%;
                 cursor: pointer;
                 padding: (@padding-base-vertical + 1) @padding-base-horizontal;
                 padding-left: (@padding-base-horizontal + @checkbox-size + 10);
+
+                // Inside navbar form
+                .navbar-form & {
+                    display: block;
+                }
             }
 
             // Checkboxes and radios
@@ -143,10 +150,12 @@
                 cursor: default;
             }
 
+            // Disabled color
             &.disabled {
                 color: @text-muted;
             }
 
+            // First item
             &:first-child {
                 > label,
                 &.active > label {
@@ -212,17 +221,16 @@ div[class*=border-] > .btn-group {
 // Filter
 li.multiselect-filter {
     position: relative;
-    padding: @padding-base-horizontal;
-    padding-top: (@padding-base-horizontal - @list-spacing);
-    margin-bottom: 0;
+    padding: (@padding-base-horizontal - @list-spacing) @padding-base-horizontal;
+    margin-bottom: (@padding-base-horizontal - @list-spacing);
 
     // Center icon vertically
     i {
-        font-size: @font-size-base;
+        font-size: @font-size-small;
         position: absolute;
         left: (@padding-base-horizontal * 2);
         top: 50%;
-        margin-top: -((@font-size-base / 2) + (@list-spacing / 2));
+        margin-top: -(@font-size-small / 2);
         .opacity(0.5);
     }
 

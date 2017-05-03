@@ -4,8 +4,8 @@
 *
 *  Styles for bootstrap_select.js - custom select boxes plugin
 *
-*  Version: 1.1
-*  Latest update: Oct 20, 2015
+*  Version: 1.2
+*  Latest update: Aug 20, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -20,8 +20,9 @@
     // Button
     > .btn {
         width: 100%;
-        padding-right: ((@padding-base-horizontal * 2) + 5);
+        padding-right: ((@padding-base-horizontal * 2) + @content-padding-small);
 
+        // Default light button
         &.btn-default {
             &,
             &.disabled {
@@ -29,6 +30,7 @@
                 border-color: @input-border;
             }
 
+            // When dropdown is opened
             &:active,
             .btn-group.open & {
                 border-color: @input-border;
@@ -41,6 +43,7 @@
         padding: 0;
         border: 0;
 
+        // Make it full width
         &:not([class*="col-"]) {
             width: 100%;
         }
@@ -78,6 +81,13 @@
     //
 
     &.btn-group {
+
+        // Menu container
+        &.bs-container {
+            position: absolute;
+        }
+
+        // Base
         &:not(.input-group-btn),
         &[class*="col-"] {
             float: none;
@@ -113,6 +123,9 @@
 
                 > i {
                     margin-right: @element-horizontal-spacing;
+                    float: left;
+                    margin-top: ((@line-height-computed - @icon-font-size) / 2);
+                    top: 0;
                 }
             }
 
@@ -147,21 +160,22 @@
 
             // Item
             > li {
+
+                // Links
                 > a {
 
                     // Add icon soacing
-                    [class*=icon-] {
-                        margin-right: @element-horizontal-spacing;
-                    }
+                    [class*=icon-]:extend(.bootstrap-select.btn-group .btn .filter-option > i) {}
 
                     // Check indicator
                     .check-mark {
-                        display: none;
                         position: absolute;
                         top: 50%;
                         margin-top: -(@icon-font-size / 2);
                         right: @padding-base-horizontal;
                         margin-right: 0;
+                        color: @dropdown-link-active-color;
+                        .opacity(0);
                     }
 
                     // Main text
@@ -182,6 +196,7 @@
                             font-weight: 700;
                             color: #fff;
                             background: @brand-danger;
+                            .transition(none);
                         }
                     }
                 }
@@ -193,14 +208,17 @@
 
                 // Small inline note
                 small {
-                    padding-left: 10px;
+                    padding-left: @content-padding-small;
                 }
             }
 
             // Active item text
-            > .active > a {
+            > .selected > a {
+                background-color: @dropdown-link-active-bg;
+                color: @dropdown-link-active-color;
+
                 small {
-                    color: #fff;
+                    color: @dropdown-link-active-color;
                 }
             }
 
@@ -243,13 +261,9 @@
         // Auto width
         &.fit-width {
             .btn {
-                .filter-option {
-                    position: static;
-                }
-
+                .filter-option,
                 .caret {
                     position: static;
-                    margin-top: -1px;
                 }
             }
         }
@@ -259,8 +273,8 @@
             a .text {
                 margin-right: ((@padding-base-horizontal * 2) + @icon-font-size);
             }
-            &.active a .check-mark {
-                display: inline-block;
+            &.selected a .check-mark {
+                .opacity(1);
             }
         }
     }
@@ -275,13 +289,14 @@
     }
 
     // Add side border radius to the first child
-    > .bs-select-hidden:first-child + .bootstrap-select > .btn {
-        .border-left-radius(@border-radius-small);
+    > .bs-select-hidden:first-child + .bootstrap-select > .btn,
+    > .bootstrap-select:first-child > .btn {
+        .border-left-radius(@border-radius-base);
     }
 
     // Add side border radius to the simulated last child
     > .bootstrap-select:last-child > .btn {
-        .border-right-radius(@border-radius-small);
+        .border-right-radius(@border-radius-base);
     }
 }
 
@@ -303,8 +318,8 @@
 // Set paddings
 .bs-searchbox,
 .bs-actionsbox {
-    padding: @padding-base-horizontal;
-    padding-top: (@padding-base-horizontal - @list-spacing);
+    padding: (@padding-base-horizontal - @list-spacing) @padding-base-horizontal;
+    margin-bottom: (@padding-base-horizontal - @list-spacing);
 }
 
 // Search box
@@ -326,7 +341,7 @@
         color: inherit;
         display: block;
         font-size: @font-size-small;
-        margin-top: ((@padding-base-horizontal / 2) - 2) - ((@font-size-small / 2)) - (@padding-base-horizontal - @list-spacing);
+        margin-top: -(@font-size-small / 2);
         line-height: 1;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -362,4 +377,15 @@
 select.bs-select-hidden,
 select.selectpicker {
     display: none !important;
+}
+.bootstrap-select > select {
+    position: absolute!important;
+    bottom: 0;
+    left: 50%;
+    display: block!important;
+    width: .5px!important;
+    height: 100%!important;
+    padding: 0!important;
+    opacity: 0!important;
+    border: none;
 }

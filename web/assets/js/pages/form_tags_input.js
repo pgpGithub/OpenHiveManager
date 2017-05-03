@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for form_tag_inputs.html page
 *
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
+*  Version: 1.2
+*  Latest update: Aug 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -166,7 +166,10 @@ $(function() {
 
     // Initialize tokenfield
     $('.tokenfield-typeahead').tokenfield({
-        typeahead: [null, { source: engine.ttAdapter() }]
+        typeahead: [null, {
+            displayKey: 'value',
+            source: engine.ttAdapter()
+        }]
     });
 
 
@@ -290,7 +293,7 @@ $(function() {
     // Custom tag class
     $('.tagsinput-custom-tag-class').tagsinput({
         tagClass: function(item){
-            return 'label label-success';
+            return 'label bg-success';
         }
     });
 
@@ -372,30 +375,25 @@ $(function() {
     countries.initialize();
 
     // Define element
-    elt = $('.tagsinput-tag-objects');
+    var elt = $('.tagsinput-tag-objects');
 
     // Initialize
     elt.tagsinput({
         itemValue: 'value',
-        itemText: 'text'
+        itemText: 'text',
+        typeaheadjs: {
+            name: 'countries',
+            displayKey: 'text',
+            source: countries.ttAdapter()
+        }
     });
+
+    // Add data
     elt.tagsinput('add', { "value": 1 , "text": "Amsterdam"   , "continent": "Europe"    });
     elt.tagsinput('add', { "value": 4 , "text": "Washington"  , "continent": "America"   });
     elt.tagsinput('add', { "value": 7 , "text": "Sydney"      , "continent": "Australia" });
     elt.tagsinput('add', { "value": 10, "text": "Beijing"     , "continent": "Asia"      });
     elt.tagsinput('add', { "value": 13, "text": "Cairo"       , "continent": "Africa"    });
-
-    // Attach Typeahead
-    elt.tagsinput('input').typeahead(null, {
-        name: 'countries',
-        valueKey: 'value',
-        displayKey: 'text',
-        source: countries.ttAdapter(),
-        templates: '<p>{{text}}</p>'
-    }).bind('typeahead:selected', $.proxy(function (obj, datum) {  
-        this.tagsinput('add', datum);
-        this.tagsinput('input').typeahead('val', '');
-    }, elt));
 
 
     //
@@ -416,39 +414,34 @@ $(function() {
     continents.initialize();
 
     // Define element
-    elt2 = $('.tagsinput-tag-categorizing');
+    var elt2 = $('.tagsinput-tag-categorizing');
 
     // Initialize
     elt2.tagsinput({
         tagClass: function(item) {
             switch (item.continent) {
-                case 'Europe'   : return 'label label-info';
-                case 'America'  : return 'label label-danger';
-                case 'Australia': return 'label label-success';
-                case 'Africa'   : return 'label label-primary';
-                case 'Asia'     : return 'label label-default';
+                case 'Europe'   : return 'label bg-indigo-400';
+                case 'America'  : return 'label bg-danger';
+                case 'Australia': return 'label bg-success';
+                case 'Africa'   : return 'label bg-primary';
+                case 'Asia'     : return 'label bg-pink-400';
             }
         },
         itemValue: 'value',
-        itemText: 'text'
+        itemText: 'text',
+        typeaheadjs: {
+            name: 'continents',
+            displayKey: 'text',
+            source: continents.ttAdapter()
+        }
     });
+
+    // Add data
     elt2.tagsinput('add', { "value": 1 , "text": "Amsterdam"   , "continent": "Europe"    });
     elt2.tagsinput('add', { "value": 4 , "text": "Washington"  , "continent": "America"   });
     elt2.tagsinput('add', { "value": 7 , "text": "Sydney"      , "continent": "Australia" });
     elt2.tagsinput('add', { "value": 10, "text": "Beijing"     , "continent": "Asia"      });
     elt2.tagsinput('add', { "value": 13, "text": "Cairo"       , "continent": "Africa"    });
-
-    // Attach Typeahead
-    elt2.tagsinput('input').typeahead(null, {
-        name: 'continents',
-        valueKey: 'value',
-        displayKey: 'text',
-        source: continents.ttAdapter(),
-        templates: '<p>{{text}}</p>'
-    }).bind('typeahead:selected', $.proxy(function (obj, datum) {  
-        this.tagsinput('add', datum);
-        this.tagsinput('input').typeahead('val', '');
-    }, elt2));
 
 
     //

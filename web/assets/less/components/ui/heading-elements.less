@@ -4,8 +4,8 @@
 *
 *  Display default and custom components in page header and panel heading
 *
-*  Version: 1.1
-*  Latest update: Oct 20, 2015
+*  Version: 1.3
+*  Latest update: Aug 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -14,14 +14,32 @@
 // -------------------------
 
 // Heading elements toggler
-.heading-elements-toggle,
-.breadcrumb-elements-toggle {
+.heading-elements-toggle {
     cursor: pointer;
     display: block;
     line-height: 1;
     position: absolute;
     top: 50%;
+    right: 0;
     margin-top: -(@icon-font-size / 2);
+}
+
+// Breadcrumb toggler position
+.breadcrumb-elements-toggle {
+    float: right;
+    cursor: pointer;
+    line-height: 1;
+    margin-top: ((((@breadcrumb-padding-vertical * 2) + @line-height-computed) - @icon-font-size) / 2);
+
+    // Stand alone component
+    .breadcrumb-line-component & {
+        margin-right: @grid-gutter-width;
+    }
+}
+
+// Common styles for togglers
+.heading-elements-toggle,
+.breadcrumb-elements-toggle {
 
     // Inherit colors
     &,
@@ -41,19 +59,6 @@
     }
 }
 
-// Heading toggler position
-.heading-elements-toggle {
-    right: @grid-gutter-width;
-}
-
-// Breadcrumb toggler position
-.breadcrumb-elements-toggle {
-    right: @grid-gutter-width;
-
-    .breadcrumb-line-component & {
-        right: @content-padding-base;
-    }
-}
 
 // Heading elements base
 .heading-elements {
@@ -63,7 +68,21 @@
     right: @grid-gutter-width;
     height: @input-height-base;
     margin-top: -(@input-height-base / 2);
+
+    // Mobile view
+    @media (max-width: @screen-xs-max) {
+        &:not(.not-collapsible) {
+            position: static;
+            margin-top: 0;
+            height: auto;
+        }
+    }
 }
+
+
+//
+// Inside panel
+//
 
 // Inside panel body
 .panel-body {
@@ -73,15 +92,129 @@
         z-index: 10;
     }
 
+    // Mobile view
     @media (max-width: @screen-xs-max) {
         > .heading-elements-toggle {
             top: @panel-body-padding;
             margin-top: 0;
         }
 
-        > .heading-elements.visible {
+        > .heading-elements.visible-elements {
             top: ((@panel-body-padding * 2) + @icon-font-size);
             background-color: @panel-bg;
+        }
+    }
+}
+
+// Inside panel footer
+.panel-footer {
+    > .heading-elements {
+        position: static;
+        margin-top: 0;
+        padding-right: @content-padding-large;
+
+        // Clear floats
+        &:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+    }
+
+    // Inside bordered panel footer
+    &-bordered {
+        > .heading-elements:not(.visible-elements) {
+            margin-left: -(@content-padding-large);
+            padding-right: 0;
+        }
+    }
+
+    // Mobile view
+    @media (max-width: @screen-xs-max) {
+        > .heading-elements:not(.not-collapsible) > .pull-right {
+            float: none!important;
+        }
+
+        // Toggle button
+        .heading-elements-toggle {
+            position: static;
+            padding-top: @content-padding-small;
+            padding-bottom: @content-padding-small;
+            margin-top: 0;
+            display: block;
+            text-align: center;
+        }
+    }
+}
+
+
+//
+// Heading thumbnails
+//
+
+.heading-thumbnails {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+
+    // Items
+    > li {
+        position: relative;
+        display: inline-block;
+        font-size: @font-size-base;
+
+        // Multiple items
+        + li {
+            margin-left: 10px;
+        }
+
+        // Images
+        img {
+            height: auto;
+            max-height: @input-height-base;
+            max-width: 100%;
+            border-radius: 100px;
+        }
+
+        // Labels and badges
+        .label,
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            border: 2px solid @panel-footer-bg;
+
+            // Inside transparent panel footer
+            .panel-default > .panel-heading &,
+            .panel-footer-transparent & {
+                border-color: @panel-bg;
+            }
+        }
+
+        // Status mark
+        .status-mark {
+            position: absolute;
+            top: 0;
+            right: 0;
+            box-shadow: 0 0 0 2px @panel-footer-bg;
+
+            // Add background color if circle
+            &[class*=border-] {
+                background-color: @panel-footer-bg;
+
+                // Inside transparent panel footer
+                .panel-default > .panel-heading &,
+                .panel-footer-transparent & {
+                    background-color: @panel-bg;
+                }
+            }
+
+            // Inside transparent panel footer
+            .panel-default > .panel-heading &,
+            .panel-footer-transparent & {
+                background-color: @panel-bg;
+            }
         }
     }
 }
@@ -96,34 +229,32 @@
     .heading-btn + .heading-btn,
     .page-header & .icons-list > li + li,
     .thumbnail-heading & .icons-list > li + li {
-        margin-left: 10px;
+        margin-left: (@content-padding-large / 2);
     }
 
-    // Remove margin from paginations
-    .pagination,
-    .pager {
-        margin-top: 0;
+    // Button link inside dark page header
+    .page-header-inverse & {
+        .btn-link {
+            color: #fff;
+        }
+    }
+
+    // List
+    .list-inline {
         margin-bottom: 0;
     }
 
     // Breadcrumb inside page header
     .breadcrumb {
-        padding-top: (@padding-base-vertical + 1);
-        padding-bottom: (@padding-base-vertical + 1);
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
     // Align text left in panel tabs/pills
-    &.panel-tabs,
-    &.panel-pills {
+    &.panel-nav {
         .nav > li > a {
             text-align: left;
         }
-    }
-
-    // Remove extra vertical spacing from float links
-    .btn-float.btn-link {
-        padding-top: 0;
-        padding-bottom: 0;
     }
 
     // Custom date range display
@@ -131,16 +262,18 @@
         margin-top: ((@input-height-base - 28px) / 2); // half of elements general height - font size
     }
 
+    // Button group
     .heading-btn-group {
         font-size: 0;
 
         > .btn + .btn:not(.btn-link) {
-            margin-left: 10px;
+            margin-left: (@content-padding-large / 2);
         }
     }
 
-    // Hide elements on mobile
-    @media (max-width: @screen-xs-max) {
+    // Hide elements on mobile, but display them
+    // when toggle button is clicked
+    &.visible-elements {
         text-align: center;
 
         // Add vertical spacing
@@ -157,9 +290,16 @@
         .pager,
         .breadcrumb,
         .daterange-custom,
+        .heading-thumbnails,
         .heading-form .form-group,
         > .btn-group {
-            margin-bottom: @line-height-computed;
+            margin-top: @line-height-computed;
+        }
+
+        // Remove bottom margin from tabs/pills
+        .nav-tabs,
+        .nav-pills {
+            margin-bottom: 0;
         }
 
         // Heading text
@@ -172,7 +312,7 @@
         .selectboxit-container,
         .selectboxit-options,
         .multiselect + .btn-group,
-        .bootstrap-select {
+        div.bootstrap-select {
             width: 100%!important;
         }
 
@@ -186,17 +326,23 @@
         }
 
         // Make dropdown menus full width
-        .dropdown-menu {
+        .dropdown-menu:not(.multiselect-container) {
             left: -1px;
             right: -1px;
             margin-top: 0;
             .border-top-radius(0);
         }
+
+        // Multiselect container is not full width
+        .multiselect-container {
+            left: 0;
+            right: 0;
+        }
     }
 
-
-    // Make them visible starting from tablet
-    @media (min-width: @screen-sm-min) {
+    // Make them visible-elements starting from tablet
+    // or on mobile if container is not collapsible
+    &:not(.visible-elements) {
 
         // Make them inline
         .heading-text,
@@ -212,9 +358,10 @@
         .pager,
         .heading-form,
         .daterange-custom,
+        .heading-thumbnails,
         > .btn-group {
             float: left;
-            margin-left: @grid-gutter-width;
+            margin-left: @content-padding-large;
         }
 
         // Heading text
@@ -222,7 +369,7 @@
             display: inline-block;
 
             & + .heading-text {
-                margin-left: @grid-gutter-width;
+                margin-left: @content-padding-large;
             }
         }
 
@@ -232,9 +379,9 @@
         .progress,
         .ui-slider,
         .noui-slider,
-        .uploader,
         .input-group,
         .selectboxit-container .selectboxit-options,
+        .uploader,
         .heading-form .form-control {
             width: 220px;
         }
@@ -271,16 +418,16 @@
 
         // Floating buttons
         .btn-float {
-            margin-top: ((@input-height-base - ((@btn-float-padding * 2) + @icon-font-size + 2)) / 2); // Difference between base height and button height
+            margin-top: (((@input-height-base - ((@btn-float-padding * 2) + @icon-font-size + 2)) / 2) - 1); // Difference between base height and button height
 
             // If has text
             &.has-text {
-                margin-top: ((@input-height-base - ((@btn-float-padding * 2) + @icon-font-size + @line-height-computed + 5)) / 2); // Difference between base height and button height with text
+                margin-top: (((@input-height-base - ((@btn-float-padding * 2) + @icon-font-size + @line-height-computed + 5)) / 2) - 1); // Difference between base height and button height with text
             }
 
             // If float link
             &.btn-link {
-                margin-top: ((@input-height-base - (@icon-font-size + @line-height-computed + 5 + 2)) / 2); // Float links don't have vertical paddings
+                margin-top: (((@input-height-base - (@icon-font-size + @line-height-computed + (@btn-float-padding * 2) - 6)) / 2) - 1);
             }
         }
 
@@ -334,57 +481,83 @@
 
         // Icons list
         .icons-list {
-            margin-top: ((@line-height-computed / 2) - 1);
+            margin-top: ((@input-height-base - @icon-font-size) / 2);
         }
 
         // Text
         .heading-text {
-            margin-top: ((@line-height-computed / 2) - 2);
+            margin-top: ((@input-height-base - @line-height-computed) / 2);
         }
 
-        // Tabs
-        &.panel-tabs {
-            bottom: 0;
-            top: auto;
-            height: auto;
-            margin-top: 0;
+        // Panel navs
+        &.panel-nav {
 
-            > .nav-tabs {
-                border-bottom: 0;
+            // Navs
+            > .nav {
                 margin-bottom: 0;
+            }
 
-                > li > a {
-                    padding: @panel-heading-padding;
+            // Desktop view
+            @media (min-width: @screen-sm-min) {
+
+                // Navs
+                > .nav {
+                    margin-top: ((@input-height-base - (((@padding-base-vertical + 2) * 2) + @line-height-computed)) / 2);
+                }
+
+                // Tabs
+                > .nav-tabs {
+                    border-bottom-width: 0;
+
+                    // Remove active state highlight
+                    &.nav-tabs-bottom > li.active > a:after {
+                        background-color: transparent;
+                    }
+                }
+
+                // Small pills
+                > .nav-sm {
+                    margin-top: ((@input-height-base - ((@padding-small-vertical * 2) + @line-height-computed)) / 2);
+                }
+
+                // Mini pills
+                > .nav-xs {
+                    margin-top: ((@input-height-base - (((@padding-xs-vertical - 2) * 2) + @line-height-computed)) / 2);
                 }
             }
 
-            // Inside flat panel
-            .panel-flat & {
-                bottom: auto;
-                top: 0;
+            // Mobile view
+            @media (max-width: @screen-xs-max) {
+                position: static;
+                height: auto;
 
-                > .nav-tabs > li > a {
-                    padding-top: @content-padding-large;
-                    padding-bottom: @content-padding-large;
+                // Navs
+                > .nav {
+                    float: none;
                 }
-            }
-        }
 
-        // Pills
-        &.panel-pills {
-            > .nav-pills {
-                margin-bottom: 0;
-                margin-top: -1px;
-            }
+                // Inside panel heading
+                .panel-heading & {
+                    margin-top: @content-padding-base;
 
-            // Small pills
-            .nav-sm {
-                margin-top: 1px;
-            }
+                    // Inside flat panel
+                    .panel-flat & {
+                        margin-top: @content-padding-large;
+                    }
 
-            // Mini pills
-            .nav-xs {
-                margin-top: 3px;
+                    // Navs
+                    > .nav {
+                        margin-left: 0;
+                    }
+                }
+
+                // Add vertical margin if container is not collapsible
+                .panel-footer &.not-collapsible {
+                    > .nav {
+                        margin-top: @line-height-computed - @padding-base-vertical;
+                        margin-bottom: @line-height-computed - @padding-base-vertical;
+                    }
+                }
             }
         }
     }
@@ -409,32 +582,13 @@
         }
     }
 
-    // Input group
-    .input-group {
-        .form-control {
-            width: 100%;
-            margin-top: 0;
-        }
-        &.input-group-sm .btn,
-        &.input-group-xs .btn {
-            margin-top: 0;
-        }
-    }
-
-    // Setup desktop view
-    @media (min-width: @screen-sm-min) {
-        .form-group {
-            display: inline-block;
-
-            & + .form-group {
-                margin-left: @content-padding-base;
-            }
-        }
+    // If container is not collapsible
+    .heading-elements:not(.visible-elements) & {
 
         // Radios and checkboxes
         .checkbox-inline,
         .radio-inline {
-            margin-top: ((@line-height-computed / 2) - 2);
+            margin-top: ((@input-height-base - @line-height-computed) / 2);
         }
 
         // Checkbox switch
@@ -454,6 +608,38 @@
                 margin-top: ((@input-height-base - @input-height-mini) / 2) + 2;
             }
         }
+
+        // Input group
+        .input-group {
+            max-width: 220px;
+
+            // Inputs
+            .form-control {
+                width: 100%;
+                margin-top: 0;
+            }
+
+            // Buttons
+            &.input-group-sm .btn,
+            &.input-group-xs .btn {
+                margin-top: 0;
+            }
+        }
+    }
+
+
+    // Setup desktop view
+    @media (min-width: @screen-sm-min) {
+
+        // Form group
+        .form-group {
+            float: left;
+
+            // Multiple groups
+            & + .form-group {
+                margin-left: @content-padding-base;
+            }
+        }
     }
 }
 
@@ -466,46 +652,116 @@
     // Heading elements
     .heading-elements,
     .breadcrumb-elements {
-        display: none;
+
+        // If collapsible
+        &:not(.not-collapsible) {
+            display: none;
+        }
 
         // Show on click
-        &.visible {
+        &.visible-elements {
             display: block;
-            margin-top: 0;
-            top: 100%;
-            height: auto;
-            left: -1px;
-            right: -1px;
-            padding: @content-padding-large;
-            padding-bottom: 0;
-            border: 1px solid @panel-default-border;
-            z-index: (@zindex-navbar - 3);
         }
     }
 
-    // Heading elements inside colored panel
-    .panel[class*=bg-],
-    .panel-heading[class*=bg-] {
-        .heading-elements.visible {
-            border-width: 1px 0;
-            border-color: fade(#fff, 50%);
+    // Visible elements parent container
+    .has-visible-elements {
+
+        // All panels
+        .panel & {
+            padding-bottom: 0;
+        }
+
+        // Flat panel
+        .panel-flat .panel-heading& {
+            padding-bottom: @content-padding-large;
+        }
+    }
+
+    // Visible elements container
+    .visible-elements {
+
+        // Inside panels
+        .panel & {
+            border-top: 1px solid @panel-default-border;
+            padding: @content-padding-large;
+            padding-top: 0;
+        }
+
+        // Inside panel heading
+        .panel-heading & {
+            margin: @content-padding-base -(@content-padding-large) 0 -(@content-padding-large);
+            background-color: darken(@panel-bg, 1%);
+
+            // In flat panel
+            .panel-flat & {
+                margin-top: @content-padding-large;
+                border-bottom: 1px solid @panel-default-border;
+            }
+        }
+
+        // Inside panel footer
+        .panel-footer & {
+            margin-top: @padding-base-vertical;
+            .border-bottom-radius(@border-radius-base);
+        }
+
+        // Inside condensed panel footer
+        .panel-footer-condensed & {
+            margin-top: 2px;
+        }
+
+        // Inside transparent panel footer
+        .panel-footer-transparent & {
+            margin-top: @content-padding-large - ((@input-height-base - @line-height-computed) / 2);
+            background-color: @panel-bg;
+        }
+
+        // Inside colored panels
+        .panel[class*=bg-] &,
+        .panel-heading[class*=bg-] &,
+        .panel-primary &,
+        .panel-danger &,
+        .panel-success &,
+        .panel-warning &,
+        .panel-info & {
+            border-color: fade(#fff, 20%);
             left: 0;
             right: 0;
-            background-color: inherit;
+            background-color: fade(#000, 10%);
         }
-    }
 
-    // Page header elements
-    .page-header .heading-elements.visible {
-        border-width: 1px 0;
-        left: 0;
-        right: 0;
-        z-index: (@zindex-navbar - 1);
-    }
+        // Breadcrumb elements
+        &.breadcrumb-elements {
+            &.not-collapsible {
+                display: none;
+            }
+        }
 
-    // Breadcrumb elements
-    .breadcrumb-elements.visible {
-        padding: 0;
-        z-index: 9;
+        // Inside page header
+        .page-header-content > & {
+            background-color: @body-bg;
+            left: 0;
+            right: 0;
+            border-top: 1px solid darken(@body-bg, 10%);
+            z-index: (@zindex-navbar + 2);
+            padding-bottom: @line-height-computed;
+            margin-left: -(@grid-gutter-width);
+            margin-right: -(@grid-gutter-width);
+            padding-left: @grid-gutter-width;
+            padding-right: @grid-gutter-width;
+
+            // Inside default page header
+            .page-header-default & {
+                background-color: darken(@page-header-default-bg, 1%);
+                border-color: @panel-default-border;
+            }
+
+            // Inside inverse page header
+            .page-header-inverse & {
+                background-color: fade(#000, 10%);
+                border-color: fade(#fff, 10%);
+            }
+        }
     }
 }

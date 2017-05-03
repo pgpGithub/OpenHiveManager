@@ -46,7 +46,7 @@ class UserController extends Controller
                                 
         foreach( $this->getUser()->getApiculteurExploitations() as $apiExpl ){
             // Si l'utilisateur est responsable, on supprime l'exploitation
-            if( $apiExpl->getResponsable() == $this->getUser() ){
+            if( $apiExpl->getRole()->isResponsable() ){
                 $em->remove($apiExpl->getExploitation());
             }
         }

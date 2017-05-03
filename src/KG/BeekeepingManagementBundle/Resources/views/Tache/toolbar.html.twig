@@ -1,33 +1,35 @@
 {% set ruchers = tache.colonie.ruche.rucher.exploitation.ruchers %}
 
-<li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> Option <span class="caret"></span></a>
-    <ul class="dropdown-menu">       
-        {% if tache.canBeUpdated %}
-            <li><a href="{{ path('kg_beekeeping_management_update_tache', { 'tache_id': tache.id }) }}"><i class="fa fa-pencil"></i> Modifier la tâche</a></li>
-        {% else %}
-            <li class="disabled"><a href="#"><i class="fa fa-pencil"></i> Modifier la tâche</a></li>
-        {% endif %}
-        {% if tache.canBeDeleted %}
-            <li><a href="#" data-toggle="modal" data-target="#modal_warning_tache_{{ tache.id }}"><i class="fa fa-trash"></i> Supprimer la tâche</a></li>
-        {% else %}
-            <li class="disabled"><a href="#"><i class="fa fa-trash"></i> Supprimer la tâche</a></li>        
-        {% endif %}    
-    </ul>
-</li>
-<li class="dropdown">    
-    {% set first = true %}
-    {% for rucher in ruchers %}
-        {% if rucher.hasRuche %}
-            {% if first == true %}
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-files-o"></i> Dupliquer <span class="caret"></span></a>
-                <ul class="dropdown-menu">     
-                {% set first = false %}        
+{% if app.user.isResponsable(tache.colonie.ruche.rucher.exploitation) or app.user.isApiculteur(tache.colonie.ruche.rucher.exploitation) %}
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i> Option <span class="caret"></span></a>
+        <ul class="dropdown-menu">       
+            {% if tache.canBeUpdated %}
+                <li><a href="{{ path('kg_beekeeping_management_update_tache', { 'tache_id': tache.id }) }}"><i class="fa fa-pencil"></i> Modifier la tâche</a></li>
+            {% else %}
+                <li class="disabled"><a href="#"><i class="fa fa-pencil"></i> Modifier la tâche</a></li>
+            {% endif %}
+            {% if tache.canBeDeleted %}
+                <li><a href="#" data-toggle="modal" data-target="#modal_warning_tache_{{ tache.id }}"><i class="fa fa-trash"></i> Supprimer la tâche</a></li>
+            {% else %}
+                <li class="disabled"><a href="#"><i class="fa fa-trash"></i> Supprimer la tâche</a></li>        
             {% endif %}    
-            <li><a href="{{ path('kg_beekeeping_management_duplicate_tache', { 'tache_id': tache.id, 'rucher_id' : rucher.id }) }}"><i class="fa fa-long-arrow-right"></i> Vers {{ rucher.nom }}</a></li>               
+        </ul>
+    </li>
+    <li class="dropdown">    
+        {% set first = true %}
+        {% for rucher in ruchers %}
+            {% if rucher.hasRuche %}
+                {% if first == true %}
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-files-o"></i> Dupliquer <span class="caret"></span></a>
+                    <ul class="dropdown-menu">     
+                    {% set first = false %}        
+                {% endif %}    
+                <li><a href="{{ path('kg_beekeeping_management_duplicate_tache', { 'tache_id': tache.id, 'rucher_id' : rucher.id }) }}"><i class="fa fa-long-arrow-right"></i> Vers {{ rucher.nom }}</a></li>               
+            {% endif %}    
+        {% endfor %}
+        {% if first == false %}
+            </ul>     
         {% endif %}    
-    {% endfor %}
-    {% if first == false %}
-        </ul>     
-    {% endif %}    
-</li>
+    </li>
+{% endif %}

@@ -5,7 +5,7 @@
 *  Overrides for breadcrumb bootstrap component
 *
 *  Version: 1.1
-*  Latest update: Oct 20, 2015
+*  Latest update: Aug 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -59,7 +59,7 @@
         &.location-text {
             margin-right: @element-horizontal-spacing;
 
-            & + li {
+            + li {
                 &:before {
                     content: none;
                 }
@@ -117,14 +117,6 @@
             padding-bottom: 3px;
         }
 
-        // Mute links
-        > li {
-            > a,
-            + li:before {
-                color: @color-grey-500;
-            }
-        }
-
         // Add left spacing if title has icon
         &.position-right {
             margin-left: (@icon-font-size + @element-horizontal-spacing + 5);
@@ -177,9 +169,10 @@
 
 // Base
 .breadcrumb-line {
-    background-color: @navbar-default-bg;
-    border-bottom: 1px solid @page-header-border-color;
     position: relative;
+    padding-left: @grid-gutter-width;
+    padding-right: @grid-gutter-width;
+    border-top: 1px solid @panel-default-border;
 
     // Clearing floats
     &:after {
@@ -188,24 +181,59 @@
         clear: both;
     }
 
-    // Add border if placed after page header content
-    .page-header-content + & {
-        border-bottom-width: 0;
-        border-top: 1px solid @page-header-border-color;
+    // Inside page header (all levels)
+    &:first-child {
+        border-top-width: 0;
+        border-bottom: 1px solid @panel-default-border;
+        
+        // Z-index fix
+        .page-header & {
+            z-index: (@zindex-navbar - 6);
+        }
     }
 
-    // If after page header content in transparent header
-    .page-header-transparent .page-header-content + & {
-        border-bottom-width: 1px;
+    // In page header
+    &:not([class*=bg-]) {
+        background-color: @page-header-default-bg;
+    }
+    
+    // After page header content
+    .page-header-content + & {
         margin-bottom: @line-height-computed;
+        border-bottom: 1px solid @panel-default-border;
+        
+        // Remove bottom margin if inside colored header
+        .page-header-default &,
+        .page-header-inverse & {
+            margin-bottom: 0;
+        }
+        
+        // And remove bottom border in light header
+        .page-header-default & {
+            border-bottom-width: 0;
+        }
+    }
+    
+    // Darken inside white header
+    .page-header-default &:not([class*=bg-]) {
+        background-color: @panel-footer-bg;
+    }
+    
+    // Inside inversed header
+    .page-header-inverse & {
+        border-top-width: 0;
+        
+        // Remove bottom border if before title
+        &:first-child {
+            border-bottom-width: 0;
+        }
     }
 
     // Breadcrumb
     .breadcrumb {
-        margin-left: @grid-gutter-width;
-        margin-right: ((@grid-gutter-width * 2) + @icon-font-size);
+        margin-right: ((@content-padding-base * 2) + @icon-font-size);
 
-        @media (min-width: @screen-sm) {
+        @media (min-width: @grid-float-breakpoint) {
             float: left;
             margin-right: 0;
         }
@@ -214,26 +242,41 @@
     // Z-index correction for mobiles
     @media (max-width: @grid-float-breakpoint-max) {
         z-index: (@zindex-navbar - 2);
+        background-color: inherit;
     }
 }
 
-// Inside transparent page header
-.page-header-transparent {
-
-    // Breadcrumb line
-    .breadcrumb-line {
-        background-color: #fff;
+// As a component
+.breadcrumb-line-component {
+    border-radius: @border-radius-base;
+    padding-left: 0;
+    padding-right: 0;
+    
+    // Set colors
+    &:not([class*=bg-]) {
+        background-color: @panel-bg;
+        border: 1px solid @panel-default-border;
+        
+        // Inside default header
+        .page-header-default & {
+            border-width: 1px;
+        }
+        
+        // Inside inversed header
+        .page-header-inverse & {
+            border-width: 0;
+        }
     }
 
-    // As a component
-    .breadcrumb-line-component {
+    // Adjust horizontal spacing of breadcrumb
+    .breadcrumb {
+        margin-left: @grid-gutter-width;
+    }
+    
+    // Inside page header
+    .page-header & {
         margin-left: @grid-gutter-width;
         margin-right: @grid-gutter-width;
-        padding-right: 0;
-
-        > .breadcrumb-elements {
-            margin-right: 0;
-        }
     }
 }
 
@@ -252,6 +295,10 @@
             color: fade(#fff, 75%);
         }
     }
+}
+
+// In dark containers
+.breadcrumb-line[class*=bg-] {
 
     // Breadcrumb elements
     .breadcrumb-elements {
@@ -260,62 +307,15 @@
         // Element items
         > li {
             > a {
-                color: #fff;
-                .opacity(1);
+                color: fade(#fff, 90%);
             }
 
             // Highlight on hover
             &.open > a,
             > a:hover,
             > a:focus {
-                background-color: fade(#000, 10%);
+                color: #fff;
             }
-        }
-    }
-}
-
-// As a component
-.breadcrumb-line-component {
-    border: 1px solid @panel-inner-border;
-    margin-bottom: @line-height-computed;
-    border-radius: @border-radius-base;
-    background-color: @panel-bg;
-    .box-shadow(0 1px 1px fade(#000, 5%));
-
-    // Inside page header (all levels)
-    .page-header & {
-        margin-left: @grid-gutter-width;
-        margin-right: @grid-gutter-width;
-        background-color: @navbar-default-bg;
-    }
-
-    // Inside page header (1st level)
-    .page-header > & {
-        border-width: 1px;
-
-        &:first-child {
-            margin-top: @line-height-computed;
-            margin-bottom: 0;
-        }
-    }
-
-    // Breadcrumb
-    .breadcrumb {
-        margin-left: @content-padding-base;
-    }
-
-    // Breadcrumb elements
-    .breadcrumb-elements {
-        margin-right: 0;
-
-        // Display all borders
-        .dropdown-menu {
-            border-width: 1px;
-        }
-
-        // Count 1px border
-        > li:last-child > .dropdown-menu-right {
-            right: -1px;
         }
     }
 }
@@ -352,26 +352,30 @@
             color: @breadcrumb-color;
         }
 
-        // Mute on hover
+        // Highlight on hover
         &.open > a,
         > a:hover,
         > a:focus {
-            .opacity(0.75);
+            background-color: darken(@panel-footer-bg, 1%);
+
+            .breadcrumb-line[class*=bg-] & {
+                background-color: fade(#fff, 10%);
+            }
         }
     }
 
     // Dropdown menu
     .dropdown-menu {
         margin-top: 0;
+        left: auto;
+        right: -1px;
         .border-top-radius(0);
 
         // Mobile view
         @media (max-width: @screen-xs-max) {
-            left: 0;
-            right: 0;
-            border-width: 1px 0;
-            border-radius: 0;
+            left: -1px;
 
+            // Links
             > li > a {
                 padding-left: @content-padding-base;
                 padding-right: @content-padding-base;
@@ -396,37 +400,43 @@
     // Desktop view
     @media (min-width: @grid-float-breakpoint) {
         float: right;
-        margin-right: @grid-gutter-width;
         text-align: inherit;
         border-top: 0;
 
+        // Collapse
         &.collapse {
             display: block;
             visibility: visible;
         }
 
+        // Items
         > li {
             float: left;
+
+            &,
+            .btn-group {
+                position: relative;
+            }
+
+            .breadcrumb-line-component &:last-child > a {
+                .border-right-radius(@border-radius-base);
+            }
         }
 
-        > li,
-        > li .btn-group {
-            position: relative;
-        }
-
+        // Hide collapsible toggler
         [data-toggle="collapse"] {
             display: none;
         }
     }
 
     // Mobile view
-    @media (max-width: @grid-float-breakpoint-max) {
-        background-color: inherit;
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        right: @grid-gutter-width;
-        height: @input-height-base;
-        margin-top: -(@input-height-base / 2);
+    .breadcrumb-line:not(.breadcrumb-line-component) & {
+        @media (max-width: @grid-float-breakpoint-max) {
+            background-color: inherit;
+            margin-left: -(@grid-gutter-width);
+            margin-right: -(@grid-gutter-width);
+            padding-left: @grid-gutter-width;
+            padding-right: @grid-gutter-width;
+        }
     }
 }

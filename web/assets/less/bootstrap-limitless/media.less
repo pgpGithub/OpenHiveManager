@@ -4,8 +4,8 @@
 *
 *  Overrides for media list bootstrap component
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.1
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -17,6 +17,11 @@
 .media {
     margin-top: @line-height-computed;
     position: relative;
+
+    // Remove top spacing if inside panel
+    &.panel-body {
+        margin-top: 0;
+    }
 }
 
 // Override hidden overflow
@@ -65,8 +70,13 @@
 
 @media (max-width: @screen-xs-max) {
     .stack-media-on-mobile {
-        text-align: center;
 
+        // Respect text alignment classes
+        &:not(.text-left):not(.text-right) {
+            text-align: center;
+        }
+
+        // Annotation
         .media-annotation {
             display: block;
 
@@ -76,12 +86,14 @@
             }
         }
 
+        // Annotation inside heading
         .media-heading .media-annotation {
             margin-left: 0;
             margin-right: 0;
             padding-bottom: 5px;
         }
 
+        // Make all parts stacked
         .media-left,
         .media-right,
         .media-body {
@@ -89,19 +101,15 @@
             width: auto;
             padding-left: 0;
             padding-right: 0;
-
-            img {
-                width: 100%;
-                height: auto;
-                max-height: none;
-            }
         }
 
+        // Add to top spacing to elements
         .media-body,
         .media-right {
             margin-top: @content-padding-base;
         }
 
+        // Heading
         .media-heading {
             margin-bottom: 5px;
         }
@@ -111,17 +119,6 @@
 
 // Media elements
 // -------------------------
-
-// Image size
-.media-left,
-.media-right,
-.thumbnail .media {
-    img:not(.media-preview) {
-        width: 40px;
-        height: 40px;
-        max-width: none;
-    }
-}
 
 // Badge
 .media-badge {
@@ -148,6 +145,7 @@
 .media-annotation {
     color: @text-muted;
     font-size: @font-size-small;
+    line-height: @line-height-small;
     font-weight: 400;
 
     // Inside media heading
@@ -162,7 +160,7 @@
 
     // Add bullet to the annotation
     &.dotted:not(.pull-right):before {
-        content: '•';
+        content: '\2022';
         margin-right: (@element-horizontal-spacing + 3);
     }
 }
@@ -171,6 +169,7 @@
 .media-header {
     white-space: nowrap;
     margin-top: @line-height-computed;
+    font-weight: 500;
 
     &:first-child {
         margin-top: 0;

@@ -245,6 +245,10 @@ class Emplacement
             $permitted = false;
         }
         
+        if( !$this->getTranshumancesfrom()->isEmpty() || !$this->getTranshumancesto()->isEmpty()){
+            $permitted = false;
+        }
+        
         return $permitted;        
     }
 

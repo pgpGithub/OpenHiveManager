@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for extension_blockui.html page
 *
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
+*  Version: 1.1
+*  Latest update: Feb 5, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -66,12 +66,14 @@ $(function() {
             overlayCSS: {
                 backgroundColor: '#1b2024',
                 opacity: 0.8,
+                zIndex: 1200,
                 cursor: 'wait'
             },
             css: {
                 border: 0,
                 color: '#fff',
                 padding: 0,
+                zIndex: 1201,
                 backgroundColor: 'transparent'
             }
         });
@@ -439,11 +441,13 @@ $(function() {
             overlayCSS: {
                 backgroundColor: '#1b2024',
                 opacity: 0.8,
+                zIndex: 1200,
                 cursor: 'wait'
             },
             css: {
                 border: 0,
                 color: '#fff',
+                zIndex: 1201,
                 padding: 0,
                 backgroundColor: 'transparent'
             },
@@ -462,12 +466,14 @@ $(function() {
             overlayCSS: {
                 backgroundColor: '#1b2024',
                 opacity: 0.8,
+                zIndex: 1200,
                 cursor: 'wait'
             },
             css: {
                 border: 0,
                 color: '#fff',
                 padding: 0,
+                zIndex: 1201,
                 backgroundColor: 'transparent'
             },
             onUnblock: function() { 
@@ -484,12 +490,14 @@ $(function() {
             overlayCSS: {
                 backgroundColor: '#1b2024',
                 opacity: 0.8,
+                zIndex: 1200,
                 cursor: 'wait'
             },
             css: {
                 border: 0,
                 color: '#fff',
                 padding: 0,
+                zIndex: 1201,
                 backgroundColor: 'transparent'
             },
             onOverlayClick: $.unblockUI
@@ -507,16 +515,18 @@ $(function() {
             message: $('.blockui-growl'), 
             fadeIn: 700, 
             fadeOut: 700, 
-            timeout: 3000, //unblock after 3 seconds
+            timeout: 3000000, //unblock after 3 seconds
             showOverlay: false, 
             centerY: false, 
             css: { 
                 width: '250px',
-                top: '25px',
+                backgroundColor: 'transparent',
+                top: '20px',
                 left: 'auto',
-                right: '25px',
+                right: '20px',
                 border: 0,
-                opacity: .95
+                opacity: .95,
+                zIndex: 1200,
             } 
         }); 
     });

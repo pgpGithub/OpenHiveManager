@@ -1,13 +1,13 @@
 /* ------------------------------------------------------------------------------
- *
- *  # Plupload multiple file uploader
- *
- *  Multi runtime single and multiple file uploader
- *
- *  Version: 1.0
- *  Latest update: May 25, 2015
- *
- * ---------------------------------------------------------------------------- */
+*
+*  # Plupload multiple file uploader
+*
+*  Multi runtime single and multiple file uploader
+*
+*  Version: 1.1
+*  Latest update: Mar 10, 2016
+*
+* ---------------------------------------------------------------------------- */
 
 
 // Layout
@@ -101,14 +101,16 @@
 	border-radius: @border-radius-small;
 	margin-right: 5px;
 
+	// Hover state
 	&:hover,
 	&:focus {
 		color: #fff;
-		.opacity(0.9);
+		.box-shadow(0 0 0 100px fade(#000, 5%) inset);
 	}
 
+	// Active state
 	&:active {
-		.opacity(1);
+		.box-shadow(0 0 0 100px fade(#000, 10%) inset);
 	}
 }
 
@@ -122,7 +124,7 @@ a.plupload_disabled {
 		border-color: #ddd; 
 		background: #fcfcfc; 
 		cursor: default;
-		.opacity(1);
+		.box-shadow(none);
 	}
 }
 

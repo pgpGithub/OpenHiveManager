@@ -26,6 +26,7 @@ $(function() {
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         language: {
             search: '<span>Filter:</span> _INPUT_',
+            searchPlaceholder: 'Type to filter...',
             lengthMenu: '<span>Show:</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
         },
@@ -101,16 +102,11 @@ $(function() {
     // External table additions
     // ------------------------------
 
-    // Add placeholder to the datatable filter option
-    $('.dataTables_filter input[type=search]').attr('placeholder','Type to filter...');
-
-
     // Enable Select2 select for the length option
     $('.dataTables_length select').select2({
         minimumResultsForSearch: Infinity,
         width: 'auto'
     });
-
 
     // Enable Select2 select for individual column searching
     $('.filter-select').select2();

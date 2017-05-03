@@ -15,6 +15,9 @@ $(function() {
     // Configuration
     // -------------------------
 
+    // Hide sidebar category titles on load
+    $('.category-title > span').css('visibility', 'hidden');
+
     // Add options
     i18n.init({
         resGetPath: 'assets/locales/__lng__.json',
@@ -23,7 +26,12 @@ $(function() {
         load: 'unspecific'
     },
     function () {
-        $('body').i18n(); // Init
+        
+        // Init
+        $('body').i18n();
+
+        // Show sidebar category titles after load
+        $('.category-title > span').css('visibility', 'visible');
     });
 
 

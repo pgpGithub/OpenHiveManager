@@ -4,8 +4,8 @@
 *
 *  In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.1
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -42,7 +42,7 @@
 
     // Set min width to the input field
     .form-control {
-        min-width: 150px;
+        min-width: 200px;
     }
 
     // Checkbox, radio
@@ -63,7 +63,7 @@
 .editable-buttons {
     display: inline-block;
     vertical-align: top;
-    margin-left: 5px;
+    margin-left: @element-horizontal-spacing;
 
     &.editable-buttons-bottom {
         display: block;
@@ -73,7 +73,7 @@
     }
 
     .editable-cancel {
-        margin-left: 5px; 
+        margin-left: @element-horizontal-spacing; 
     }
 }
 

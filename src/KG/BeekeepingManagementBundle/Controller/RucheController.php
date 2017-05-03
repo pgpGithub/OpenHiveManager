@@ -42,7 +42,9 @@ class RucheController extends Controller
     */    
     public function updateAction(Ruche $ruche, Request $request)
     {       
-        if( !$this->getUser()->canDisplayExploitation($ruche->getRucher()->getExploitation()) || !$ruche->canBeUpdated() ){
+        if( !( $this->getUser()->isResponsable($ruche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($ruche()->getRucher()->getExploitation())) 
+            || !$ruche->canBeUpdated() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -93,7 +95,9 @@ class RucheController extends Controller
     */    
     public function addAction(Emplacement $emplacement, Request $request)
     {
-        if( !$this->getUser()->canDisplayExploitation($emplacement->getRucher()->getExploitation()) || !$emplacement->isEmpty() ){
+        if( !( $this->getUser()->isResponsable($emplacement->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($emplacement->getRucher()->getExploitation()))
+            || !$emplacement->isEmpty() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

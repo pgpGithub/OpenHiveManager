@@ -37,17 +37,17 @@ $(function() {
     // Initialize with options
     $('#reportrange').daterangepicker(
         {
-            startDate: moment().subtract('days', 29),
+            startDate: moment().subtract(29, 'days'),
             endDate: moment(),
             minDate: '01/01/2015',
             maxDate: '12/31/2016',
             dateLimit: { days: 60 },
             ranges: {
                 'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                'Last 7 Days': [moment().subtract('days', 6), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
             opens: 'right',
             buttonClasses: ['btn'],
@@ -69,7 +69,7 @@ $(function() {
     );
 
     // Custom date display layout
-    $('#reportrange .daterange-custom-display').html(moment().subtract('days', 29).format('<i>D</i> <b><i>MMM</i> <i>YYYY</i></b>') + '<em> &#8211; </em>' + moment().format('<i>D</i> <b><i>MMM</i> <i>YYYY</i></b>'));
+    $('#reportrange .daterange-custom-display').html(moment().subtract(29, 'days').format('<i>D</i> <b><i>MMM</i> <i>YYYY</i></b>') + '<em> &#8211; </em>' + moment().format('<i>D</i> <b><i>MMM</i> <i>YYYY</i></b>'));
 
 
 
@@ -192,8 +192,7 @@ $(function() {
 
     // File input
     $(".file-styled").uniform({
-        wrapperClass: "bg-warning",
-        fileButtonHtml: '<i class="icon-googleplus5"></i>'
+        fileButtonClass: 'action btn bg-warning'
     });
 
 

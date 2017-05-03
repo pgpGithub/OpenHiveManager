@@ -1,13 +1,13 @@
 /* ------------------------------------------------------------------------------
- *
- *  # jQuery UI Widgets
- *
- *  Styles for jQuery UI widgets
- *
- *  Version: 1.0
- *  Latest update: Nov 12, 2015
- *
- * ---------------------------------------------------------------------------- */
+*
+*  # jQuery UI Widgets
+*
+*  Styles for jQuery UI widgets
+*
+*  Version: 1.2
+*  Latest update: Aug 10, 2016
+*
+* ---------------------------------------------------------------------------- */
 
 
 // Accordion
@@ -166,7 +166,7 @@
 	touch-action: manipulation;
 	margin-bottom: 0;
 	padding: @padding-base-vertical @padding-base-horizontal;
-	border-radius: @border-radius-small;
+	border-radius: @border-radius-base;
 	cursor: pointer;
 	vertical-align: middle;
 	text-align: center;
@@ -178,7 +178,7 @@
 	&.ui-state-hover,
 	&.ui-state-focus {
 		color: @btn-default-color;
-		.box-shadow(0 0 0 100px fade(#000, 1.5%) inset);
+		.box-shadow(0 0 0 100px fade(#000, 1%) inset);
 	}
 
 	// Active state
@@ -256,8 +256,8 @@
 
 // Icon only
 .ui-button-icon-only {
-    padding-left: (@padding-base-vertical + 2);
-    padding-right: (@padding-base-vertical + 2);
+    padding-left: ((@line-height-computed - @icon-font-size + @padding-base-vertical - 1) - 1);
+    padding-right: ((@line-height-computed - @icon-font-size + @padding-base-vertical - 1) - 1);
 }
 
 // Hide text in button with icons only
@@ -295,12 +295,12 @@
 	// Add border radius for the first button
 	.ui-button:first-child,
 	.ui-helper-hidden-accessible:first-child + .ui-button:not(:last-child) {
-		.border-left-radius(@border-radius-small);
+		.border-left-radius(@border-radius-base);
 	}
 
 	// Add border radius for the last button
 	.ui-button:last-child {
-		.border-right-radius(@border-radius-small);
+		.border-right-radius(@border-radius-base);
 	}
 }
 
@@ -325,15 +325,21 @@
 .ui-datepicker {
 	min-width: 270px;
 	background-color: @dropdown-bg;
-	padding: @list-spacing;
+	padding: (@list-spacing * 2);
 	display: none;
 	border: 1px solid @dropdown-border;
 	border-radius: @border-radius-base;
-	z-index: 190!important;
+	z-index: (@zindex-navbar - 1)!important;
+    .box-shadow(0 1px 3px fade(#000, 10%));
 
 	// Make it flexible in sidebar
 	.sidebar & {
 		min-width: 0;
+	}
+
+	// Add border option
+	.no-border & {
+		border-width: 0;
 	}
 
 
@@ -343,14 +349,16 @@
 	// Base
 	.ui-datepicker-header {
 		position: relative;
-		padding: 15px 0 20px 0;
 	}
 
 	// Title
 	.ui-datepicker-title {
 		margin: 0 40px;
+        padding-top: @content-padding-base;
+        padding-bottom: @content-padding-base;
 		font-size: @font-size-h6;
 		text-align: center;
+		line-height: 1;
 
 		// Show month
 		.ui-datepicker-month {
@@ -367,6 +375,8 @@
 		// Date select
 		select {
 			outline: 0;
+			height: (@icon-font-size + (@padding-base-vertical * 2));
+			border-color: @input-border;
 
 			&.ui-datepicker-month,
 			&.ui-datepicker-year {
@@ -386,16 +396,17 @@
 	.ui-datepicker-prev,
 	.ui-datepicker-next {
 		position: absolute;
-		top: 10px;
+		top: 50%;
+		margin-top: -((@icon-font-size / 2) + @padding-base-vertical);
 		line-height: 1;
 		color: @text-color;
-		padding: (@icon-font-size / 2);
+		padding: @padding-base-vertical;
 		border-radius: @border-radius-small;
 
 		// Icon base
 		&:after {
 			font-family: 'icomoon';
-			display: inline-block;
+			display: block;
 			font-size: @icon-font-size;
 			width: @icon-font-size;
 			text-align: center;
@@ -448,7 +459,8 @@
 			text-align: center;
 			font-weight: 400;
 			border: 0;
-			padding-bottom: 10px;
+			padding-top: @content-padding-small;
+			padding-bottom: @content-padding-small;
 			font-size: @font-size-small;
 			color: @text-muted;
 		}
@@ -466,7 +478,7 @@
 				padding: 6px;
 				text-align: center;
 				text-decoration: none;
-				border-radius: @border-radius-small;
+				border-radius: @border-radius-base;
 				color: @text-color;
 				min-width: 34px;
 			}
@@ -522,16 +534,17 @@
 			border: 1px solid @btn-default-border;
 			background-color: @btn-default-bg;
 			font-weight: 400;
-			margin-top: 5px;
+			margin-top: (@list-spacing * 2);
 			cursor: pointer;
 			padding: @padding-base-vertical @padding-base-horizontal;
 			width: auto;
 			overflow: visible;
 			outline: 0;
+			border-radius: @border-radius-base;
 
 			// Hover state
 			&.ui-state-hover {
-				.box-shadow(0 0 0 100px fade(#000, 2%) inset);
+				.box-shadow(0 0 0 100px fade(#000, 1%) inset);
 			}
 
 			// Current date
@@ -541,7 +554,7 @@
 
 			// Active state
 			&:active {
-				.box-shadow(0 0 0 100px fade(#000, 4%) inset);
+				.box-shadow(0 0 0 100px fade(#000, 3%) inset);
 			}
 		}
 	}
@@ -570,7 +583,7 @@
 	position: absolute;
 	top: 4px;
 	right: 5px;
-	z-index: 3;
+	z-index: 4;
 	padding: 6px;
 	cursor: pointer;
 }
@@ -587,9 +600,8 @@
 	.ui-datepicker-group {
 		float: left;
 
-		table {
-			width: 95%;
-			margin: 0 8px;
+		+ .ui-datepicker-group {
+			padding-left: 15px;
 		}
 	}
 
@@ -684,6 +696,13 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
 	}
+
+
+	// Remove default button shadows
+	&.ui-state-hover,
+	&.ui-state-focus {
+		.box-shadow(none);
+	}
 }
 
 
@@ -739,6 +758,7 @@
 	border: 1px solid @input-border;
 	border-radius: @border-radius-base;
 	z-index: @zindex-dropdown;
+    .box-shadow(0 1px 3px fade(#000, 10%));
 
 	// Nested menu
 	.ui-menu {
@@ -759,6 +779,11 @@
 		> a {
 			display: block;
 			color: @text-color;
+		}
+
+		// Icons
+		> i {
+			margin-right: @element-horizontal-spacing;
 		}
 
         // Submenu arrow icon
@@ -797,12 +822,7 @@
 		line-height: @line-height-mini;
 		text-transform: uppercase;
 		color: @text-muted;
-	    margin-top: (@list-spacing * 2);
-
-	    // Add top spacing for the first item
-	    &:first-child {
-	        margin-top: @list-spacing;
-	    }
+	    margin-top: @list-spacing;
 
 	    // Highlighted header
 	    &.highlight {
@@ -821,22 +841,21 @@
         margin-top: @list-spacing;
     }
 
-	// Icons
-	i[class*=icon-] {
-		margin-right: @content-padding-small;
+    // Icons
+    .ui-menu-item > a,
+    .ui-menu-header {
+		> i[class*=icon-] {
+			margin-top: ((@line-height-computed - @icon-font-size) / 2);
+			float: left;
+			margin-right: @content-padding-small;
+			top: 0;
 
-		// Right icon
-		&.pull-right {
-			margin-right: 0;
-			margin-left: @content-padding-small;
-			margin-top: (((@line-height-computed - @icon-font-size) / 2) + 1);
+			// Right icon
+			&.pull-right {
+				margin-right: 0;
+				margin-left: @content-padding-small;
+			}
 		}
-	}
-
-    // Labels/badges
-    .badge,
-    .label {
-        margin-top: 1px;
     }
 
 	// Divider
@@ -974,6 +993,8 @@
 	text-decoration: none;
 	cursor: pointer;
 	height: @input-height-base;
+	padding: @padding-base-vertical @padding-base-horizontal;
+	padding-right: ((@padding-base-horizontal * 2) + @content-padding-small);
 	background-color: @input-bg;
 	border: 1px solid @input-border;
 	border-radius: @input-border-radius;
@@ -993,7 +1014,6 @@
         position: absolute;
         top: 50%;
         right: @padding-base-horizontal;
-        width: @icon-font-size;
         text-align: right;
         margin-top: -(@icon-font-size / 2);
         font-size: @icon-font-size;
@@ -1005,10 +1025,10 @@
 
 	// Button text
 	.ui-selectmenu-text {
-		padding: @padding-base-vertical @padding-base-horizontal;
-		padding-right: ((@padding-base-horizontal * 2) + 4);
 		display: block;
 		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }
 
@@ -1036,7 +1056,7 @@
 
 		.ui-selectmenu-text {
 			padding: @padding-large-vertical @padding-large-horizontal;
-			padding-right: ((@padding-large-horizontal * 2) + 4);
+			padding-right: ((@padding-large-horizontal * 2) + @content-padding-small);
 		}
 	}
 }
@@ -1048,7 +1068,9 @@
 
 		.ui-selectmenu-text {
 			padding: @padding-small-vertical @padding-base-horizontal;
-			padding-right: ((@padding-small-horizontal * 2) + 4);
+			padding-right: ((@padding-small-horizontal * 2) + @content-padding-small);
+			font-size: @font-size-small;
+			line-height: @line-height-small;
 		}
 	}
 }
@@ -1060,7 +1082,7 @@
 
 		.ui-selectmenu-text {
 			padding: @padding-xs-vertical @padding-xs-horizontal;
-			padding-right: ((@padding-xs-horizontal * 2) + 4);
+			padding-right: ((@padding-xs-horizontal * 2) + @content-padding-small);
 			font-size: @font-size-small;
 			line-height: @line-height-small;
 		}
@@ -1077,31 +1099,29 @@
 	// Image base
 	.ui-menu-item > span {
 		display: inline-block;
-		margin-right: (@padding-base-horizontal - 2);
+		margin-right: @content-padding-small;
 		border-radius: @border-radius-small;
-		width: @icon-font-size;
-		height: @icon-font-size;
-		background-size: @icon-font-size @icon-font-size;
-		vertical-align: middle;
-		position: relative;
-		top: -1px;
+		width: @line-height-computed;
+		height: @line-height-computed;
+		background-size: @line-height-computed @line-height-computed;
+		float: left;
 	}
 
 	// Demo images, replace with your own
 	.demo-img-amazon {
-		background: url('../images/placeholder.jpg') no-repeat;
+		background: url('../images/brands/amazon.png') no-repeat;
 	}
 	.demo-img-youtube {
-		background: url('../images/placeholder.jpg') no-repeat;
+		background: url('../images/brands/youtube.png') no-repeat;
 	}
 	.demo-img-twitter {
-		background: url('../images/placeholder.jpg') no-repeat;
+		background: url('../images/brands/twitter.png') no-repeat;
 	}
 	.demo-img-bing {
-		background: url('../images/placeholder.jpg') no-repeat;
+		background: url('../images/brands/bing.png') no-repeat;
 	}
 	.demo-img-spotify {
-		background: url('../images/placeholder.jpg') no-repeat;
+		background: url('../images/brands/spotify.png') no-repeat;
 	}
 }
 
@@ -1413,7 +1433,6 @@
 // Base
 .ui-spinner {
 	position: relative;
-	overflow: hidden;
 	display: table;
 }
 
@@ -1468,7 +1487,6 @@
 	&.ui-state-hover,
 	&.ui-state-focus {
 		color: @text-color;
-		.box-shadow(0 0 0 100px fade(#000, 1%) inset);
 	}
 
 	// Disabled state

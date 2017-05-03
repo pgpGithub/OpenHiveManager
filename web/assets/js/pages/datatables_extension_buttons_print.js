@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for datatable_extension_buttons_print.html page
 *
-*  Version: 1.0
-*  Latest update: Nov 9, 2015
+*  Version: 1.1
+*  Latest update: Mar 6, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -21,6 +21,7 @@ $(function() {
         dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
         language: {
             search: '<span>Filter:</span> _INPUT_',
+            searchPlaceholder: 'Type to filter...',
             lengthMenu: '<span>Show:</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
         }
@@ -79,18 +80,15 @@ $(function() {
     // Export options - row selector
     $('.datatable-button-print-rows').DataTable({
         buttons: {
-            dom: {
-                button: {
-                    className: 'btn btn-default'
-                }
-            },
             buttons: [
                 {
                     extend: 'print',
+                    className: 'btn btn-default',
                     text: '<i class="icon-printer position-left"></i> Print all'
                 },
                 {
                     extend: 'print',
+                    className: 'btn btn-default',
                     text: '<i class="icon-checkmark3 position-left"></i> Print selected',
                     exportOptions: {
                         modifier: {
@@ -107,10 +105,6 @@ $(function() {
 
     // External table additions
     // ------------------------------
-
-    // Add placeholder to the datatable filter option
-    $('.dataTables_filter input[type=search]').attr('placeholder','Type to filter...');
-
 
     // Enable Select2 select for the length option
     $('.dataTables_length select').select2({

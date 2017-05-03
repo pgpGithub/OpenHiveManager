@@ -4,8 +4,8 @@
 *
 *  Mac-style "lightbox" plugin that floats overtop of web page.
 *
-*  Version: 1.1
-*  Latest update: Nov 11, 2015
+*  Version: 1.2
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -117,10 +117,10 @@
 
 // Close button
 .fancybox-close {
-    position: absolute;
-    right: -(@icon-font-size * 2);
-    top: -(@icon-font-size * 2);
-    padding: (@icon-font-size / 2);
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: @content-padding-base;
     z-index: 8061;
     cursor: pointer;
     line-height: 1;

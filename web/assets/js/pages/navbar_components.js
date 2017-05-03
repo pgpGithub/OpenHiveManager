@@ -40,20 +40,20 @@ $(function() {
     // Initialize
     $('.daterange-ranges-button').daterangepicker(
         {
-            startDate: moment().subtract('days', 29),
+            startDate: moment().subtract(29, 'days'),
             endDate: moment(),
             minDate: '01/01/2014',
-            maxDate: '12/31/2015',
+            maxDate: '12/31/2018',
             dateLimit: {
                 days: 60
             },
             ranges: {
                 'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                'Last 7 Days': [moment().subtract('days', 6), moment()],
-                'Last 30 Days': [moment().subtract('days', 29), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
             opens: 'left',
             applyClass: 'btn-small btn-primary btn-block',
@@ -66,7 +66,7 @@ $(function() {
     );
 
     // Format results
-    $('.daterange-ranges-button span').html(moment().subtract('days', 29).format('MMM D, YY') + ' - ' + moment().format('MMM D, YY'));
+    $('.daterange-ranges-button span').html(moment().subtract(29, 'days').format('MMM D, YY') + ' - ' + moment().format('MMM D, YY'));
 
 
     //
@@ -76,18 +76,18 @@ $(function() {
     // Initialize
     $('.daterange-ranges').daterangepicker(
         {
-            startDate: moment().subtract('days', 29),
+            startDate: moment().subtract(29, 'days'),
             endDate: moment(),
             minDate: '01/01/2014',
-            maxDate: '12/31/2015',
+            maxDate: '12/31/2018',
             dateLimit: { days: 60 },
             ranges: {
                 'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                'Last 7 Days': [moment().subtract('days', 6), moment()],
-                'Last 30 Days': [moment().subtract('days', 29), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
             opens: 'right',
             applyClass: 'btn-small btn-primary btn-block',
@@ -100,7 +100,7 @@ $(function() {
     );
 
     // Format results
-    $('.daterange-ranges span').html(moment().subtract('days', 29).format('MMM D, YY') + ' - ' + moment().format('MMM D, YY'));
+    $('.daterange-ranges span').html(moment().subtract(29, 'days').format('MMM D, YY') + ' - ' + moment().format('MMM D, YY'));
 
 
 
@@ -114,6 +114,15 @@ $(function() {
     });
 
 
+    // Multiselect
+    $('.multiselect').multiselect({
+        buttonWidth: 200,
+        onChange: function() {
+            $.uniform.update();
+        }
+    });
+
+
     // Styled checkboxes, radios
     $(".styled, .multiselect-container input").uniform({
         radioClass: 'choice'
@@ -122,8 +131,8 @@ $(function() {
 
     // Styled file input
     $(".file-styled").uniform({
-        fileButtonHtml: '<i class="icon-googleplus5"></i>',
-        wrapperClass: 'bg-warning-300'
+        fileButtonClass: 'action btn btn-default btn-icon',
+        fileButtonHtml: '<i class="icon-upload"></i>'
     });
     
 });

@@ -4,8 +4,8 @@
 *
 *  The mobile-friendly, responsive, and lightweight jQuery date & time input picker
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.1
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -33,7 +33,6 @@
     list-style: none;
     padding: @list-spacing 0;
     margin: 0;
-    background-color: @dropdown-bg;
     max-height: 250px;
     overflow-y: auto;
 }
@@ -56,7 +55,7 @@
     display: block;
     width: 100%;
     margin: 0;
-    padding: @padding-base-vertical @padding-base-horizontal;
+    padding: @padding-small-vertical @padding-small-horizontal;
     background-color: @btn-default-bg;
     margin-top: 1px;
     outline: 0;
@@ -103,6 +102,6 @@
 .picker--focused .picker__list-item--disabled {
     background-color: #fafafa;
     color: @text-muted;
-    cursor: default;
+    cursor: @cursor-disabled;
     z-index: auto;
 }

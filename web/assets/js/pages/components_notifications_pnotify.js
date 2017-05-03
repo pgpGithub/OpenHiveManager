@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for components_notifications_pnotify.html page
 *
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
+*  Version: 1.1
+*  Latest update: Feb 1, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -24,7 +24,7 @@ $(function() {
         new PNotify({
             title: 'Primary notice',
             text: 'Check me out! I\'m a notice.',
-            icon: 'icon-menu6'
+            icon: 'icon-warning22'
         });
     });
 
@@ -32,9 +32,9 @@ $(function() {
     // Styled left
     $('#pnotify-styled-left').on('click', function () {
         new PNotify({
-            title: 'Info notice',
+            title: 'Left icon',
             text: 'Check me out! I\'m a notice.',
-            addclass: 'alert-styled-left',
+            addclass: 'alert alert-styled-left',
             type: 'info'
         });
     });
@@ -42,9 +42,9 @@ $(function() {
     // Styled right
     $('#pnotify-styled-right').on('click', function () {
         new PNotify({
-            title: 'Error notice',
+            title: 'Right icon',
             text: 'Check me out! I\'m a notice.',
-            addclass: 'alert-styled-right',
+            addclass: 'alert alert-warning alert-styled-right',
             type: 'error'
         });
     });
@@ -52,20 +52,19 @@ $(function() {
     // Styled with arrow
     $('#pnotify-styled-arrow').on('click', function () {
         new PNotify({
-            title: 'Info notice',
+            title: 'Notice with arrow',
             text: 'Check me out! I\'m a notice.',
-            addclass: 'alert-styled-left alert-arrow-left text-sky-royal',
+            addclass: 'alert alert-styled-left alert-arrow-left',
             type: 'info'
         });
     });
 
-
     // Custom style
     $('#pnotify-custom-styled').on('click', function () {
         new PNotify({
-            title: 'Info notice',
+            title: 'Custom color notice',
             text: 'Check me out! I\'m a notice.',
-            addclass: 'alert-styled-left alert-styled-custom alert-arrow-left alpha-teal text-teal-800'
+            addclass: 'alert alert-styled-left alert-styled-custom alert-arrow-left alpha-teal text-teal-800'
         });
     });
 
@@ -91,16 +90,6 @@ $(function() {
             text: 'Check me out! I\'m a notice.',
             icon: 'icon-checkmark3',
             type: 'success'
-        });
-    });
-
-    // Warning notification
-    $('#pnotify-warning').on('click', function () {
-        new PNotify({
-            title: 'Warning notice',
-            text: 'Check me out! I\'m a notice.',
-            icon: 'icon-warning2',
-            type: 'warning'
         });
     });
 
@@ -168,7 +157,7 @@ $(function() {
     // Custom solid color
     $('#pnotify-solid-custom').on('click', function () {
         new PNotify({
-            title: 'Custom notice',
+            title: 'Custom color notice',
             text: 'Check me out! I\'m a notice.',
             addclass: 'bg-teal'
         });
@@ -177,18 +166,18 @@ $(function() {
     // Solid styled left
     $('#pnotify-solid-styled-left').on('click', function () {
         new PNotify({
-            title: 'Info notice',
+            title: 'Left icon',
             text: 'Check me out! I\'m a notice.',
-            addclass: 'bg-primary alert-styled-left'
+            addclass: 'alert bg-primary alert-styled-left'
         });
     });
 
     // Solid styled right
     $('#pnotify-solid-styled-right').on('click', function () {
         new PNotify({
-            title: 'Info notice',
+            title: 'Right icon',
             text: 'Check me out! I\'m a notice.',
-            addclass: 'bg-danger alert-styled-right',
+            addclass: 'alert bg-danger alert-styled-right',
             type: 'error'
         });
     });
@@ -424,10 +413,10 @@ $(function() {
                 buttons: [
                     {
                         text: 'Yes',
-                        addClass: 'btn-sm'
+                        addClass: 'btn btn-sm btn-primary'
                     },
                     {
-                        addClass: 'btn-sm'
+                        addClass: 'btn btn-sm btn-link'
                     }
                 ]
             },
@@ -465,10 +454,10 @@ $(function() {
                 buttons: [
                     {
                         text: 'Yes',
-                        addClass: 'btn-sm'
+                        addClass: 'btn btn-sm btn-primary'
                     },
                     {
-                        addClass: 'btn-sm'
+                        addClass: 'btn btn-sm btn-link'
                     }
                 ]
             },
@@ -486,7 +475,7 @@ $(function() {
             notice.cancelRemove().update({
                 title: 'You\'ve chosen a side',
                 text: 'You want ' + $('<div/>').text(val).html() + '.',
-                icon: 'icon-checkmark5',
+                icon: 'icon-checkmark3',
                 type: 'success',
                 delay: 2000,
                 hide: true,
@@ -536,10 +525,10 @@ $(function() {
                 buttons: [
                     {
                         text: 'Yes',
-                        addClass: 'btn-sm'
+                        addClass: 'btn btn-sm btn-primary'
                     },
                     {
-                        addClass: 'btn-sm'
+                        addClass: 'btn btn-sm btn-link'
                     }
                 ]
             },
@@ -557,7 +546,7 @@ $(function() {
             notice.cancelRemove().update({
                 title: 'Your poem',
                 text: $('<div/>').text(val).html(),
-                icon: 'icon-checkmark5',
+                icon: 'icon-checkmark3',
                 type: 'success',
                 hide: true,
                 confirm: {
@@ -596,17 +585,18 @@ $(function() {
             title: 'Choose a side',
             text: 'You have three options to choose from.',
             hide: false,
+            width: 420,
             confirm: {
                 confirm: true,
                 buttons: [
                     {
                         text: 'Fries',
-                        addClass: 'btn-sm',
+                        addClass: 'btn btn-sm bg-blue',
                         click: function(notice) {
                             notice.update({
                                 title: 'You\'ve chosen a side',
                                 text: 'You want fries.',
-                                icon: 'icon-checkmark5',
+                                icon: 'icon-checkmark3',
                                 type: 'success',
                                 hide: true,
                                 confirm: {
@@ -621,12 +611,12 @@ $(function() {
                     },
                     {
                         text: 'Mashed Potatoes',
-                        addClass: 'btn-sm',
+                        addClass: 'btn btn-sm bg-pink-400',
                         click: function(notice) {
                             notice.update({
                                 title: 'You\'ve chosen a side',
                                 text: 'You want mashed potatoes.',
-                                icon: 'icon-checkmark5',
+                                icon: 'icon-checkmark3',
                                 type: 'info',
                                 hide: true,
                                 confirm: {
@@ -641,12 +631,12 @@ $(function() {
                     },
                     {
                         text: 'Fruit',
-                        addClass: 'btn-sm',
+                        addClass: 'btn btn-sm bg-indigo-400',
                         click: function(notice) {
                             notice.update({
                                 title: 'You\'ve chosen a side',
                                 text: 'You want fruit.',
-                                icon: 'icon-checkmark5',
+                                icon: 'icon-checkmark3',
                                 type: 'info',
                                 hide: true,
                                 confirm: {
@@ -732,24 +722,24 @@ $(function() {
         new PNotify({
             title: 'Notice',
             text: 'Right now I\'m a notice.',
-            addclass: 'bg-primary alert-styled-right',
+            addclass: 'alert bg-primary alert-styled-right',
             before_close: function(PNotify) {
                 PNotify.update({
                     title: 'Error',
                     text: 'Uh oh. Now I\'ve become an error.',
-                    addclass: 'bg-danger alert-styled-right',
+                    addclass: 'alert bg-danger alert-styled-right',
                     type: 'error',
                     before_close: function(PNotify) {
                         PNotify.update({
                             title: 'Success',
                             text: 'I fixed the error!',
-                            addclass: 'bg-success alert-styled-right',
+                            addclass: 'alert bg-success alert-styled-right',
                             type: 'success',
                             before_close: function(PNotify) {
                                 PNotify.update({
                                     title: 'Info',
                                     text: 'Everything\'s cool now.',
-                                    addclass: 'bg-info alert-styled-right',
+                                    addclass: 'alert bg-info alert-styled-right',
                                     type: 'info',
                                     before_close: null
                                 });
@@ -849,7 +839,7 @@ $(function() {
                     closer: true,
                     sticker: true
                 };
-                options.icon = 'icon-check';
+                options.icon = 'icon-checkmark3';
                 options.opacity = 1;
                 options.width = PNotify.prototype.options.width;
             }

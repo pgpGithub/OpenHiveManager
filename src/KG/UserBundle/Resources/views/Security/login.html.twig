@@ -14,49 +14,53 @@
     <!-- Advanced login -->
     <form action="{{ path("fos_user_security_check") }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        
-        <div class="panel panel-body login-form">
-            <div class="text-center">
-                <h5 class="content-group-lg">Identifiez vous à votre compte <small class="display-block">Entrez vos identifiants</small></h5>
-            </div>
-
-            <div class="form-group has-feedback has-feedback-left">
-                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" placeholder="{{ 'security.login.username'|trans }}" />
-                <div class="form-control-feedback">
-                    <i class="icon-user text-muted"></i>
-                </div>
-                {% if error %}<ul class="help-block"><li>{{ error.messageKey|trans(error.messageData, 'security') }}</li></ul>{% endif %}
-            </div>
-
-            <div class="form-group has-feedback has-feedback-left">
-                <input type="password" id="password" name="_password" required="required" class="form-control" placeholder="{{ 'security.login.password'|trans }}"/>
-                <div class="form-control-feedback">
-                    <i class="icon-lock2 text-muted"></i>
-                </div>
-            </div>
-
-            <div class="form-group login-options">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="_remember_me" id="remember_me" checked="checked" class="styled">
-                            {{ 'security.login.remember_me'|trans }}
-                        </label>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-body login-form">
+                    <div class="text-center">
+                        <h5 class="content-group-lg">Identifiez vous à votre compte <small class="display-block">Entrez vos identifiants</small></h5>
                     </div>
-                </div>
-            </div>           
 
-            <div class="form-group">
-                <button type="submit" id="_submit" name="_submit" class="btn bg-blue btn-block">{{ 'security.login.submit'|trans }} <i class="icon-arrow-right14 position-right"></i></button>
-            </div>
+                    <div class="form-group has-feedback has-feedback-left">
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" placeholder="{{ 'security.login.username'|trans }}" />
+                        <div class="form-control-feedback">
+                            <i class="icon-user text-muted"></i>
+                        </div>
+                        {% if error %}<ul class="help-block"><li>{{ error.messageKey|trans(error.messageData, 'security') }}</li></ul>{% endif %}
+                    </div>
 
-            <div class="form-group">
-                <span class="help-block text-center no-margin"><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a></span> 
-            </div> 
-                        
-            <div class="content-divider text-muted form-group"><span>Vous n'avez pas de compte ?</span></div>
-            <a href="{{ path('fos_user_registration_register') }}" class="btn btn-default btn-block content-group">Inscrivez-vous!</a>
-            <span class="help-block text-center no-margin">En poursuivant, vous confirmez avoir lu nos <a href="{{ path('kg_site_cgu') }}">Conditions générales d'utilisation</a></span>
+                    <div class="form-group has-feedback has-feedback-left">
+                        <input type="password" id="password" name="_password" required="required" class="form-control" placeholder="{{ 'security.login.password'|trans }}"/>
+                        <div class="form-control-feedback">
+                            <i class="icon-lock2 text-muted"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group login-options">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="_remember_me" id="remember_me" checked="checked" class="styled">
+                                    {{ 'security.login.remember_me'|trans }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>           
+
+                    <div class="form-group">
+                        <button type="submit" id="_submit" name="_submit" class="btn bg-blue btn-block">{{ 'security.login.submit'|trans }} <i class="icon-arrow-right14 position-right"></i></button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="help-block text-center no-margin"><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a></span> 
+                    </div> 
+
+                    <div class="content-divider text-muted form-group"><span>Vous n'avez pas de compte ?</span></div>
+                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-default btn-block content-group">Inscrivez-vous!</a>
+                    <span class="help-block text-center no-margin">En poursuivant, vous confirmez avoir lu nos</span> 
+                    <span class="help-block text-center no-margin"><a href="{{ path('kg_site_cgu') }}">Conditions générales d'utilisation</a></span>
+                </div>        
+            </div>        
         </div>
     </form>
     <!-- /advanced login -->           

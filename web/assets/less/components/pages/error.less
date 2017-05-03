@@ -15,7 +15,8 @@
 	color: #fff; 
 	font-size: 200px; 
 	line-height: 1; 
-	margin-bottom: @line-height-computed; 
+	margin-top: @line-height-computed;
+	margin-bottom: (@line-height-computed * 2); 
 	font-weight: 300; 
 	text-stroke: 1px transparent; 
 	display: block; 
@@ -39,7 +40,7 @@
 
 // Title in offline page
 .offline-title { 
-	font-size: 120px; 
+	font-size: 160px; 
 
 	@media (max-width: @screen-xs-max) {
 		font-size: 90px; 

@@ -4,17 +4,21 @@
 *
 *  Overrides for bootstrap scaffolding
 *
-*  Version: 1.1
-*  Latest update: Nov 25, 2015
+*  Version: 1.3
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
 
-// HTML and BODY reset
-html,
-body {
+// HTML and BODY height reset
+html {
     height: 100%;
 }
+body {
+    position: relative;
+    min-height: 100%;
+}
+
 
 // Links
 a {
@@ -57,4 +61,15 @@ figcaption {
 .hr-condensed {
     margin-top: (@line-height-computed / 2);
     margin-bottom: (@line-height-computed / 2);
+}
+
+// Seamless row
+.row-seamless {
+    margin-left: 0;
+    margin-right: 0;
+
+    > div[class*=col-] {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }

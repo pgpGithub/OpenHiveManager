@@ -37,7 +37,9 @@ class TacheController extends Controller
     */    
     public function deleteAction(Tache $tache)
     {      
-        if( !$this->getUser()->canDisplayExploitation($tache->getColonie()->getRuche()->getRucher()->getExploitation()) || !$tache->canBeDeleted() ){
+        if( !( $this->getUser()->isResponsable($tache->getColonie()->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($tache->getColonie()->getRuche()->getRucher()->getExploitation()))
+            || !$tache->canBeDeleted() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
 
@@ -58,7 +60,9 @@ class TacheController extends Controller
     */    
     public function addAction(Colonie $colonie, Request $request)
     {
-        if( !$this->getUser()->canDisplayExploitation($colonie->getRuche()->getRucher()->getExploitation()) || !$colonie->canHaveNewTache()){
+        if( !( $this->getUser()->isResponsable($colonie()->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($colonie()->getRuche()->getRucher()->getExploitation()))
+            || !$colonie->canHaveNewTache()){
             throw new NotFoundHttpException('Page inexistante.');
         }       
         
@@ -91,7 +95,9 @@ class TacheController extends Controller
     */    
     public function updateAction(Tache $tache, Request $request)
     {        
-        if( !$this->getUser()->canDisplayExploitation($tache->getColonie()->getRuche()->getRucher()->getExploitation()) || !$tache->canBeUpdated() ){
+        if( !( $this->getUser()->isResponsable($tache->getColonie()->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($tache->getColonie()->getRuche()->getRucher()->getExploitation()))
+            || !$tache->canBeUpdated() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
         
@@ -137,9 +143,12 @@ class TacheController extends Controller
     */    
     public function duplicateAction(Request $request, Tache $tache, Rucher $rucher)
     {       
-        if( !$this->getUser()->canDisplayExploitation($tache->getColonie()->getRuche()->getRucher()->getExploitation()) ||
-            !$this->getUser()->canDisplayExploitation($rucher->getExploitation())                                       ||  
-            !$rucher->hasRuche() ){
+        if(     !( $this->getUser()->isResponsable($tache->getColonie()->getRuche()->getRucher()->getExploitation()) ||
+                   $this->getUser()->isApiculteur($tache->getColonie()->getRuche()->getRucher()->getExploitation()))
+            ||
+                !( $this->getUser()->isResponsable($rucher()->getExploitation()) ||
+                   $this->getUser()->isApiculteur($rucher()->getExploitation()))
+            || !$rucher->hasRuche() ){
             throw new NotFoundHttpException('Page inexistante.');
         }      
         

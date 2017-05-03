@@ -4,8 +4,8 @@
 *
 *  Overrides for buttons bootstrap component
 *
-*  Version: 1.0
-*  Latest update: May 25, 2015
+*  Version: 1.1
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -15,7 +15,6 @@
 
 .btn {
     position: relative;
-    border-radius: @border-radius-small;
 
     // Remove outline
     &,
@@ -80,13 +79,13 @@
     // Active state
     &:active,
     &.active {
-        .box-shadow(0 0 0 100px fade(#000, 2%) inset); // The same as above - no color changes, only box shadow
+        .box-shadow(0 0 0 100px fade(#000, 3%) inset); // The same as above - no color changes, only box shadow
     }
 }
 
 // Labeled button
 .btn-labeled {
-    padding-left: (((@padding-base-horizontal * 3) + @icon-font-size) - 4); // Tripple horizontal padding + extra 5 pixels + border
+    padding-left: (((@line-height-computed - @icon-font-size + @padding-base-vertical - 1) * 2) + @icon-font-size) + @padding-base-horizontal;
 
     // Default button
     &.btn-default {
@@ -103,73 +102,82 @@
         left: -1px;
         background-color: fade(#000, 15%);
         display: block;
-        .button-size(@padding-base-vertical + 1; @padding-base-horizontal - 2; @font-size-base; @line-height-base; 0);
+        line-height: 1;
+        padding: ((@line-height-computed - @icon-font-size + @padding-base-vertical - 1));
+        .border-left-radius(@border-radius-base);
+
+        // Center icon vertically
+        > i {
+            top: 0;
+        }
     }
 
     // Right icon
     &.btn-labeled-right {
         padding-left: @padding-base-horizontal;
-        padding-right: (((@padding-base-horizontal * 3) + @icon-font-size) - 4);
+        padding-right: (((@line-height-computed - @icon-font-size + @padding-base-vertical - 1) * 2) + @icon-font-size) + @padding-base-horizontal;
 
         > b {
             left: auto;
             right: -1px;
+            .border-left-radius(0);
+            .border-right-radius(@border-radius-base);
         }
     }
 
     // Extra large
     &.btn-xlg {
-        padding-left: (((@padding-xlarge-horizontal * 3) + @icon-font-size) - 6);
+        padding-left: (((@line-height-computed - @icon-font-size + @padding-xlarge-vertical - 1) * 2) + @icon-font-size) + @padding-xlarge-horizontal;
 
         > b {
-            .button-size(@padding-xlarge-vertical + 1; @padding-xlarge-horizontal - 3; @font-size-large; @line-height-large; 0);
+            padding: ((@line-height-computed - @icon-font-size + @padding-xlarge-vertical - 1));
         }
 
         &.btn-labeled-right {
-            padding-left: @padding-large-horizontal;
-            padding-right: (((@padding-xlarge-horizontal * 3) + @icon-font-size) - 6);
+            padding-left: @padding-xlarge-horizontal;
+            padding-right: (((@line-height-computed - @icon-font-size + @padding-xlarge-vertical - 1) * 2) + @icon-font-size) + @padding-xlarge-horizontal;
         }
     }
 
     // Large
     &.btn-lg {
-        padding-left: (((@padding-large-horizontal * 3) + @icon-font-size) - 6);
+        padding-left: (((@line-height-computed - @icon-font-size + @padding-large-vertical - 1) * 2) + @icon-font-size) + @padding-large-horizontal;
 
         > b {
-            .button-size(@padding-large-vertical + 1; @padding-large-horizontal - 3; @font-size-large; @line-height-large; 0);
+            padding: ((@line-height-computed - @icon-font-size + @padding-large-vertical - 1));
         }
 
         &.btn-labeled-right {
             padding-left: @padding-large-horizontal;
-            padding-right: (((@padding-large-horizontal * 3) + @icon-font-size) - 6);
+            padding-right: (((@line-height-computed - @icon-font-size + @padding-large-vertical - 1) * 2) + @icon-font-size) + @padding-large-horizontal;
         }
     }
 
     // Small
     &.btn-sm {
-        padding-left: (((@padding-small-horizontal * 3) + @icon-font-size) - 4);
+        padding-left: (((@line-height-computed - @icon-font-size + @padding-small-vertical - 1) * 2) + @icon-font-size) + @padding-small-horizontal;
 
         > b {
-            .button-size(@padding-small-vertical + 1; @padding-small-horizontal - 2; @font-size-small; @line-height-small; 0);
+            padding: ((@line-height-computed - @icon-font-size + @padding-small-vertical - 1));
         }
 
         &.btn-labeled-right {
             padding-left: @padding-small-horizontal;
-            padding-right: (((@padding-small-horizontal * 3) + @icon-font-size) - 4);
+            padding-right: (((@line-height-computed - @icon-font-size + @padding-small-vertical - 1) * 2) + @icon-font-size) + @padding-small-horizontal;
         }
     }
 
     // Mini
     &.btn-xs {
-        padding-left: (((@padding-xs-horizontal * 3) + @icon-font-size) - 4);
+        padding-left: (((@line-height-computed - @icon-font-size + @padding-xs-vertical - 1) * 2) + @icon-font-size) + @padding-xs-horizontal;
 
         > b {
-            .button-size(@padding-xs-vertical + 1; @padding-xs-horizontal - 2; @font-size-small; @line-height-small; 0);
+            padding: ((@line-height-computed - @icon-font-size + @padding-xs-vertical - 1));
         }
 
         &.btn-labeled-right {
             padding-left: @padding-xs-horizontal;
-            padding-right: (((@padding-xs-horizontal * 3) + @icon-font-size) - 4);
+            padding-left: (((@line-height-computed - @icon-font-size + @padding-xs-vertical - 1) * 2) + @icon-font-size) + @padding-xs-horizontal;
         }
     }
 }
@@ -199,9 +207,16 @@
 
 // Icon button
 .btn-icon {
-    padding-left: @padding-base-vertical + 2;
-    padding-right: @padding-base-vertical + 2;
+    padding-left: ((@line-height-computed - @icon-font-size + @padding-base-vertical - 1) - 1);
+    padding-right: ((@line-height-computed - @icon-font-size + @padding-base-vertical - 1) - 1);
 
+    // Checkbox and radio button
+    .checker,
+    .choice {
+        margin-top: ((@icon-font-size - @checkbox-size) / 2);
+    }
+
+    // Double sized icon
     &.icon-2x {
         padding-left: @padding-base-vertical;
         padding-right: @padding-base-vertical;
@@ -233,30 +248,29 @@
     // Sizing
     &.btn-xlg,
     .input-group-xlg > .input-group-btn > & {
-        padding-left: @padding-xlarge-vertical + 2;
-        padding-right: @padding-xlarge-vertical + 2;
+        padding-left: ((@line-height-computed - @icon-font-size + @padding-xlarge-vertical - 1) - 1);
+        padding-right: ((@line-height-computed - @icon-font-size + @padding-xlarge-vertical - 1) - 1);
     }
     &.btn-lg,
     .input-group-lg > .input-group-btn > & {
-        padding-left: @padding-large-vertical + 2;
-        padding-right: @padding-large-vertical + 2;
+        padding-left: ((@line-height-computed - @icon-font-size + @padding-large-vertical - 1) - 1);
+        padding-right: ((@line-height-computed - @icon-font-size + @padding-large-vertical - 1) - 1);
     }
     &.btn-sm,
     .input-group-sm > .input-group-btn > & {
-        padding-left: @padding-small-vertical + 2;
-        padding-right: @padding-small-vertical + 2;
+        padding-left: ((@line-height-computed - @icon-font-size + @padding-small-vertical - 1) - 1);
+        padding-right: ((@line-height-computed - @icon-font-size + @padding-small-vertical - 1) - 1);
     }
     &.btn-xs,
     .input-group-xs > .input-group-btn > .btn& {
-        padding-left: @padding-xs-vertical + 2;
-        padding-right: @padding-xs-vertical + 2;
+        padding-left: ((@line-height-computed - @icon-font-size + @padding-xs-vertical - 1) - 1);
+        padding-right: ((@line-height-computed - @icon-font-size + @padding-xs-vertical - 1) - 1);
     }
 }
 
 // Float button
 .btn-float {
     padding: @btn-float-padding;
-    white-space: normal;
     border-radius: @border-radius-base;
 
     // Transparent button
@@ -271,16 +285,77 @@
         top: 0;
     }
 
+    // Image
+    img {
+        border-radius: @border-radius-base;
+    }
+
     // Text
     > span {
         display: block;
         padding-top: (@line-height-computed / 2);
         margin-bottom: -((@line-height-computed / 2) - 4);
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     // Double icon size in large button
     &.btn-float-lg i {
         font-size: (@icon-font-size * 2);
+    }
+}
+
+// Group of block buttons
+.btn-block-group {
+
+    // Base
+    .btn {
+        border-radius: 0;
+        border-width: 1px 0 0 1px;
+
+        &:last-child {
+            border-bottom-width: 1px;
+        }
+    }
+
+    // Change light button border color to match panel border
+    .btn-default {
+        border-color: @panel-default-border;
+    }
+
+    // Remove vertical spacing between block buttons
+    .btn-block + .btn-block {
+        margin-top: 0;
+    }
+
+    // Columns
+    div[class*=col-] {
+
+        // First column
+        &:first-child {
+            .btn {
+                &:first-child {
+                    border-radius: @border-radius-base 0 0 0;
+                }
+                &:last-child {
+                    border-radius: 0 0 0 @border-radius-base;
+                }
+            }
+        }
+
+        // Last column
+        &:last-child {
+            .btn {
+                border-right-width: 1px;
+
+                &:first-child {
+                    border-radius: 0 @border-radius-base 0 0;
+                }
+                &:last-child {
+                    border-radius: 0 0 @border-radius-base 0;
+                }
+            }
+        }
     }
 }
 
@@ -300,7 +375,8 @@
 // Rounded button
 .btn-rounded {
     &,
-    &.btn-labeled > b {
+    &.btn-labeled > b,
+    img {
         border-radius: 100px;
     }
 }
@@ -494,8 +570,11 @@
     }
 }
 
-// Small button
-.btn-sm {
-    line-height: @line-height-base;
-    font-size: @font-size-base;
+// Border radius override
+.btn-sm:not(.btn-rounded),
+.btn-group-sm > .btn:not(.btn-rounded),
+.btn-xs:not(.btn-rounded),
+.btn-group-xs > .btn:not(.btn-rounded) {
+    border-radius: @border-radius-base;
 }
+

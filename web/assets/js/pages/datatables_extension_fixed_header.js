@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for datatable_extension_fixed_header.html page
 *
-*  Version: 1.0
-*  Latest update: Nov 9, 2015
+*  Version: 1.1
+*  Latest update: Jan 5, 2017
 *
 * ---------------------------------------------------------------------------- */
 
@@ -25,6 +25,7 @@ $(function() {
         dom: '<"datatable-header"fl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
         language: {
             search: '<span>Filter:</span> _INPUT_',
+            searchPlaceholder: 'Type to filter...',
             lengthMenu: '<span>Show:</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
         },
@@ -69,7 +70,7 @@ $(function() {
         if(toggleType.checked) {
 
             // Toggle necessary body and navbar classes
-            $('body').children('.navbar').addClass('navbar-fixed-top');
+            $('body').children('.navbar').first().addClass('navbar-fixed-top');
             $('body').addClass('navbar-top');
 
             // Add offset to all
@@ -81,7 +82,7 @@ $(function() {
         else {
 
             // Toggle necessary body and navbar classes
-            $('body').children('.navbar').removeClass('navbar-fixed-top');
+            $('body').children('.navbar').first().removeClass('navbar-fixed-top');
             $('body').removeClass('navbar-top');
 
             // Remove offset from all
@@ -100,13 +101,17 @@ $(function() {
     });
 
 
+    // Adjust table header if sidebar toggler is clicked
+    $('.sidebar-control').on('click', function() {
+        table_basic.fixedHeader.adjust();
+        table_footer.fixedHeader.adjust();
+        table_offset.fixedHeader.adjust();
+        table_reorder.fixedHeader.adjust();
+    });
+
 
     // External table additions
     // ------------------------------
-
-    // Add placeholder to the datatable filter option
-    $('.dataTables_filter input[type=search]').attr('placeholder','Type to filter...');
-
 
     // Enable Select2 select for the length option
     $('.dataTables_length select').select2({

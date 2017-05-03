@@ -4,8 +4,8 @@
 *
 *  Specific JS code additions for form_validation.html page
 *
-*  Version: 1.2
-*  Latest update: Dec 15, 2015
+*  Version: 1.3
+*  Latest update: Feb 5, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -54,8 +54,7 @@ $(function() {
 
     // Styled file input
     $(".file-styled").uniform({
-        wrapperClass: 'bg-teal-400',
-        fileButtonHtml: '<i class="icon-googleplus5"></i>'
+        fileButtonClass: 'action btn bg-blue'
     });
 
 
@@ -159,7 +158,7 @@ $(function() {
             digits: {
                 digits: true
             },
-            card: {
+            creditcard: {
                 creditcard: true
             },
             basic_checkbox: {

@@ -4,8 +4,8 @@
 *
 *  jQuery datepicker/timepicker and a Date/String parse/format utility
 *
-*  Version: 1.1
-*  Latest update: Oct 20, 2015
+*  Version: 1.2
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -35,12 +35,13 @@
 
 // Dropdown container
 .AnyTime-win {
-    padding: @list-spacing;
+    padding: (@list-spacing * 2);
     background-color: @dropdown-bg;
     border: 1px solid @dropdown-border;
     display: inline-block;
     border-radius: @border-radius-base;
     z-index: 10;
+    .box-shadow(0 1px 3px fade(#000, 10%));
 }
 
 // Clock
@@ -52,7 +53,7 @@
 // Title
 .AnyTime-hdr {
     font-size: @font-size-h6;
-    margin: 20px 10px;
+    margin: @content-padding-base @content-padding-small;
     line-height: 1;
 }
 
@@ -88,7 +89,7 @@
     margin-top: 25px;
 
     &:first-child {
-        margin-top: 5px;
+        margin-top: @list-spacing;
     }
 }
 
@@ -96,9 +97,20 @@
 // Highlight item colors
 // ------------------------------
 
+// Empty buttons in the table
+.AnyTime-dom-btn-empty,
+.AnyTime-min-ten-btn-empty,
+.AnyTime-min-one-btn-empty,
+.AnyTime-sec-ten-btn-empty,
+.AnyTime-sec-one-btn-empty {
+    background-color: #fafafa;
+    border: 1px solid #fff;
+    border-radius: @border-radius-base;
+}
+
 // Years
 .AnyTime-yrs {
-    .ui-state-highlight {
+    .AnyTime-cur-btn {
         &,
         &:hover {
             background-color: @brand-danger;
@@ -109,7 +121,7 @@
 
 // Months
 .AnyTime-mons {
-    .ui-state-highlight {
+    .AnyTime-cur-btn {
         &,
         &:hover {
             background-color: @color-teal-400;
@@ -120,7 +132,7 @@
 
 // Time
 .AnyTime-time {
-    .ui-state-highlight {
+    .AnyTime-cur-btn {
         &,
         &:hover {
             background-color: @color-slate-500;
@@ -132,7 +144,7 @@
 // Calendar
 .AnyTime-dom-table,
 .AnyTime-body-yr-selector {
-    .ui-state-highlight {
+    .AnyTime-cur-btn {
         &,
         &:hover {
             background-color: @brand-primary;
@@ -190,9 +202,6 @@
 }
 .AnyTime-dom-btn:hover {
     background-color: @dropdown-link-hover-bg;
-}
-.AnyTime-dom-btn-empty {
-    display: none;
 }
 
 // Make elements inline

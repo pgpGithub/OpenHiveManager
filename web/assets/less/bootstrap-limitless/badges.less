@@ -4,8 +4,8 @@
 *
 *  Overrides for badges bootstrap component
 *
-*  Version: 1.1
-*  Latest update: Nov 25, 2015
+*  Version: 1.2
+*  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
 
@@ -14,19 +14,20 @@
 // -------------------------
 
 .badge {
-    padding: 1px 5px 0px 5px;
+    padding: 2px 6px 1px 6px;
     font-size: 10px;
     letter-spacing: 0.1px;
     vertical-align: baseline;
     background-color: transparent;
     border: 1px solid transparent;
+    border-radius: 100px;
 
     // Quick fix for badges in buttons
     .btn & {
         top: 0;
     }
     .btn-xs & {
-        padding: 1px 5px 0px 5px;
+        padding: 2px 6px 1px 6px;
     }
 
     // Account for badges in navs
@@ -94,6 +95,7 @@
 .badge-flat {
     background-color: transparent;
     border-width: 2px;
+    padding: 1px 5px 0 5px;
 
     // Remove background color and shadow on hover
     &[href] {
