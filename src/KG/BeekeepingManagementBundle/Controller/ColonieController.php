@@ -38,8 +38,8 @@ class ColonieController extends Controller
     */    
     public function deleteAction(Colonie $colonie)
     {               
-        if( !( $this->getUser()->isResponsable($colonie()->getRuche()->getRucher()->getExploitation()) ||
-               $this->getUser()->isApiculteur($colonie()->getRuche()->getRucher()->getExploitation()))
+        if( !( $this->getUser()->isResponsable($colonie->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($colonie->getRuche()->getRucher()->getExploitation()))
             || !$colonie->canBeDeleted()){
             throw new NotFoundHttpException('Page inexistante.');
         }
@@ -61,8 +61,8 @@ class ColonieController extends Controller
     public function diviserAction(Colonie $colonieMere, Request $request)
     {
         
-        if( !( $this->getUser()->isResponsable($colonieMere()->getRuche()->getRucher()->getExploitation()) ||
-               $this->getUser()->isApiculteur($colonieMere()->getRuche()->getRucher()->getExploitation()))
+        if( !( $this->getUser()->isResponsable($colonieMere->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($colonieMere->getRuche()->getRucher()->getExploitation()))
             || !$colonieMere->canBeDivisee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
@@ -155,8 +155,8 @@ class ColonieController extends Controller
     */    
     public function tuerAction(Colonie $colonie, Request $request)
     {       
-        if( !( $this->getUser()->isResponsable($colonie()->getRuche()->getRucher()->getExploitation()) ||
-               $this->getUser()->isApiculteur($colonie()->getRuche()->getRucher()->getExploitation()))
+        if( !( $this->getUser()->isResponsable($colonie->getRuche()->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($colonie->getRuche()->getRucher()->getExploitation()))
             || !$colonie->canBeTuee() ){
             throw new NotFoundHttpException('Page inexistante.');
         }

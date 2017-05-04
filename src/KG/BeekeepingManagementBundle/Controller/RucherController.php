@@ -39,8 +39,8 @@ class RucherController extends Controller
     */    
     public function printQRCodeAction(Request $request, Rucher $rucher)
     {       
-        if( !( $this->getUser()->isResponsable($rucher()->getExploitation()) ||
-               $this->getUser()->isApiculteur($rucher()->getExploitation())) ){
+        if( !( $this->getUser()->isResponsable($rucher->getExploitation()) ||
+               $this->getUser()->isApiculteur($rucher->getExploitation())) ){
             throw new NotFoundHttpException('Page inexistante.');
         }
               
@@ -209,7 +209,7 @@ class RucherController extends Controller
     */    
     public function deleteAction(Rucher $rucher)
     {        
-        if( !( $this->getUser()->isResponsable($rucher()->getExploitation())) 
+        if( !( $this->getUser()->isResponsable($rucher->getExploitation())) 
            || !$rucher->canBeDeleted() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
@@ -263,7 +263,7 @@ class RucherController extends Controller
     */    
     public function updateAction(Rucher $rucher, Request $request)
     {        
-        if( !( $this->getUser()->isResponsable($rucher()->getExploitation()))){
+        if( !( $this->getUser()->isResponsable($rucher->getExploitation()))){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

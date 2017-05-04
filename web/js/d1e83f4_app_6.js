@@ -4,30 +4,41 @@
 *
 *  Core JS file with default functionality configuration
 *
-*  Version: 1.1
-*  Latest update: Oct 20, 2015
+*  Version: 1.2
+*  Latest update: Dec 11, 2015
 *
 * ---------------------------------------------------------------------------- */
 
+
+// Allow CSS transitions when page is loaded
+$(window).on('load', function() {
+    $('body').removeClass('no-transitions');
+});
+
+
 $(function() {
 
+    // Disable CSS transitions on page load
+    $('body').addClass('no-transitions');
+
+
 
     // ========================================
     //
-    // Layout
+    // Content area height
     //
     // ========================================
 
 
-    // Calculate page container height
-    // -------------------------
-
-    // Window height - navbars heights
+    // Calculate min height
     function containerHeight() {
-        var availableHeight = $(window).height() - $('body > .navbar').outerHeight() - $('body > .navbar-fixed-top:not(.navbar)').outerHeight() - $('body > .navbar-fixed-bottom:not(.navbar)').outerHeight() - $('body > .navbar + .navbar').outerHeight() - $('body > .navbar + .navbar-collapse').outerHeight();
+        var availableHeight = $(window).height() - $('.page-container').offset().top - $('.navbar-fixed-bottom').outerHeight();
 
         $('.page-container').attr('style', 'min-height:' + availableHeight + 'px');
     }
+
+    // Initialize
+    containerHeight();
 
 
 
@@ -43,12 +54,16 @@ $(function() {
     // -------------------------
 
     // Add control button toggler to page and panel headers if have heading elements
-    $('.panel-heading, .page-header-content, .panel-body').has('> .heading-elements').append('<a class="heading-elements-toggle"><i class="icon-menu"></i></a>');
+    $('.panel-footer').has('> .heading-elements:not(.not-collapsible)').prepend('<a class="heading-elements-toggle"><i class="icon-more"></i></a>');
+    $('.page-title, .panel-title').parent().has('> .heading-elements:not(.not-collapsible)').children('.page-title, .panel-title').append('<a class="heading-elements-toggle"><i class="icon-more"></i></a>');
 
 
     // Toggle visible state of heading elements
-    $('.heading-elements-toggle').on('click', function() {
-        $(this).parent().children('.heading-elements').toggleClass('visible');
+    $('.page-title .heading-elements-toggle, .panel-title .heading-elements-toggle').on('click', function() {
+        $(this).parent().parent().toggleClass('has-visible-elements').children('.heading-elements').toggleClass('visible-elements');
+    });
+    $('.panel-footer .heading-elements-toggle').on('click', function() {
+        $(this).parent().toggleClass('has-visible-elements').children('.heading-elements').toggleClass('visible-elements');
     });
 
 
@@ -57,12 +72,12 @@ $(function() {
     // -------------------------
 
     // Add control button toggler to breadcrumbs if has elements
-    $('.breadcrumb-line').has('.breadcrumb-elements').append('<a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>');
+    $('.breadcrumb-line').has('.breadcrumb-elements').prepend('<a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>');
 
 
     // Toggle visible state of breadcrumb elements
     $('.breadcrumb-elements-toggle').on('click', function() {
-        $(this).parent().children('.breadcrumb-elements').toggleClass('visible');
+        $(this).parent().children('.breadcrumb-elements').toggleClass('visible-elements');
     });
 
 
@@ -224,7 +239,7 @@ $(function() {
 
 
     // Rotate icon if collapsed by default
-    $('.panel-collapsed').find('[data-action=collapse]').children('i').addClass('rotate-180');
+    $('.panel-collapsed').find('[data-action=collapse]').addClass('rotate-180');
 
 
     // Collapse on click
@@ -559,6 +574,13 @@ $(function() {
 
                 // Place detached sidebar before content
                 $('.sidebar-detached').insertBefore('.content-wrapper');
+
+                // Add mouse events for dropdown submenus
+                $('.dropdown-submenu').on('mouseenter', function() {
+                    $(this).children('.dropdown-menu').addClass('show');
+                }).on('mouseleave', function() {
+                    $(this).children('.dropdown-menu').removeClass('show');
+                });
             }
             else {
 
@@ -580,6 +602,13 @@ $(function() {
                 else if($('body').hasClass('has-detached-right')) {
                     $('.sidebar-detached').insertAfter('.container-detached');
                 }
+
+                // Remove visibility of heading elements on desktop
+                $('.page-header-content, .panel-heading, .panel-footer').removeClass('has-visible-elements');
+                $('.heading-elements').removeClass('visible-elements');
+
+                // Disable appearance of dropdown submenus
+                $('.dropdown-submenu').children('.dropdown-menu').removeClass('show');
             }
         }, 100);
     }).resize();

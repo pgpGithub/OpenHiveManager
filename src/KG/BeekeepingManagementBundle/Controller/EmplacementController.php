@@ -72,8 +72,8 @@ class EmplacementController extends Controller
     */    
     public function addAction(Rucher $rucher, Request $request)
     {
-        if(!( $this->getUser()->isResponsable($rucher()->getExploitation()) ||
-               $this->getUser()->isApiculteur($rucher()->getExploitation()))){
+        if(!( $this->getUser()->isResponsable($rucher->getExploitation()) ||
+               $this->getUser()->isApiculteur($rucher->getExploitation()))){
             throw new NotFoundHttpException('Page inexistante.');
         }
         

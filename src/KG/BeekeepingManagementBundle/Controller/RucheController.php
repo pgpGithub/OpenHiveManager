@@ -42,8 +42,8 @@ class RucheController extends Controller
     */    
     public function updateAction(Ruche $ruche, Request $request)
     {       
-        if( !( $this->getUser()->isResponsable($ruche()->getRucher()->getExploitation()) ||
-               $this->getUser()->isApiculteur($ruche()->getRucher()->getExploitation())) 
+        if( !( $this->getUser()->isResponsable($ruche->getRucher()->getExploitation()) ||
+               $this->getUser()->isApiculteur($ruche->getRucher()->getExploitation())) 
             || !$ruche->canBeUpdated() ){
             throw new NotFoundHttpException('Page inexistante.');
         }
